@@ -9,5 +9,5 @@
   "homepage": "https://github.com/rpatrik96/claude-skills",
   "repository": "https://github.com/rpatrik96/claude-skills",
   "license": "MIT",
-  "keywords": ["development", "python", "automation", "git", "ci-cd"]
+  "keywords": ["development", "python", "automation", "git", "ci-cd", "htcondor", "cluster", "hpc"]
 }
