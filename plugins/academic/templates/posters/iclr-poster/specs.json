@@ -1,0 +1,48 @@
+{
+  "source_file": "DIET_ICLR.pptx",
+  "source_path": "/Users/patrik.reizinger/My Drive/PhD/Posters/DIET_ICLR.pptx",
+  "dimensions": {
+    "width_inches": 72.0,
+    "height_inches": 36.0,
+    "aspect_ratio": "2:1"
+  },
+  "colors": {
+    "backgrounds": ["#ffffff"],
+    "text": ["#000000"],
+    "accents": [
+      "#4a8fe3",
+      "#d2011b"
+    ]
+  },
+  "fonts": {
+    "titles": [
+      "Helvetica Neue",
+      "Helvetica Neue Light"
+    ],
+    "body": [
+      "Helvetica Neue Light"
+    ],
+    "all_used": [
+      "Helvetica Neue",
+      "Helvetica Neue Light"
+    ]
+  },
+  "font_sizes": {
+    "titles": [132.0, 101.0, 90.0, 71.0],
+    "body": [54.0, 48.0],
+    "captions": [40.0, 36.0]
+  },
+  "layouts": [
+    {"name": "TITLE", "idx": 0},
+    {"name": "SECTION_HEADER", "idx": 1},
+    {"name": "TITLE_AND_BODY", "idx": 2},
+    {"name": "TITLE_AND_TWO_COLUMNS", "idx": 3},
+    {"name": "TITLE_ONLY", "idx": 4},
+    {"name": "ONE_COLUMN_TEXT", "idx": 5},
+    {"name": "MAIN_POINT", "idx": 6},
+    {"name": "SECTION_TITLE_AND_DESCRIPTION", "idx": 7},
+    {"name": "CAPTION_ONLY", "idx": 8},
+    {"name": "BIG_NUMBER", "idx": 9}
+  ],
+  "slide_count": 2
+}

@@ -1,0 +1,85 @@
+{
+  "name": "research-agents",
+  "description": "Specialized research analysis agents for critical thinking, evidence verification, synthesis, and parallel paper analysis",
+  "version": "2.0.0",
+  "author": {
+    "name": "rpatrik96",
+    "email": "rpatrik96@gmail.com"
+  },
+  "homepage": "https://github.com/rpatrik96/claude-skills",
+  "repository": "https://github.com/rpatrik96/claude-skills",
+  "license": "MIT",
+  "keywords": [
+    "research",
+    "agents",
+    "critical-thinking",
+    "analysis",
+    "verification",
+    "parallel",
+    "claims",
+    "evidence"
+  ],
+  "components": {
+    "agents": {
+      "description": "High-level research analysis agents",
+      "items": [
+        "claim-auditor",
+        "devils-advocate",
+        "evidence-checker",
+        "perspective-synthesizer",
+        "audience-checker",
+        "clarity-optimizer",
+        "figure-storyteller",
+        "latex-debugger",
+        "statistical-validator",
+        "artifact-packager",
+        "reviewer-response-generator",
+        "co-author-sync",
+        "discussion-monitor",
+        "state-generator"
+      ]
+    },
+    "micro-skills": {
+      "description": "Atomic, parallelizable operations for paper analysis",
+      "items": [
+        "claim-extractor",
+        "claim-classifier",
+        "evidence-locator",
+        "evidence-grader",
+        "novelty-checker",
+        "citation-verifier",
+        "assumption-surfacer",
+        "cross-referencer"
+      ]
+    },
+    "orchestrators": {
+      "description": "Parallel workflow coordinators",
+      "items": [
+        "parallel-audit",
+        "parallel-review"
+      ]
+    },
+    "helpers": {
+      "description": "Utility skills for efficiency",
+      "items": [
+        "batch-arxiv",
+        "prefetch-evidence",
+        "context-compactor"
+      ]
+    }
+  },
+  "features": {
+    "parallel_execution": {
+      "description": "Fan-out/fan-in pattern for 2-3x speedup on large papers",
+      "enabled": true
+    },
+    "research_state": {
+      "description": "Structured JSON intermediate representation for caching",
+      "schema": "schemas/research-state.schema.json"
+    },
+    "evidence_hierarchy": {
+      "description": "L1-L6 evidence grading with venue-specific standards",
+      "levels": ["CODE_VERIFIED", "REPRODUCIBLE_EXPERIMENT", "PAPER_EVIDENCE", "CITATION_SUPPORT", "LOGICAL_ARGUMENT", "ASSERTION"]
+    }
+  }
+}

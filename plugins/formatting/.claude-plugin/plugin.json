@@ -1,0 +1,13 @@
+{
+  "name": "formatting",
+  "description": "Document and LaTeX formatting skills for publication-quality output",
+  "version": "1.0.0",
+  "author": {
+    "name": "rpatrik96",
+    "email": "rpatrik96@gmail.com"
+  },
+  "homepage": "https://github.com/rpatrik96/claude-skills",
+  "repository": "https://github.com/rpatrik96/claude-skills",
+  "license": "MIT",
+  "keywords": ["formatting", "latex", "visualization", "figures"]
+}

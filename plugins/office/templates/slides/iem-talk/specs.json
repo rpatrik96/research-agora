@@ -1,0 +1,54 @@
+{
+  "source_file": "IEM_intuitive.pptx",
+  "source_path": "/Users/patrik.reizinger/My Drive/PhD/Presentations/IEM_intuitive.pptx",
+  "dimensions": {
+    "width_inches": 13.33,
+    "height_inches": 7.5,
+    "aspect_ratio": "16:9"
+  },
+  "colors": {
+    "backgrounds": [],
+    "text": [
+      "#4a8fe3",
+      "#d1011b",
+      "#00b050"
+    ],
+    "accents": [
+      "#4a8fe3",
+      "#21366d",
+      "#ff0000",
+      "#d1011b"
+    ]
+  },
+  "fonts": {
+    "titles": [
+      "Helvetica Neue Medium"
+    ],
+    "body": [
+      "Helvetica Neue Light",
+      "Helvetica Neue Medium"
+    ],
+    "all_used": [
+      "Helvetica Neue Light",
+      "Helvetica Neue Medium"
+    ]
+  },
+  "font_sizes": {
+    "titles": [40.0],
+    "body": [32.0, 28.0, 24.0, 20.0],
+    "captions": [16.0, 14.0, 12.0]
+  },
+  "layouts": [
+    {"name": "Title Slide", "idx": 0},
+    {"name": "Title and Content", "idx": 1},
+    {"name": "Section Header", "idx": 2},
+    {"name": "Two Content", "idx": 3},
+    {"name": "Comparison", "idx": 4},
+    {"name": "Title Only", "idx": 5},
+    {"name": "Blank", "idx": 6},
+    {"name": "Content with Caption", "idx": 7},
+    {"name": "Picture with Caption", "idx": 8},
+    {"name": "Title and Vertical Text", "idx": 9}
+  ],
+  "slide_count": 136
+}

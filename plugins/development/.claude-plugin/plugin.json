@@ -1,0 +1,13 @@
+{
+  "name": "development",
+  "description": "Development automation skills for Python projects",
+  "version": "1.0.0",
+  "author": {
+    "name": "rpatrik96",
+    "email": "rpatrik96@gmail.com"
+  },
+  "homepage": "https://github.com/rpatrik96/claude-skills",
+  "repository": "https://github.com/rpatrik96/claude-skills",
+  "license": "MIT",
+  "keywords": ["development", "python", "automation", "git", "ci-cd"]
+}

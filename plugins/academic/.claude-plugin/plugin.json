@@ -1,0 +1,13 @@
+{
+  "name": "academic",
+  "description": "Academic paper writing skills for ML conferences (NeurIPS, ICML, ICLR, AAAI)",
+  "version": "1.0.0",
+  "author": {
+    "name": "rpatrik96",
+    "email": "rpatrik96@gmail.com"
+  },
+  "homepage": "https://github.com/rpatrik96/claude-skills",
+  "repository": "https://github.com/rpatrik96/claude-skills",
+  "license": "MIT",
+  "keywords": ["academic", "paper", "writing", "ml-research", "latex"]
+}

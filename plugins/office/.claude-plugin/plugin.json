@@ -1,0 +1,13 @@
+{
+  "name": "office",
+  "description": "Microsoft Office document creation skills (PowerPoint, Word, Excel)",
+  "version": "1.0.0",
+  "author": {
+    "name": "rpatrik96",
+    "email": "rpatrik96@gmail.com"
+  },
+  "homepage": "https://github.com/rpatrik96/claude-skills",
+  "repository": "https://github.com/rpatrik96/claude-skills",
+  "license": "MIT",
+  "keywords": ["office", "pptx", "docx", "xlsx", "presentation"]
+}

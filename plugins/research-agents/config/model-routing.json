@@ -1,0 +1,175 @@
+{
+  "$schema": "../../../schemas/model-routing.schema.json",
+  "version": "1.0.0",
+  "description": "Model routing configuration for research agents. Routes tasks to optimal models based on complexity and cost.",
+
+  "routing_rules": {
+    "micro-skills": {
+      "claim-extractor": {
+        "model": "haiku",
+        "temperature": 0.1,
+        "reason": "Pattern matching against known claim indicators. No judgment needed.",
+        "fallback": "sonnet"
+      },
+      "claim-classifier": {
+        "model": "haiku",
+        "temperature": 0.1,
+        "reason": "Categorization from fixed taxonomy (empirical, theoretical, etc.).",
+        "fallback": "sonnet"
+      },
+      "evidence-locator": {
+        "model": "haiku",
+        "temperature": 0.1,
+        "reason": "Reference resolution and cross-referencing. Mechanical lookup.",
+        "fallback": "sonnet"
+      },
+      "evidence-grader": {
+        "model": "sonnet",
+        "temperature": 0.2,
+        "reason": "Quality judgment required. Must assess sufficiency of evidence.",
+        "fallback": "opus"
+      },
+      "novelty-checker": {
+        "model": "sonnet",
+        "temperature": 0.2,
+        "reason": "Semantic comparison with literature. Requires nuanced understanding.",
+        "fallback": "opus"
+      },
+      "citation-verifier": {
+        "model": "haiku",
+        "temperature": 0.1,
+        "reason": "Factual lookup and verification. Deterministic.",
+        "fallback": "sonnet"
+      },
+      "assumption-surfacer": {
+        "model": "sonnet",
+        "temperature": 0.3,
+        "reason": "Implicit reasoning required. Must identify unstated premises.",
+        "fallback": "opus"
+      },
+      "cross-referencer": {
+        "model": "opus",
+        "temperature": 0.2,
+        "reason": "Holistic consistency check across entire paper. Highest stakes.",
+        "fallback": null
+      }
+    },
+
+    "orchestrators": {
+      "parallel-audit": {
+        "model": "opus",
+        "temperature": 0.1,
+        "reason": "Complex coordination of many subagents. Must plan optimally.",
+        "fallback": "sonnet"
+      },
+      "parallel-review": {
+        "model": "opus",
+        "temperature": 0.1,
+        "reason": "Full paper review coordination. High complexity.",
+        "fallback": "sonnet"
+      },
+      "state-generator": {
+        "model": "sonnet",
+        "temperature": 0.1,
+        "reason": "Comprehensive parsing. Balanced capability/cost.",
+        "fallback": "opus"
+      }
+    },
+
+    "helpers": {
+      "batch-arxiv": {
+        "model": "haiku",
+        "temperature": 0.1,
+        "reason": "Query construction and result parsing. Mechanical.",
+        "fallback": "sonnet"
+      },
+      "prefetch-evidence": {
+        "model": "haiku",
+        "temperature": 0.1,
+        "reason": "Content extraction. No judgment needed.",
+        "fallback": "sonnet"
+      },
+      "context-compactor": {
+        "model": "sonnet",
+        "temperature": 0.2,
+        "reason": "Summarization requires understanding of importance.",
+        "fallback": "opus"
+      }
+    }
+  },
+
+  "execution_modes": {
+    "parallel": {
+      "description": "Maximum parallelization for speed. Use for large papers with many claims.",
+      "max_concurrent_subagents": 5,
+      "timeout_per_task_seconds": 120,
+      "retry_on_failure": true,
+      "max_retries": 2,
+      "model_overrides": {}
+    },
+    "pipeline": {
+      "description": "Sequential stages with data passing. Use for thorough, methodical analysis.",
+      "stages": [
+        {"name": "parse", "skills": ["state-generator"]},
+        {"name": "extract", "skills": ["claim-extractor"], "parallel_within_stage": true},
+        {"name": "classify", "skills": ["claim-classifier"], "parallel_within_stage": true},
+        {"name": "locate", "skills": ["evidence-locator"], "parallel_within_stage": true},
+        {"name": "grade", "skills": ["evidence-grader"], "parallel_within_stage": true},
+        {"name": "verify", "skills": ["novelty-checker", "citation-verifier"], "parallel_within_stage": true},
+        {"name": "synthesize", "skills": ["cross-referencer", "assumption-surfacer"], "parallel_within_stage": false}
+      ],
+      "checkpoint_after_each_stage": true
+    },
+    "eco": {
+      "description": "Budget-friendly execution. Downgrades models where possible.",
+      "max_concurrent_subagents": 3,
+      "timeout_per_task_seconds": 180,
+      "model_overrides": {
+        "evidence-grader": "haiku",
+        "novelty-checker": "haiku",
+        "assumption-surfacer": "haiku",
+        "parallel-audit": "sonnet",
+        "context-compactor": "haiku"
+      },
+      "skip_optional_checks": true
+    },
+    "thorough": {
+      "description": "Maximum quality. Upgrades models and adds extra verification.",
+      "max_concurrent_subagents": 3,
+      "timeout_per_task_seconds": 300,
+      "model_overrides": {
+        "claim-extractor": "sonnet",
+        "claim-classifier": "sonnet",
+        "evidence-locator": "sonnet",
+        "evidence-grader": "opus",
+        "novelty-checker": "opus"
+      },
+      "extra_verification_passes": 1
+    }
+  },
+
+  "cost_estimates": {
+    "haiku": {
+      "input_per_1k": 0.00025,
+      "output_per_1k": 0.00125,
+      "typical_task_cost": 0.01
+    },
+    "sonnet": {
+      "input_per_1k": 0.003,
+      "output_per_1k": 0.015,
+      "typical_task_cost": 0.05
+    },
+    "opus": {
+      "input_per_1k": 0.015,
+      "output_per_1k": 0.075,
+      "typical_task_cost": 0.15
+    }
+  },
+
+  "mode_cost_multipliers": {
+    "parallel": 1.0,
+    "pipeline": 1.1,
+    "eco": 0.4,
+    "thorough": 2.5
+  }
+}
