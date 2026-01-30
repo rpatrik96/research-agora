@@ -11,6 +11,14 @@ Development automation skills for Python projects.
 | `/pr-automation` | Create GitHub pull requests with proper descriptions |
 | `/python-cicd` | Set up CI/CD with GitHub Actions and pre-commit hooks |
 | `/python-docs` | Generate NumPy-style docstrings with type hints |
+| `/latex-sync-setup` | Initialize latex-code-sync for paper-code verification |
+| `/latex-sync-annotate` | Add @latex decorators to link functions with equations |
+| `/latex-sync-verify` | Run verification between paper equations and code |
+
+## Sub-Skills
+
+### LaTeX-Code Sync
+Keep paper equations synchronized with code implementations. See [latex-code-sync/SKILL.md](latex-code-sync/SKILL.md) for details.
 
 ## Installation
 
