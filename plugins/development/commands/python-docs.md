@@ -6,6 +6,8 @@ model: sonnet
 
 # Python Documentation Generator
 
+> **LLM-required**: Generating meaningful docstrings requires understanding code semantics and intent. No script alternative for quality documentation.
+
 Generate comprehensive NumPy-style docstrings with type hints in both signatures and docstrings.
 
 ## Docstring Format

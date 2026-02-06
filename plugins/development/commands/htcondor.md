@@ -11,6 +11,8 @@ allowed-tools: Read, Write, Bash(ls *), Glob, Grep
 
 # HTCondor Job Generation
 
+> **Script-first**: This skill generates .sub files and wrapper scripts from templates. LLM assists only with adapting templates to specific project needs.
+
 Generate production-ready HTCondor submission files (.sub) and wrapper shell scripts for ML research workflows.
 
 ## Overview

@@ -6,6 +6,8 @@ model: sonnet
 
 # Reference Fact-Checking
 
+> **Script-first**: This skill uses `bibtexupdater` CLI tool for automated reference verification. LLM is used only as fallback for entries the tool cannot resolve.
+
 Verify the accuracy of citations in ML conference papers by cross-referencing against arXiv, Crossref, DBLP, and Semantic Scholar. Identifies errors, hallucinated references, missing fields, and outdated preprints.
 
 ## Tools

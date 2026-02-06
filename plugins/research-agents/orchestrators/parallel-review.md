@@ -10,6 +10,8 @@ color: purple
 
 # Orchestrator: Parallel Paper Review
 
+> **LLM-required**: Orchestrating parallel reviews requires coordinating multiple analysis agents. No script alternative.
+
 > **One-line description**: Coordinates a comprehensive multi-perspective paper review by parallelizing different review aspects.
 
 ## Purpose

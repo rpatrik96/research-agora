@@ -8,6 +8,8 @@ model: sonnet
 
 # Paper to Slides Skill
 
+> **LLM-required**: Creating slide content requires distillation of paper into presentation narrative. No script alternative.
+
 Transform ML research papers into engaging presentation slides for conference talks, seminars, and group meetings. Output is structured content ready for Google Slides or PowerPoint.
 
 ## Workflow

@@ -9,6 +9,8 @@ color: gray
 
 # Micro-Skill: Evidence Grader
 
+> **LLM-required**: Grading evidence requires judgment about experimental rigor. No script alternative.
+
 > **One-line description**: Assess the strength of evidence supporting a single claim using a 6-level hierarchy.
 
 ## Purpose

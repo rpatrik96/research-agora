@@ -6,6 +6,8 @@ model: sonnet
 
 # Introduction Section
 
+> **LLM-required**: Writing introductions requires narrative composition and contextual understanding. No script alternative.
+
 Generate compelling introduction sections for ML conference papers (NeurIPS, ICML, ICLR).
 
 ## Workflow

@@ -6,6 +6,8 @@ model: sonnet
 
 # Rebuttal Writing
 
+> **LLM-required**: Crafting rebuttals requires understanding reviewer concerns and composing persuasive arguments. No script alternative.
+
 Generate effective rebuttals for ML conference submissions (NeurIPS, ICML, ICLR).
 
 ## Workflow

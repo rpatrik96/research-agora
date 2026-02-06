@@ -9,6 +9,8 @@ model: sonnet
 
 # Abstract Writing
 
+> **LLM-required**: Writing abstracts requires creative language composition and understanding of paper content. No script alternative.
+
 Generate compelling abstracts for ML conference papers (NeurIPS, ICML, ICLR, AAAI) that capture the essence of the work and attract readers.
 
 ## Workflow

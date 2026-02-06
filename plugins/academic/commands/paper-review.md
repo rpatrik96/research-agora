@@ -6,6 +6,8 @@ model: sonnet
 
 # Critical Paper Review
 
+> **LLM-required**: Reviewing papers requires critical analysis and nuanced judgment. No script alternative.
+
 Simulate a skeptical ML conference reviewer (NeurIPS, ICML, ICLR) to identify weaknesses before submission. This skill adopts a deliberately critical stance to surface issues reviewers will find.
 
 ## Workflow

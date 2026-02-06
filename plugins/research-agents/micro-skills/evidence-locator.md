@@ -10,6 +10,8 @@ color: gray
 
 # Micro-Skill: Evidence Locator
 
+> **Hybrid**: Evidence location uses grep/search for figures, tables, and code. LLM maps claims to specific evidence artifacts.
+
 > **One-line description**: Find all evidence elements (tables, figures, equations, citations) that support a given claim.
 
 ## Purpose

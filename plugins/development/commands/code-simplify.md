@@ -8,56 +8,45 @@ model: sonnet
 
 Analyze and refactor Python code to reduce complexity, remove dead code, and eliminate duplication.
 
-## Analysis Workflow
+> **Script-first**: Run static analysis tools first to produce concrete, actionable findings. Use LLM only to interpret results and plan refactorings that tools cannot automate.
 
-1. **Dead code detection** - Find unreachable/unused code
-2. **Duplication analysis** - Identify repeated patterns
-3. **Complexity assessment** - Measure cyclomatic complexity
-4. **Refactoring** - Apply simplifications
+## Workflow
 
-## Dead Code Detection
+1. **Run all analysis tools** - Collect script-based findings first
+2. **Review tool output** - Present findings to user
+3. **LLM analysis** - Identify patterns tools miss, plan refactorings
+4. **Apply changes** - Refactor with test verification
 
-### Find with static analysis
+## Step 1: Run Analysis Tools
+
+Run these commands first to gather concrete data before any manual analysis:
 
 ```bash
-# Unused imports
-flake8 --select=F401 .
+# Install tools if needed
+pip install flake8 vulture pylint radon 2>/dev/null
 
-# Unused variables
-flake8 --select=F841 .
+# === Dead Code Detection ===
+flake8 --select=F401,F841,F811 .        # Unused imports, variables, redefined
+vulture src/ --min-confidence 80         # Comprehensive dead code detection
 
-# Unreachable code
-flake8 --select=F811,W503 .
+# === Duplication Detection ===
+pylint --disable=all --enable=duplicate-code src/
 
-# Comprehensive dead code detection
-pip install vulture
-vulture src/ --min-confidence 80
+# === Complexity Measurement ===
+radon cc src/ -a -s   # Cyclomatic complexity
+radon mi src/ -s       # Maintainability index
 ```
 
-### Manual patterns to check
+## Step 2: Interpret Tool Output
 
-- Functions never called (search for `def function_name` and usages)
-- Classes never instantiated
+Present tool findings directly to user. Only supplement with manual inspection for patterns tools miss:
+
 - Conditional branches that never execute (`if False:`, `if DEBUG:` in prod)
 - Exception handlers that catch impossible exceptions
 - Commented-out code blocks
 - TODO/FIXME markers with stale code
 
-## Duplication Detection
-
-### Tools
-
-```bash
-# Clone detection
-pip install pylint
-pylint --disable=all --enable=duplicate-code src/
-
-# More detailed analysis
-pip install jscpd
-jscpd --pattern "**/*.py" --min-lines 5 --min-tokens 50
-```
-
-### Common duplication patterns
+### Duplication patterns (for LLM-assisted refactoring)
 
 | Pattern | Refactoring |
 |---------|-------------|
@@ -67,17 +56,7 @@ jscpd --pattern "**/*.py" --min-lines 5 --min-tokens 50
 | Repeated try/except blocks | Create context manager |
 | Similar data transformations | Create generic transform function |
 
-## Complexity Reduction
-
-### Measure complexity
-
-```bash
-pip install radon
-radon cc src/ -a -s  # Cyclomatic complexity
-radon mi src/ -s      # Maintainability index
-```
-
-### Target thresholds
+## Complexity Thresholds
 
 - **Cyclomatic complexity**: ≤10 per function (refactor if >15)
 - **Function length**: ≤50 lines (refactor if >100)

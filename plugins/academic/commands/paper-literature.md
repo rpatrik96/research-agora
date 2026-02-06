@@ -6,6 +6,8 @@ model: sonnet
 
 # Literature Review & Related Work
 
+> **LLM-required**: Writing related work sections requires synthesis of multiple papers into a coherent narrative. No script alternative.
+
 Generate comprehensive related work sections for ML conference papers (NeurIPS, ICML, ICLR) with arXiv-powered paper discovery.
 
 ## Workflow

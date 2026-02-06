@@ -16,6 +16,8 @@ dependencies:
 
 # Word Document Creation Skill
 
+> **Script-first**: This skill generates documents via python-docx scripts. No LLM generation needed.
+
 Create professional Word documents programmatically using python-docx.
 
 ## Installation

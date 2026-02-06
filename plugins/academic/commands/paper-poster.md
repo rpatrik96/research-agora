@@ -8,6 +8,8 @@ model: sonnet
 
 # Paper to Poster Skill
 
+> **LLM-required**: Creating poster content requires visual layout decisions and content distillation. No script alternative.
+
 Transform ML research papers into visually compelling conference posters for venues like NeurIPS, ICML, and ICLR. Output is structured content ready for Google Slides or PowerPoint.
 
 ## Workflow

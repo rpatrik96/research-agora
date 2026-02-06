@@ -8,6 +8,55 @@ model: haiku
 
 Standardize LaTeX formatting for ML conference submissions (NeurIPS, ICML, AISTATS, ICLR, AAAI).
 
+> **Script-first**: Run the automated grep checks below first to find concrete violations, then apply fixes. LLM review is only needed for semantic consistency (e.g., same symbol used for same concept).
+
+## Step 1: Automated Consistency Checks
+
+Run these grep commands on your `.tex` files to detect common issues before any manual review:
+
+```bash
+TEX_FILES="*.tex"
+
+# --- Abbreviation issues ---
+# Raw abbreviations that should use macros
+grep -n '\bi\.e\.\b' $TEX_FILES          # Should be \ie
+grep -n '\be\.g\.\b' $TEX_FILES          # Should be \eg
+grep -n '\bet al\.' $TEX_FILES            # Should be \etal
+grep -n '\bw\.r\.t\.\b' $TEX_FILES       # Should be \wrt
+
+# --- Reference issues ---
+# Raw \ref instead of \cref
+grep -n '\\ref{' $TEX_FILES              # Should be \cref
+grep -En 'Figure\\s+\\ref' $TEX_FILES    # Should be \cref{fig:}
+grep -En 'Table\\s+\\ref' $TEX_FILES     # Should be \cref{tab:}
+grep -En 'Section\\s+\\ref' $TEX_FILES   # Should be \cref{sec:}
+grep -En 'Equation\\s+\\ref' $TEX_FILES  # Should be \cref{eq:}
+
+# --- Formatting issues ---
+# Multiple sentences on one line (lines with 2+ sentence-ending periods)
+grep -En '\.[^.]*\.[^.]*\.' $TEX_FILES | grep -v '^%' | grep -v '\\(ie\|eg\|etal\|wrt\|vs\)'
+# Bare percent sign
+grep -n '[0-9] %' $TEX_FILES             # Should be 50\%
+# Single dash for ranges instead of en-dash
+grep -En '[0-9]-[0-9]' $TEX_FILES        # Should be 1--10
+# Vertical lines in tables
+grep -n '|.*&\|&.*|' $TEX_FILES          # Tables should not use |
+
+# --- Glossary in abstract ---
+grep -n '\\gls{' abstract.tex 2>/dev/null   # No \gls in abstract
+grep -n '\\glspl{' abstract.tex 2>/dev/null
+grep -n '\\acrshort{' abstract.tex 2>/dev/null
+grep -n '\\acrfull{' abstract.tex 2>/dev/null
+
+# --- Unreferenced floats ---
+# Find labels not referenced
+for label in $(grep -oh '\\label{[^}]*}' $TEX_FILES | sed 's/\\label{//;s/}//'); do
+  grep -q "\\\\cref{$label}\|\\\\ref{$label}" $TEX_FILES || echo "Unreferenced: $label"
+done
+```
+
+Fix all script-detected issues first, then proceed to the reference guide below for manual review.
+
 ## File Structure
 
 Organize papers modularly:

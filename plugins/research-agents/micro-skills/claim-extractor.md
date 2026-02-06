@@ -9,6 +9,8 @@ color: gray
 
 # Micro-Skill: Claim Extractor
 
+> **LLM-required**: Extracting claims from prose requires understanding scientific assertions. No script alternative.
+
 > **One-line description**: Extract explicit and implicit claims from a single section of text.
 
 ## Purpose
