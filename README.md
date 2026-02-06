@@ -54,6 +54,10 @@ Code quality and automation skills:
 | `pr-automation` | Create GitHub pull requests from changes |
 | `python-docs` | Generate NumPy-style docstrings |
 | `python-cicd` | Set up CI/CD with GitHub Actions |
+| `htcondor` | Generate HTCondor submission files for cluster jobs |
+| `latex-sync-setup` | Initialize latex-code-sync in a project |
+| `latex-sync-annotate` | Link functions to paper equations via decorators |
+| `latex-sync-verify` | Verify paper equations match code implementations |
 
 ### formatting@research-agora
 
@@ -94,6 +98,7 @@ Specialized research analysis agents:
 | `artifact-packager` | Prepare code/data for public release |
 | `co-author-sync` | Multi-author coordination |
 | `discussion-monitor` | Track citations and social mentions |
+| `state-generator` | Generate research-state.json for parallel analysis pipelines |
 
 ## Optional: Templates
 
