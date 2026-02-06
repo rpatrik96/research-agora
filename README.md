@@ -42,6 +42,7 @@ Paper writing, research, and dissemination skills:
 | `literature-synthesizer` | Discover and synthesize relevant literature |
 | `experiment-tracker` | Sync experiment results to paper drafts |
 | `benchmark-scout` | Find benchmarks and generate experiment plans |
+| `openreview-submission` | Prepare OpenReview metadata: plain-text abstract, keywords, TL;DR, lay summary |
 
 ### development@research-agora
 
