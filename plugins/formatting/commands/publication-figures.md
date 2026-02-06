@@ -6,6 +6,8 @@ model: haiku
 
 # Publication-Ready Figures
 
+> **Script-first**: This skill generates figures via matplotlib/seaborn scripts. LLM assists only with choosing plot types and interpreting data.
+
 Generate matplotlib/seaborn figures meeting ML conference standards.
 
 ## Quick Setup

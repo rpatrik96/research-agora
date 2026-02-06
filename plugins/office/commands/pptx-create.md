@@ -16,6 +16,8 @@ dependencies:
 
 # PowerPoint Creation Skill
 
+> **Script-first**: This skill generates presentations via python-pptx scripts. No LLM generation needed.
+
 Create professional PowerPoint presentations programmatically using python-pptx.
 
 ## Installation

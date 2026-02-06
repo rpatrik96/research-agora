@@ -10,6 +10,8 @@ color: gray
 
 # Micro-Skill: Citation Verifier
 
+> **Hybrid**: Citation lookup uses API/MCP tools. LLM verifies semantic accuracy of citations in context.
+
 > **One-line description**: Verify that citations are accurate and claims about cited work are faithful representations.
 
 ## Purpose

@@ -9,6 +9,8 @@ color: gray
 
 # Micro-Skill: Claim Classifier
 
+> **LLM-required**: Classifying claim evidence levels requires judgment about evidence quality. No script alternative.
+
 > **One-line description**: Classify a single claim's type (empirical, theoretical, etc.) and importance (critical, major, minor).
 
 ## Purpose

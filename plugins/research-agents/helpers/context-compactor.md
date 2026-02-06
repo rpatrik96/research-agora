@@ -10,6 +10,8 @@ color: blue
 
 # Helper: Context Compactor
 
+> **LLM-required**: Compacting context requires understanding which information is essential. No script alternative.
+
 > **One-line description**: Generate minimal, sufficient context packages for subagent tasks to reduce token usage.
 
 ## Purpose

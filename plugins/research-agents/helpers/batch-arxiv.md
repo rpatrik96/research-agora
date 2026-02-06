@@ -9,6 +9,8 @@ color: gray
 
 # Helper: Batch ArXiv Search
 
+> **Script-first**: Batch arXiv fetching uses MCP API calls. LLM only summarizes retrieved content.
+
 > **One-line description**: Efficiently execute multiple arXiv searches with deduplication, caching, and rate limiting.
 
 ## Purpose

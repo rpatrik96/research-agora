@@ -10,6 +10,8 @@ color: gray
 
 # Micro-Skill: Cross-Referencer
 
+> **Hybrid**: Finding cross-references uses grep for labels/refs. LLM checks semantic consistency between referenced elements.
+
 > **One-line description**: Check consistency of claims and statements across different paper sections.
 
 ## Purpose

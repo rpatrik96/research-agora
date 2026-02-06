@@ -10,6 +10,8 @@ color: purple
 
 # Orchestrator: Parallel Claim Audit
 
+> **LLM-required**: Orchestrating parallel audits requires coordinating multiple analysis agents. No script alternative.
+
 > **One-line description**: Coordinates parallel verification of all claims in a research paper using micro-skill subagents.
 
 ## Purpose

@@ -6,6 +6,8 @@ model: sonnet
 
 # Verify Equation-Code Consistency
 
+> **Script-first**: This skill runs the latex-code-sync CLI tool. LLM assists only with interpreting failures.
+
 Run latex-code-sync verification to ensure paper equations match their code implementations.
 
 ## Quick Verification

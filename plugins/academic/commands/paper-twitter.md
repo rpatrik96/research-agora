@@ -8,6 +8,8 @@ model: sonnet
 
 # Paper to Twitter Thread Skill
 
+> **LLM-required**: Writing social media threads requires creative adaptation of technical content for general audiences. No script alternative.
+
 Transform ML research papers into engaging Twitter/X threads for paper announcements, reaching broader audiences and increasing research visibility.
 
 ## Workflow

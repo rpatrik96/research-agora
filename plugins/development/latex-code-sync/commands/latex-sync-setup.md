@@ -6,6 +6,8 @@ model: sonnet
 
 # LaTeX-Code Sync Setup
 
+> **Hybrid**: Project structure detection and file generation are scripted. LLM is used to identify equation-code correspondences.
+
 Initialize latex-code-sync in a research project to link paper equations with code implementations.
 
 ## Setup Workflow

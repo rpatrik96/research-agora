@@ -12,14 +12,15 @@ model: sonnet
 
 Discover relevant benchmarks and generate comprehensive experiment plans for ML research. This agent helps you identify the right datasets, metrics, and baselines for your experiments.
 
+> **Hybrid**: Benchmark discovery uses MCP tools (arXiv search, GitHub search) as structured API calls - always run these first. LLM is used to interpret results, assess relevance, and compose the experiment plan.
+
 ## Workflow
 
-1. **Understand method**: Read paper draft to identify method type, domain, claims
-2. **Search benchmarks**: Query arXiv for benchmark and evaluation papers
-3. **Extract protocols**: Parse papers for metrics, data splits, evaluation procedures
-4. **Identify baselines**: Find SOTA methods that should be compared
-5. **Generate experiment plan**: Create structured plan with tasks, metrics, baselines
-6. **Estimate requirements**: Compute/data requirements for each benchmark
+1. **LLM: Analyze method** - Read paper draft to identify method type, domain, claims
+2. **Script/MCP: Search benchmarks** - Query arXiv and GitHub via MCP tools for benchmark papers
+3. **Script/MCP: Fetch details** - Retrieve paper details and code repositories via MCP
+4. **LLM: Interpret and plan** - Assess relevance, extract protocols, generate experiment plan
+5. **LLM: Estimate requirements** - Compute/data requirements for each benchmark
 
 ## Before Starting
 

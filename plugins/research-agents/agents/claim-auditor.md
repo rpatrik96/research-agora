@@ -11,6 +11,8 @@ color: orange
 
 # Claim Auditor (v2 - Parallel-Enabled)
 
+> **LLM-required**: Auditing claims requires evaluating evidence quality and logical reasoning. No script alternative.
+
 ## MODE SELECTION
 
 This agent supports two execution modes:

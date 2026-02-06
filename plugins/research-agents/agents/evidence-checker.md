@@ -11,6 +11,8 @@ color: green
 
 # Evidence Checker (v2 - Parallel-Enabled)
 
+> **LLM-required**: Evaluating evidence strength requires judgment about experimental methodology. No script alternative.
+
 ## MODE SELECTION
 
 This agent supports two execution modes:

@@ -12,12 +12,14 @@ model: sonnet
 
 Synchronize ML experiment results from code repositories to paper drafts. This agent bridges the gap between your experiment logs and your LaTeX paper.
 
+> **Hybrid**: Artifact discovery, metric extraction, and CSV/JSON/YAML parsing are done via scripts. LLM is used for mapping metrics to paper sections and generating update diffs.
+
 ## Workflow
 
-1. **Locate experiment artifacts**: Find configs, logs, results files in repo
-2. **Extract metrics**: Parse W&B logs, CSV results, config YAML
-3. **Map to paper sections**: Match metrics to tables/figures in draft
-4. **Generate updates**: Create updated LaTeX tables, result statements
+1. **Script: Discover artifacts** - Find configs, logs, results files via find/glob
+2. **Script: Extract metrics** - Parse CSV/JSON/YAML with shell commands or Python one-liners
+3. **Script: Find paper tables** - Grep for `\label{tab:}` and placeholder values in LaTeX
+4. **LLM: Map and generate updates** - Match metrics to tables/figures, produce diffs
 5. **Present diff**: Show before/after for user approval
 6. **Apply changes**: Update paper with approved changes
 
@@ -29,57 +31,84 @@ Gather the following information:
 - Which experiment runs to use (latest, best, specific run ID)
 - Target tables/figures to update
 
-## Artifact Discovery
+## Step 1: Artifact Discovery (Script)
 
-### Common Locations
+Run these commands to discover all experiment artifacts:
 
-Search these paths for experiment artifacts:
+```bash
+REPO_DIR="."  # Set to code repository path
+
+# Find all experiment artifacts at once
+echo "=== Config files ==="
+find "$REPO_DIR" -name "*.yaml" -o -name "*.yml" | grep -v node_modules | head -20
+
+echo "=== Result files ==="
+find "$REPO_DIR" \( -name "results*" -o -name "metrics*" \) \( -name "*.csv" -o -name "*.json" \) | head -20
+
+echo "=== W&B runs ==="
+ls -la "$REPO_DIR"/wandb/*/files/wandb-summary.json 2>/dev/null
+
+echo "=== MLflow runs ==="
+ls -la "$REPO_DIR"/mlruns/*/meta.yaml 2>/dev/null
+
+echo "=== CSV headers ==="
+find "$REPO_DIR" -name "*.csv" -exec sh -c 'echo "--- {} ---"; head -1 "{}"' \;
+```
+
+## Step 2: Extract Metrics (Script)
+
+Use these one-liners to parse metrics from discovered artifacts:
+
+```bash
+# Extract from CSV (last row = final metrics, or sort by a column for best)
+tail -1 results/metrics.csv
+# Best accuracy row
+sort -t',' -k4 -rn results/metrics.csv | head -1
+
+# Extract from JSON (W&B summary)
+python3 -c "import json; d=json.load(open('wandb/latest-run/files/wandb-summary.json')); print({k:v for k,v in d.items() if not k.startswith('_')})"
+
+# Extract from YAML config
+python3 -c "import yaml; c=yaml.safe_load(open('configs/train.yaml')); print(f'lr={c[\"training\"][\"lr\"]}, bs={c[\"training\"][\"batch_size\"]}, epochs={c[\"training\"][\"epochs\"]}')"
+```
+
+## Step 3: Find Paper Placeholders (Script)
+
+```bash
+PAPER_DIR="."  # Set to paper directory
+
+# Find tables with placeholder values (XX or 0.XX)
+grep -n 'XX\|0\.XX\|TBD\|TODO' "$PAPER_DIR"/*.tex
+
+# Find all table labels
+grep -n '\\label{tab:' "$PAPER_DIR"/*.tex
+
+# Find inline result claims
+grep -n 'achieves\|accuracy\|F1\|performance' "$PAPER_DIR"/*.tex | grep -i 'XX\|TBD'
+```
+
+After running all script steps, use LLM to map extracted metrics to paper placeholders and generate update diffs.
+
+## Common Artifact Locations Reference
 
 ```bash
 # Weights & Biases
 wandb/*/files/wandb-summary.json
 wandb/*/files/config.yaml
-wandb/*/files/wandb-metadata.json
 
 # MLflow
 mlruns/*/meta.yaml
 mlruns/*/metrics/
-mlruns/*/params/
 
 # Results files
 results/*.csv
 results/*.json
 outputs/*.csv
-logs/*.log
 
 # Configuration
 configs/*.yaml
 config/*.json
 hydra/conf/*.yaml
-*.yaml (root)
-
-# Checkpoints with metrics
-checkpoints/best*.pt
-checkpoints/*/metrics.json
-
-# TensorBoard
-runs/*/events.out.tfevents.*
-```
-
-### Discovery Commands
-
-```bash
-# Find all YAML configs
-find . -name "*.yaml" -o -name "*.yml" | head -20
-
-# Find result files
-find . -name "results*" -o -name "metrics*" | head -20
-
-# Find W&B runs
-ls -la wandb/*/files/ 2>/dev/null
-
-# Find CSV files with results
-find . -name "*.csv" | xargs head -1
 ```
 
 ## Metric Extraction

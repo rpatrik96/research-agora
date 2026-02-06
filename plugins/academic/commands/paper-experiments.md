@@ -8,89 +8,63 @@ model: sonnet
 
 Generate comprehensive experimental details for ML conference papers (NeurIPS, ICML, ICLR) by extracting information from the associated GitHub repository.
 
+> **Hybrid**: All parameter extraction from configs and code is done via scripts (grep/find/python one-liners). LLM is used only to compose the extracted data into LaTeX prose.
+
 ## Workflow
 
-1. **Locate the repository**: Find the GitHub repo for the project
-2. **Extract configuration**: Read config files, hyperparameters, training scripts
-3. **Identify architecture details**: Parse model definitions
-4. **Document setup**: Datasets, preprocessing, evaluation
-5. **Write LaTeX**: Generate accurate, reproducible experimental section
+1. **Script: Discover and extract** - Find configs, parse hyperparameters, model definitions
+2. **Script: Collect all values** - Produce structured summary of all experimental parameters
+3. **LLM: Write LaTeX** - Compose extracted values into experimental section prose
 
-## Repository Analysis
+## Step 1: Automated Extraction (Script)
 
-### Files to Search For
+Run this comprehensive extraction script on the code repository:
 
 ```bash
-# Configuration files
-config/*.yaml, config/*.json, configs/
-*.yaml, *.yml, *.json (in root)
-hydra configs (conf/, config/)
+REPO_DIR="."  # Set to code repository path
 
-# Training scripts
-train.py, main.py, run.py
-scripts/train*.py, scripts/run*.py
+echo "=== Configuration Files ==="
+find "$REPO_DIR" \( -name "*.yaml" -o -name "*.yml" -o -name "*.json" \) | grep -v node_modules | head -20
 
-# Model definitions
-models/*.py, model.py
-networks/*.py, architectures/*.py
+echo "=== Training Hyperparameters ==="
+grep -rn "learning_rate\|lr\|batch_size\|epochs\|weight_decay\|warmup" --include="*.py" --include="*.yaml" "$REPO_DIR"
 
-# Dataset handling
-data/*.py, datasets/*.py, dataloader*.py
+echo "=== Model Architecture ==="
+grep -rn "class.*Model\|class.*Network\|nn.Module\|hidden\|n_layer\|num_head\|dropout" --include="*.py" "$REPO_DIR"
 
-# Evaluation
-eval.py, evaluate.py, test.py
-metrics.py
+echo "=== Optimizer ==="
+grep -rn "optim\.\|Adam\|SGD\|AdamW\|scheduler\|CosineAnnealing\|StepLR" --include="*.py" "$REPO_DIR"
 
-# Requirements
-requirements.txt, pyproject.toml, setup.py
-environment.yml, conda.yaml
+echo "=== Data Processing ==="
+grep -rn "Dataset\|DataLoader\|transforms\.\|Normalize\|train_split\|test_size" --include="*.py" "$REPO_DIR"
+
+echo "=== Evaluation ==="
+grep -rn "def eval\|def test\|accuracy\|f1_score\|metrics" --include="*.py" "$REPO_DIR"
+
+echo "=== Random Seeds ==="
+grep -rn "seed\|manual_seed\|random_state" --include="*.py" --include="*.yaml" "$REPO_DIR"
+
+echo "=== Requirements ==="
+cat "$REPO_DIR"/requirements.txt 2>/dev/null || cat "$REPO_DIR"/pyproject.toml 2>/dev/null | head -30
 ```
 
-### Information to Extract
-
-#### 1. Model Architecture
-```python
-# Look for:
-- Layer definitions (nn.Linear, nn.Conv2d, etc.)
-- Hidden dimensions
-- Number of layers/blocks
-- Activation functions
-- Normalization (BatchNorm, LayerNorm)
-- Dropout rates
-- Attention heads (for transformers)
+For YAML configs, extract structured values:
+```bash
+# Parse a Hydra/YAML config into a flat key=value list
+python3 -c "
+import yaml, sys
+def flatten(d, prefix=''):
+    for k, v in d.items():
+        key = f'{prefix}.{k}' if prefix else k
+        if isinstance(v, dict): flatten(v, key)
+        else: print(f'{key} = {v}')
+flatten(yaml.safe_load(open(sys.argv[1])))
+" configs/train.yaml
 ```
 
-#### 2. Training Configuration
-```python
-# Look for:
-- Optimizer (Adam, SGD, AdamW)
-- Learning rate + schedule
-- Batch size
-- Number of epochs/steps
-- Weight decay
-- Gradient clipping
-- Mixed precision settings
-```
+## Step 2: Compose LaTeX (LLM)
 
-#### 3. Data Processing
-```python
-# Look for:
-- Dataset names and versions
-- Train/val/test splits
-- Preprocessing steps
-- Augmentations
-- Normalization values
-- Sequence lengths / image sizes
-```
-
-#### 4. Evaluation
-```python
-# Look for:
-- Metrics computed
-- Evaluation frequency
-- Test-time augmentation
-- Ensemble methods
-```
+Using the extracted values, compose the experimental section. The LLM should not guess any values - only use what was extracted by the scripts above.
 
 ## Experimental Section Structure
 

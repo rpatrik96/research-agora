@@ -8,17 +8,75 @@ model: sonnet
 
 Cross-reference claims in ML papers against their associated code repositories to identify discrepancies between what's written and what's implemented.
 
+> **Hybrid**: Claim extraction from LaTeX and code parameter extraction are done via grep/scripts. LLM is used to interpret matches, assess severity, and generate the discrepancy report.
+
 ## Workflow
 
-1. **Extract claims**: Parse experimental claims from the paper
-2. **Locate repository**: Find and access the associated code
-3. **Map claims to code**: Identify which code implements each claim
-4. **Verify consistency**: Check if code matches paper descriptions
-5. **Generate report**: Document discrepancies and confirmations
+1. **Script: Extract claims from paper** - Grep LaTeX for numbers, hyperparameters, architecture details
+2. **Script: Extract parameters from code** - Grep configs and source for actual values
+3. **LLM: Cross-reference and report** - Match claims to code, assess discrepancies, generate report
 
-## Claim Extraction
+## Step 1: Extract Claims from Paper (Script)
 
-### Types of Claims to Verify
+Run these on the paper's `.tex` files:
+
+```bash
+PAPER_DIR="."  # Set to paper directory
+
+# Find experimental setup sections
+grep -n "Experimental\|Implementation\|Setup\|Details" "$PAPER_DIR"/*.tex
+
+# Extract numeric claims with context
+grep -oE "[0-9]+(\.[0-9]+)?\s*(layers?|epochs?|batch|lr|learning rate|hidden|dim)" "$PAPER_DIR"/*.tex
+
+# Extract hyperparameter mentions
+grep -En "(dropout|hidden|dimension|optimizer|Adam|SGD|learning rate|weight.decay|batch.size)" "$PAPER_DIR"/*.tex
+
+# Extract result claims
+grep -En "[0-9]+\.[0-9]+.*(%|accuracy|F1|BLEU|ROUGE|AUC)" "$PAPER_DIR"/*.tex
+
+# Extract architecture claims
+grep -En "([0-9]+-layer|transformer|ResNet|LSTM|attention head)" "$PAPER_DIR"/*.tex
+```
+
+## Step 2: Extract Parameters from Code (Script)
+
+Run these on the code repository:
+
+```bash
+CODE_DIR="."  # Set to code repository
+
+# All-in-one extraction: find key hyperparameters across configs and source
+echo "=== Optimizer settings ==="
+grep -rn "optimizer\|Adam\|SGD\|learning_rate\|lr" --include="*.py" --include="*.yaml" "$CODE_DIR"
+
+echo "=== Model dimensions ==="
+grep -rn "hidden\|embed\|dim\|n_layer\|num_layer\|n_head" --include="*.py" --include="*.yaml" "$CODE_DIR"
+
+echo "=== Batch size ==="
+grep -rn "batch_size\|batch-size" --include="*.py" --include="*.yaml" "$CODE_DIR"
+
+echo "=== Training epochs ==="
+grep -rn "epochs\|max_steps\|num_train" --include="*.py" --include="*.yaml" "$CODE_DIR"
+
+echo "=== Dropout ==="
+grep -rn "dropout\|drop_rate" --include="*.py" "$CODE_DIR"
+
+echo "=== Random seeds ==="
+grep -rn "seed\|random_state\|manual_seed" --include="*.py" --include="*.yaml" "$CODE_DIR"
+
+echo "=== Data splits ==="
+grep -rn "train_split\|test_size\|val_split" --include="*.py" --include="*.yaml" "$CODE_DIR"
+```
+
+## Step 3: Cross-Reference (LLM)
+
+After collecting script output from Steps 1 and 2, use LLM to:
+- Match each paper claim to its code counterpart
+- Classify match status (CONFIRMED, DISCREPANCY, MISSING)
+- Assess severity and generate the verification report
+
+## Claim Categories Reference
 
 | Category | Examples | Where to Check |
 |----------|----------|----------------|
@@ -29,80 +87,6 @@ Cross-reference claims in ML papers against their associated code repositories t
 | **Evaluation** | "5 random seeds", "best checkpoint" | eval.py, training loop |
 | **Results** | "achieves 94.2% accuracy" | logs, saved results |
 | **Compute** | "trained for 100 epochs", "8 V100 GPUs" | logs, scripts |
-
-### Extracting Claims from LaTeX
-
-```bash
-# Find experimental setup section
-grep -n "Experimental\|Implementation\|Setup" *.tex
-
-# Find specific numbers/values
-grep -oE "[0-9]+(\.[0-9]+)?\s*(layers?|epochs?|batch|lr|learning rate)" *.tex
-
-# Find hyperparameter mentions
-grep -E "(dropout|hidden|dimension|optimizer|Adam|SGD|learning rate)" *.tex
-```
-
-## Repository Analysis
-
-### Key Files to Examine
-
-```bash
-# Configuration files (primary source of truth)
-configs/*.yaml
-config/*.json
-*.yaml, *.yml (root)
-hydra/conf/
-
-# Model architecture
-models/*.py
-model.py
-networks/*.py
-
-# Training code
-train.py
-main.py
-run.py
-scripts/train*.py
-
-# Data processing
-data/*.py
-datasets/*.py
-dataloader.py
-
-# Evaluation
-eval.py
-evaluate.py
-test.py
-
-# Logs and results
-logs/
-results/
-outputs/
-wandb/
-```
-
-### Extraction Commands
-
-```bash
-# Find optimizer settings
-grep -rn "optimizer\|Adam\|SGD\|learning_rate\|lr" --include="*.py" --include="*.yaml"
-
-# Find model dimensions
-grep -rn "hidden\|embed\|dim\|n_layer\|num_layer\|n_head" --include="*.py" --include="*.yaml"
-
-# Find batch size
-grep -rn "batch_size\|batch-size" --include="*.py" --include="*.yaml"
-
-# Find training epochs
-grep -rn "epochs\|max_steps\|num_train" --include="*.py" --include="*.yaml"
-
-# Find dropout
-grep -rn "dropout\|drop_rate\|p=" --include="*.py"
-
-# Find random seeds
-grep -rn "seed\|random_state\|manual_seed" --include="*.py" --include="*.yaml"
-```
 
 ## Verification Categories
 

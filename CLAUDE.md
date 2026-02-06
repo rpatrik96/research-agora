@@ -97,6 +97,10 @@ Claims are graded L1-L6:
 1. Create `plugins/{category}/commands/skill-name.md` with YAML frontmatter
 2. Use kebab-case naming; group related skills with common prefix (e.g., `paper-*`)
 3. Keep concise (150-400 lines), include examples in fenced blocks
+4. **Script-first principle**: If a skill's task (or a sub-task within it) can be accomplished via a script, CLI tool, or deterministic program, implement it that way. Reserve LLM-based approaches for tasks that genuinely require language understanding, creative writing, or nuanced judgment. Hybrid skills should run scriptable steps first, then use the LLM only for analysis or synthesis of results. Examples:
+   - **Script-first**: Reference verification (`bibtexupdater`), dead code detection (`vulture`/`flake8`), LaTeX-to-plaintext conversion (regex/sed), metric extraction from configs (grep/parse), CI/CD setup (file generation), document creation (`python-docx`/`python-pptx`/`openpyxl`)
+   - **LLM-appropriate**: Writing paper sections, generating rebuttals, reviewing papers, brainstorming titles, synthesizing literature narratives, designing TikZ diagrams
+   - **Hybrid**: Extract data with scripts first, then have the LLM interpret/write prose from structured results
 
 ### New Agent
 1. Create `plugins/research-agents/agents/agent-name.md`

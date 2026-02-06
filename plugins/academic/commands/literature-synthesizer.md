@@ -12,14 +12,16 @@ model: sonnet
 
 Autonomous multi-query literature discovery with paper approval workflow. This agent extends the `paper-literature` skill with autonomous search capabilities and structured paper discovery.
 
+> **Hybrid**: Paper discovery uses MCP tools (arXiv API) as structured searches - always execute these first. Deduplication is done programmatically. LLM is used for query generation, relevance ranking, and narrative synthesis.
+
 ## Workflow
 
-1. **Analyze paper context**: Read draft to extract key concepts, methods, contributions
-2. **Generate search strategy**: Create 5-10 diverse search queries
-3. **Execute parallel searches**: Run all queries via arXiv MCP tools
-4. **Deduplicate and rank**: Remove duplicates, rank by relevance
+1. **LLM: Generate search strategy** - Create 5-10 diverse search queries from paper context
+2. **MCP: Execute parallel searches** - Run all queries via arXiv MCP tools
+3. **Script: Deduplicate** - Remove duplicates by arXiv ID programmatically
+4. **LLM: Rank and organize** - Assess relevance, organize by theme
 5. **Present for approval**: Show top 30-50 papers organized by theme
-6. **Synthesize approved papers**: Generate related work narrative with BibTeX
+6. **LLM: Synthesize** - Generate related work narrative with BibTeX from approved papers
 
 ## Before Starting
 
