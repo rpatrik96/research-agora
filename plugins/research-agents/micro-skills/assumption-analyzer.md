@@ -132,6 +132,79 @@ This skill performs deep analysis of a single mathematical assumption. It determ
 }
 ```
 
+## Algorithm
+
+1. **Identify the assumption** — parse the mathematical statement and any conditions
+2. **Match to known assumptions** — check against standard assumption hierarchies (convexity, smoothness, noise)
+3. **Assess standardness** — determine frequency in the literature (ubiquitous/common/occasional/rare/novel)
+4. **Analyze implications** — what does this assumption rule out? What scenarios are excluded?
+5. **Find weaker alternatives** — identify less restrictive assumptions that might still suffice
+6. **Find stronger alternatives** — identify more restrictive assumptions that would simplify proofs
+7. **Assess testability** — can the assumption be verified on real data/models?
+8. **Predict reviewer concern** — estimate likelihood a reviewer will challenge this assumption
+
+## Constraints
+
+- **DO**: Map assumptions to their standard names when they exist
+- **DO**: Provide concrete examples of what is ruled out
+- **DO**: Suggest actionable weaker alternatives
+- **DON'T**: Verify whether the assumption holds for the paper's specific setup
+- **DON'T**: Challenge the paper's experimental design
+- **DON'T**: Access external resources
+- **DON'T**: Analyze more than one assumption per invocation
+
+## Example
+
+### Example Input
+
+```json
+{
+  "assumption_id": "A1",
+  "assumption_text": "The objective function f is L-smooth, i.e., ||grad f(x) - grad f(y)|| <= L ||x - y|| for all x, y.",
+  "context": "convergence proof of SGD",
+  "domain": "convex optimization"
+}
+```
+
+### Example Output
+
+```json
+{
+  "assumption_id": "A1",
+  "analysis": {
+    "standard_name": "L-smoothness (Lipschitz gradient)",
+    "is_standard": true,
+    "frequency": "common",
+    "what_it_rules_out": [
+      "Non-differentiable functions (e.g., |x|)",
+      "Functions with rapidly changing gradients",
+      "ReLU networks (non-smooth at origin)"
+    ],
+    "weaker_alternatives": [
+      {
+        "name": "Local smoothness",
+        "statement": "L-smoothness holds in a neighborhood of the optimum",
+        "tradeoff": "Weaker but only gives local convergence guarantees"
+      }
+    ],
+    "stronger_alternatives": [
+      {
+        "name": "Strong smoothness",
+        "statement": "f is L-smooth and mu-strongly convex",
+        "benefit": "Enables linear convergence rate"
+      }
+    ],
+    "testable_in_practice": true,
+    "how_to_test": "Estimate L by computing max ||grad f(x_i) - grad f(x_j)|| / ||x_i - x_j|| over sample pairs",
+    "common_violations": [
+      "Deep neural networks with ReLU activations",
+      "L1-regularized objectives"
+    ],
+    "reviewer_concern_level": "low"
+  }
+}
+```
+
 ## Analysis Framework
 
 ### Standardness Assessment

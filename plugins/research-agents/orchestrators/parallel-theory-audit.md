@@ -62,6 +62,35 @@ Phase 4: Fan-In (Sequential, ~2 min)
 └── Update research-state.json with audit results
 ```
 
+## Input Specification
+
+```json
+{
+  "type": "object",
+  "required": ["paper_path"],
+  "properties": {
+    "paper_path": {
+      "type": "string",
+      "description": "Path to paper (LaTeX dir, .tex file, or .pdf)"
+    },
+    "venue_target": {
+      "type": "string",
+      "enum": ["neurips", "icml", "iclr", "aaai", "cvpr", "acl", "workshop", "arxiv", "other"],
+      "default": "neurips"
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "skip_notation_check": {"type": "boolean", "default": false},
+        "skip_bounds_analysis": {"type": "boolean", "default": false},
+        "max_proofs": {"type": "integer", "default": 20},
+        "force_regenerate_state": {"type": "boolean", "default": false}
+      }
+    }
+  }
+}
+```
+
 ## Phase 1: Setup
 
 ### 1.1 Research State Check

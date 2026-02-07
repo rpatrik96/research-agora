@@ -124,6 +124,17 @@ This skill takes a single proof and decomposes it into atomic logical steps. Eac
 }
 ```
 
+## Algorithm
+
+1. **Read the full proof text** and identify the starting point and conclusion
+2. **Identify major transitions** — each application of a definition, assumption, inequality, or algebraic manipulation is a boundary
+3. **Create atomic steps** — one mathematical operation per step following granularity rules below
+4. **Assign justifications** — categorize each step's justification type from the taxonomy
+5. **Build dependency graph** — record which prior steps and assumptions each step depends on
+6. **Track assumptions consumed** — note which formal assumptions are invoked at each step
+7. **Assess complexity** — rate each step's verification difficulty (trivial/routine/nontrivial/complex)
+8. **Count gaps** — tally steps with `unjustified` justification
+
 ## Step Decomposition Guidelines
 
 ### Granularity Rules
@@ -147,6 +158,72 @@ This skill takes a single proof and decomposes it into atomic logical steps. Eac
 | `substitution` | Substituting a specific value | "Setting eta = 1/L..." |
 | `cited_result` | Using a result from another paper | "By Theorem 3 of [Smith 2023]..." |
 | `unjustified` | No justification provided | "It follows that..." |
+
+## Constraints
+
+- **DO**: Produce one step per mathematical operation
+- **DO**: Track all assumption usage explicitly
+- **DO**: Mark unjustified leaps honestly (don't invent justifications)
+- **DON'T**: Verify steps (that's proof-step-verifier's job)
+- **DON'T**: Skip "trivial" steps — decompose everything
+- **DON'T**: Access external resources
+- **DON'T**: Generate more than 50 steps per proof (flag overflow)
+
+## Example
+
+### Example Input
+
+```json
+{
+  "proof_id": "thm1_proof",
+  "theorem_statement": "Under L-smoothness (A1), GD with step size 1/L satisfies f(x_T) - f* <= L||x_0 - x*||^2 / (2T)",
+  "proof_text": "By L-smoothness, f(x_{t+1}) <= f(x_t) + <grad f(x_t), x_{t+1} - x_t> + L/2 ||x_{t+1} - x_t||^2. Substituting x_{t+1} = x_t - (1/L) grad f(x_t), we get f(x_{t+1}) <= f(x_t) - 1/(2L) ||grad f(x_t)||^2. Summing from t=0 to T-1 and rearranging gives the result.",
+  "assumptions": [{"id": "A1", "text": "f is L-smooth"}]
+}
+```
+
+### Example Output
+
+```json
+{
+  "proof_id": "thm1_proof",
+  "steps": [
+    {
+      "step_id": "S1",
+      "action": "Apply L-smoothness descent lemma",
+      "justification": "assumption",
+      "justification_detail": "Assumption A1: L-smoothness",
+      "depends_on": [],
+      "assumptions_consumed": ["A1"],
+      "latex": "f(x_{t+1}) \\leq f(x_t) + \\langle \\nabla f(x_t), x_{t+1} - x_t \\rangle + \\frac{L}{2} \\|x_{t+1} - x_t\\|^2",
+      "complexity": "routine"
+    },
+    {
+      "step_id": "S2",
+      "action": "Substitute GD update rule x_{t+1} = x_t - (1/L) grad f(x_t)",
+      "justification": "substitution",
+      "justification_detail": "GD update with step size eta = 1/L",
+      "depends_on": ["S1"],
+      "assumptions_consumed": [],
+      "latex": "f(x_{t+1}) \\leq f(x_t) - \\frac{1}{2L} \\|\\nabla f(x_t)\\|^2",
+      "complexity": "routine"
+    },
+    {
+      "step_id": "S3",
+      "action": "Telescope sum from t=0 to T-1 and rearrange",
+      "justification": "algebraic",
+      "justification_detail": "Summing S2 over t=0..T-1, telescoping f terms",
+      "depends_on": ["S2"],
+      "assumptions_consumed": [],
+      "latex": "\\sum_{t=0}^{T-1} \\frac{1}{2L} \\|\\nabla f(x_t)\\|^2 \\leq f(x_0) - f^*",
+      "complexity": "routine"
+    }
+  ],
+  "total_steps": 3,
+  "assumptions_used": ["A1"],
+  "gap_count": 0
+}
+```
 
 ## Integration
 

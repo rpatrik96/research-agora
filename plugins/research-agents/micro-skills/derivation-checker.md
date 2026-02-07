@@ -107,6 +107,54 @@ This skill verifies a single algebraic or calculus derivation -- applying an ine
 }
 ```
 
+## Algorithm
+
+1. **Parse expressions** — extract the `from_expression` and `to_expression` as mathematical objects
+2. **Identify the operation** — classify the transformation type (algebraic, inequality, gradient, etc.)
+3. **Reproduce the derivation** — attempt to derive `to_expression` from `from_expression` using the stated operation
+4. **Check for common errors** — scan for sign errors, dropped terms, wrong inequality direction
+5. **Verify conditions** — ensure prerequisites of the operation are met (e.g., non-negativity for AM-GM)
+6. **Assign verdict** — correct, likely_correct, suspicious, or error
+7. **Provide correction** — if errors found, give the corrected expression
+
+## Constraints
+
+- **DO**: Track every term through the transformation
+- **DO**: Check that inequality conditions are satisfied
+- **DO**: Provide the corrected expression when errors are found
+- **DON'T**: Verify the overall proof structure (that's proof-step-verifier's job)
+- **DON'T**: Access external resources
+- **DON'T**: Spend more than 20s on a single derivation
+- **DON'T**: Verify more than one derivation per invocation
+
+## Example
+
+### Example Input
+
+```json
+{
+  "derivation_id": "thm1_S2",
+  "from_expression": "f(x_t) + \\langle \\nabla f(x_t), -\\frac{1}{L} \\nabla f(x_t) \\rangle + \\frac{L}{2} \\|\\frac{1}{L} \\nabla f(x_t)\\|^2",
+  "to_expression": "f(x_t) - \\frac{1}{2L} \\|\\nabla f(x_t)\\|^2",
+  "operation": "algebraic_manipulation",
+  "operation_detail": "Simplify inner product and quadratic terms",
+  "context": "Substituting GD update into descent lemma"
+}
+```
+
+### Example Output
+
+```json
+{
+  "derivation_id": "thm1_S2",
+  "verdict": "correct",
+  "confidence": "high",
+  "errors_found": [],
+  "explanation": "Inner product term: <grad f, -(1/L) grad f> = -1/L ||grad f||^2. Quadratic term: L/2 * 1/L^2 ||grad f||^2 = 1/(2L) ||grad f||^2. Sum: -1/L + 1/(2L) = -1/(2L). Result matches.",
+  "corrected_expression": null
+}
+```
+
 ## Verification by Operation Type
 
 ### Algebraic Manipulation

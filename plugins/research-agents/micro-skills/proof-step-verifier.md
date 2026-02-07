@@ -110,6 +110,18 @@ This skill takes a single proof step (from `proof-step-extractor`) along with it
 }
 ```
 
+## Algorithm
+
+1. **Parse the step** — extract the mathematical claim being made
+2. **Load premises** — gather all prior steps, assumptions, and definitions this step depends on
+3. **Check logical validity** — does the conclusion follow from premises?
+4. **Check algebraic correctness** — are expansions, signs, and terms correct?
+5. **Check inequality direction** — is the inequality applied correctly?
+6. **Check assumption applicability** — do conditions of the invoked assumption hold?
+7. **Assess confidence** — rate certainty in the verdict (high/medium/low)
+8. **Generate explanation** — provide brief reasoning for the verdict
+9. **Suggest fix** — if issues found, describe how to correct the step
+
 ## Verification Checks
 
 ### Check 1: Does the conclusion follow from premises?
@@ -143,6 +155,54 @@ This skill takes a single proof step (from `proof-step-extractor`) along with it
 | **suspicious** | Step likely correct but hard to verify fully | Flag for manual review |
 | **gap** | Step skips intermediate reasoning | Author should add missing steps |
 | **error** | Step contains a detectable mistake | Must fix before submission |
+
+## Constraints
+
+- **DO**: Check every stated justification against the actual mathematical content
+- **DO**: Flag steps that skip intermediate reasoning as "gap"
+- **DO**: Rate confidence honestly — use "low" when unsure
+- **DON'T**: Decompose steps further (that's proof-step-extractor's job)
+- **DON'T**: Attempt to fix errors (just report them)
+- **DON'T**: Access external resources
+- **DON'T**: Spend more than 20s on a single step
+
+## Example
+
+### Example Input
+
+```json
+{
+  "step": {
+    "step_id": "S2",
+    "action": "Substitute GD update rule",
+    "justification": "substitution",
+    "justification_detail": "GD update with step size eta = 1/L",
+    "latex": "f(x_{t+1}) \\leq f(x_t) - \\frac{1}{2L} \\|\\nabla f(x_t)\\|^2",
+    "depends_on": ["S1"]
+  },
+  "premises": [
+    {
+      "id": "S1",
+      "content": "f(x_{t+1}) \\leq f(x_t) + \\langle \\nabla f(x_t), x_{t+1} - x_t \\rangle + \\frac{L}{2} \\|x_{t+1} - x_t\\|^2",
+      "type": "step"
+    }
+  ],
+  "theorem_context": "Convergence rate of gradient descent under L-smoothness"
+}
+```
+
+### Example Output
+
+```json
+{
+  "step_id": "S2",
+  "verdict": "valid",
+  "confidence": "high",
+  "issues": [],
+  "explanation": "Substituting x_{t+1} = x_t - (1/L) grad f(x_t) into S1 and simplifying yields the stated bound. The algebra checks out: inner product term gives -1/L ||grad f||^2, quadratic term gives +1/(2L) ||grad f||^2, net result is -1/(2L) ||grad f||^2.",
+  "suggested_fix": null
+}
+```
 
 ## Integration
 
