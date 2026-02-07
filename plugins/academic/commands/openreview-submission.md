@@ -12,13 +12,15 @@ model: sonnet
 
 Generate all text metadata fields for OpenReview submission forms from a paper draft. Produces copy-pasteable outputs for the abstract, keywords, TL;DR, and lay summary.
 
+> **Hybrid**: LaTeX-to-plain-text conversion and character counting are handled via script (sed/regex). Keywords, TL;DR, and lay summary require LLM for creative writing and judgment.
+
 ## Workflow
 
 1. **Read the paper**: Focus on abstract, introduction, contributions, and conclusion
-2. **Extract the abstract**: Strip LaTeX commands, produce plain text
-3. **Generate keywords**: Domain-specific, venue-appropriate terms
-4. **Write TL;DR**: Single sentence, max 250 characters
-5. **Write lay summary**: Accessible explanation for non-experts
+2. **Script: Extract and convert abstract**: Strip LaTeX commands via sed/regex, count characters
+3. **LLM: Generate keywords**: Domain-specific, venue-appropriate terms
+4. **LLM: Write TL;DR**: Single sentence, max 250 characters
+5. **LLM: Write lay summary**: Accessible explanation for non-experts
 6. **Present all outputs**: In copy-pasteable format with character counts
 
 ## Input Required
@@ -42,26 +44,64 @@ Optionally specify:
 | TL;DR | Max 250 chars | Optional | Submission |
 | Lay summary | ~200-300 words | Venue-dependent | Camera-ready |
 
-## Step 1: Abstract (Plain Text)
+## Step 1: Abstract (Plain Text) — Script-First
 
-Convert the LaTeX abstract to clean, copy-pasteable plain text.
+Convert the LaTeX abstract to clean, copy-pasteable plain text. Run the sed pipeline first, then fix any remaining artifacts manually.
 
-### Conversion rules
+### Automated conversion script
 
-1. **Remove all LaTeX commands**: `\textbf{X}` -> `X`, `\emph{X}` -> `X`, `\textit{X}` -> `X`
-2. **Convert math to Unicode or plain text**:
-   - `$\alpha$` -> `alpha` or `α` (prefer Unicode when unambiguous)
-   - `$x \in \mathbb{R}^n$` -> `x in R^n`
-   - `$\mathcal{O}(n \log n)$` -> `O(n log n)`
-   - `$\ell_2$` -> `l2` or `ℓ₂`
-3. **Remove environments**: `\begin{abstract}...\end{abstract}` -> just the content
-4. **Expand macros**: If custom commands are defined (e.g., `\method` -> method name), substitute them
-5. **Preserve line breaks as spaces**: Collapse into flowing paragraphs
-6. **Handle citations**: `\cite{foo}` -> remove or replace with `(Author, Year)` if known
-7. **Handle references**: `\cref{fig:x}` -> `Figure X`, `\cref{sec:y}` -> `Section Y` (or remove if not meaningful in abstract)
-8. **Check character count**: Must be under 5,000 characters
+Run this to strip most LaTeX commands from the abstract:
 
-### Common LaTeX-to-plain-text substitutions
+```bash
+# Extract abstract from .tex file and convert to plain text
+sed -n '/\\begin{abstract}/,/\\end{abstract}/p' main.tex | \
+  sed '1d;$d' | \
+  sed -E '
+    # Remove formatting commands
+    s/\\textbf\{([^}]*)\}/\1/g
+    s/\\emph\{([^}]*)\}/\1/g
+    s/\\textit\{([^}]*)\}/\1/g
+    s/\\textsc\{([^}]*)\}/\1/g
+    s/\\texttt\{([^}]*)\}/\1/g
+    # Remove citations and refs
+    s/\\cite[pt]?\{[^}]*\}//g
+    s/\\[cC]ref\{[^}]*\}//g
+    # Abbreviation macros
+    s/\\eg/e.g./g
+    s/\\ie/i.e./g
+    s/\\etal/et al./g
+    s/\\wrt/w.r.t./g
+    # Special characters
+    s/~/ /g
+    s/``/"/g
+    s/'\''"/'\''"'/g
+    s/\\%/%/g
+    s/\\&/\&/g
+    s/---/-/g
+    s/--/-/g
+    # Strip remaining simple commands
+    s/\\[a-zA-Z]+\{([^}]*)\}/\1/g
+    # Remove dollar-sign math delimiters (keep content)
+    s/\$([^$]*)\$/\1/g
+  ' | \
+  tr '\n' ' ' | sed 's/  */ /g'
+```
+
+After running the script, count characters:
+```bash
+# Count characters in the converted abstract
+echo -n "<paste abstract here>" | wc -c
+```
+
+### Remaining cleanup (LLM-assisted)
+
+The script handles most conversions. Fix any remaining issues:
+
+1. **Expand custom macros**: `\method` -> actual method name, `\ours` -> model name
+2. **Convert complex math to Unicode**: `\alpha` -> α, `\mathbb{R}` -> R
+3. **Verify character count**: Must be under 5,000 characters
+
+### Common LaTeX-to-plain-text substitutions reference
 
 ```
 \textbf{X}       ->  X

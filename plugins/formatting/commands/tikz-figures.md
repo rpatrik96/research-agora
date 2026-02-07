@@ -9,6 +9,8 @@ model: sonnet
 
 # TikZ Figures for ML Papers
 
+> **LLM-required**: Designing TikZ diagrams requires creative visual composition and understanding of the concepts being illustrated. No script alternative.
+
 Create publication-ready vector diagrams using TikZ/PGF for ML conference submissions.
 
 ## When to Use TikZ

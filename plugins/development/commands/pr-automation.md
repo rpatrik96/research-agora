@@ -5,6 +5,8 @@ description: Create GitHub pull requests from changes made during a chat session
 
 # PR Automation
 
+> **Script-first**: This skill is implemented via git and gh CLI commands. No LLM generation needed.
+
 Create GitHub pull requests from chat session changes.
 
 ## Prerequisites

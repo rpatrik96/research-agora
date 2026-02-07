@@ -6,6 +6,8 @@ model: sonnet
 
 # Annotate Functions with LaTeX Links
 
+> **LLM-required**: Linking code functions to paper equations requires understanding mathematical semantics. No script alternative.
+
 Add `@latex` decorators to existing Python functions to create verified links between code implementations and paper equations.
 
 ## Annotation Workflow

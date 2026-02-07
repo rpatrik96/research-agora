@@ -10,6 +10,8 @@ color: gray
 
 # Helper: Evidence Pre-fetcher
 
+> **Script-first**: Evidence prefetching uses grep/glob to collect files. LLM is not needed for the collection step.
+
 > **One-line description**: Load all evidence elements from a paper into structured format for efficient subagent access.
 
 ## Purpose

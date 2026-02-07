@@ -9,6 +9,8 @@ model: haiku
 
 # Commit Changes
 
+> **Script-first**: This skill is implemented via git commands. No LLM generation needed.
+
 Commit changes made during the current Claude Code conversation with proper conventional commit format and co-authorship.
 
 ## Overview

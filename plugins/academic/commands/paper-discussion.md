@@ -6,6 +6,8 @@ model: sonnet
 
 # Discussion & Limitations Section
 
+> **LLM-required**: Writing discussion sections requires interpretive analysis and scientific reasoning. No script alternative.
+
 Generate publication-quality discussion and limitations sections for ML conference papers (NeurIPS, ICML, ICLR).
 
 ## Workflow

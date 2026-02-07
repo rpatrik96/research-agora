@@ -10,6 +10,8 @@ color: orange
 
 # Micro-Skill: Novelty Checker
 
+> **Hybrid**: Prior work search uses MCP/API tools. LLM assesses novelty relative to discovered prior art.
+
 > **One-line description**: Verify novelty claims by searching academic literature for prior and concurrent work.
 
 ## Purpose

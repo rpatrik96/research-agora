@@ -10,6 +10,8 @@ color: gray
 
 # Micro-Skill: Assumption Surfacer
 
+> **LLM-required**: Identifying hidden assumptions requires understanding implicit reasoning. No script alternative.
+
 > **One-line description**: Identify explicit and implicit assumptions in a paper section that affect claim validity.
 
 ## Purpose

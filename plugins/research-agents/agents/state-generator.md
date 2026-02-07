@@ -11,6 +11,8 @@ color: blue
 
 # Research State Generator
 
+> **Hybrid**: Claim extraction produces structured JSON (research-state.json). LLM is needed to identify and classify claims from paper text.
+
 Generate a structured JSON representation of a research paper for parallel analysis.
 
 ## Purpose

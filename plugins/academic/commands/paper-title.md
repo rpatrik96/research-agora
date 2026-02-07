@@ -8,6 +8,8 @@ description: |
 
 # Paper Title Brainstorming
 
+> **LLM-required**: Title generation requires creative brainstorming and understanding of paper contributions. No script alternative.
+
 Generate compelling, memorable titles for ML conference papers (NeurIPS, ICML, ICLR, AAAI).
 
 ## Workflow

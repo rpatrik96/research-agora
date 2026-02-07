@@ -6,6 +6,8 @@ model: haiku
 
 # Python CI/CD Setup
 
+> **Script-first**: This skill generates config files from templates. No LLM generation needed.
+
 Configure GitHub Actions CI/CD pipeline with pre-commit hooks for Python projects.
 
 ## Stack

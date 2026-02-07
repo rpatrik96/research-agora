@@ -16,6 +16,8 @@ dependencies:
 
 # Excel Spreadsheet Creation Skill
 
+> **Script-first**: This skill generates spreadsheets via openpyxl/pandas scripts. No LLM generation needed.
+
 Create and manipulate Excel files using openpyxl and pandas.
 
 ## Installation
