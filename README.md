@@ -100,6 +100,14 @@ Specialized research analysis agents:
 | `co-author-sync` | Multi-author coordination |
 | `discussion-monitor` | Track citations and social mentions |
 | `state-generator` | Generate research-state.json for parallel analysis pipelines |
+| `proof-auditor` | Decompose and verify proofs step-by-step (T1-T6 hierarchy) |
+| `bounds-analyst` | Analyze convergence rates and complexity bounds |
+| `notation-consistency-checker` | Build symbol table, detect notation inconsistencies |
+| `theorem-dependency-mapper` | Build theorem/lemma dependency DAG with criticality scores |
+| `proof-strategy-advisor` | Suggest proof approaches for theorems and conjectures |
+| `counterexample-searcher` | Stress-test theorems by dropping assumptions |
+| `intuition-formalizer` | Translate informal intuitions into formal theorem statements |
+| `theory-connector` | Find cross-domain theoretical connections and analogies |
 
 ## Optional: Templates
 

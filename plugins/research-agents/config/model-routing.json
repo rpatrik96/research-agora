@@ -52,6 +52,30 @@
         "temperature": 0.2,
         "reason": "Holistic consistency check across entire paper. Highest stakes.",
         "fallback": null
+      },
+      "proof-step-extractor": {
+        "model": "sonnet",
+        "temperature": 0.1,
+        "reason": "Structured decomposition of proofs into steps. Balanced capability/cost.",
+        "fallback": "opus"
+      },
+      "proof-step-verifier": {
+        "model": "opus",
+        "temperature": 0.1,
+        "reason": "Mathematical verification requires deepest reasoning. Highest stakes per step.",
+        "fallback": null
+      },
+      "assumption-analyzer": {
+        "model": "sonnet",
+        "temperature": 0.2,
+        "reason": "Requires broad knowledge of standard assumptions. Balanced capability/cost.",
+        "fallback": "opus"
+      },
+      "derivation-checker": {
+        "model": "opus",
+        "temperature": 0.1,
+        "reason": "Algebraic verification requires careful step-by-step checking. High stakes.",
+        "fallback": null
       }
     },
 
@@ -73,6 +97,60 @@
         "temperature": 0.1,
         "reason": "Comprehensive parsing. Balanced capability/cost.",
         "fallback": "opus"
+      },
+      "parallel-theory-audit": {
+        "model": "opus",
+        "temperature": 0.1,
+        "reason": "Complex coordination of theory verification subagents. Must plan optimally.",
+        "fallback": "sonnet"
+      },
+      "proof-auditor": {
+        "model": "opus",
+        "temperature": 0.2,
+        "reason": "Deep mathematical reasoning for proof verification. Highest capability needed.",
+        "fallback": null
+      },
+      "bounds-analyst": {
+        "model": "opus",
+        "temperature": 0.2,
+        "reason": "Comparing bounds to known optima requires broad theoretical knowledge.",
+        "fallback": "sonnet"
+      },
+      "notation-consistency-checker": {
+        "model": "sonnet",
+        "temperature": 0.1,
+        "reason": "Hybrid script+LLM. Script handles extraction, LLM handles semantics.",
+        "fallback": "opus"
+      },
+      "theorem-dependency-mapper": {
+        "model": "sonnet",
+        "temperature": 0.1,
+        "reason": "Hybrid script+LLM. Structured graph construction with semantic analysis.",
+        "fallback": "opus"
+      },
+      "proof-strategy-advisor": {
+        "model": "opus",
+        "temperature": 0.5,
+        "reason": "Creative technique suggestion requires broad knowledge. Higher temp for diversity.",
+        "fallback": null
+      },
+      "counterexample-searcher": {
+        "model": "opus",
+        "temperature": 0.4,
+        "reason": "Constructing counterexamples requires creative mathematical reasoning.",
+        "fallback": null
+      },
+      "intuition-formalizer": {
+        "model": "opus",
+        "temperature": 0.3,
+        "reason": "Formalizing vague intuitions requires deep mathematical understanding.",
+        "fallback": null
+      },
+      "theory-connector": {
+        "model": "opus",
+        "temperature": 0.3,
+        "reason": "Cross-domain pattern matching requires broadest knowledge base.",
+        "fallback": null
       }
     },
 

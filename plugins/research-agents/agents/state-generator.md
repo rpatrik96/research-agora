@@ -25,9 +25,9 @@ This agent creates the `research-state.json` file that enables:
 
 ## When to Use
 
-- Before running `parallel-audit` or any orchestrator
+- Before running `parallel-audit`, `parallel-theory-audit`, or any orchestrator
 - When you need to analyze a paper's structure
-- When preparing for claim verification
+- When preparing for claim verification or proof auditing
 - When caching paper analysis for repeated queries
 
 ## Input Requirements
@@ -72,6 +72,11 @@ Parse the following elements:
 | Algorithms | `\begin{algorithm}` | `{id: "alg1", caption: "..."}` |
 | Theorems | `\begin{theorem}` | `{id: "thm1", statement: "..."}` |
 | Lemmas | `\begin{lemma}` | `{id: "lem1", statement: "..."}` |
+| Propositions | `\begin{proposition}` | `{id: "prop1", statement: "..."}` |
+| Corollaries | `\begin{corollary}` | `{id: "cor1", statement: "..."}` |
+| Definitions | `\begin{definition}` | `{id: "def1", term: "...", definition: "..."}` |
+| Assumptions | `\begin{assumption}` | `{id: "ass1", text: "..."}` |
+| Proofs | `\begin{proof}` | `{id: "proof_thm1", of: "thm1", text: "..."}` |
 
 #### PDF Source
 
@@ -79,6 +84,45 @@ Use heuristics:
 - Section detection: Font size changes, numbering patterns ("1.", "2.1")
 - Figure detection: "Figure X:" captions
 - Table detection: "Table X:" captions
+
+### Phase 2b: Theory Structure Parsing (for theoretical papers)
+
+If the paper contains theorem-like environments, extract the theory structure:
+
+#### Theorem-like Environments
+
+| Environment | LaTeX Pattern | Output Fields |
+|-------------|---------------|---------------|
+| Theorem | `\begin{theorem}` | id, type, statement, label |
+| Lemma | `\begin{lemma}` | id, type, statement, label |
+| Proposition | `\begin{proposition}` | id, type, statement, label |
+| Corollary | `\begin{corollary}` | id, type, statement, label |
+| Definition | `\begin{definition}` | id, term, definition, label |
+| Assumption | `\begin{assumption}` | id, text, label |
+| Proof | `\begin{proof}` | id, of (which theorem), text |
+
+#### Assumption Extraction
+
+Extract formally stated assumptions:
+- `\begin{assumption}` environments
+- Numbered conditions ("(A1)", "(A2)") in theorem statements
+- "Assume that...", "Suppose that..." patterns
+
+#### Bound Extraction
+
+Extract asymptotic bounds:
+- `O(...)`, `\Omega(...)`, `\Theta(...)` expressions
+- Explicit rate expressions: `\leq C/\sqrt{T}`
+- `\tilde{O}(...)` (ignoring log factors)
+
+#### Proof-Theorem Linking
+
+Link each proof to its theorem:
+- `\begin{proof}[Proof of Theorem 1]` patterns
+- Proximity-based linking (proof immediately after theorem)
+- `\ref{}` back-references within proofs
+
+> **Note**: The `theory` section is **optional** — it is populated only when theorem-like environments are detected. Empirical-only papers will have `"theory": null`.
 
 ### Phase 3: Claim Extraction
 
@@ -196,6 +240,49 @@ Write `research-state.json` to paper directory:
   "citations": [...],
   "terminology": {...},
   "assumptions": [],
+  "theory": {
+    "theorems": [
+      {
+        "id": "thm1",
+        "type": "theorem",
+        "statement": "Under Assumptions A1-A3, ...",
+        "assumptions_used": ["A1", "A2", "A3"],
+        "proof_text": "...",
+        "depends_on": ["lem1", "lem2"],
+        "proof_location": {"file": "appendix.tex", "line": 45}
+      }
+    ],
+    "assumptions": [
+      {
+        "id": "A1",
+        "text": "The function f is L-Lipschitz continuous",
+        "standard_name": "L-smoothness",
+        "used_by": ["thm1", "lem1"]
+      }
+    ],
+    "definitions": [
+      {
+        "id": "def1",
+        "term": "complexity measure",
+        "definition": "We define the complexity...",
+        "first_use": {"file": "main.tex", "line": 32}
+      }
+    ],
+    "bounds": [
+      {
+        "id": "B1",
+        "expression": "O(1/T^2)",
+        "context": "convergence rate",
+        "parameters": ["T", "L", "d"],
+        "source_theorem": "thm1"
+      }
+    ],
+    "dependency_graph": {
+      "nodes": [],
+      "edges": []
+    },
+    "symbol_table": {}
+  },
   "processing_log": [
     {
       "timestamp": "2025-01-29T10:30:00Z",
@@ -240,6 +327,7 @@ Before saving, verify:
 ### Called By
 - `parallel-audit` orchestrator
 - `parallel-review` orchestrator
+- `parallel-theory-audit` orchestrator
 - User directly for preprocessing
 
 ### Updates

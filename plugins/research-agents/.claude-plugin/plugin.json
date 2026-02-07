@@ -17,7 +17,10 @@
     "verification",
     "parallel",
     "claims",
-    "evidence"
+    "evidence",
+    "proofs",
+    "theoretical",
+    "mathematical"
   ],
   "components": {
     "agents": {
@@ -36,7 +39,15 @@
         "reviewer-response-generator",
         "co-author-sync",
         "discussion-monitor",
-        "state-generator"
+        "state-generator",
+        "proof-auditor",
+        "bounds-analyst",
+        "notation-consistency-checker",
+        "theorem-dependency-mapper",
+        "proof-strategy-advisor",
+        "counterexample-searcher",
+        "intuition-formalizer",
+        "theory-connector"
       ]
     },
     "micro-skills": {
@@ -49,14 +60,19 @@
         "novelty-checker",
         "citation-verifier",
         "assumption-surfacer",
-        "cross-referencer"
+        "cross-referencer",
+        "proof-step-extractor",
+        "proof-step-verifier",
+        "assumption-analyzer",
+        "derivation-checker"
       ]
     },
     "orchestrators": {
       "description": "Parallel workflow coordinators",
       "items": [
         "parallel-audit",
-        "parallel-review"
+        "parallel-review",
+        "parallel-theory-audit"
       ]
     },
     "helpers": {
@@ -80,6 +96,10 @@
     "evidence_hierarchy": {
       "description": "L1-L6 evidence grading with venue-specific standards",
       "levels": ["CODE_VERIFIED", "REPRODUCIBLE_EXPERIMENT", "PAPER_EVIDENCE", "CITATION_SUPPORT", "LOGICAL_ARGUMENT", "ASSERTION"]
+    },
+    "theoretical_evidence_hierarchy": {
+      "description": "T1-T6 theoretical proof grading for mathematical papers",
+      "levels": ["FORMALLY_VERIFIED", "COMPLETE_PROOF", "PROOF_WITH_GAPS", "PROOF_SKETCH", "INFORMAL_ARGUMENT", "THEOREM_ASSERTION"]
     }
   }
 }
