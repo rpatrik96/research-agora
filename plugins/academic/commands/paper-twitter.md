@@ -6,7 +6,7 @@ description: |
 model: sonnet
 metadata:
   research-domain: general
-  research-phase: paper-writing
+  research-phase: dissemination
   task-type: writing
   verification-level: none
 ---

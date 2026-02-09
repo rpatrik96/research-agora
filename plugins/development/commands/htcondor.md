@@ -10,7 +10,7 @@ allowed-tools: Read, Write, Bash(ls *), Glob, Grep
 metadata:
   research-domain: general
   research-phase: implementation
-  task-type: writing
+  task-type: automation
   verification-level: none
 ---
 

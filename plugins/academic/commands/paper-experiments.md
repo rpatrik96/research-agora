@@ -4,7 +4,7 @@ description: Write experimental details sections for ML papers with GitHub repos
 model: sonnet
 metadata:
   research-domain: general
-  research-phase: implementation
+  research-phase: paper-writing
   task-type: writing
   verification-level: heuristic
 ---

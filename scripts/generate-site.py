@@ -119,6 +119,37 @@ def main():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     (OUTPUT_DIR / "index.html").write_text(html)
 
+    # Load benchmarks
+    benchmarks_path = REGISTRY_DIR / "benchmarks.json"
+    results_path = REGISTRY_DIR / "results.json"
+
+    benchmarks = []
+    all_results = []
+
+    if benchmarks_path.exists():
+        with open(benchmarks_path) as f:
+            benchmarks_data = json.load(f)
+        benchmarks = benchmarks_data.get("benchmarks", [])
+
+    if results_path.exists():
+        with open(results_path) as f:
+            results_data = json.load(f)
+        for r in results_data.get("results", []):
+            all_results.extend(r.get("entries", []))
+
+    # Render benchmarks page
+    try:
+        bench_template = env.get_template("benchmarks.html.j2")
+        bench_html = bench_template.render(
+            benchmarks=benchmarks,
+            results=all_results,
+            generated=registry.get("generated", ""),
+        )
+        (OUTPUT_DIR / "benchmarks.html").write_text(bench_html)
+        print(f"  {len(benchmarks)} benchmarks indexed")
+    except Exception as e:
+        print(f"  Warning: Could not generate benchmarks page: {e}")
+
     # Copy static files
     if STATIC_DIR.exists():
         for static_file in STATIC_DIR.iterdir():

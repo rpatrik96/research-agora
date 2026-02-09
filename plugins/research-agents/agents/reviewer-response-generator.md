@@ -5,7 +5,7 @@ model: sonnet
 color: purple
 metadata:
   research-domain: general
-  research-phase: implementation
+  research-phase: rebuttal
   task-type: writing
   verification-level: layered
 ---

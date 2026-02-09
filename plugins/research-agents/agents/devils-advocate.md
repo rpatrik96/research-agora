@@ -5,7 +5,7 @@ model: opus
 color: orange
 metadata:
   research-domain: general
-  research-phase: implementation
+  research-phase: paper-writing
   task-type: analysis
   verification-level: heuristic
 ---

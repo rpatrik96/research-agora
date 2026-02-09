@@ -5,7 +5,7 @@ model: sonnet
 color: green
 metadata:
   research-domain: general
-  research-phase: implementation
+  research-phase: paper-writing
   task-type: writing
   verification-level: heuristic
 ---

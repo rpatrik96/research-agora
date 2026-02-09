@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benchmarks — Research Agora</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Research Agora</h1>
+            <p class="subtitle">Benchmark Leaderboards</p>
+            <nav class="site-nav">
+                <a href="index.html">Skills</a> |
+                <a href="benchmarks.html" class="active">Benchmarks</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        {% for benchmark in benchmarks %}
+        <section class="benchmark-section">
+            <div class="benchmark-header">
+                <h2>{{ benchmark.name }}</h2>
+                <div class="benchmark-meta">
+                    <span class="badge badge-formal">{{ benchmark['primary-metric'] | upper }}</span>
+                    <span class="badge badge-plugin">{{ benchmark['refresh-cadence'] }} refresh</span>
+                    <a href="{{ benchmark.homepage }}" target="_blank" rel="noopener" class="source-link">Repository</a>
+                </div>
+            </div>
+
+            <p>{{ benchmark.description }}</p>
+            <p><strong>Task:</strong> {{ benchmark.task }}</p>
+
+            <div class="benchmark-tags">
+                {% for tag in benchmark.tags %}
+                <span class="badge badge-type">{{ tag }}</span>
+                {% endfor %}
+            </div>
+
+            {% set bench_results = results | selectattr('benchmark-id', 'equalto', benchmark.id) | list %}
+            {% if bench_results %}
+            <h3>Leaderboard</h3>
+            <table class="leaderboard">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Skill</th>
+                        <th>Model</th>
+                        {% for metric in benchmark.metrics %}
+                        <th>{{ metric | upper }}</th>
+                        {% endfor %}
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in bench_results %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td><code>{{ entry.skill }}</code></td>
+                        <td><span class="badge {{ entry.model | model_badge }}">{{ entry.model }}</span></td>
+                        {% for metric in benchmark.metrics %}
+                        <td>{{ "%.3f" | format(entry.metrics.get(metric, 0)) }}</td>
+                        {% endfor %}
+                        <td>{{ entry.date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="empty-leaderboard">
+                <p>No results submitted yet. Be the first!</p>
+                <p>See <a href="https://github.com/rpatrik96/research-agora/blob/main/registry/BENCHMARKS.md">submission guidelines</a>.</p>
+            </div>
+            {% endif %}
+
+            <details>
+                <summary>Relevant Skills</summary>
+                <div class="relevant-skills">
+                    {% for skill_name in benchmark['relevant-skills'] %}
+                    <code>/plugin install {{ skill_name }}@research-agora</code>
+                    {% endfor %}
+                </div>
+            </details>
+        </section>
+        {% endfor %}
+    </main>
+
+    <footer class="container">
+        <p>
+            <a href="https://github.com/rpatrik96/research-agora">GitHub</a> |
+            <a href="https://github.com/rpatrik96/research-agora/blob/main/registry/BENCHMARKS.md">Submit Results</a> |
+            <a href="https://github.com/rpatrik96/research-agora/blob/main/INTEROP.md">Interop</a> |
+            <a href="https://github.com/rpatrik96/research-agora/blob/main/PLATFORM.md">Platform Design</a>
+        </p>
+        <p class="generated">Generated {{ generated }}</p>
+    </footer>
+</body>
+</html>

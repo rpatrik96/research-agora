@@ -15,6 +15,14 @@ pytest tests/test_skills.py      # Run specific test file
 pytest tests/ -k "test_name"     # Run tests matching pattern
 ```
 
+### Registry & Site
+```bash
+python3 scripts/generate-registry.py    # Regenerate registry/index.json from skill files
+python3 scripts/generate-site.py        # Generate static site at site/output/
+python3 scripts/add-metadata.py --dry-run  # Preview metadata additions
+python3 scripts/create-skill.py --help  # Scaffold a new skill
+```
+
 ### Code Quality
 ```bash
 ruff check .                     # Lint Python files
@@ -42,6 +50,11 @@ Skills in `commands/*.md` use YAML frontmatter:
 name: skill-name
 description: Brief description with trigger phrases
 model: sonnet  # or haiku, opus
+metadata:
+  research-domain: general
+  task-type: writing
+  research-phase: paper-writing
+  verification-level: none
 ---
 ```
 
@@ -80,9 +93,16 @@ Claims are graded L1-L6:
 |------|---------|
 | `.claude-plugin/marketplace.json` | Marketplace metadata, lists all plugins |
 | `plugins/*/.claude-plugin/plugin.json` | Individual plugin manifests |
+| `registry/index.json` | Auto-generated skill index (72 skills) |
+| `registry/categories.json` | Taxonomy: domains, task-types, phases, verification-levels |
+| `scripts/generate-registry.py` | Generates registry/index.json from skill files |
+| `scripts/generate-site.py` | Generates static site from registry |
+| `scripts/create-skill.py` | Scaffolds new skill files with metadata |
+| `scripts/add-metadata.py` | Bulk-adds metadata to skill frontmatter |
 | `templates/analyze_template.py` | Extract design specs from PPTX files |
 | `plugins/research-agents/config/model-routing.json` | Model/mode configuration |
 | `plugins/research-agents/config/WORKER_PREAMBLE.md` | Leaf agent protocol |
+| `PLATFORM.md` | Platform design blueprint |
 
 ## Domain Context
 
@@ -94,9 +114,10 @@ Claims are graded L1-L6:
 ## Adding New Content
 
 ### New Skill
-1. Create `plugins/{category}/commands/skill-name.md` with YAML frontmatter
+1. Run `python3 scripts/create-skill.py --name skill-name --category academic` or manually create `plugins/{category}/commands/skill-name.md` with YAML frontmatter
 2. Use kebab-case naming; group related skills with common prefix (e.g., `paper-*`)
 3. Keep concise (150-400 lines), include examples in fenced blocks
+4. Include `metadata:` block with research-domain, task-type, research-phase, verification-level (see `registry/categories.json` for valid values)
 4. **Script-first principle**: If a skill's task (or a sub-task within it) can be accomplished via a script, CLI tool, or deterministic program, implement it that way. Reserve LLM-based approaches for tasks that genuinely require language understanding, creative writing, or nuanced judgment. Hybrid skills should run scriptable steps first, then use the LLM only for analysis or synthesis of results. Examples:
    - **Script-first**: Reference verification (`bibtexupdater`), dead code detection (`vulture`/`flake8`), LaTeX-to-plaintext conversion (regex/sed), metric extraction from configs (grep/parse), CI/CD setup (file generation), document creation (`python-docx`/`python-pptx`/`openpyxl`)
    - **LLM-appropriate**: Writing paper sections, generating rebuttals, reviewing papers, brainstorming titles, synthesizing literature narratives, designing TikZ diagrams

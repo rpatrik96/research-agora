@@ -97,7 +97,7 @@
           "path": "plugins/academic/commands/paper-experiments.md",
           "research-domain": "general",
           "task-type": "writing",
-          "research-phase": "implementation",
+          "research-phase": "paper-writing",
           "verification-level": "heuristic"
         },
         {
@@ -133,7 +133,7 @@
           "path": "plugins/academic/commands/paper-poster.md",
           "research-domain": "general",
           "task-type": "dissemination",
-          "research-phase": "paper-writing",
+          "research-phase": "dissemination",
           "verification-level": "none"
         },
         {
@@ -181,7 +181,7 @@
           "path": "plugins/academic/commands/paper-slides.md",
           "research-domain": "general",
           "task-type": "dissemination",
-          "research-phase": "paper-writing",
+          "research-phase": "dissemination",
           "verification-level": "none"
         },
         {
@@ -205,7 +205,7 @@
           "path": "plugins/academic/commands/paper-twitter.md",
           "research-domain": "general",
           "task-type": "writing",
-          "research-phase": "paper-writing",
+          "research-phase": "dissemination",
           "verification-level": "none"
         },
         {
@@ -252,7 +252,7 @@
           "model": "sonnet",
           "path": "plugins/development/commands/htcondor.md",
           "research-domain": "general",
-          "task-type": "writing",
+          "task-type": "automation",
           "research-phase": "implementation",
           "verification-level": "none"
         },
@@ -457,7 +457,7 @@
           "path": "plugins/research-agents/agents/clarity-optimizer.md",
           "research-domain": "general",
           "task-type": "writing",
-          "research-phase": "implementation",
+          "research-phase": "paper-writing",
           "verification-level": "heuristic"
         },
         {
@@ -493,7 +493,7 @@
           "path": "plugins/research-agents/agents/devils-advocate.md",
           "research-domain": "general",
           "task-type": "analysis",
-          "research-phase": "implementation",
+          "research-phase": "paper-writing",
           "verification-level": "heuristic"
         },
         {
@@ -504,8 +504,8 @@
           "model": "sonnet",
           "path": "plugins/research-agents/agents/discussion-monitor.md",
           "research-domain": "general",
-          "task-type": "writing",
-          "research-phase": "paper-writing",
+          "task-type": "analysis",
+          "research-phase": "dissemination",
           "verification-level": "none"
         },
         {
@@ -613,7 +613,7 @@
           "path": "plugins/research-agents/agents/reviewer-response-generator.md",
           "research-domain": "general",
           "task-type": "writing",
-          "research-phase": "implementation",
+          "research-phase": "rebuttal",
           "verification-level": "layered"
         },
         {
@@ -625,7 +625,7 @@
           "path": "plugins/research-agents/agents/state-generator.md",
           "research-domain": "general",
           "task-type": "verification",
-          "research-phase": "dissemination",
+          "research-phase": "paper-writing",
           "verification-level": "layered"
         },
         {

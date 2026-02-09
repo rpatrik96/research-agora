@@ -9,7 +9,7 @@ model: sonnet
 color: blue
 metadata:
   research-domain: general
-  research-phase: dissemination
+  research-phase: paper-writing
   task-type: verification
   verification-level: layered
 ---

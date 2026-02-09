@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "benchmarks": [
+    {
+      "id": "citebench",
+      "name": "CiteBench: Citation Hallucination Detection",
+      "repo": "rpatrik96/citebench",
+      "homepage": "https://github.com/rpatrik96/citebench",
+      "description": "A benchmark for evaluating citation hallucination detection tools. Contains real and fabricated BibTeX entries with hallucination type taxonomy.",
+      "task": "Given a BibTeX entry and optional context, classify it as valid or fabricated.",
+      "metrics": ["precision", "recall", "f1", "accuracy"],
+      "primary-metric": "f1",
+      "categories": ["non-existent", "wrong-authors", "wrong-venue", "wrong-year", "plausible-fake"],
+      "submission-format": "jsonl",
+      "dev-set": true,
+      "hidden-test-set": true,
+      "refresh-cadence": "quarterly",
+      "relevant-skills": ["paper-references", "citation-verifier"],
+      "tags": ["citation", "hallucination", "verification", "bibliography"]
+    }
+  ]
+}

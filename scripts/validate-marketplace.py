@@ -152,7 +152,10 @@ def validate_skill(plugin_name: str, plugin_entry: Dict) -> Tuple[bool, List[str
 
     # Check name matches
     if "name" in plugin_json and plugin_json["name"] != plugin_name:
-        errors.append(f"Plugin name mismatch: marketplace says '{plugin_name}', plugin.json says '{plugin_json['name']}'")
+        errors.append(
+            f"Plugin name mismatch: marketplace says '{plugin_name}', "
+            f"plugin.json says '{plugin_json['name']}'"
+        )
 
     # Check SKILL.md exists
     skill_md = plugin_dir / "SKILL.md"
@@ -196,6 +199,75 @@ def validate_agent(plugin_name: str, plugin_entry: Dict) -> Tuple[bool, List[str
 def is_agent_plugin(plugin_entry: Dict) -> bool:
     """Check if a plugin entry is an agent (source is ./agents)."""
     return plugin_entry.get("source") == "./agents"
+
+
+def validate_metadata() -> Tuple[bool, List[str]]:
+    """Validate metadata in skill files against categories.json."""
+    warnings = []
+
+    # Load categories
+    categories_path = REPO_ROOT / "registry" / "categories.json"
+    if not categories_path.exists():
+        warnings.append(f"categories.json not found at {categories_path}, skipping metadata validation")
+        return True, warnings
+
+    try:
+        with open(categories_path) as f:
+            categories = json.load(f)
+    except json.JSONDecodeError as e:
+        warnings.append(f"Invalid JSON in categories.json: {e}")
+        return True, warnings
+
+    valid_domains = set(categories.get("research-domains", []))
+    valid_task_types = set(categories.get("task-types", []))
+    valid_phases = set(categories.get("research-phases", []))
+    valid_verification = set(categories.get("verification-levels", []))
+
+    # Find all skill files
+    skill_files = []
+    for plugin_dir in (REPO_ROOT / "plugins").glob("*/commands/*.md"):
+        skill_files.append(plugin_dir)
+    for agent_file in (REPO_ROOT / "plugins/research-agents/agents").glob("*.md"):
+        skill_files.append(agent_file)
+
+    # Validate each skill
+    for skill_file in skill_files:
+        frontmatter = parse_yaml_frontmatter(skill_file)
+
+        if not frontmatter:
+            warnings.append(f"{skill_file.relative_to(REPO_ROOT)}: No YAML frontmatter found")
+            continue
+
+        metadata = frontmatter.get("metadata", {})
+        if not metadata:
+            warnings.append(f"{skill_file.relative_to(REPO_ROOT)}: Missing 'metadata' block")
+            continue
+
+        # Check each metadata field
+        rel_path = skill_file.relative_to(REPO_ROOT)
+        domain = metadata.get("research-domain")
+        if domain and domain not in valid_domains:
+            valid = sorted(valid_domains)
+            warnings.append(f"{rel_path}: Invalid research-domain '{domain}' (valid: {valid})")
+
+        task_type = metadata.get("task-type")
+        if task_type and task_type not in valid_task_types:
+            valid = sorted(valid_task_types)
+            warnings.append(f"{rel_path}: Invalid task-type '{task_type}' (valid: {valid})")
+
+        phase = metadata.get("research-phase")
+        if phase and phase not in valid_phases:
+            valid = sorted(valid_phases)
+            warnings.append(f"{rel_path}: Invalid research-phase '{phase}' (valid: {valid})")
+
+        verification = metadata.get("verification-level")
+        if verification and verification not in valid_verification:
+            valid = sorted(valid_verification)
+            warnings.append(
+                f"{rel_path}: Invalid verification-level '{verification}' (valid: {valid})"
+            )
+
+    return True, warnings
 
 
 def main():
@@ -273,6 +345,19 @@ def main():
             total_errors.extend(errors)
 
         print()
+
+    # Validate metadata
+    print("Validating skill metadata...")
+    valid, warnings = validate_metadata()
+    if warnings:
+        print(f"  ⚠ Found {len(warnings)} metadata warnings:")
+        for warning in warnings[:20]:  # Limit output
+            print(f"    - {warning}")
+        if len(warnings) > 20:
+            print(f"    ... and {len(warnings) - 20} more")
+    else:
+        print("  ✓ All metadata is valid")
+    print()
 
     print("═" * 70)
     if all_valid:

@@ -5,8 +5,8 @@ model: sonnet
 color: cyan
 metadata:
   research-domain: general
-  research-phase: paper-writing
-  task-type: writing
+  research-phase: dissemination
+  task-type: analysis
   verification-level: none
 ---
 
