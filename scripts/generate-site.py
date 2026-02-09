@@ -150,6 +150,17 @@ def main():
     except Exception as e:
         print(f"  Warning: Could not generate benchmarks page: {e}")
 
+    # Render docs page
+    try:
+        docs_template = env.get_template("docs.html.j2")
+        docs_html = docs_template.render(
+            generated=registry.get("generated", ""),
+        )
+        (OUTPUT_DIR / "docs.html").write_text(docs_html)
+        print("  Documentation page generated")
+    except Exception as e:
+        print(f"  Warning: Could not generate docs page: {e}")
+
     # Copy static files
     if STATIC_DIR.exists():
         for static_file in STATIC_DIR.iterdir():

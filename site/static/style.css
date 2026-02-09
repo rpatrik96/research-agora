@@ -1,5 +1,35 @@
 /* Research Agora — Minimal CSS */
+
+/* Dark theme (default) */
 :root {
+    --bg: #1a1a2e;
+    --bg-secondary: #16213e;
+    --text: #e4e4e7;
+    --text-muted: #a1a1aa;
+    --border: #3f3f46;
+    --primary: #60a5fa;
+    --primary-light: #1e3a5f;
+    --green: #22c55e;
+    --green-light: #14532d;
+    --yellow: #eab308;
+    --yellow-light: #422006;
+    --blue: #60a5fa;
+    --blue-light: #1e3a5f;
+    --gray: #9ca3af;
+    --gray-light: #27272a;
+    --purple: #a78bfa;
+    --purple-light: #2e1065;
+    --orange: #fb923c;
+    --orange-light: #431407;
+    --red: #f87171;
+    --red-light: #450a0a;
+    --radius: 8px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-hover: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+/* Light theme */
+[data-theme="light"] {
     --bg: #ffffff;
     --bg-secondary: #f8f9fa;
     --text: #212529;
@@ -21,7 +51,6 @@
     --orange-light: #fff7ed;
     --red: #dc2626;
     --red-light: #fef2f2;
-    --radius: 8px;
     --shadow: 0 1px 3px rgba(0,0,0,0.1);
     --shadow-hover: 0 4px 12px rgba(0,0,0,0.15);
 }
@@ -33,6 +62,8 @@ body {
     color: var(--text);
     background: var(--bg);
     line-height: 1.6;
+    transition: background 0.3s ease, color 0.3s ease;
+    padding-top: 60px;
 }
 
 .container {
@@ -47,6 +78,29 @@ header {
     border-bottom: 1px solid var(--border);
     padding: 2rem 0;
     text-align: center;
+    position: relative;
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    background: var(--border);
 }
 
 header h1 {
@@ -294,13 +348,78 @@ footer a:hover { text-decoration: underline; }
 
 /* Navigation */
 .site-nav {
-    margin-top: 1rem;
-    font-size: 0.9rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: var(--bg);
+    border-bottom: 2px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    height: 60px;
 }
 
-.site-nav a { color: var(--primary); text-decoration: none; }
-.site-nav a:hover { text-decoration: underline; }
-.site-nav a.active { font-weight: 700; }
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.nav-brand {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.nav-brand:hover {
+    color: var(--primary);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    transition: all 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--text);
+    background: var(--bg-secondary);
+}
+
+.nav-link.active {
+    color: var(--primary);
+    font-weight: 700;
+    background: var(--primary-light);
+}
+
+@media (max-width: 768px) {
+    .nav-brand {
+        font-size: 1rem;
+    }
+
+    .nav-links {
+        gap: 0.5rem;
+    }
+
+    .nav-link {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.75rem;
+    }
+}
 
 /* Benchmarks */
 .benchmark-section {
@@ -367,4 +486,81 @@ footer a:hover { text-decoration: underline; }
     background: var(--primary-light);
     padding: 0.3rem 0.6rem;
     border-radius: 4px;
+}
+
+/* Smooth transitions for theme switching */
+*, *::before, *::after {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Documentation Page */
+.docs-section {
+    margin-bottom: 3rem;
+}
+
+.docs-section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+}
+
+.docs-section h3 {
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.docs-section p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+.docs-section ul, .docs-section ol {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+}
+
+.docs-section li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.docs-section a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.docs-section a:hover {
+    text-decoration: underline;
+}
+
+.platform-guide {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.platform-guide h3 {
+    margin-top: 0;
+    color: var(--primary);
+}
+
+.code-block {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+    font-size: 0.85rem;
+    overflow-x: auto;
+}
+
+.code-block code {
+    color: var(--primary);
+    background: transparent;
+    padding: 0;
 }
