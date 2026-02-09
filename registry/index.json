@@ -2,8 +2,8 @@
   "version": "1.0.0",
   "generated": "2026-02-09",
   "stats": {
-    "total_skills": 72,
-    "commands": 32,
+    "total_skills": 73,
+    "commands": 33,
     "agents": 22,
     "micro_skills": 12,
     "orchestrators": 3,
@@ -219,6 +219,18 @@
           "task-type": "verification",
           "research-phase": "implementation",
           "verification-level": "formal"
+        },
+        {
+          "name": "science-gif",
+          "plugin": "academic",
+          "type": "command",
+          "description": "Create animated GIFs to communicate ML research visually for Twitter/X, GitHub READMEs, and project\nwebsites. Use when asked to \"create science gif\", \"animate results\", \"make animated figure\",\n\"gif for twitter\", \"animate method\", \"visualize algorithm\".",
+          "model": "sonnet",
+          "path": "plugins/academic/commands/science-gif.md",
+          "research-domain": "general",
+          "task-type": "dissemination",
+          "research-phase": "dissemination",
+          "verification-level": "none"
         },
         {
           "name": "code-simplify",
