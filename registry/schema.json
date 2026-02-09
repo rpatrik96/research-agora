@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Research Agora Registry Index",
+  "type": "object",
+  "required": ["version", "generated", "stats", "repos"],
+  "properties": {
+    "version": { "type": "string" },
+    "generated": { "type": "string", "format": "date" },
+    "stats": {
+      "type": "object",
+      "required": ["total_skills", "commands", "agents", "micro_skills", "orchestrators", "helpers", "plugins"],
+      "properties": {
+        "total_skills": { "type": "integer", "minimum": 0 },
+        "commands": { "type": "integer", "minimum": 0 },
+        "agents": { "type": "integer", "minimum": 0 },
+        "micro_skills": { "type": "integer", "minimum": 0 },
+        "orchestrators": { "type": "integer", "minimum": 0 },
+        "helpers": { "type": "integer", "minimum": 0 },
+        "plugins": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "repos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["repo", "description", "skills"],
+        "properties": {
+          "repo": { "type": "string", "pattern": "^[\\w-]+/[\\w-]+$" },
+          "description": { "type": "string" },
+          "homepage": { "type": "string", "format": "uri" },
+          "skills": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name", "plugin", "type", "description", "model", "path"],
+              "properties": {
+                "name": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+                "plugin": { "type": "string" },
+                "type": { "type": "string", "enum": ["command", "agent", "micro-skill", "orchestrator", "helper"] },
+                "description": { "type": "string" },
+                "model": { "type": "string", "enum": ["opus", "sonnet", "haiku"] },
+                "path": { "type": "string" },
+                "research-domain": { "type": "string" },
+                "task-type": { "type": "string" },
+                "research-phase": { "type": "string" },
+                "verification-level": { "type": "string", "enum": ["formal", "heuristic", "layered", "none"] }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

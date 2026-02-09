@@ -1,0 +1,14 @@
+# Default owner
+* @rpatrik96
+
+# Plugin category stewards
+plugins/academic/** @rpatrik96
+plugins/development/** @rpatrik96
+plugins/formatting/** @rpatrik96
+plugins/office/** @rpatrik96
+plugins/research-agents/** @rpatrik96
+
+# Registry and site
+registry/** @rpatrik96
+site/** @rpatrik96
+scripts/** @rpatrik96
