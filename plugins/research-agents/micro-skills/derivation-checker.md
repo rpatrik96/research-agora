@@ -6,6 +6,11 @@ description: |
   and invalid limit exchanges. Trigger: "check derivation", "verify algebra".
 model: opus
 color: gray
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: verification
+  verification-level: heuristic
 ---
 
 # Micro-Skill: Derivation Checker

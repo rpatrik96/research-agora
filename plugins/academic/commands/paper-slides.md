@@ -4,6 +4,11 @@ description: |
   Create presentation slides from research papers for talks and seminars. Use when asked to
   "create slides", "make presentation", "turn paper into slides", "prepare talk".
 model: sonnet
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: dissemination
+  verification-level: none
 ---
 
 # Paper to Slides Skill

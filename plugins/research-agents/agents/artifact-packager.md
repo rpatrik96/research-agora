@@ -3,6 +3,11 @@ name: artifact-packager
 description: Use this agent to prepare ML code/data/models for public release with comprehensive checklists. Activates when asked to "package artifacts", "prepare release", "reproducibility checklist", "code release", or "prepare camera ready".
 model: sonnet
 color: purple
+metadata:
+  research-domain: general
+  research-phase: implementation
+  task-type: verification
+  verification-level: heuristic
 ---
 
 > **Hybrid**: File collection and packaging are scripted (tar/zip). LLM assists with identifying which artifacts to include and writing README files.

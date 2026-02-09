@@ -2,6 +2,11 @@
 name: paper-rebuttal
 description: Write rebuttals to reviewer comments for ML conference submissions. Use when asked to "write rebuttal", "respond to reviewers", "address feedback", "draft response", or "handle reviews". Generates professional, persuasive responses that address concerns constructively.
 model: sonnet
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: writing
+  verification-level: layered
 ---
 
 # Rebuttal Writing

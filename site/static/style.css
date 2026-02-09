@@ -1,0 +1,293 @@
+/* Research Agora — Minimal CSS */
+:root {
+    --bg: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --text: #212529;
+    --text-muted: #6c757d;
+    --border: #dee2e6;
+    --primary: #2563eb;
+    --primary-light: #dbeafe;
+    --green: #16a34a;
+    --green-light: #dcfce7;
+    --yellow: #ca8a04;
+    --yellow-light: #fef9c3;
+    --blue: #2563eb;
+    --blue-light: #dbeafe;
+    --gray: #6b7280;
+    --gray-light: #f3f4f6;
+    --purple: #7c3aed;
+    --purple-light: #ede9fe;
+    --orange: #ea580c;
+    --orange-light: #fff7ed;
+    --red: #dc2626;
+    --red-light: #fef2f2;
+    --radius: 8px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.1);
+    --shadow-hover: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Header */
+header {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 0;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.stats {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.stat {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.install-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.5rem 1rem;
+}
+
+.install-banner code {
+    font-size: 0.85rem;
+    color: var(--primary);
+}
+
+.install-banner button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.25rem 0.75rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.install-banner button:hover { opacity: 0.9; }
+
+/* Layout */
+.layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+@media (max-width: 768px) {
+    .layout { grid-template-columns: 1fr; }
+    .filters { order: -1; }
+}
+
+/* Filters */
+.filters h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.search-box { margin-bottom: 1rem; }
+
+.search-box input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+}
+
+.filters details {
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.75rem;
+}
+
+.filters summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.25rem 0;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-top: 0.5rem;
+}
+
+.filter-group label {
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+}
+
+.reset-btn {
+    width: 100%;
+    padding: 0.5rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+.reset-btn:hover { background: var(--border); }
+
+/* Skills Grid */
+.results-count {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    align-content: start;
+}
+
+.results-count { grid-column: 1 / -1; }
+
+/* Skill Card */
+.skill-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    background: var(--bg);
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.skill-card:hover { box-shadow: var(--shadow-hover); }
+
+.skill-card.hidden { display: none; }
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.card-header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.card-description {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    flex: 1;
+}
+
+.card-meta {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.install-cmd {
+    font-size: 0.75rem;
+    color: var(--primary);
+    background: var(--primary-light);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 250px;
+}
+
+.source-link {
+    font-size: 0.8rem;
+    color: var(--primary);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.source-link:hover { text-decoration: underline; }
+
+/* Badges */
+.badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.badge-plugin { background: var(--purple-light); color: var(--purple); }
+.badge-type { background: var(--gray-light); color: var(--gray); }
+
+.badge-formal { background: var(--green-light); color: var(--green); }
+.badge-heuristic { background: var(--yellow-light); color: var(--yellow); }
+.badge-layered { background: var(--blue-light); color: var(--blue); }
+.badge-none { background: var(--gray-light); color: var(--gray); }
+
+.badge-opus { background: var(--orange-light); color: var(--orange); }
+.badge-sonnet { background: var(--blue-light); color: var(--blue); }
+.badge-haiku { background: var(--green-light); color: var(--green); }
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+footer a { color: var(--primary); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+.generated { margin-top: 0.5rem; font-size: 0.75rem; }

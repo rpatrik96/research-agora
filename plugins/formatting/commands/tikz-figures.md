@@ -5,6 +5,11 @@ description: |
   Use when asked to "create TikZ figure", "draw neural network", "make diagram in LaTeX",
   "TikZ flowchart", or "create architecture diagram".
 model: sonnet
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: formatting
+  verification-level: none
 ---
 
 # TikZ Figures for ML Papers

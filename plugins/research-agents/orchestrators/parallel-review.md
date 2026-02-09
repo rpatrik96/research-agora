@@ -6,6 +6,11 @@ description: |
   perspectives. Trigger: "parallel review", "full paper review".
 model: opus
 color: purple
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: verification
+  verification-level: layered
 ---
 
 # Orchestrator: Parallel Paper Review

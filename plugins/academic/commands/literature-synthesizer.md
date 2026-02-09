@@ -6,6 +6,11 @@ description: |
   "build bibliography", or "what papers should I cite". Runs multi-query arXiv searches
   and presents papers for approval before synthesizing into a related work section.
 model: sonnet
+metadata:
+  research-domain: general
+  research-phase: literature-review
+  task-type: writing
+  verification-level: layered
 ---
 
 # Literature Synthesizer Agent

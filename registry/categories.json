@@ -1,0 +1,36 @@
+{
+  "research-domains": [
+    "ml",
+    "nlp",
+    "cv",
+    "robotics",
+    "theory",
+    "statistics",
+    "biology",
+    "general"
+  ],
+  "task-types": [
+    "writing",
+    "verification",
+    "analysis",
+    "formatting",
+    "automation",
+    "dissemination",
+    "review"
+  ],
+  "research-phases": [
+    "literature-review",
+    "experiment-design",
+    "implementation",
+    "paper-writing",
+    "submission",
+    "rebuttal",
+    "dissemination"
+  ],
+  "verification-levels": [
+    "formal",
+    "heuristic",
+    "layered",
+    "none"
+  ]
+}

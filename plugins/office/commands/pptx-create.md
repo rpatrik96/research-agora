@@ -12,6 +12,11 @@ triggers:
 dependencies:
   - python-pptx>=0.6.21
   - Pillow>=9.0.0
+metadata:
+  research-domain: general
+  research-phase: dissemination
+  task-type: dissemination
+  verification-level: none
 ---
 
 # PowerPoint Creation Skill

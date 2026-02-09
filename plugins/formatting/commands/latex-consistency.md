@@ -2,6 +2,11 @@
 name: latex-consistency
 description: Enforce consistent LaTeX formatting for ML conference papers. Use when asked to "fix LaTeX", "make LaTeX consistent", "format paper", "check LaTeX style", or "standardize notation". Covers math notation, references, tables, and common ML conventions.
 model: haiku
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: verification
+  verification-level: heuristic
 ---
 
 # LaTeX Consistency

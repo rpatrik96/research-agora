@@ -2,6 +2,11 @@
 name: paper-review
 description: Generate critical reviews of ML paper drafts simulating a skeptical reviewer. Use when asked to "review my paper", "find weaknesses", "critique this draft", "what would reviewers say", or "assess my submission". Provides harsh but constructive feedback to strengthen the paper before submission.
 model: sonnet
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: review
+  verification-level: layered
 ---
 
 # Critical Paper Review

@@ -5,6 +5,11 @@ description: |
   returns classification with confidence. Trigger: "classify claim".
 model: haiku
 color: gray
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: analysis
+  verification-level: layered
 ---
 
 # Micro-Skill: Claim Classifier

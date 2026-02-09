@@ -2,6 +2,11 @@
 name: paper-literature
 description: Write literature review and related work sections for ML papers. Use when asked to "write related work", "literature review", "find related papers", "survey prior work", or "position the paper". Searches arXiv for relevant papers and synthesizes them into a coherent narrative.
 model: sonnet
+metadata:
+  research-domain: general
+  research-phase: literature-review
+  task-type: writing
+  verification-level: layered
 ---
 
 # Literature Review & Related Work

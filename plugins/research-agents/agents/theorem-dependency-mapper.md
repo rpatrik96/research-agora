@@ -7,6 +7,11 @@ description: |
   "dependency graph", "trace assumptions".
 model: sonnet
 color: cyan
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: analysis
+  verification-level: none
 ---
 
 # Theorem Dependency Mapper

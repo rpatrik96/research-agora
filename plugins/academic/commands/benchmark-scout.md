@@ -6,6 +6,11 @@ description: |
   "standard evaluation", "what to compare against", or "evaluation protocol".
   Searches arXiv for benchmark papers and extracts evaluation protocols.
 model: sonnet
+metadata:
+  research-domain: general
+  research-phase: literature-review
+  task-type: analysis
+  verification-level: none
 ---
 
 # Benchmark Scout Agent

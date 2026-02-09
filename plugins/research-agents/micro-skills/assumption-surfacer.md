@@ -6,6 +6,11 @@ description: |
   "surface implicit assumptions", "check assumptions".
 model: haiku
 color: gray
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: verification
+  verification-level: heuristic
 ---
 
 # Micro-Skill: Assumption Surfacer

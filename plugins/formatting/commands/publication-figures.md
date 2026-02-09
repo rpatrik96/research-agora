@@ -2,6 +2,11 @@
 name: publication-figures
 description: Create publication-ready figures for ML conferences (NeurIPS, ICML, ICLR, AAAI) using matplotlib/seaborn with LaTeX typography. Use when asked to "create plots", "make figures publication ready", "format for conference", "style matplotlib", or "improve figure quality".
 model: haiku
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: formatting
+  verification-level: heuristic
 ---
 
 # Publication-Ready Figures

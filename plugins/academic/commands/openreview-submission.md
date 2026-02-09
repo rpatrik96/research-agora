@@ -6,6 +6,11 @@ description: |
   "write TL;DR", "create lay summary", "submission form", or "camera-ready metadata".
   Produces copy-pasteable abstract, keywords, TL;DR, and lay summary.
 model: sonnet
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: writing
+  verification-level: heuristic
 ---
 
 # OpenReview Submission Preparation

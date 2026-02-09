@@ -5,6 +5,11 @@ description: |
   no cross-references needed. Trigger: "extract claims from section".
 model: haiku
 color: gray
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: analysis
+  verification-level: layered
 ---
 
 # Micro-Skill: Claim Extractor

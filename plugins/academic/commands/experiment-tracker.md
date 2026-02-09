@@ -6,6 +6,11 @@ description: |
   "experiment to paper", "refresh results", or "sync paper with repo".
   Extracts metrics from code/logs and updates paper sections.
 model: sonnet
+metadata:
+  research-domain: general
+  research-phase: experiment-design
+  task-type: automation
+  verification-level: none
 ---
 
 # Experiment Tracker Agent

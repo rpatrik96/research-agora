@@ -3,6 +3,11 @@ name: statistical-validator
 description: Use this agent to verify statistical rigor in ML papers - p-values, confidence intervals, significance tests, effect sizes. Activates when asked to "validate statistics", "check statistical rigor", "verify p-values", "statistical validation", or "check significance".
 model: sonnet
 color: blue
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: verification
+  verification-level: formal
 ---
 
 > **Hybrid**: Statistical checks (sample size, p-value ranges) can be partially scripted. LLM is needed for interpreting statistical validity in context.

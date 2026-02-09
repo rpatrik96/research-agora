@@ -1,6 +1,11 @@
 ---
 name: pr-automation
 description: Create GitHub pull requests from changes made during a chat session. Use when asked to "create a PR", "open a pull request", "submit changes", "push and create PR", or at the end of a coding session when changes should be submitted for review. Handles branch creation, conventional commits, and PR description generation.
+metadata:
+  research-domain: general
+  research-phase: implementation
+  task-type: automation
+  verification-level: layered
 ---
 
 # PR Automation

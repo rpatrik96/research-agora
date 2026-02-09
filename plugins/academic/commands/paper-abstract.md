@@ -5,6 +5,11 @@ description: |
   "write abstract", "improve abstract", "draft abstract", "summarize paper",
   or "abstract for submission". Structures context, problem, approach, results, and impact.
 model: sonnet
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: writing
+  verification-level: none
 ---
 
 # Abstract Writing

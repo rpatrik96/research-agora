@@ -7,6 +7,11 @@ description: |
   "verify proof", "proof verification", "find proof gaps".
 model: opus
 color: orange
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: verification
+  verification-level: heuristic
 ---
 
 # Proof Auditor

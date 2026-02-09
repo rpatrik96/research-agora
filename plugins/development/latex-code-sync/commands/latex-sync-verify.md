@@ -2,6 +2,11 @@
 name: latex-sync-verify
 description: Run verification between paper equations and code implementations. Use when asked to "verify equations", "check paper-code consistency", "run equation tests", or "validate implementations match paper".
 model: sonnet
+metadata:
+  research-domain: general
+  research-phase: implementation
+  task-type: verification
+  verification-level: formal
 ---
 
 # Verify Equation-Code Consistency

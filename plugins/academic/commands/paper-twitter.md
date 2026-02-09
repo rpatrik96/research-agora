@@ -4,6 +4,11 @@ description: |
   Create Twitter/X threads to announce and explain research papers. Use when asked to
   "write twitter thread", "create tweet thread", "announce paper on twitter", "paper tweet".
 model: sonnet
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: writing
+  verification-level: none
 ---
 
 # Paper to Twitter Thread Skill

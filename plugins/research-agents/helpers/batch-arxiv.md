@@ -5,6 +5,11 @@ description: |
   executes with rate limiting, and caches results. Trigger: "batch arxiv search".
 model: haiku
 color: gray
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: analysis
+  verification-level: none
 ---
 
 # Helper: Batch ArXiv Search

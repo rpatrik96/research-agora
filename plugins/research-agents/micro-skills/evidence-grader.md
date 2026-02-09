@@ -5,6 +5,11 @@ description: |
   returns strength level (L1-L6) and venue compliance. Trigger: "grade evidence for claim".
 model: sonnet
 color: gray
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: analysis
+  verification-level: layered
 ---
 
 # Micro-Skill: Evidence Grader

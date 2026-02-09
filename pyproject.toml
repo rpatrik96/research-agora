@@ -1,5 +1,5 @@
 [project]
-name = "claude-skills"
+name = "research-agora"
 version = "1.0.0"
 description = "Research Agora - A plugin marketplace for Claude Code"
 requires-python = ">=3.9"
@@ -8,6 +8,10 @@ requires-python = ">=3.9"
 test = [
     "pytest>=7.0.0",
     "pytest-xdist>=3.0.0",
+    "pyyaml>=6.0",
+]
+site = [
+    "jinja2>=3.1.0",
     "pyyaml>=6.0",
 ]
 dev = [

@@ -12,6 +12,11 @@ triggers:
 dependencies:
   - python-docx>=0.8.11
   - Pillow>=9.0.0
+metadata:
+  research-domain: general
+  research-phase: dissemination
+  task-type: automation
+  verification-level: none
 ---
 
 # Word Document Creation Skill

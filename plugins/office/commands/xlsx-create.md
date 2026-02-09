@@ -12,6 +12,11 @@ triggers:
 dependencies:
   - openpyxl>=3.1.0
   - pandas>=2.0.0
+metadata:
+  research-domain: general
+  research-phase: dissemination
+  task-type: automation
+  verification-level: none
 ---
 
 # Excel Spreadsheet Creation Skill

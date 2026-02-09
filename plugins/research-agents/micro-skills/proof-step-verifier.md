@@ -6,6 +6,11 @@ description: |
   Atomic, parallelizable operation. Trigger: "verify proof step".
 model: opus
 color: gray
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: verification
+  verification-level: heuristic
 ---
 
 # Micro-Skill: Proof Step Verifier

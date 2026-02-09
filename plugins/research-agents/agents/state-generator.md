@@ -7,6 +7,11 @@ description: |
   "parse paper for analysis", "prepare paper for audit".
 model: sonnet
 color: blue
+metadata:
+  research-domain: general
+  research-phase: dissemination
+  task-type: verification
+  verification-level: layered
 ---
 
 # Research State Generator

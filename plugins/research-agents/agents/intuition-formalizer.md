@@ -8,6 +8,11 @@ description: |
   "formalize this claim".
 model: opus
 color: green
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: analysis
+  verification-level: layered
 ---
 
 # Intuition Formalizer

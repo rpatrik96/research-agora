@@ -7,6 +7,11 @@ description: |
   "check convergence rate", "verify complexity", "bounds analysis".
 model: opus
 color: orange
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: verification
+  verification-level: formal
 ---
 
 # Bounds Analyst

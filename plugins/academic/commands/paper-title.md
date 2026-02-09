@@ -4,6 +4,11 @@ description: |
   Brainstorm compelling titles for academic papers. Use when asked to
   "brainstorm titles", "suggest paper titles", "title ideas", "name my paper",
   or "help with paper title". Generates diverse options using proven patterns.
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: writing
+  verification-level: none
 ---
 
 # Paper Title Brainstorming

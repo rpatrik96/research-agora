@@ -35,6 +35,9 @@ htmlcov/
 .tox/
 .nox/
 
+# Generated site output
+site/output/
+
 # Local development
 *.log
 .env

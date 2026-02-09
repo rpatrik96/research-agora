@@ -7,6 +7,11 @@ description: |
   "claim verification", or "evidence check".
 model: sonnet
 color: orange
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: verification
+  verification-level: heuristic
 ---
 
 # Claim Auditor (v2 - Parallel-Enabled)

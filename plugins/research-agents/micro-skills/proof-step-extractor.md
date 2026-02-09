@@ -6,6 +6,11 @@ description: |
   Trigger: "extract proof steps", "decompose proof".
 model: sonnet
 color: gray
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: verification
+  verification-level: layered
 ---
 
 # Micro-Skill: Proof Step Extractor

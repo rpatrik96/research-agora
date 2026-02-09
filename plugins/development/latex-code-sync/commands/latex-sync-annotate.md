@@ -2,6 +2,11 @@
 name: latex-sync-annotate
 description: Add @latex decorators to existing functions to link them with paper equations. Use when asked to "annotate functions", "link functions to equations", "add equation decorators", or "connect code to LaTeX".
 model: sonnet
+metadata:
+  research-domain: general
+  research-phase: implementation
+  task-type: analysis
+  verification-level: none
 ---
 
 # Annotate Functions with LaTeX Links

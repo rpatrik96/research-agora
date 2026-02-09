@@ -3,6 +3,11 @@ name: figure-storyteller
 description: Use this agent to generate publication-quality figures with narrative focus. Activates when asked to "create figure", "figure storytelling", "visualize results", "make publication figure", or "data visualization".
 model: sonnet
 color: teal
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: formatting
+  verification-level: none
 ---
 
 > **LLM-required**: Crafting figure narratives requires understanding visual communication. No script alternative.

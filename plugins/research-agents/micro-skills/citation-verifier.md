@@ -6,6 +6,11 @@ description: |
   Trigger: "verify citation", "check reference accuracy".
 model: haiku
 color: gray
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: verification
+  verification-level: formal
 ---
 
 # Micro-Skill: Citation Verifier

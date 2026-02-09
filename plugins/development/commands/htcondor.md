@@ -7,6 +7,11 @@ description: |
   parameter sweeps, multi-seed experiments, and ablation studies.
 model: sonnet
 allowed-tools: Read, Write, Bash(ls *), Glob, Grep
+metadata:
+  research-domain: general
+  research-phase: implementation
+  task-type: writing
+  verification-level: none
 ---
 
 # HTCondor Job Generation

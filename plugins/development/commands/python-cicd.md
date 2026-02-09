@@ -2,6 +2,11 @@
 name: python-cicd
 description: Set up Python CI/CD with GitHub Actions, pre-commit hooks, and code quality tools. Use when asked to "set up CI/CD", "add pre-commit hooks", "configure GitHub Actions", "add linting", or "set up testing pipeline". Configures Black, isort, flake8, and pytest for Python 3.11.
 model: haiku
+metadata:
+  research-domain: general
+  research-phase: implementation
+  task-type: formatting
+  verification-level: heuristic
 ---
 
 # Python CI/CD Setup

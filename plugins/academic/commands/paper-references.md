@@ -2,6 +2,11 @@
 name: paper-references
 description: Fact-check references in ML paper drafts. Use when asked to "verify citations", "check references", "fact-check bibliography", "validate citations", or "audit references". Verifies papers exist on arXiv, checks author names, years, and titles against actual publications.
 model: sonnet
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: verification
+  verification-level: formal
 ---
 
 # Reference Fact-Checking

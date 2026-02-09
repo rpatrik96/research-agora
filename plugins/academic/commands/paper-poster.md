@@ -4,6 +4,11 @@ description: |
   Create academic conference posters from research papers. Use when asked to
   "create poster", "make poster", "turn paper into poster", "poster for conference".
 model: sonnet
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: dissemination
+  verification-level: none
 ---
 
 # Paper to Poster Skill

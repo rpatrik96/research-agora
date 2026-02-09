@@ -6,6 +6,11 @@ description: |
   "verify novelty", "search for prior work".
 model: sonnet
 color: orange
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: verification
+  verification-level: heuristic
 ---
 
 # Micro-Skill: Novelty Checker

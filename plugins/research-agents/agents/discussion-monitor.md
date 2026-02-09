@@ -3,6 +3,11 @@ name: discussion-monitor
 description: Use this agent to track citations, social media discussions, and community engagement post-publication. Activates when asked to "monitor discussions", "track citations", "paper impact", "social mentions", or "discussion tracking".
 model: sonnet
 color: cyan
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: writing
+  verification-level: none
 ---
 
 > **LLM-required**: Monitoring discussion quality requires evaluating argument coherence. No script alternative.

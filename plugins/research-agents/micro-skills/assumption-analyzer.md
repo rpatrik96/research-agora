@@ -6,6 +6,11 @@ description: |
   Atomic, parallelizable operation. Trigger: "analyze assumption".
 model: sonnet
 color: gray
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: analysis
+  verification-level: layered
 ---
 
 # Micro-Skill: Assumption Analyzer

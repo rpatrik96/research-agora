@@ -3,6 +3,11 @@ name: co-author-sync
 description: Use this agent for multi-author coordination across collaboration tools. Activates when asked to "sync coauthors", "coordinate authors", "author contributions", "team coordination", or "collaboration sync".
 model: sonnet
 color: yellow
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: automation
+  verification-level: none
 ---
 
 > **LLM-required**: Managing co-author feedback requires understanding and reconciling different writing perspectives. No script alternative.

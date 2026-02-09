@@ -7,6 +7,11 @@ description: |
   "test assumptions", "break this theorem", "assumption necessity".
 model: opus
 color: red
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: analysis
+  verification-level: none
 ---
 
 # Counterexample Searcher

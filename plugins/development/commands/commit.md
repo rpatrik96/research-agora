@@ -5,6 +5,11 @@ description: |
   "commit", "save changes", "create a commit", or "commit my changes".
   Generates conventional commit messages with co-authorship attribution.
 model: haiku
+metadata:
+  research-domain: general
+  research-phase: implementation
+  task-type: automation
+  verification-level: none
 ---
 
 # Commit Changes

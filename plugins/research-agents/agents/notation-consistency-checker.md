@@ -8,6 +8,11 @@ description: |
   "find notation issues", "verify notation".
 model: sonnet
 color: cyan
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: verification
+  verification-level: heuristic
 ---
 
 # Notation Consistency Checker

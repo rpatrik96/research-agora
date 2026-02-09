@@ -6,6 +6,11 @@ description: |
   Trigger: "parallel audit", "fast claim audit", "audit paper claims".
 model: opus
 color: purple
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: verification
+  verification-level: layered
 ---
 
 # Orchestrator: Parallel Claim Audit

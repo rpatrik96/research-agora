@@ -2,6 +2,11 @@
 name: paper-introduction
 description: Write or improve introduction sections for ML conference papers. Use when asked to "write introduction", "improve intro", "draft intro", "motivate the paper", or "write opening". Structures motivation, problem statement, contributions, and paper outline.
 model: sonnet
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: writing
+  verification-level: none
 ---
 
 # Introduction Section

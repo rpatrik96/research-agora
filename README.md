@@ -1,6 +1,8 @@
 # Research Agora
 
-A plugin marketplace for Claude Code with skills for ML research workflows, academic writing, and development automation.
+A community-driven skills marketplace for AI-assisted research. Browse, install, and share modular AI workflows for ML research.
+
+**[Browse Skills](https://research-agora.github.io)** | **[Platform Design](PLATFORM.md)** | **[Contributing](CONTRIBUTING.md)**
 
 ## Installation
 

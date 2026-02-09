@@ -8,6 +8,11 @@ description: |
   "proof technique", "prove this theorem".
 model: opus
 color: green
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: verification
+  verification-level: layered
 ---
 
 # Proof Strategy Advisor

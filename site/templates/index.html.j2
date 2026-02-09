@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Agora — AI Skills for Research</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Research Agora</h1>
+            <p class="subtitle">Community-driven AI skills for ML research workflows</p>
+            <div class="stats">
+                <span class="stat"><strong>{{ stats.total_skills }}</strong> skills</span>
+                <span class="stat"><strong>{{ stats.plugins }}</strong> plugins</span>
+                <span class="stat"><strong>{{ stats.commands }}</strong> commands</span>
+                <span class="stat"><strong>{{ stats.agents }}</strong> agents</span>
+            </div>
+            <div class="install-banner">
+                <code>/plugin marketplace add rpatrik96/research-agora</code>
+                <button onclick="navigator.clipboard.writeText('/plugin marketplace add rpatrik96/research-agora')" title="Copy to clipboard" aria-label="Copy install command">Copy</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="layout">
+            <aside class="filters">
+                <h2>Filters</h2>
+
+                <div class="search-box">
+                    <input type="text" id="search" placeholder="Search skills..." aria-label="Search skills">
+                </div>
+
+                <details open>
+                    <summary>Plugin</summary>
+                    <div class="filter-group" data-filter="plugin">
+                        {% for p in plugins %}
+                        <label><input type="checkbox" value="{{ p }}" checked> {{ p }}</label>
+                        {% endfor %}
+                    </div>
+                </details>
+
+                <details open>
+                    <summary>Skill Type</summary>
+                    <div class="filter-group" data-filter="type">
+                        {% for t in types %}
+                        <label><input type="checkbox" value="{{ t }}" checked> {{ t }}</label>
+                        {% endfor %}
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Task Type</summary>
+                    <div class="filter-group" data-filter="task-type">
+                        {% for t in task_types %}
+                        <label><input type="checkbox" value="{{ t }}" checked> {{ t }}</label>
+                        {% endfor %}
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Research Phase</summary>
+                    <div class="filter-group" data-filter="phase">
+                        {% for p in phases %}
+                        <label><input type="checkbox" value="{{ p }}" checked> {{ p }}</label>
+                        {% endfor %}
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Verification Level</summary>
+                    <div class="filter-group" data-filter="verification">
+                        {% for v in verification_levels %}
+                        <label><input type="checkbox" value="{{ v }}" checked> {{ v }}</label>
+                        {% endfor %}
+                    </div>
+                </details>
+
+                <button id="reset-filters" class="reset-btn">Reset All Filters</button>
+            </aside>
+
+            <section class="skills-grid" id="skills-grid">
+                <p class="results-count" id="results-count">Showing {{ skills|length }} skills</p>
+
+                {% for skill in skills %}
+                <article class="skill-card"
+                    data-plugin="{{ skill.plugin }}"
+                    data-type="{{ skill.type }}"
+                    data-task-type="{{ skill['task-type'] }}"
+                    data-phase="{{ skill['research-phase'] }}"
+                    data-verification="{{ skill['verification-level'] }}"
+                    data-name="{{ skill.name }}"
+                    data-description="{{ skill.description }}">
+
+                    <div class="card-header">
+                        <h3>{{ skill.name }}</h3>
+                        <span class="badge badge-plugin">{{ skill.plugin }}</span>
+                    </div>
+
+                    <p class="card-description">{{ skill.description[:200] }}{% if skill.description|length > 200 %}...{% endif %}</p>
+
+                    <div class="card-meta">
+                        <span class="badge {{ skill['verification-level']|verification_badge }}">{{ skill['verification-level'] }}</span>
+                        <span class="badge {{ skill.model|model_badge }}">{{ skill.model }}</span>
+                        <span class="badge badge-type">{{ skill.type }}</span>
+                    </div>
+
+                    <div class="card-actions">
+                        <code class="install-cmd">/plugin install {{ skill.name }}@research-agora</code>
+                        <a href="{{ skill.source_url }}" target="_blank" rel="noopener" class="source-link">Source</a>
+                    </div>
+                </article>
+                {% endfor %}
+            </section>
+        </div>
+    </main>
+
+    <footer class="container">
+        <p>
+            <a href="https://github.com/rpatrik96/research-agora">GitHub</a> |
+            <a href="https://github.com/rpatrik96/research-agora/blob/main/CONTRIBUTING.md">Contribute</a> |
+            <a href="https://github.com/rpatrik96/research-agora/blob/main/PLATFORM.md">Platform Design</a>
+        </p>
+        <p class="generated">Generated {{ generated }}</p>
+    </footer>
+
+    <script src="search.js"></script>
+</body>
+</html>

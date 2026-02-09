@@ -3,6 +3,11 @@ name: reviewer-response-generator
 description: Use this agent to generate structured rebuttals with code/data evidence for reviewer comments. Activates when asked to "write rebuttal", "respond to reviewers", "reviewer response", "address reviewer comments", or "rebuttal draft".
 model: sonnet
 color: purple
+metadata:
+  research-domain: general
+  research-phase: implementation
+  task-type: writing
+  verification-level: layered
 ---
 
 > **LLM-required**: Generating reviewer responses requires understanding concerns and composing arguments. No script alternative.

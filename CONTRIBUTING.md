@@ -41,7 +41,14 @@ research-agora/
 
 ### 2. Create the Skill File
 
-Create a markdown file in `plugins/{category}/commands/skill-name.md`:
+Use the scaffolding tool or create a markdown file manually in `plugins/{category}/commands/skill-name.md`:
+
+```bash
+# Scaffolding tool (recommended)
+python scripts/create-skill.py --name my-skill --category academic --type writing --domain ml
+```
+
+Manual format:
 
 ```yaml
 ---
@@ -50,6 +57,11 @@ description: |
   Brief description of what this skill does. Use when asked to
   "trigger phrase 1", "trigger phrase 2", "trigger phrase 3".
 model: sonnet  # or haiku for simpler tasks
+metadata:
+  research-domain: general    # ml, nlp, cv, robotics, theory, statistics, biology, general
+  task-type: writing          # writing, verification, analysis, formatting, automation, dissemination, review
+  research-phase: paper-writing  # literature-review, experiment-design, implementation, paper-writing, submission, rebuttal, dissemination
+  verification-level: none    # formal, heuristic, layered, none
 ---
 
 # Skill Title
@@ -70,6 +82,8 @@ Include concrete examples with code blocks.
 
 Specify the expected output format.
 ```
+
+The `metadata` block is **required** for all new skills. Valid values for each field are defined in `registry/categories.json`.
 
 ### 3. Naming Conventions
 
@@ -132,8 +146,14 @@ What the agent produces.
 Run the test suite before submitting:
 
 ```bash
-cd research-agora
 pytest tests/
+```
+
+To validate registry consistency after adding skills:
+
+```bash
+python scripts/generate-registry.py
+pytest tests/test_registry.py
 ```
 
 ## Pull Request Guidelines

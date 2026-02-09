@@ -3,6 +3,11 @@ name: devils-advocate
 description: Use this agent to challenge arguments, identify logical fallacies, and expose cognitive biases. Supports iterative refinement through constructive adversarial thinking. Invoke during brainstorming, hypothesis formation, or before committing to claims.
 model: opus
 color: orange
+metadata:
+  research-domain: general
+  research-phase: implementation
+  task-type: analysis
+  verification-level: heuristic
 ---
 
 > **LLM-required**: Generating counterarguments requires creative critical thinking. No script alternative.

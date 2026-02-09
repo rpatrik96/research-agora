@@ -3,6 +3,11 @@ name: perspective-synthesizer
 description: Use this agent to synthesize different perspectives, methodologies, or research approaches into unified frameworks. Invoke for literature review synthesis, reconciling conflicting findings, bridging research communities, or resolving disagreements.
 model: sonnet
 color: pink
+metadata:
+  research-domain: general
+  research-phase: literature-review
+  task-type: writing
+  verification-level: layered
 ---
 
 > **LLM-required**: Synthesizing multiple perspectives requires understanding diverse viewpoints. No script alternative.

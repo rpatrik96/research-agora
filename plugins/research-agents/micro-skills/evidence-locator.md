@@ -6,6 +6,11 @@ description: |
   Trigger: "locate evidence for claim", "find supporting evidence".
 model: haiku
 color: gray
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: analysis
+  verification-level: layered
 ---
 
 # Micro-Skill: Evidence Locator

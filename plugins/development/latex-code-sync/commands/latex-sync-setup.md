@@ -2,6 +2,11 @@
 name: latex-sync-setup
 description: Initialize latex-code-sync in a project. Use when asked to "set up equation verification", "link paper to code", "initialize latex-code-sync", or "set up paper-code synchronization". Creates equations module, configuration, and optionally CI workflow.
 model: sonnet
+metadata:
+  research-domain: general
+  research-phase: implementation
+  task-type: formatting
+  verification-level: none
 ---
 
 # LaTeX-Code Sync Setup

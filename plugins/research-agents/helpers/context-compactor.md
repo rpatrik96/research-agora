@@ -6,6 +6,11 @@ description: |
   reducing token count. Trigger: "compact context", "generate subagent context".
 model: sonnet
 color: blue
+metadata:
+  research-domain: general
+  research-phase: submission
+  task-type: formatting
+  verification-level: heuristic
 ---
 
 # Helper: Context Compactor

@@ -6,6 +6,11 @@ description: |
   Trigger: "check consistency", "cross-reference claims", "find contradictions".
 model: sonnet
 color: gray
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: verification
+  verification-level: heuristic
 ---
 
 # Micro-Skill: Cross-Referencer

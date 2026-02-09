@@ -2,6 +2,11 @@
 name: paper-verify-experiments
 description: Verify experimental claims in ML papers against source code repositories. Use when asked to "verify experiments", "check claims against code", "fact-check results", "audit experiments", or "validate paper against repo". Cross-references paper statements with actual implementation.
 model: sonnet
+metadata:
+  research-domain: general
+  research-phase: implementation
+  task-type: verification
+  verification-level: formal
 ---
 
 # Experimental Claim Verification

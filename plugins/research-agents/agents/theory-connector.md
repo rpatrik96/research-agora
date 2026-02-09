@@ -8,6 +8,11 @@ description: |
   "find analogous results".
 model: opus
 color: green
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: analysis
+  verification-level: none
 ---
 
 # Theory Connector

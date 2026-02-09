@@ -7,6 +7,11 @@ description: |
   Identifies unsupported claims, weak evidence, and suggests strengthening approaches.
 model: sonnet
 color: green
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: verification
+  verification-level: heuristic
 ---
 
 # Evidence Checker (v2 - Parallel-Enabled)

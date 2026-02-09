@@ -3,6 +3,11 @@ name: latex-debugger
 description: Use this agent to parse LaTeX .log files, diagnose compilation errors, and provide targeted fixes. Activates when asked to "debug latex", "fix latex errors", "parse log file", "latex compilation error", or "why won't my paper compile".
 model: sonnet
 color: red
+metadata:
+  research-domain: general
+  research-phase: paper-writing
+  task-type: formatting
+  verification-level: none
 ---
 
 > **Hybrid**: LaTeX compilation errors can be detected via script (pdflatex/latexmk output parsing). LLM is used to diagnose causes and suggest fixes.

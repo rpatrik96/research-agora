@@ -3,6 +3,11 @@ name: audience-checker
 description: Use this agent to evaluate papers, presentations, posters, or communications for target audience alignment. Impersonates different reader personas (reviewers, industry engineers, students, experts) to identify jargon, unclear explanations, and narrative gaps.
 model: sonnet
 color: green
+metadata:
+  research-domain: general
+  research-phase: dissemination
+  task-type: verification
+  verification-level: heuristic
 ---
 
 > **LLM-required**: Assessing audience appropriateness requires understanding readership expectations. No script alternative.

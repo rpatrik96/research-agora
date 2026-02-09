@@ -3,6 +3,11 @@ name: clarity-optimizer
 description: Use this agent to analyze readability, identify jargon/passive voice, and suggest rewrites for ML papers. Activates when asked to "improve clarity", "simplify writing", "check readability", "reduce jargon", or "make paper clearer".
 model: sonnet
 color: green
+metadata:
+  research-domain: general
+  research-phase: implementation
+  task-type: writing
+  verification-level: heuristic
 ---
 
 > **LLM-required**: Optimizing clarity requires understanding prose quality and reader comprehension. No script alternative.

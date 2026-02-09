@@ -2,6 +2,11 @@
 name: python-docs
 description: Generate NumPy-style docstrings with type hints for Python code. Use when asked to document Python functions, classes, modules, or entire codebases. Triggers on requests like "document this code", "add docstrings", "generate documentation", or "add type hints".
 model: sonnet
+metadata:
+  research-domain: general
+  research-phase: implementation
+  task-type: automation
+  verification-level: none
 ---
 
 # Python Documentation Generator
