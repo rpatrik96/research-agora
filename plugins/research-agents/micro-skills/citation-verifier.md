@@ -11,6 +11,7 @@ metadata:
   research-phase: paper-writing
   task-type: verification
   verification-level: formal
+  visibility: internal
 ---
 
 # Micro-Skill: Citation Verifier

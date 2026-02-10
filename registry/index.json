@@ -1,9 +1,10 @@
 {
   "version": "1.0.0",
-  "generated": "2026-02-09",
+  "generated": "2026-02-10",
   "stats": {
-    "total_skills": 73,
-    "commands": 33,
+    "total_skills": 72,
+    "public_skills": 53,
+    "commands": 32,
     "agents": 22,
     "micro_skills": 12,
     "orchestrators": 3,
@@ -26,7 +27,8 @@
           "research-domain": "general",
           "task-type": "analysis",
           "research-phase": "literature-review",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "experiment-tracker",
@@ -38,19 +40,21 @@
           "research-domain": "general",
           "task-type": "automation",
           "research-phase": "experiment-design",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "literature-synthesizer",
           "plugin": "academic",
           "type": "command",
-          "description": "Autonomously discover and synthesize relevant literature for ML papers. Use when asked to\n\"find related work\", \"literature review\", \"survey the field\", \"find papers on [topic]\",\n\"build bibliography\", or \"what papers should I cite\". Runs multi-query arXiv searches\nand presents papers for approval before synthesizing into a related work section.",
+          "description": "Write related work sections and discover relevant literature for ML papers. Use when asked to\n\"write related work\", \"find related work\", \"literature review\", \"survey the field\",\n\"find papers on [topic]\", \"build bibliography\", \"survey prior work\", \"position the paper\",\nor \"what papers should I cite\". Supports both guided mode (provide papers to include) and\nautonomous mode (multi-query arXiv searches with paper approval workflow).",
           "model": "sonnet",
           "path": "plugins/academic/commands/literature-synthesizer.md",
           "research-domain": "general",
           "task-type": "writing",
           "research-phase": "literature-review",
-          "verification-level": "layered"
+          "verification-level": "layered",
+          "visibility": "public"
         },
         {
           "name": "openreview-submission",
@@ -62,7 +66,8 @@
           "research-domain": "general",
           "task-type": "writing",
           "research-phase": "paper-writing",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "public"
         },
         {
           "name": "paper-abstract",
@@ -74,7 +79,8 @@
           "research-domain": "general",
           "task-type": "writing",
           "research-phase": "paper-writing",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "paper-discussion",
@@ -86,7 +92,8 @@
           "research-domain": "general",
           "task-type": "writing",
           "research-phase": "paper-writing",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "paper-experiments",
@@ -98,7 +105,8 @@
           "research-domain": "general",
           "task-type": "writing",
           "research-phase": "paper-writing",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "public"
         },
         {
           "name": "paper-introduction",
@@ -110,19 +118,8 @@
           "research-domain": "general",
           "task-type": "writing",
           "research-phase": "paper-writing",
-          "verification-level": "none"
-        },
-        {
-          "name": "paper-literature",
-          "plugin": "academic",
-          "type": "command",
-          "description": "Write literature review and related work sections for ML papers. Use when asked to \"write related work\", \"literature review\", \"find related papers\", \"survey prior work\", or \"position the paper\". Searches arXiv for relevant papers and synthesizes them into a coherent narrative.",
-          "model": "sonnet",
-          "path": "plugins/academic/commands/paper-literature.md",
-          "research-domain": "general",
-          "task-type": "writing",
-          "research-phase": "literature-review",
-          "verification-level": "layered"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "paper-poster",
@@ -134,19 +131,21 @@
           "research-domain": "general",
           "task-type": "dissemination",
           "research-phase": "dissemination",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "paper-rebuttal",
           "plugin": "academic",
           "type": "command",
-          "description": "Write rebuttals to reviewer comments for ML conference submissions. Use when asked to \"write rebuttal\", \"respond to reviewers\", \"address feedback\", \"draft response\", or \"handle reviews\". Generates professional, persuasive responses that address concerns constructively.",
+          "description": "Quick template-driven rebuttal drafting for ML conference submissions. Use when asked to \"write rebuttal\", \"respond to reviewers\", \"address feedback\", \"draft response\", or \"handle reviews\". Generates professional, persuasive responses using structured templates. For evidence-backed rebuttals with code/data proof, use the reviewer-response-generator agent instead.",
           "model": "sonnet",
           "path": "plugins/academic/commands/paper-rebuttal.md",
           "research-domain": "general",
           "task-type": "writing",
           "research-phase": "paper-writing",
-          "verification-level": "layered"
+          "verification-level": "layered",
+          "visibility": "public"
         },
         {
           "name": "paper-references",
@@ -158,7 +157,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "formal"
+          "verification-level": "formal",
+          "visibility": "public"
         },
         {
           "name": "paper-review",
@@ -170,7 +170,8 @@
           "research-domain": "general",
           "task-type": "review",
           "research-phase": "paper-writing",
-          "verification-level": "layered"
+          "verification-level": "layered",
+          "visibility": "public"
         },
         {
           "name": "paper-slides",
@@ -182,7 +183,8 @@
           "research-domain": "general",
           "task-type": "dissemination",
           "research-phase": "dissemination",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "paper-title",
@@ -194,7 +196,8 @@
           "research-domain": "general",
           "task-type": "writing",
           "research-phase": "paper-writing",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "paper-twitter",
@@ -206,7 +209,8 @@
           "research-domain": "general",
           "task-type": "writing",
           "research-phase": "dissemination",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "paper-verify-experiments",
@@ -218,7 +222,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "implementation",
-          "verification-level": "formal"
+          "verification-level": "formal",
+          "visibility": "public"
         },
         {
           "name": "science-gif",
@@ -230,7 +235,8 @@
           "research-domain": "general",
           "task-type": "dissemination",
           "research-phase": "dissemination",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "code-simplify",
@@ -242,7 +248,8 @@
           "research-domain": "general",
           "task-type": "analysis",
           "research-phase": "implementation",
-          "verification-level": "layered"
+          "verification-level": "layered",
+          "visibility": "public"
         },
         {
           "name": "commit",
@@ -254,7 +261,8 @@
           "research-domain": "general",
           "task-type": "automation",
           "research-phase": "implementation",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "htcondor",
@@ -266,7 +274,8 @@
           "research-domain": "general",
           "task-type": "automation",
           "research-phase": "implementation",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "pr-automation",
@@ -278,7 +287,8 @@
           "research-domain": "general",
           "task-type": "automation",
           "research-phase": "implementation",
-          "verification-level": "layered"
+          "verification-level": "layered",
+          "visibility": "public"
         },
         {
           "name": "python-cicd",
@@ -290,7 +300,8 @@
           "research-domain": "general",
           "task-type": "formatting",
           "research-phase": "implementation",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "public"
         },
         {
           "name": "python-docs",
@@ -302,7 +313,8 @@
           "research-domain": "general",
           "task-type": "automation",
           "research-phase": "implementation",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "latex-sync-annotate",
@@ -314,7 +326,8 @@
           "research-domain": "general",
           "task-type": "analysis",
           "research-phase": "implementation",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "latex-sync-setup",
@@ -326,7 +339,8 @@
           "research-domain": "general",
           "task-type": "formatting",
           "research-phase": "implementation",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "latex-sync-verify",
@@ -338,7 +352,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "implementation",
-          "verification-level": "formal"
+          "verification-level": "formal",
+          "visibility": "public"
         },
         {
           "name": "latex-consistency",
@@ -350,7 +365,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "public"
         },
         {
           "name": "publication-figures",
@@ -362,7 +378,8 @@
           "research-domain": "general",
           "task-type": "formatting",
           "research-phase": "paper-writing",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "public"
         },
         {
           "name": "tikz-figures",
@@ -374,7 +391,8 @@
           "research-domain": "general",
           "task-type": "formatting",
           "research-phase": "paper-writing",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "docx-create",
@@ -386,7 +404,8 @@
           "research-domain": "general",
           "task-type": "automation",
           "research-phase": "dissemination",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "pptx-create",
@@ -398,7 +417,8 @@
           "research-domain": "general",
           "task-type": "dissemination",
           "research-phase": "dissemination",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "xlsx-create",
@@ -410,7 +430,8 @@
           "research-domain": "general",
           "task-type": "automation",
           "research-phase": "dissemination",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "artifact-packager",
@@ -422,7 +443,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "implementation",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "public"
         },
         {
           "name": "audience-checker",
@@ -434,7 +456,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "dissemination",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "public"
         },
         {
           "name": "bounds-analyst",
@@ -446,7 +469,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "formal"
+          "verification-level": "formal",
+          "visibility": "public"
         },
         {
           "name": "claim-auditor",
@@ -458,7 +482,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "public"
         },
         {
           "name": "clarity-optimizer",
@@ -470,7 +495,8 @@
           "research-domain": "general",
           "task-type": "writing",
           "research-phase": "paper-writing",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "public"
         },
         {
           "name": "co-author-sync",
@@ -482,7 +508,8 @@
           "research-domain": "general",
           "task-type": "automation",
           "research-phase": "paper-writing",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "counterexample-searcher",
@@ -494,7 +521,8 @@
           "research-domain": "general",
           "task-type": "analysis",
           "research-phase": "paper-writing",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "devils-advocate",
@@ -506,7 +534,8 @@
           "research-domain": "general",
           "task-type": "analysis",
           "research-phase": "paper-writing",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "public"
         },
         {
           "name": "discussion-monitor",
@@ -518,7 +547,8 @@
           "research-domain": "general",
           "task-type": "analysis",
           "research-phase": "dissemination",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "evidence-checker",
@@ -530,7 +560,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "public"
         },
         {
           "name": "figure-storyteller",
@@ -542,7 +573,8 @@
           "research-domain": "general",
           "task-type": "formatting",
           "research-phase": "paper-writing",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "intuition-formalizer",
@@ -554,7 +586,8 @@
           "research-domain": "general",
           "task-type": "analysis",
           "research-phase": "paper-writing",
-          "verification-level": "layered"
+          "verification-level": "layered",
+          "visibility": "public"
         },
         {
           "name": "latex-debugger",
@@ -566,7 +599,8 @@
           "research-domain": "general",
           "task-type": "formatting",
           "research-phase": "paper-writing",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "notation-consistency-checker",
@@ -578,7 +612,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "public"
         },
         {
           "name": "perspective-synthesizer",
@@ -590,7 +625,8 @@
           "research-domain": "general",
           "task-type": "writing",
           "research-phase": "literature-review",
-          "verification-level": "layered"
+          "verification-level": "layered",
+          "visibility": "public"
         },
         {
           "name": "proof-auditor",
@@ -602,7 +638,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "public"
         },
         {
           "name": "proof-strategy-advisor",
@@ -614,19 +651,21 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "layered"
+          "verification-level": "layered",
+          "visibility": "public"
         },
         {
           "name": "reviewer-response-generator",
           "plugin": "research-agents",
           "type": "agent",
-          "description": "Use this agent to generate structured rebuttals with code/data evidence for reviewer comments. Activates when asked to \"write rebuttal\", \"respond to reviewers\", \"reviewer response\", \"address reviewer comments\", or \"rebuttal draft\".",
+          "description": "Evidence-backed rebuttal agent that gathers code/data proof for reviewer responses. Activates when asked to \"write rebuttal with evidence\", \"respond to reviewers\", \"reviewer response\", \"address reviewer comments\", or \"rebuttal draft\". Goes beyond templates by searching GitHub for baselines and arXiv for supporting citations. For quick template-driven rebuttals, use the paper-rebuttal skill instead.",
           "model": "sonnet",
           "path": "plugins/research-agents/agents/reviewer-response-generator.md",
           "research-domain": "general",
           "task-type": "writing",
           "research-phase": "rebuttal",
-          "verification-level": "layered"
+          "verification-level": "layered",
+          "visibility": "public"
         },
         {
           "name": "state-generator",
@@ -638,7 +677,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "layered"
+          "verification-level": "layered",
+          "visibility": "internal"
         },
         {
           "name": "statistical-validator",
@@ -650,7 +690,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "formal"
+          "verification-level": "formal",
+          "visibility": "public"
         },
         {
           "name": "theorem-dependency-mapper",
@@ -662,7 +703,8 @@
           "research-domain": "general",
           "task-type": "analysis",
           "research-phase": "paper-writing",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "theory-connector",
@@ -674,7 +716,8 @@
           "research-domain": "general",
           "task-type": "analysis",
           "research-phase": "paper-writing",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "public"
         },
         {
           "name": "assumption-analyzer",
@@ -686,7 +729,8 @@
           "research-domain": "general",
           "task-type": "analysis",
           "research-phase": "paper-writing",
-          "verification-level": "layered"
+          "verification-level": "layered",
+          "visibility": "internal"
         },
         {
           "name": "assumption-surfacer",
@@ -698,7 +742,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "internal"
         },
         {
           "name": "citation-verifier",
@@ -710,7 +755,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "formal"
+          "verification-level": "formal",
+          "visibility": "internal"
         },
         {
           "name": "claim-classifier",
@@ -722,7 +768,8 @@
           "research-domain": "general",
           "task-type": "analysis",
           "research-phase": "paper-writing",
-          "verification-level": "layered"
+          "verification-level": "layered",
+          "visibility": "internal"
         },
         {
           "name": "claim-extractor",
@@ -734,7 +781,8 @@
           "research-domain": "general",
           "task-type": "analysis",
           "research-phase": "paper-writing",
-          "verification-level": "layered"
+          "verification-level": "layered",
+          "visibility": "internal"
         },
         {
           "name": "cross-referencer",
@@ -746,7 +794,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "internal"
         },
         {
           "name": "derivation-checker",
@@ -758,7 +807,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "internal"
         },
         {
           "name": "evidence-grader",
@@ -770,7 +820,8 @@
           "research-domain": "general",
           "task-type": "analysis",
           "research-phase": "paper-writing",
-          "verification-level": "layered"
+          "verification-level": "layered",
+          "visibility": "internal"
         },
         {
           "name": "evidence-locator",
@@ -782,7 +833,8 @@
           "research-domain": "general",
           "task-type": "analysis",
           "research-phase": "paper-writing",
-          "verification-level": "layered"
+          "verification-level": "layered",
+          "visibility": "internal"
         },
         {
           "name": "novelty-checker",
@@ -794,7 +846,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "internal"
         },
         {
           "name": "proof-step-extractor",
@@ -806,7 +859,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "layered"
+          "verification-level": "layered",
+          "visibility": "internal"
         },
         {
           "name": "proof-step-verifier",
@@ -818,7 +872,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "internal"
         },
         {
           "name": "parallel-audit",
@@ -830,7 +885,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "layered"
+          "verification-level": "layered",
+          "visibility": "internal"
         },
         {
           "name": "parallel-review",
@@ -842,7 +898,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "layered"
+          "verification-level": "layered",
+          "visibility": "internal"
         },
         {
           "name": "parallel-theory-audit",
@@ -854,7 +911,8 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "internal"
         },
         {
           "name": "batch-arxiv",
@@ -866,7 +924,8 @@
           "research-domain": "general",
           "task-type": "analysis",
           "research-phase": "paper-writing",
-          "verification-level": "none"
+          "verification-level": "none",
+          "visibility": "internal"
         },
         {
           "name": "context-compactor",
@@ -878,7 +937,8 @@
           "research-domain": "general",
           "task-type": "formatting",
           "research-phase": "submission",
-          "verification-level": "heuristic"
+          "verification-level": "heuristic",
+          "visibility": "internal"
         },
         {
           "name": "prefetch-evidence",
@@ -890,7 +950,8 @@
           "research-domain": "general",
           "task-type": "analysis",
           "research-phase": "paper-writing",
-          "verification-level": "layered"
+          "verification-level": "layered",
+          "visibility": "internal"
         }
       ]
     }

@@ -32,5 +32,52 @@
     "heuristic",
     "layered",
     "none"
-  ]
+  ],
+  "groups": {
+    "paper-drafting": {
+      "label": "Paper Drafting",
+      "description": "Write and structure paper sections",
+      "icon": "pencil"
+    },
+    "quality-verification": {
+      "label": "Quality & Verification",
+      "description": "Review, audit claims, and verify evidence",
+      "icon": "shield-check"
+    },
+    "theory-tools": {
+      "label": "Theory Tools",
+      "description": "Proof verification, bounds analysis, and formal methods",
+      "icon": "function"
+    },
+    "literature-discovery": {
+      "label": "Literature & Discovery",
+      "description": "Find related work, benchmarks, and research gaps",
+      "icon": "search"
+    },
+    "writing-polish": {
+      "label": "Writing Polish",
+      "description": "Improve clarity, fix LaTeX, and check audience fit",
+      "icon": "sparkles"
+    },
+    "dissemination": {
+      "label": "Dissemination",
+      "description": "Posters, slides, social media, and animations",
+      "icon": "megaphone"
+    },
+    "submission-rebuttal": {
+      "label": "Submission & Rebuttal",
+      "description": "Submit to venues and respond to reviewers",
+      "icon": "send"
+    },
+    "development": {
+      "label": "Development & Automation",
+      "description": "Git workflows, CI/CD, documentation, and code quality",
+      "icon": "terminal"
+    },
+    "documents-figures": {
+      "label": "Documents & Figures",
+      "description": "Office documents, publication figures, and TikZ diagrams",
+      "icon": "image"
+    }
+  }
 }

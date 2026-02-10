@@ -1,73 +1,139 @@
 /**
- * Research Agora — Client-side filtering and search
+ * Research Agora — Client-side filtering, search, and group-aware navigation
  * No dependencies, vanilla JS.
  */
 (function() {
     'use strict';
 
     const searchInput = document.getElementById('search');
-    const grid = document.getElementById('skills-grid');
-    const cards = Array.from(grid.querySelectorAll('.skill-card'));
+    const content = document.getElementById('skills-content');
     const resultsCount = document.getElementById('results-count');
     const resetBtn = document.getElementById('reset-filters');
+    const showInternalCb = document.getElementById('show-internal');
+    const internalSection = document.getElementById('internal-section');
+    const intentButtons = document.querySelectorAll('.intent-btn');
+    const groups = document.querySelectorAll('.skill-group');
+
+    // All public cards (inside groups)
+    const publicCards = Array.from(content.querySelectorAll('.skill-group .skill-card'));
+    // All internal cards
+    const internalCards = Array.from(content.querySelectorAll('.skill-card-internal'));
+    // Total public count for display
+    const totalPublic = publicCards.length;
+
+    let activeIntent = 'all';
 
     function getCheckedValues(filterName) {
-        const group = document.querySelector(`[data-filter="${filterName}"]`);
+        const group = document.querySelector('[data-filter="' + filterName + '"]');
         if (!group) return null;
         const checked = Array.from(group.querySelectorAll('input:checked'));
         const all = Array.from(group.querySelectorAll('input'));
         if (checked.length === all.length) return null; // all checked = no filter
-        return checked.map(cb => cb.value);
+        return checked.map(function(cb) { return cb.value; });
+    }
+
+    function matchesSearch(card, query) {
+        if (!query) return true;
+        var name = (card.dataset.name || '').toLowerCase();
+        var desc = (card.dataset.description || '').toLowerCase();
+        return name.includes(query) || desc.includes(query);
+    }
+
+    function matchesFilters(card, pluginFilter, taskTypeFilter, verificationFilter) {
+        if (pluginFilter && !pluginFilter.includes(card.dataset.plugin)) return false;
+        if (taskTypeFilter && !taskTypeFilter.includes(card.dataset.taskType)) return false;
+        if (verificationFilter && !verificationFilter.includes(card.dataset.verification)) return false;
+        return true;
     }
 
     function filterCards() {
-        const query = searchInput.value.toLowerCase().trim();
-        const pluginFilter = getCheckedValues('plugin');
-        const typeFilter = getCheckedValues('type');
-        const taskTypeFilter = getCheckedValues('task-type');
-        const phaseFilter = getCheckedValues('phase');
-        const verificationFilter = getCheckedValues('verification');
+        var query = searchInput.value.toLowerCase().trim();
+        var pluginFilter = getCheckedValues('plugin');
+        var taskTypeFilter = getCheckedValues('task-type');
+        var verificationFilter = getCheckedValues('verification');
 
-        let visible = 0;
+        var visiblePublic = 0;
 
-        cards.forEach(card => {
-            let show = true;
+        // Determine which groups are visible based on intent
+        var intentGroups = null;
+        if (activeIntent !== 'all') {
+            intentGroups = activeIntent.split(',');
+        }
 
-            // Text search
-            if (query) {
-                const name = (card.dataset.name || '').toLowerCase();
-                const desc = (card.dataset.description || '').toLowerCase();
-                if (!name.includes(query) && !desc.includes(query)) {
-                    show = false;
-                }
+        // Filter public cards within groups
+        groups.forEach(function(group) {
+            var groupId = group.dataset.group;
+            var groupHidden = intentGroups && !intentGroups.includes(groupId);
+
+            if (groupHidden) {
+                group.classList.add('hidden');
+                return;
             }
 
-            // Filter checks
-            if (show && pluginFilter && !pluginFilter.includes(card.dataset.plugin)) show = false;
-            if (show && typeFilter && !typeFilter.includes(card.dataset.type)) show = false;
-            if (show && taskTypeFilter && !taskTypeFilter.includes(card.dataset.taskType)) show = false;
-            if (show && phaseFilter && !phaseFilter.includes(card.dataset.phase)) show = false;
-            if (show && verificationFilter && !verificationFilter.includes(card.dataset.verification)) show = false;
+            var cards = Array.from(group.querySelectorAll('.skill-card'));
+            var groupVisible = 0;
 
-            card.classList.toggle('hidden', !show);
-            if (show) visible++;
+            cards.forEach(function(card) {
+                var show = matchesSearch(card, query) && matchesFilters(card, pluginFilter, taskTypeFilter, verificationFilter);
+                card.classList.toggle('hidden', !show);
+                if (show) {
+                    groupVisible++;
+                    visiblePublic++;
+                }
+            });
+
+            // Hide group if no visible cards
+            group.classList.toggle('hidden', groupVisible === 0);
         });
 
-        resultsCount.textContent = `Showing ${visible} of ${cards.length} skills`;
+        // Filter internal cards if visible
+        if (showInternalCb.checked) {
+            var visibleInternal = 0;
+            internalCards.forEach(function(card) {
+                var show = matchesSearch(card, query) && matchesFilters(card, pluginFilter, taskTypeFilter, verificationFilter);
+                card.classList.toggle('hidden', !show);
+                if (show) visibleInternal++;
+            });
+            internalSection.classList.toggle('hidden', visibleInternal === 0);
+            resultsCount.textContent = 'Showing ' + visiblePublic + ' of ' + totalPublic + ' skills' +
+                (visibleInternal > 0 ? ' + ' + visibleInternal + ' internal' : '');
+        } else {
+            internalSection.classList.add('hidden');
+            resultsCount.textContent = 'Showing ' + visiblePublic + ' of ' + totalPublic + ' skills';
+        }
     }
 
-    // Bind events
+    // Intent button handlers
+    intentButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            intentButtons.forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            activeIntent = btn.dataset.groups;
+            filterCards();
+        });
+    });
+
+    // Internal toggle
+    showInternalCb.addEventListener('change', filterCards);
+
+    // Search input
     searchInput.addEventListener('input', filterCards);
 
-    document.querySelectorAll('.filter-group input').forEach(cb => {
+    // Filter checkboxes
+    document.querySelectorAll('.filter-group input').forEach(function(cb) {
         cb.addEventListener('change', filterCards);
     });
 
+    // Reset button
     resetBtn.addEventListener('click', function() {
         searchInput.value = '';
-        document.querySelectorAll('.filter-group input').forEach(cb => {
+        showInternalCb.checked = false;
+        document.querySelectorAll('.filter-group input').forEach(function(cb) {
             cb.checked = true;
         });
+        intentButtons.forEach(function(b) { b.classList.remove('active'); });
+        document.querySelector('.intent-btn-all').classList.add('active');
+        activeIntent = 'all';
         filterCards();
     });
 })();

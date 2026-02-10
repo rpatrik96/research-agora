@@ -11,6 +11,7 @@ metadata:
   research-phase: paper-writing
   task-type: analysis
   verification-level: layered
+  visibility: internal
 ---
 
 # Helper: Evidence Pre-fetcher

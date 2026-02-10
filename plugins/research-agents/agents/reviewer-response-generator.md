@@ -1,6 +1,6 @@
 ---
 name: reviewer-response-generator
-description: Use this agent to generate structured rebuttals with code/data evidence for reviewer comments. Activates when asked to "write rebuttal", "respond to reviewers", "reviewer response", "address reviewer comments", or "rebuttal draft".
+description: Evidence-backed rebuttal agent that gathers code/data proof for reviewer responses. Activates when asked to "write rebuttal with evidence", "respond to reviewers", "reviewer response", "address reviewer comments", or "rebuttal draft". Goes beyond templates by searching GitHub for baselines and arXiv for supporting citations. For quick template-driven rebuttals, use the paper-rebuttal skill instead.
 model: sonnet
 color: purple
 metadata:

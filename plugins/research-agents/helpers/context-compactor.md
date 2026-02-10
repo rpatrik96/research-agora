@@ -11,6 +11,7 @@ metadata:
   research-phase: submission
   task-type: formatting
   verification-level: heuristic
+  visibility: internal
 ---
 
 # Helper: Context Compactor

@@ -60,10 +60,14 @@ class TestCategoriesJson:
             assert key in categories_data, f"Missing key in categories.json: {key}"
 
     def test_categories_values_are_lists(self, categories_data: dict) -> None:
-        """All category values must be non-empty lists."""
+        """All category values must be non-empty lists (except 'groups' which is a dict)."""
         for key, values in categories_data.items():
-            assert isinstance(values, list), f"{key} must be a list"
-            assert len(values) > 0, f"{key} must not be empty"
+            if key == "groups":
+                assert isinstance(values, dict), f"{key} must be a dict"
+                assert len(values) > 0, f"{key} must not be empty"
+            else:
+                assert isinstance(values, list), f"{key} must be a list"
+                assert len(values) > 0, f"{key} must not be empty"
 
     def test_categories_values_are_strings(self, categories_data: dict) -> None:
         """All category list items must be strings."""
@@ -211,6 +215,131 @@ class TestRegistrySkills:
                 assert level in valid, (
                     f"Skill '{skill['name']}' has invalid verification-level: {level}"
                 )
+
+
+class TestVisibility:
+    """Tests for skill visibility field."""
+
+    def test_all_skills_have_visibility(self, registry_skills: list) -> None:
+        """Every skill must have a visibility field."""
+        for skill in registry_skills:
+            assert "visibility" in skill, (
+                f"Skill '{skill['name']}' missing visibility field"
+            )
+
+    def test_visibility_values_are_valid(self, registry_skills: list) -> None:
+        """Visibility must be 'public' or 'internal'."""
+        valid = {"public", "internal"}
+        for skill in registry_skills:
+            assert skill["visibility"] in valid, (
+                f"Skill '{skill['name']}' has invalid visibility: {skill['visibility']}"
+            )
+
+    def test_public_skills_count(self, registry_skills: list) -> None:
+        """There should be more public skills than internal ones."""
+        public = [s for s in registry_skills if s["visibility"] == "public"]
+        internal = [s for s in registry_skills if s["visibility"] == "internal"]
+        assert len(public) > len(internal), (
+            f"Expected more public ({len(public)}) than internal ({len(internal)}) skills"
+        )
+
+    def test_internal_skills_are_building_blocks(self, registry_skills: list) -> None:
+        """Internal skills should be micro-skills, helpers, orchestrators, or internal agents."""
+        building_block_types = {"micro-skill", "helper", "orchestrator"}
+        for skill in registry_skills:
+            if skill["visibility"] == "internal":
+                is_building_block = skill["type"] in building_block_types
+                is_state_generator = skill["name"] == "state-generator"
+                assert is_building_block or is_state_generator, (
+                    f"Internal skill '{skill['name']}' has unexpected type '{skill['type']}'"
+                )
+
+    def test_public_skills_stats_match(self, registry_data: dict, registry_skills: list) -> None:
+        """Registry stats.public_skills must match actual public skill count."""
+        public_count = sum(1 for s in registry_skills if s["visibility"] == "public")
+        assert registry_data["stats"]["public_skills"] == public_count
+
+
+class TestGroupsTaxonomy:
+    """Tests for the groups taxonomy in categories.json."""
+
+    def test_groups_key_exists(self, categories_data: dict) -> None:
+        """categories.json must have a 'groups' key."""
+        assert "groups" in categories_data
+
+    def test_groups_have_required_fields(self, categories_data: dict) -> None:
+        """Each group must have label, description, and icon."""
+        groups = categories_data.get("groups", {})
+        for group_id, group_meta in groups.items():
+            assert "label" in group_meta, f"Group '{group_id}' missing 'label'"
+            assert "description" in group_meta, f"Group '{group_id}' missing 'description'"
+            assert "icon" in group_meta, f"Group '{group_id}' missing 'icon'"
+
+    def test_groups_labels_are_nonempty(self, categories_data: dict) -> None:
+        """Group labels must be non-empty strings."""
+        groups = categories_data.get("groups", {})
+        for group_id, group_meta in groups.items():
+            assert isinstance(group_meta["label"], str) and len(group_meta["label"]) > 0, (
+                f"Group '{group_id}' has empty or non-string label"
+            )
+
+    def test_expected_groups_exist(self, categories_data: dict) -> None:
+        """The 9 expected groups must all be defined."""
+        expected = {
+            "paper-drafting", "quality-verification", "theory-tools",
+            "literature-discovery", "writing-polish", "dissemination",
+            "submission-rebuttal", "development", "documents-figures",
+        }
+        actual = set(categories_data.get("groups", {}).keys())
+        missing = expected - actual
+        assert len(missing) == 0, f"Missing expected groups: {missing}"
+
+
+class TestSkillGroupMapping:
+    """Tests for the skill-to-group mapping in generate-site.py."""
+
+    def test_all_public_skills_are_mapped(self, registry_skills: list) -> None:
+        """Every public skill must have a group assignment in generate-site.py."""
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(
+            "generate_site", REPO_ROOT / "scripts" / "generate-site.py"
+        )
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+
+        public_skills = [s for s in registry_skills if s["visibility"] == "public"]
+        unmapped = [s["name"] for s in public_skills if s["name"] not in mod.SKILL_GROUP_MAP]
+        assert len(unmapped) == 0, f"Public skills without group mapping: {unmapped}"
+
+    def test_no_internal_skills_mapped(self, registry_skills: list) -> None:
+        """Internal skills should not appear in the group mapping."""
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(
+            "generate_site", REPO_ROOT / "scripts" / "generate-site.py"
+        )
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+
+        internal_names = {s["name"] for s in registry_skills if s["visibility"] == "internal"}
+        mapped_internal = internal_names & set(mod.SKILL_GROUP_MAP.keys())
+        assert len(mapped_internal) == 0, (
+            f"Internal skills should not be in SKILL_GROUP_MAP: {mapped_internal}"
+        )
+
+    def test_group_map_values_are_valid(self, categories_data: dict) -> None:
+        """All group IDs in SKILL_GROUP_MAP must exist in categories.json groups."""
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(
+            "generate_site", REPO_ROOT / "scripts" / "generate-site.py"
+        )
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+
+        valid_groups = set(categories_data.get("groups", {}).keys())
+        for skill_name, group_id in mod.SKILL_GROUP_MAP.items():
+            assert group_id in valid_groups, (
+                f"Skill '{skill_name}' mapped to unknown group '{group_id}'"
+            )
 
 
 class TestRegistryMatchesDisk:

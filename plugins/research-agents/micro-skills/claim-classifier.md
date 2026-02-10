@@ -10,6 +10,7 @@ metadata:
   research-phase: paper-writing
   task-type: analysis
   verification-level: layered
+  visibility: internal
 ---
 
 # Micro-Skill: Claim Classifier

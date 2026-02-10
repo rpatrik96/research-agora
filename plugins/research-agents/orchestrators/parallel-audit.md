@@ -11,6 +11,7 @@ metadata:
   research-phase: paper-writing
   task-type: verification
   verification-level: layered
+  visibility: internal
 ---
 
 # Orchestrator: Parallel Claim Audit

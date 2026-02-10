@@ -117,6 +117,7 @@ def build_skill_entry(file_path: Path) -> dict | None:
         "task-type": metadata.get("task-type", ""),
         "research-phase": metadata.get("research-phase", ""),
         "verification-level": metadata.get("verification-level", "none"),
+        "visibility": metadata.get("visibility", "public"),
     }
 
     return entry
@@ -179,6 +180,7 @@ def main():
         "generated": date.today().isoformat(),
         "stats": {
             "total_skills": len(skills),
+            "public_skills": sum(1 for s in skills if s.get("visibility", "public") == "public"),
             "commands": sum(1 for s in skills if s["type"] == "command"),
             "agents": sum(1 for s in skills if s["type"] == "agent"),
             "micro_skills": sum(1 for s in skills if s["type"] == "micro-skill"),

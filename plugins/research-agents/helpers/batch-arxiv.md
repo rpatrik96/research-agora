@@ -10,6 +10,7 @@ metadata:
   research-phase: paper-writing
   task-type: analysis
   verification-level: none
+  visibility: internal
 ---
 
 # Helper: Batch ArXiv Search

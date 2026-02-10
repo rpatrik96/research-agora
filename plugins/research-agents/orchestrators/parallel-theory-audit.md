@@ -12,6 +12,7 @@ metadata:
   research-phase: paper-writing
   task-type: verification
   verification-level: heuristic
+  visibility: internal
 ---
 
 # Orchestrator: Parallel Theory Audit

@@ -30,7 +30,7 @@ Paper writing, research, and dissemination skills:
 |-------|-------------|
 | `paper-introduction` | Write introduction sections for ML papers |
 | `paper-abstract` | Write or improve paper abstracts |
-| `paper-literature` | Write literature review and related work |
+| `literature-synthesizer` | Write related work and discover relevant literature |
 | `paper-experiments` | Document experimental setups with GitHub integration |
 | `paper-discussion` | Write discussion and limitations sections |
 | `paper-review` | Generate critical reviews simulating skeptical reviewers |

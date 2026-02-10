@@ -1,6 +1,6 @@
 ---
 name: paper-rebuttal
-description: Write rebuttals to reviewer comments for ML conference submissions. Use when asked to "write rebuttal", "respond to reviewers", "address feedback", "draft response", or "handle reviews". Generates professional, persuasive responses that address concerns constructively.
+description: Quick template-driven rebuttal drafting for ML conference submissions. Use when asked to "write rebuttal", "respond to reviewers", "address feedback", "draft response", or "handle reviews". Generates professional, persuasive responses using structured templates. For evidence-backed rebuttals with code/data proof, use the reviewer-response-generator agent instead.
 model: sonnet
 metadata:
   research-domain: general

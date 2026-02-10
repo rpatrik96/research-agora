@@ -1,10 +1,11 @@
 ---
 name: literature-synthesizer
 description: |
-  Autonomously discover and synthesize relevant literature for ML papers. Use when asked to
-  "find related work", "literature review", "survey the field", "find papers on [topic]",
-  "build bibliography", or "what papers should I cite". Runs multi-query arXiv searches
-  and presents papers for approval before synthesizing into a related work section.
+  Write related work sections and discover relevant literature for ML papers. Use when asked to
+  "write related work", "find related work", "literature review", "survey the field",
+  "find papers on [topic]", "build bibliography", "survey prior work", "position the paper",
+  or "what papers should I cite". Supports both guided mode (provide papers to include) and
+  autonomous mode (multi-query arXiv searches with paper approval workflow).
 model: sonnet
 metadata:
   research-domain: general
@@ -15,7 +16,7 @@ metadata:
 
 # Literature Synthesizer Agent
 
-Autonomous multi-query literature discovery with paper approval workflow. This agent extends the `paper-literature` skill with autonomous search capabilities and structured paper discovery.
+Autonomous multi-query literature discovery with paper approval workflow. Supports both guided mode (provide specific papers to include) and autonomous mode (multi-query arXiv search with paper approval).
 
 > **Hybrid**: Paper discovery uses MCP tools (arXiv API) as structured searches - always execute these first. Deduplication is done programmatically. LLM is used for query generation, relevance ranking, and narrative synthesis.
 
@@ -272,6 +273,5 @@ Before finalizing:
 
 ## Skill Dependencies
 
-This agent extends and can invoke:
-- `paper-literature` - For final related work writing style
+This skill can invoke:
 - `paper-references` - For BibTeX verification and updating

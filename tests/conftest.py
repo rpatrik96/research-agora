@@ -56,7 +56,7 @@ def all_command_files(plugins_dir: Path) -> list[Path]:
             commands_dir = plugin_dir / "commands"
             if commands_dir.exists():
                 for cmd_file in commands_dir.iterdir():
-                    if cmd_file.suffix == ".md" and not cmd_file.name.startswith("."):
+                    if cmd_file.suffix == ".md" and not cmd_file.name.startswith(".") and not cmd_file.stem.isupper():
                         command_files.append(cmd_file)
     return sorted(command_files)
 
