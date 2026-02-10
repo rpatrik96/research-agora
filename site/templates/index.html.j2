@@ -111,7 +111,14 @@
                                 <span class="badge badge-plugin">{{ skill.plugin }}</span>
                             </div>
 
-                            <p class="card-description">{{ skill.description[:150] }}{% if skill.description|length > 150 %}...{% endif %}</p>
+                            <div class="card-description">
+                                {% if skill.description|length > 150 %}
+                                <p class="desc-short">{{ skill.description[:150] }}...<button class="desc-toggle" aria-label="Show full description">more</button></p>
+                                <p class="desc-full hidden">{{ skill.description }}<button class="desc-toggle" aria-label="Collapse description">less</button></p>
+                                {% else %}
+                                <p>{{ skill.description }}</p>
+                                {% endif %}
+                            </div>
 
                             <div class="card-meta">
                                 <span class="badge {{ skill['verification-level']|verification_badge }}">{{ skill['verification-level'] }}</span>
@@ -147,7 +154,14 @@
                                 <span class="badge badge-type">{{ skill.type }}</span>
                             </div>
 
-                            <p class="card-description">{{ skill.description[:150] }}{% if skill.description|length > 150 %}...{% endif %}</p>
+                            <div class="card-description">
+                                {% if skill.description|length > 150 %}
+                                <p class="desc-short">{{ skill.description[:150] }}...<button class="desc-toggle" aria-label="Show full description">more</button></p>
+                                <p class="desc-full hidden">{{ skill.description }}<button class="desc-toggle" aria-label="Collapse description">less</button></p>
+                                {% else %}
+                                <p>{{ skill.description }}</p>
+                                {% endif %}
+                            </div>
 
                             <div class="card-meta">
                                 <span class="badge {{ skill['verification-level']|verification_badge }}">{{ skill['verification-level'] }}</span>

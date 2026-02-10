@@ -79,7 +79,7 @@ def all_agent_files(agents_dir: Path) -> list[Path]:
         return []
     return sorted([
         f for f in agents_dir.iterdir()
-        if f.suffix == ".md" and not f.name.startswith(".")
+        if f.suffix == ".md" and not f.name.startswith(".") and not f.stem.isupper()
     ])
 
 

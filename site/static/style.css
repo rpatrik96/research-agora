@@ -274,6 +274,37 @@ header h1 {
     flex: 1;
 }
 
+.card-description p {
+    margin: 0;
+}
+
+.desc-toggle {
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0 0.2rem;
+    margin-left: 0.2rem;
+}
+
+.desc-toggle:hover {
+    text-decoration: underline;
+}
+
+.desc-full {
+    line-height: 1.5;
+}
+
+.desc-short, .desc-full {
+    display: block;
+}
+
+.desc-short.hidden, .desc-full.hidden {
+    display: none;
+}
+
 .card-meta {
     display: flex;
     gap: 0.4rem;

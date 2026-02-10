@@ -124,6 +124,20 @@
         cb.addEventListener('change', filterCards);
     });
 
+    // Description expand/collapse
+    document.addEventListener('click', function(e) {
+        var btn = e.target.closest('.desc-toggle');
+        if (!btn) return;
+        var desc = btn.closest('.card-description');
+        if (!desc) return;
+        var short = desc.querySelector('.desc-short');
+        var full = desc.querySelector('.desc-full');
+        if (short && full) {
+            short.classList.toggle('hidden');
+            full.classList.toggle('hidden');
+        }
+    });
+
     // Reset button
     resetBtn.addEventListener('click', function() {
         searchInput.value = '';

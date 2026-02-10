@@ -28,7 +28,7 @@ class TestMicroSkillStructure:
             pytest.skip("Micro-skills directory not found")
         skills = list(self.MICRO_SKILLS_DIR.glob("*.md"))
         # Exclude template
-        return [s for s in skills if not s.name.startswith("_")]
+        return [s for s in skills if not s.name.startswith("_") and not s.stem.isupper()]
 
     @pytest.fixture
     def template_skill(self) -> Path:
@@ -228,7 +228,7 @@ class TestMicroSkillConsistency:
 
         skills = {}
         for skill_path in self.MICRO_SKILLS_DIR.glob("*.md"):
-            if not skill_path.name.startswith("_"):
+            if not skill_path.name.startswith("_") and not skill_path.stem.isupper():
                 skills[skill_path.stem] = skill_path.read_text()
         return skills
 
