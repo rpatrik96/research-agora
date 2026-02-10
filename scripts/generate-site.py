@@ -15,8 +15,8 @@ from pathlib import Path
 try:
     from jinja2 import Environment, FileSystemLoader
 except ImportError:
-    print("Error: jinja2 required. Install with: pip install jinja2")
-    sys.exit(1)
+    Environment = None
+    FileSystemLoader = None
 
 REPO_ROOT = Path(__file__).parent.parent
 REGISTRY_DIR = REPO_ROOT / "registry"
@@ -197,6 +197,10 @@ def group_skills(skills: list, groups_meta: dict) -> OrderedDict:
 
 
 def main():
+    if Environment is None:
+        print("Error: jinja2 required. Install with: pip install jinja2")
+        sys.exit(1)
+
     print("Generating static site...")
 
     registry = load_registry()
