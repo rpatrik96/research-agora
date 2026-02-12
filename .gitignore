@@ -38,6 +38,15 @@ htmlcov/
 # Generated site output
 site/output/
 
+# LaTeX auxiliary files
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz
+*.bbl
+*.blg
+
 # Local development
 *.log
 .env
