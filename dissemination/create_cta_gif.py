@@ -9,8 +9,8 @@ import matplotlib.pyplot as plt
 # Dark theme colors (conference poster aesthetic)
 BG_COLOR = '#1a1a2e'  # Dark navy
 PRIMARY = '#16213e'   # Darker blue
-ACCENT1 = '#5ba3d9'   # Medium blue (readable on dark bg)
-ACCENT2 = '#6db8e8'   # Light blue (readable on dark bg)
+ACCENT1 = '#8ccbff'   # Bright blue (high contrast on dark bg)
+ACCENT2 = '#a0d8ff'   # Very bright blue (high contrast on dark bg)
 ACCENT3 = '#bbe1fa'   # Very light blue
 TEXT_COLOR = '#e8e8e8'
 HIGHLIGHT = '#00d4ff'  # Cyan
