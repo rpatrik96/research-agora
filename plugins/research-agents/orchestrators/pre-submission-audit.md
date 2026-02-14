@@ -75,7 +75,7 @@ All 5 passes run in PARALLEL using the Task tool with concurrent agents. No pass
 
 ## Workflow
 
-### Phase 1: Paper Ingestion (Sequential, ~1 min)
+### Phase 1: Setup — Paper Ingestion (Sequential, ~1 min)
 
 ```
 1. Locate all LaTeX source files in paper_path
@@ -84,9 +84,9 @@ All 5 passes run in PARALLEL using the Task tool with concurrent agents. No pass
 4. Prepare shared context: full paper text available to all passes
 ```
 
-### Phase 2: Parallel Diagnostic Passes (Parallel, ~5-8 min)
+### Phase 2: Fan-Out — Parallel Diagnostic Passes (Parallel, ~5-8 min)
 
-Launch all 5 passes simultaneously using the Task tool. Each pass receives the full paper text and venue target.
+Launch all 5 passes simultaneously using the Task tool (fan-out). Each pass receives the full paper text and venue target.
 
 ```
 SPAWN_TASK: paper-review
@@ -120,12 +120,13 @@ SPAWN_TASK: statistical-validator
   timeout: 180s
 ```
 
-### Phase 3: Result Collection (Sequential, ~30s)
+### Phase 3: Fan-In — Result Collection (Sequential, ~30s)
 
 ```
-1. Collect results from all 5 Task completions
+1. Collect results from all 5 Task completions (fan-in)
 2. Handle partial failures: if a pass fails, note it in the report and continue with remaining passes
 3. Extract key metrics from each pass for the summary
+4. Update orchestrator state with collected pass results
 ```
 
 ### Phase 4: Synthesis (Sequential, ~2 min)

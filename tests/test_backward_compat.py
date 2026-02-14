@@ -2,10 +2,9 @@
 Tests for backward compatibility after parallel mode additions.
 
 Ensures that existing agent interfaces still work after the parallel mode
-enhancements to claim-auditor.md and evidence-checker.md.
+enhancements to claim-auditor.md.
 """
 
-import re
 from pathlib import Path
 from typing import Any
 
@@ -164,181 +163,12 @@ class TestClaimAuditorBackwardCompatibility:
         )
 
 
-class TestEvidenceCheckerBackwardCompatibility:
-    """Backward compatibility tests for evidence-checker.md agent."""
-
-    @pytest.fixture
-    def evidence_checker_path(self) -> Path:
-        """Return path to evidence-checker.md."""
-        return REPO_ROOT / "plugins" / "research-agents" / "agents" / "evidence-checker.md"
-
-    @pytest.fixture
-    def evidence_checker_content(self, evidence_checker_path: Path) -> str:
-        """Return evidence-checker.md content."""
-        return evidence_checker_path.read_text()
-
-    @pytest.fixture
-    def evidence_checker_frontmatter(
-        self, evidence_checker_path: Path
-    ) -> dict[str, Any]:
-        """Return evidence-checker.md frontmatter."""
-        frontmatter = parse_yaml_frontmatter(evidence_checker_path)
-        assert frontmatter is not None, "evidence-checker.md missing frontmatter"
-        return frontmatter
-
-    def test_has_required_frontmatter_name(
-        self, evidence_checker_frontmatter: dict[str, Any]
-    ) -> None:
-        """evidence-checker.md must have 'name' field in frontmatter."""
-        assert "name" in evidence_checker_frontmatter
-        assert evidence_checker_frontmatter["name"] == "evidence-checker"
-
-    def test_has_required_frontmatter_description(
-        self, evidence_checker_frontmatter: dict[str, Any]
-    ) -> None:
-        """evidence-checker.md must have 'description' field in frontmatter."""
-        assert "description" in evidence_checker_frontmatter
-        description = str(evidence_checker_frontmatter["description"])
-        assert len(description.strip()) > 0
-
-    def test_has_required_frontmatter_model(
-        self, evidence_checker_frontmatter: dict[str, Any]
-    ) -> None:
-        """evidence-checker.md must have 'model' field in frontmatter."""
-        assert "model" in evidence_checker_frontmatter
-        assert evidence_checker_frontmatter["model"] in ["haiku", "sonnet", "opus"]
-
-    def test_has_required_frontmatter_color(
-        self, evidence_checker_frontmatter: dict[str, Any]
-    ) -> None:
-        """evidence-checker.md must have 'color' field in frontmatter."""
-        assert "color" in evidence_checker_frontmatter
-        assert len(str(evidence_checker_frontmatter["color"]).strip()) > 0
-
-    def test_documents_sequential_workflow(
-        self, evidence_checker_content: str
-    ) -> None:
-        """evidence-checker.md must document the original sequential workflow."""
-        assert "Sequential Mode" in evidence_checker_content or "SEQUENTIAL MODE" in evidence_checker_content, (
-            "evidence-checker.md must document Sequential Mode (original workflow)"
-        )
-
-    def test_has_workflow_section(self, evidence_checker_content: str) -> None:
-        """evidence-checker.md must have WORKFLOW section with original steps."""
-        assert "## WORKFLOW" in evidence_checker_content, (
-            "evidence-checker.md must have ## WORKFLOW section"
-        )
-        # Verify key workflow steps
-        workflow_steps = [
-            "Extract Claims",
-            "Classify Claims",
-            "Locate Evidence",
-            "Assess Strength",
-            "Search External Sources",
-            "Generate Report",
-        ]
-        for step in workflow_steps:
-            assert step in evidence_checker_content, (
-                f"evidence-checker.md WORKFLOW missing step: {step}"
-            )
-
-    def test_has_evidence_strength_hierarchy_section(
-        self, evidence_checker_content: str
-    ) -> None:
-        """evidence-checker.md must have EVIDENCE STRENGTH HIERARCHY section."""
-        assert "## EVIDENCE STRENGTH HIERARCHY" in evidence_checker_content, (
-            "evidence-checker.md must have ## EVIDENCE STRENGTH HIERARCHY section"
-        )
-        # Verify strength levels
-        strength_levels = ["EMPIRICAL", "THEORETICAL", "OBSERVATIONAL", "PRECEDENT", "REASONING", "ASSUMED"]
-        for level in strength_levels:
-            assert level in evidence_checker_content, (
-                f"evidence-checker.md EVIDENCE STRENGTH HIERARCHY missing: {level}"
-            )
-
-    def test_has_claim_classification_section(
-        self, evidence_checker_content: str
-    ) -> None:
-        """evidence-checker.md must have CLAIM CLASSIFICATION section."""
-        assert "## CLAIM CLASSIFICATION" in evidence_checker_content, (
-            "evidence-checker.md must have ## CLAIM CLASSIFICATION section"
-        )
-
-    def test_has_output_format_section(self, evidence_checker_content: str) -> None:
-        """evidence-checker.md must have OUTPUT FORMAT section."""
-        assert "## OUTPUT FORMAT" in evidence_checker_content, (
-            "evidence-checker.md must have ## OUTPUT FORMAT section"
-        )
-        # Verify key output format elements
-        output_elements = [
-            "Evidence Assessment Report",
-            "Executive Summary",
-            "Critical Issues",
-            "Claim-by-Claim Analysis",
-            "Strengthening Recommendations",
-        ]
-        for element in output_elements:
-            assert element in evidence_checker_content, (
-                f"evidence-checker.md OUTPUT FORMAT missing: {element}"
-            )
-
-    def test_has_quick_mode_section(self, evidence_checker_content: str) -> None:
-        """evidence-checker.md must preserve QUICK MODE section."""
-        assert "## QUICK MODE" in evidence_checker_content, (
-            "evidence-checker.md must have ## QUICK MODE section for brainstorming"
-        )
-
-    def test_has_mcp_integration_section(self, evidence_checker_content: str) -> None:
-        """evidence-checker.md must preserve MCP INTEGRATION section."""
-        assert "## MCP INTEGRATION" in evidence_checker_content, (
-            "evidence-checker.md must have ## MCP INTEGRATION section"
-        )
-        # Verify arXiv MCP tools are documented
-        assert "mcp__arxiv" in evidence_checker_content, (
-            "evidence-checker.md MCP INTEGRATION must document arXiv tools"
-        )
-
-    def test_has_venue_specific_standards_section(
-        self, evidence_checker_content: str
-    ) -> None:
-        """evidence-checker.md must have VENUE-SPECIFIC STANDARDS section."""
-        assert "## VENUE-SPECIFIC STANDARDS" in evidence_checker_content, (
-            "evidence-checker.md must have ## VENUE-SPECIFIC STANDARDS section"
-        )
-        # Verify key venues
-        venues = ["NeurIPS", "ICML", "ICLR", "Workshop"]
-        for venue in venues:
-            assert venue in evidence_checker_content, (
-                f"evidence-checker.md VENUE-SPECIFIC STANDARDS missing: {venue}"
-            )
-
-    def test_has_important_principles_section(
-        self, evidence_checker_content: str
-    ) -> None:
-        """evidence-checker.md must have IMPORTANT PRINCIPLES section."""
-        assert "## IMPORTANT PRINCIPLES" in evidence_checker_content, (
-            "evidence-checker.md must have ## IMPORTANT PRINCIPLES section"
-        )
-
-    def test_has_red_flag_phrases_section(
-        self, evidence_checker_content: str
-    ) -> None:
-        """evidence-checker.md must preserve RED FLAG PHRASES section."""
-        assert "## RED FLAG PHRASES" in evidence_checker_content, (
-            "evidence-checker.md must have ## RED FLAG PHRASES section"
-        )
-
-
 class TestParallelModeAdditionsDoNotBreakInterface:
     """Verify that parallel mode additions don't break the original interface."""
 
     @pytest.fixture
     def claim_auditor_path(self) -> Path:
         return REPO_ROOT / "plugins" / "research-agents" / "agents" / "claim-auditor.md"
-
-    @pytest.fixture
-    def evidence_checker_path(self) -> Path:
-        return REPO_ROOT / "plugins" / "research-agents" / "agents" / "evidence-checker.md"
 
     def test_claim_auditor_parallel_mode_is_optional(
         self, claim_auditor_path: Path
@@ -350,16 +180,6 @@ class TestParallelModeAdditionsDoNotBreakInterface:
             "claim-auditor.md must document sequential mode as fallback"
         )
 
-    def test_evidence_checker_parallel_mode_is_optional(
-        self, evidence_checker_path: Path
-    ) -> None:
-        """Parallel mode should be optional with sequential as fallback."""
-        content = evidence_checker_path.read_text()
-        # Check that fallback to sequential is documented
-        assert "fallback" in content.lower() or "sequential" in content.lower(), (
-            "evidence-checker.md must document sequential mode as fallback"
-        )
-
     def test_claim_auditor_mode_selection_documented(
         self, claim_auditor_path: Path
     ) -> None:
@@ -367,15 +187,6 @@ class TestParallelModeAdditionsDoNotBreakInterface:
         content = claim_auditor_path.read_text()
         assert "MODE SELECTION" in content, (
             "claim-auditor.md must have MODE SELECTION section"
-        )
-
-    def test_evidence_checker_mode_selection_documented(
-        self, evidence_checker_path: Path
-    ) -> None:
-        """evidence-checker.md must document MODE SELECTION criteria."""
-        content = evidence_checker_path.read_text()
-        assert "MODE SELECTION" in content, (
-            "evidence-checker.md must have MODE SELECTION section"
         )
 
     def test_claim_auditor_preserves_original_content_length(
@@ -390,18 +201,6 @@ class TestParallelModeAdditionsDoNotBreakInterface:
             "Original content should be preserved."
         )
 
-    def test_evidence_checker_preserves_original_content_length(
-        self, evidence_checker_path: Path
-    ) -> None:
-        """evidence-checker.md should have substantial content (not truncated)."""
-        content = evidence_checker_path.read_text()
-        lines = content.strip().split("\n")
-        # Original content was substantial; ensure it's preserved
-        assert len(lines) >= 150, (
-            f"evidence-checker.md seems truncated ({len(lines)} lines). "
-            "Original content should be preserved."
-        )
-
 
 class TestOriginalMCPIntegrationPreserved:
     """Ensure all original MCP integration sections are preserved."""
@@ -409,11 +208,6 @@ class TestOriginalMCPIntegrationPreserved:
     @pytest.fixture
     def claim_auditor_content(self) -> str:
         path = REPO_ROOT / "plugins" / "research-agents" / "agents" / "claim-auditor.md"
-        return path.read_text()
-
-    @pytest.fixture
-    def evidence_checker_content(self) -> str:
-        path = REPO_ROOT / "plugins" / "research-agents" / "agents" / "evidence-checker.md"
         return path.read_text()
 
     def test_claim_auditor_github_mcp(self, claim_auditor_content: str) -> None:
@@ -440,18 +234,6 @@ class TestOriginalMCPIntegrationPreserved:
                 f"claim-auditor.md missing Filesystem MCP tool: {tool}"
             )
 
-    def test_evidence_checker_arxiv_mcp(self, evidence_checker_content: str) -> None:
-        """evidence-checker.md must document arXiv MCP tools."""
-        arxiv_tools = [
-            "mcp__arxiv__search_papers",
-            "mcp__arxiv__get_recent_papers",
-            "mcp__arxiv__search_author",
-        ]
-        for tool in arxiv_tools:
-            assert tool in evidence_checker_content, (
-                f"evidence-checker.md missing arXiv MCP tool: {tool}"
-            )
-
     def test_claim_auditor_verification_strategies(
         self, claim_auditor_content: str
     ) -> None:
@@ -467,26 +249,12 @@ class TestOriginalMCPIntegrationPreserved:
                 f"claim-auditor.md missing verification strategy: {strategy}"
             )
 
-    def test_evidence_checker_search_strategies(
-        self, evidence_checker_content: str
-    ) -> None:
-        """evidence-checker.md must document search strategies."""
-        assert "Search Strategies" in evidence_checker_content, (
-            "evidence-checker.md must have Search Strategies section"
-        )
-
-
 class TestVenueSpecificStandardsPreserved:
     """Ensure venue-specific standards are properly documented."""
 
     @pytest.fixture
     def claim_auditor_content(self) -> str:
         path = REPO_ROOT / "plugins" / "research-agents" / "agents" / "claim-auditor.md"
-        return path.read_text()
-
-    @pytest.fixture
-    def evidence_checker_content(self) -> str:
-        path = REPO_ROOT / "plugins" / "research-agents" / "agents" / "evidence-checker.md"
         return path.read_text()
 
     def test_claim_auditor_tier1_venues(self, claim_auditor_content: str) -> None:
@@ -509,25 +277,3 @@ class TestVenueSpecificStandardsPreserved:
             "claim-auditor.md must document ablation requirements"
         )
 
-    def test_evidence_checker_tier1_venues(self, evidence_checker_content: str) -> None:
-        """evidence-checker.md must document Tier 1 venue requirements."""
-        assert "NeurIPS/ICML/ICLR" in evidence_checker_content, (
-            "evidence-checker.md must document Tier 1 venue requirements"
-        )
-
-    def test_evidence_checker_workshop_standards(
-        self, evidence_checker_content: str
-    ) -> None:
-        """evidence-checker.md must document workshop-specific standards."""
-        assert "Workshop" in evidence_checker_content, (
-            "evidence-checker.md must document workshop standards"
-        )
-        # Workshop standards should be more relaxed
-        workshop_section_match = re.search(
-            r"\*\*Workshops?\*\*:.*?(?=\n\n|\Z)", evidence_checker_content, re.DOTALL
-        )
-        if workshop_section_match:
-            workshop_section = workshop_section_match.group()
-            relaxed_indicators = ["relaxed", "preliminary", "Relaxed", "Preliminary"]
-            found = any(ind in workshop_section for ind in relaxed_indicators)
-            assert found, "Workshop standards should mention relaxed requirements"

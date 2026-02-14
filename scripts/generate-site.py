@@ -32,15 +32,15 @@ SKILL_GROUP_MAP = {
     "paper-introduction": "paper-drafting",
     "paper-discussion": "paper-drafting",
     "paper-experiments": "paper-drafting",
-    "paper-title": "paper-drafting",
+    "paper-summarizer": "paper-drafting",
 
     # Quality & Verification
     "paper-review": "quality-verification",
     "paper-references": "quality-verification",
     "paper-verify-experiments": "quality-verification",
     "claim-auditor": "quality-verification",
-    "evidence-checker": "quality-verification",
     "statistical-validator": "quality-verification",
+    "pre-submission-audit": "quality-verification",
 
     # Theory Tools
     "proof-auditor": "theory-tools",
@@ -60,7 +60,6 @@ SKILL_GROUP_MAP = {
     "devils-advocate": "literature-discovery",
 
     # Writing Polish
-    "clarity-optimizer": "writing-polish",
     "latex-debugger": "writing-polish",
     "latex-consistency": "writing-polish",
     "latex-sync-annotate": "writing-polish",
@@ -71,23 +70,19 @@ SKILL_GROUP_MAP = {
     # Dissemination
     "paper-poster": "dissemination",
     "paper-slides": "dissemination",
-    "paper-twitter": "dissemination",
     "science-gif": "dissemination",
     "figure-storyteller": "dissemination",
-    "discussion-monitor": "dissemination",
 
     # Submission & Rebuttal
-    "paper-rebuttal": "submission-rebuttal",
+    "review-triage": "submission-rebuttal",
     "reviewer-response-generator": "submission-rebuttal",
     "openreview-submission": "submission-rebuttal",
-    "co-author-sync": "submission-rebuttal",
     "artifact-packager": "submission-rebuttal",
 
     # Development & Automation
     "commit": "development",
     "code-simplify": "development",
     "pr-automation": "development",
-    "python-docs": "development",
     "python-cicd": "development",
     "htcondor": "development",
 
@@ -95,8 +90,19 @@ SKILL_GROUP_MAP = {
     "pptx-create": "documents-figures",
     "docx-create": "documents-figures",
     "xlsx-create": "documents-figures",
-    "publication-figures": "documents-figures",
     "tikz-figures": "documents-figures",
+
+    # Editorial Intelligence
+    "argument-autopsy": "editorial",
+    "editorial-brain": "editorial",
+    "register-translator": "editorial",
+    "writing-diagnosis": "editorial",
+
+    # Research Agents (public)
+    "content-archaeologist": "literature-discovery",
+    "reader-simulation": "quality-verification",
+    "redundancy-radar": "writing-polish",
+    "voice-drift-detector": "writing-polish",
 }
 
 # Display order for groups
@@ -106,6 +112,7 @@ GROUP_ORDER = [
     "theory-tools",
     "literature-discovery",
     "writing-polish",
+    "editorial",
     "dissemination",
     "submission-rebuttal",
     "development",
