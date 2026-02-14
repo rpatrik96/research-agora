@@ -87,33 +87,7 @@ For each identified connection, provide a translation dictionary:
 | Saddle point | Mixed strategy NE | min_x max_y L(x,y) ↔ mixed NE |
 ```
 
-### Phase 4: Generalization Identification
-
-Check if the result is a special case of something more general:
-
-```markdown
-#### Generalization Analysis
-
-**Your result**: SGD converges at rate O(1/√T) for smooth non-convex functions
-
-**More general framework**: Stochastic approximation theory (Robbins-Monro)
-- Your result is a special case with H(x,ξ) = ∇f(x) + noise
-- Robbins-Monro gives convergence under weaker conditions (not just gradients)
-- Implication: your proof technique might simplify using classical SA results
-
-**Even more general**: Operator splitting / monotone operator theory
-- Gradient descent = forward step of resolvent operator
-- Your convergence rate follows from monotone operator convergence theory
-- Implication: results extend to proximal/projected variants for free
-
-**Most general known**: Dynamical systems / ODE approximation
-- Continuous-time limit: dx/dt = -∇f(x) + σ dW_t
-- Discrete algorithm approximates this SDE
-- Convergence rates follow from SDE analysis
-- Implication: can use PDE tools (Fokker-Planck) for analysis
-```
-
-### Phase 5: Connection Utility Assessment
+### Phase 4: Connection Utility Assessment
 
 Rate the practical value of each connection:
 
@@ -152,19 +126,6 @@ Rate the practical value of each connection:
 **Key reference**: [Paper that bridges these domains]
 
 ### Connection 2: ...
-
----
-
-## Generalization Path
-
-```
-Your Result (specific)
-└── [Generalization 1] (broader)
-    └── [Generalization 2] (even broader)
-        └── [Most general framework] (abstract)
-```
-
-Each level: what changes, what's gained, what's the reference.
 
 ---
 

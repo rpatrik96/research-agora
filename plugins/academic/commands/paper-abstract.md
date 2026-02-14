@@ -1,9 +1,11 @@
 ---
 name: paper-abstract
 description: |
-  Write or improve abstracts for ML conference papers. Use when asked to
+  Write, improve, or diagnose abstracts for ML conference papers. Use when asked to
   "write abstract", "improve abstract", "draft abstract", "summarize paper",
-  or "abstract for submission". Structures context, problem, approach, results, and impact.
+  "abstract for submission", "audit my abstract", "diagnose abstract",
+  "check my abstract", or "abstract feedback". Structures context, problem,
+  approach, results, and impact.
 model: sonnet
 metadata:
   research-domain: general
@@ -18,7 +20,13 @@ metadata:
 
 Generate compelling abstracts for ML conference papers (NeurIPS, ICML, ICLR, AAAI) that capture the essence of the work and attract readers.
 
-## Workflow
+## Mode Selection
+
+**If the user provides an existing abstract**, activate **Diagnostic Mode** (see below).
+
+**If the user asks to write/generate an abstract**, use the **Generation Workflow** (below).
+
+## Generation Workflow
 
 1. **Read the paper**: Understand contributions, methods, and key results
 2. **Identify the core message**: What is the single most important takeaway?
@@ -26,6 +34,162 @@ Generate compelling abstracts for ML conference papers (NeurIPS, ICML, ICLR, AAA
 4. **Draft the abstract**: Follow the 5-part structure
 5. **Compress and refine**: Ensure every word earns its place
 6. **Verify claims**: Check that all statements are supported in the paper
+
+## Diagnostic Mode
+
+When the user provides an existing abstract for review, analyze it systematically:
+
+### Diagnostic Checklist
+
+1. **Structure Check**: Map the abstract to the 5-part model
+   - **Context & Motivation**: Is the problem area introduced? Is motivation clear?
+   - **Problem Statement**: Is the specific gap/challenge articulated?
+   - **Approach**: Is the method described with key insight/novelty?
+   - **Results**: Are quantitative, specific outcomes provided?
+   - **Impact/Implications**: Is broader significance or impact stated?
+
+2. **Word Count**: Compare against venue limits (AAAI: 150w, CVPR/ACL: 200w, others: flexible)
+
+3. **Common Mistakes Scan**: Check for:
+   - Vague claims ("significantly", "good results") instead of specific numbers
+   - Missing problem statement (jumping to solution)
+   - Missing quantitative results
+   - Jargon overload (inaccessible to ML generalist)
+   - Passive voice excess
+   - Overclaiming ("revolutionary", "breakthrough")
+   - Missing baseline comparison
+   - Undefined acronyms
+   - Future tense instead of present
+
+4. **Specificity Check**: Are claims concrete?
+   - ✅ "improves by 15%" / "achieves 92.3% accuracy"
+   - ❌ "significantly improves" / "achieves high accuracy"
+
+5. **Claim-Evidence Alignment**: Are claims verifiable?
+   - Can each claim be traced to a table, figure, or section in the paper?
+   - Are comparisons specific enough to verify?
+
+6. **Accessibility Check**: Would an ML generalist understand this?
+   - Is subfield jargon minimized?
+   - Are acronyms defined or avoided?
+   - Is the contribution clear without deep domain knowledge?
+
+### Diagnostic Output Format
+
+Provide analysis in this structure:
+
+```markdown
+## Abstract Diagnosis
+
+**Word count**: [N] / [venue limit or "no strict limit"]
+**Structure score**: [N]/5 parts present
+
+### Structure Check
+
+| Part | Status | Location | Issue |
+|------|--------|----------|-------|
+| Context & Motivation | ✅/⚠️/❌ | Sentence 1-2 | [issue if any] |
+| Problem Statement | ✅/⚠️/❌ | Sentence X | [issue if any] |
+| Approach | ✅/⚠️/❌ | Sentence X-Y | [issue if any] |
+| Results | ✅/⚠️/❌ | Sentence X-Y | [issue if any] |
+| Impact/Implications | ✅/⚠️/❌ | Sentence X / Missing | [issue if any] |
+
+**Legend**: ✅ Present and strong | ⚠️ Weak or unclear | ❌ Missing
+
+### Issues Found
+
+1. **[Severity: Critical/Major/Minor]** [Issue description]
+   - **Problem**: [What's wrong]
+   - **Fix**: [Specific suggestion]
+
+2. ...
+
+### Specificity Analysis
+
+- **Concrete claims**: [list specific numbers/percentages]
+- **Vague claims**: [list vague statements that need quantification]
+
+### Claim Verification Checklist
+
+- [ ] All quantitative claims are verifiable in the paper
+- [ ] Baseline comparisons are specific and fair
+- [ ] Method description matches the paper's contribution
+- [ ] Results match the experiments section
+
+### Accessibility Score
+
+- **Jargon level**: Low / Medium / High
+- **Undefined acronyms**: [list]
+- **Generalist readability**: Excellent / Good / Poor
+
+### Verdict
+
+[Choose one]:
+- ✅ **Ready for submission** - Minor polish recommended
+- ⚠️ **Needs revision** - Address [N] issues before submission
+- ❌ **Major rewrite needed** - Structural problems require rework
+```
+
+### Example Diagnostic Output
+
+For an abstract with issues:
+
+```markdown
+## Abstract Diagnosis
+
+**Word count**: 187 / 150 (AAAI - exceeds limit by 37 words)
+**Structure score**: 3/5 parts present
+
+### Structure Check
+
+| Part | Status | Location | Issue |
+|------|--------|----------|-------|
+| Context & Motivation | ✅ | Sentence 1 | Clear motivation |
+| Problem Statement | ❌ | Missing | Jumps from context to solution |
+| Approach | ⚠️ | Sentence 2-4 | Too detailed, missing key insight |
+| Results | ⚠️ | Sentence 5 | Vague ("significantly outperforms") |
+| Impact/Implications | ❌ | Missing | No broader significance stated |
+
+### Issues Found
+
+1. **[Severity: Critical]** Missing problem statement
+   - **Problem**: Abstract jumps from motivation directly to proposed method
+   - **Fix**: Add 1 sentence after context: "A key challenge is [X], which [consequence]"
+
+2. **[Severity: Critical]** Vague results
+   - **Problem**: "significantly outperforms baselines" - no numbers
+   - **Fix**: Replace with "achieves X% accuracy, outperforming [best baseline] by Y%"
+
+3. **[Severity: Major]** Exceeds AAAI word limit
+   - **Problem**: 187 words vs. 150 word limit
+   - **Fix**: Apply compression techniques (see Compression section)
+
+4. **[Severity: Minor]** Undefined acronym "DPO"
+   - **Problem**: "DPO alignment" not defined
+   - **Fix**: Expand to "direct preference optimization" or avoid acronym
+
+### Specificity Analysis
+
+- **Concrete claims**: None
+- **Vague claims**: "significantly outperforms", "achieves good results", "substantially reduces"
+
+### Claim Verification Checklist
+
+- [ ] All quantitative claims are verifiable in the paper (no quantitative claims present)
+- [ ] Baseline comparisons are specific and fair (comparisons are vague)
+- [ ] Method description matches the paper's contribution (yes)
+- [ ] Results match the experiments section (cannot verify - no specific numbers)
+
+### Accessibility Score
+
+- **Jargon level**: Medium
+- **Undefined acronyms**: DPO, LoRA
+- **Generalist readability**: Good (mostly accessible)
+
+### Verdict
+
+❌ **Major rewrite needed** - Add problem statement, quantify all results, compress to meet word limit
+```
 
 ## Before Writing
 

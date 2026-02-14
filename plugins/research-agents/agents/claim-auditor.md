@@ -4,7 +4,8 @@ description: |
   Deep verify ALL paper claims with systematic evidence hierarchy.
   NOW SUPPORTS PARALLEL MODE via parallel-audit orchestrator for 2-3x speedup.
   Activates when asked to "audit claims", "verify claims", "check paper claims",
-  "claim verification", or "evidence check".
+  "claim verification", "evidence check", "verify evidence", or "quick evidence scan".
+  Includes Quick Mode for rapid brainstorming checks.
 model: sonnet
 color: orange
 metadata:
@@ -268,6 +269,46 @@ Watch for these patterns indicating weak or missing evidence:
 |------------|----------|-----------|-----------|--------|
 | [Assumption text] | [Section] | Yes/No | Yes/No | [Acknowledge/Justify/Remove] |
 ```
+
+## Quick Mode (Brainstorming)
+
+When checking claims during fast iteration or brainstorming sessions, use this lightweight format for rapid assessment:
+
+**When to Use Quick Mode:**
+- Early-stage ideation when claims are being formulated
+- Checking a single claim before it gets written into a draft
+- Quick sanity check during paper planning
+- Brainstorming loop verification
+
+**Quick Mode Output:**
+
+```markdown
+## Quick Evidence Scan
+
+**Claim**: [The claim being checked]
+**Type**: [Empirical/Methodological/Comparative/Theoretical/Novelty]
+**Current support**: [What evidence exists now]
+**Evidence level**: L[X] - [Level name]
+**Gap**: [What's missing to reach acceptable level]
+**Quick fix**: [Immediate action for minimal viable support]
+**Full fix**: [Thorough solution for strong evidence]
+
+**Verdict**:
+- ✓ PROCEED - Sufficient evidence for current stage
+- ⚠ CAUTION - Weak evidence, flag for strengthening
+- ✗ STOP - Critical gap, address before continuing
+
+**Next step**: [Specific action to take]
+```
+
+**Quick Mode Principles:**
+- Single claim focus, not full paper audit
+- Faster assessment (2-3 minutes vs 15-30 minutes)
+- Verdict-driven (proceed/caution/stop)
+- Immediate actionable fix provided
+- Use during ideation before claims are written into drafts
+
+---
 
 ## MCP INTEGRATION
 

@@ -1,15 +1,15 @@
 {
   "version": "1.0.0",
-  "generated": "2026-02-10",
+  "generated": "2026-02-14",
   "stats": {
-    "total_skills": 72,
-    "public_skills": 53,
-    "commands": 32,
+    "total_skills": 74,
+    "public_skills": 55,
+    "commands": 33,
     "agents": 22,
     "micro_skills": 12,
-    "orchestrators": 3,
+    "orchestrators": 4,
     "helpers": 3,
-    "plugins": 5
+    "plugins": 6
   },
   "repos": [
     {
@@ -73,7 +73,7 @@
           "name": "paper-abstract",
           "plugin": "academic",
           "type": "command",
-          "description": "Write or improve abstracts for ML conference papers. Use when asked to\n\"write abstract\", \"improve abstract\", \"draft abstract\", \"summarize paper\",\nor \"abstract for submission\". Structures context, problem, approach, results, and impact.",
+          "description": "Write, improve, or diagnose abstracts for ML conference papers. Use when asked to\n\"write abstract\", \"improve abstract\", \"draft abstract\", \"summarize paper\",\n\"abstract for submission\", \"audit my abstract\", \"diagnose abstract\",\n\"check my abstract\", or \"abstract feedback\". Structures context, problem,\napproach, results, and impact.",
           "model": "sonnet",
           "path": "plugins/academic/commands/paper-abstract.md",
           "research-domain": "general",
@@ -135,19 +135,6 @@
           "visibility": "public"
         },
         {
-          "name": "paper-rebuttal",
-          "plugin": "academic",
-          "type": "command",
-          "description": "Quick template-driven rebuttal drafting for ML conference submissions. Use when asked to \"write rebuttal\", \"respond to reviewers\", \"address feedback\", \"draft response\", or \"handle reviews\". Generates professional, persuasive responses using structured templates. For evidence-backed rebuttals with code/data proof, use the reviewer-response-generator agent instead.",
-          "model": "sonnet",
-          "path": "plugins/academic/commands/paper-rebuttal.md",
-          "research-domain": "general",
-          "task-type": "writing",
-          "research-phase": "paper-writing",
-          "verification-level": "layered",
-          "visibility": "public"
-        },
-        {
           "name": "paper-references",
           "plugin": "academic",
           "type": "command",
@@ -187,29 +174,16 @@
           "visibility": "public"
         },
         {
-          "name": "paper-title",
+          "name": "paper-summarizer",
           "plugin": "academic",
           "type": "command",
-          "description": "Brainstorm compelling titles for academic papers. Use when asked to\n\"brainstorm titles\", \"suggest paper titles\", \"title ideas\", \"name my paper\",\nor \"help with paper title\". Generates diverse options using proven patterns.",
+          "description": "Summarize research papers for rapid triage and comprehension. Use when asked to \"summarize this paper\", \"paper summary\", \"what does this paper do\", \"triage papers\", or \"TLDR this paper\". Takes an arXiv ID or paper text and produces structured summaries at configurable depth.",
           "model": "sonnet",
-          "path": "plugins/academic/commands/paper-title.md",
+          "path": "plugins/academic/commands/paper-summarizer.md",
           "research-domain": "general",
-          "task-type": "writing",
-          "research-phase": "paper-writing",
-          "verification-level": "none",
-          "visibility": "public"
-        },
-        {
-          "name": "paper-twitter",
-          "plugin": "academic",
-          "type": "command",
-          "description": "Create Twitter/X threads to announce and explain research papers. Use when asked to\n\"write twitter thread\", \"create tweet thread\", \"announce paper on twitter\", \"paper tweet\".",
-          "model": "sonnet",
-          "path": "plugins/academic/commands/paper-twitter.md",
-          "research-domain": "general",
-          "task-type": "writing",
-          "research-phase": "dissemination",
-          "verification-level": "none",
+          "task-type": "analysis",
+          "research-phase": "literature-review",
+          "verification-level": "heuristic",
           "visibility": "public"
         },
         {
@@ -223,6 +197,19 @@
           "task-type": "verification",
           "research-phase": "implementation",
           "verification-level": "formal",
+          "visibility": "public"
+        },
+        {
+          "name": "review-triage",
+          "plugin": "academic",
+          "type": "command",
+          "description": "Triage and prioritize revision work after receiving peer reviews. Decodes reviewer subtext and plans strategic responses. Use when asked to \"triage reviews\", \"plan my revision\", \"revision strategy\", \"prioritize reviewer comments\", \"what should I fix first\", \"decode reviewer feedback\", or \"what do reviewers really mean\". Step 1 of a 2-step pipeline (review-triage \u2192 reviewer-response-generator).",
+          "model": "sonnet",
+          "path": "plugins/academic/commands/review-triage.md",
+          "research-domain": "general",
+          "task-type": "analysis",
+          "research-phase": "paper-writing",
+          "verification-level": "heuristic",
           "visibility": "public"
         },
         {
@@ -304,19 +291,6 @@
           "visibility": "public"
         },
         {
-          "name": "python-docs",
-          "plugin": "development",
-          "type": "command",
-          "description": "Generate NumPy-style docstrings with type hints for Python code. Use when asked to document Python functions, classes, modules, or entire codebases. Triggers on requests like \"document this code\", \"add docstrings\", \"generate documentation\", or \"add type hints\".",
-          "model": "sonnet",
-          "path": "plugins/development/commands/python-docs.md",
-          "research-domain": "general",
-          "task-type": "automation",
-          "research-phase": "implementation",
-          "verification-level": "none",
-          "visibility": "public"
-        },
-        {
           "name": "latex-sync-annotate",
           "plugin": "development",
           "type": "command",
@@ -356,6 +330,58 @@
           "visibility": "public"
         },
         {
+          "name": "argument-autopsy",
+          "plugin": "editorial",
+          "type": "command",
+          "description": "Visualize the logical skeleton of a paper's argument as a claim-evidence DAG. Use when asked to \"map my argument\", \"does my logic hold\", \"argument structure\", \"find logical gaps\", or \"why doesn't my paper flow\". Flags missing links, orphan claims, circular reasoning, and unsupported assertions.",
+          "model": "opus",
+          "path": "plugins/editorial/commands/argument-autopsy.md",
+          "research-domain": "general",
+          "task-type": "diagnosis",
+          "research-phase": "paper-writing",
+          "verification-level": "layered",
+          "visibility": "public"
+        },
+        {
+          "name": "editorial-brain",
+          "plugin": "editorial",
+          "type": "command",
+          "description": "Context-aware editorial intelligence that adapts to what you're writing. Use when asked to \"edit this\", \"review my writing\", \"editorial feedback\", \"developmental edit\", \"line edit\", \"improve clarity\", \"simplify writing\", \"check readability\", \"reduce jargon\", or \"make paper clearer\". Detects format (paper/blog/book/grant), section type, and draft phase, then routes to the appropriate editorial lens \u2014 developmental, line, or copy editing.",
+          "model": "opus",
+          "path": "plugins/editorial/commands/editorial-brain.md",
+          "research-domain": "general",
+          "task-type": "diagnosis",
+          "research-phase": "paper-writing",
+          "verification-level": "heuristic",
+          "visibility": "public"
+        },
+        {
+          "name": "register-translator",
+          "plugin": "editorial",
+          "type": "command",
+          "description": "Translate writing between registers \u2014 paper to blog, blog to book chapter, academic to conversational. Use when asked to \"convert this for blog\", \"make this more conversational\", \"translate register\", \"paper to blog\", \"blog to book\", or \"adapt for audience\". Performs structural transformation, not just tone adjustment.",
+          "model": "opus",
+          "path": "plugins/editorial/commands/register-translator.md",
+          "research-domain": "general",
+          "task-type": "writing",
+          "research-phase": "paper-writing",
+          "verification-level": "heuristic",
+          "visibility": "public"
+        },
+        {
+          "name": "writing-diagnosis",
+          "plugin": "editorial",
+          "type": "command",
+          "description": "Diagnose root causes of bad writing at the paragraph level. Use when asked to \"diagnose this paragraph\", \"why does this suck\", \"what's wrong with this\", \"writing diagnosis\", or \"debug my writing\". Identifies patterns like cognitive overload, buried ledes, idea soup, and monotonous rhythm \u2014 then teaches the fix.",
+          "model": "opus",
+          "path": "plugins/editorial/commands/writing-diagnosis.md",
+          "research-domain": "general",
+          "task-type": "diagnosis",
+          "research-phase": "paper-writing",
+          "verification-level": "heuristic",
+          "visibility": "public"
+        },
+        {
           "name": "latex-consistency",
           "plugin": "formatting",
           "type": "command",
@@ -364,19 +390,6 @@
           "path": "plugins/formatting/commands/latex-consistency.md",
           "research-domain": "general",
           "task-type": "verification",
-          "research-phase": "paper-writing",
-          "verification-level": "heuristic",
-          "visibility": "public"
-        },
-        {
-          "name": "publication-figures",
-          "plugin": "formatting",
-          "type": "command",
-          "description": "Create publication-ready figures for ML conferences (NeurIPS, ICML, ICLR, AAAI) using matplotlib/seaborn with LaTeX typography. Use when asked to \"create plots\", \"make figures publication ready\", \"format for conference\", \"style matplotlib\", or \"improve figure quality\".",
-          "model": "haiku",
-          "path": "plugins/formatting/commands/publication-figures.md",
-          "research-domain": "general",
-          "task-type": "formatting",
           "research-phase": "paper-writing",
           "verification-level": "heuristic",
           "visibility": "public"
@@ -476,7 +489,7 @@
           "name": "claim-auditor",
           "plugin": "research-agents",
           "type": "agent",
-          "description": "Deep verify ALL paper claims with systematic evidence hierarchy.\nNOW SUPPORTS PARALLEL MODE via parallel-audit orchestrator for 2-3x speedup.\nActivates when asked to \"audit claims\", \"verify claims\", \"check paper claims\",\n\"claim verification\", or \"evidence check\".",
+          "description": "Deep verify ALL paper claims with systematic evidence hierarchy.\nNOW SUPPORTS PARALLEL MODE via parallel-audit orchestrator for 2-3x speedup.\nActivates when asked to \"audit claims\", \"verify claims\", \"check paper claims\",\n\"claim verification\", \"evidence check\", \"verify evidence\", or \"quick evidence scan\".\nIncludes Quick Mode for rapid brainstorming checks.",
           "model": "sonnet",
           "path": "plugins/research-agents/agents/claim-auditor.md",
           "research-domain": "general",
@@ -486,29 +499,16 @@
           "visibility": "public"
         },
         {
-          "name": "clarity-optimizer",
+          "name": "content-archaeologist",
           "plugin": "research-agents",
           "type": "agent",
-          "description": "Use this agent to analyze readability, identify jargon/passive voice, and suggest rewrites for ML papers. Activates when asked to \"improve clarity\", \"simplify writing\", \"check readability\", \"reduce jargon\", or \"make paper clearer\".",
-          "model": "sonnet",
-          "path": "plugins/research-agents/agents/clarity-optimizer.md",
+          "description": "Use this agent to map blog posts or essays into book structure. Activates when asked to \"audit my content\", \"blog to book\", \"cluster my posts\", \"content audit\", or \"find themes across posts\". Performs thematic clustering, gap analysis, and generates book conversion strategies from dispersed content.",
+          "model": "opus",
+          "path": "plugins/research-agents/agents/content-archaeologist.md",
           "research-domain": "general",
-          "task-type": "writing",
+          "task-type": "analysis",
           "research-phase": "paper-writing",
           "verification-level": "heuristic",
-          "visibility": "public"
-        },
-        {
-          "name": "co-author-sync",
-          "plugin": "research-agents",
-          "type": "agent",
-          "description": "Use this agent for multi-author coordination across collaboration tools. Activates when asked to \"sync coauthors\", \"coordinate authors\", \"author contributions\", \"team coordination\", or \"collaboration sync\".",
-          "model": "sonnet",
-          "path": "plugins/research-agents/agents/co-author-sync.md",
-          "research-domain": "general",
-          "task-type": "automation",
-          "research-phase": "paper-writing",
-          "verification-level": "none",
           "visibility": "public"
         },
         {
@@ -538,36 +538,10 @@
           "visibility": "public"
         },
         {
-          "name": "discussion-monitor",
-          "plugin": "research-agents",
-          "type": "agent",
-          "description": "Use this agent to track citations, social media discussions, and community engagement post-publication. Activates when asked to \"monitor discussions\", \"track citations\", \"paper impact\", \"social mentions\", or \"discussion tracking\".",
-          "model": "sonnet",
-          "path": "plugins/research-agents/agents/discussion-monitor.md",
-          "research-domain": "general",
-          "task-type": "analysis",
-          "research-phase": "dissemination",
-          "verification-level": "none",
-          "visibility": "public"
-        },
-        {
-          "name": "evidence-checker",
-          "plugin": "research-agents",
-          "type": "agent",
-          "description": "Systematically verify evidence backing claims in research papers and arguments.\nNOW SUPPORTS PARALLEL MODE via evidence-grader micro-skill for 2-3x speedup.\nActivates during brainstorming loops to verify claims before they become cemented.\nIdentifies unsupported claims, weak evidence, and suggests strengthening approaches.",
-          "model": "sonnet",
-          "path": "plugins/research-agents/agents/evidence-checker.md",
-          "research-domain": "general",
-          "task-type": "verification",
-          "research-phase": "paper-writing",
-          "verification-level": "heuristic",
-          "visibility": "public"
-        },
-        {
           "name": "figure-storyteller",
           "plugin": "research-agents",
           "type": "agent",
-          "description": "Use this agent to generate publication-quality figures with narrative focus. Activates when asked to \"create figure\", \"figure storytelling\", \"visualize results\", \"make publication figure\", or \"data visualization\".",
+          "description": "Use this agent to generate publication-quality figures with narrative focus. Activates when asked to \"create figure\", \"figure storytelling\", \"visualize results\", \"make publication figure\", \"data visualization\", \"create plots\", \"make figures publication ready\", \"format for conference\", \"style matplotlib\", \"improve figure quality\", \"publication figure\", \"matplotlib figure\", \"conference figure\", or \"plot results\".",
           "model": "sonnet",
           "path": "plugins/research-agents/agents/figure-storyteller.md",
           "research-domain": "general",
@@ -655,10 +629,36 @@
           "visibility": "public"
         },
         {
+          "name": "reader-simulation",
+          "plugin": "research-agents",
+          "type": "agent",
+          "description": "Use this agent to simulate a first-time reader walking through your text. Activates when asked to \"simulate reader\", \"where will readers get confused\", \"reader experience\", \"comprehension check\", or \"reader perspective\". Flags assumed knowledge, jargon cliffs, logical jumps, and points where readers will zone out.",
+          "model": "opus",
+          "path": "plugins/research-agents/agents/reader-simulation.md",
+          "research-domain": "general",
+          "task-type": "analysis",
+          "research-phase": "paper-writing",
+          "verification-level": "heuristic",
+          "visibility": "public"
+        },
+        {
+          "name": "redundancy-radar",
+          "plugin": "research-agents",
+          "type": "agent",
+          "description": "Use this agent to find semantic overlap and redundancy across documents. Activates when asked to \"find redundancies\", \"am I repeating myself\", \"duplicate content\", \"overlap detection\", or \"merge candidates\". Clusters similar content and suggests merge strategies.",
+          "model": "sonnet",
+          "path": "plugins/research-agents/agents/redundancy-radar.md",
+          "research-domain": "general",
+          "task-type": "analysis",
+          "research-phase": "paper-writing",
+          "verification-level": "heuristic",
+          "visibility": "public"
+        },
+        {
           "name": "reviewer-response-generator",
           "plugin": "research-agents",
           "type": "agent",
-          "description": "Evidence-backed rebuttal agent that gathers code/data proof for reviewer responses. Activates when asked to \"write rebuttal with evidence\", \"respond to reviewers\", \"reviewer response\", \"address reviewer comments\", or \"rebuttal draft\". Goes beyond templates by searching GitHub for baselines and arXiv for supporting citations. For quick template-driven rebuttals, use the paper-rebuttal skill instead.",
+          "description": "Unified rebuttal writing agent with Quick Mode (template-driven) and Deep Mode (evidence-backed with code/data proof). Activates when asked to \"write rebuttal\", \"respond to reviewers\", \"reviewer response\", \"address reviewer comments\", \"draft rebuttal\", or \"rebuttal draft\". Step 2 of the rebuttal pipeline (review-triage \u2192 reviewer-response-generator). Deep Mode searches GitHub for baselines and arXiv for supporting citations.",
           "model": "sonnet",
           "path": "plugins/research-agents/agents/reviewer-response-generator.md",
           "research-domain": "general",
@@ -717,6 +717,19 @@
           "task-type": "analysis",
           "research-phase": "paper-writing",
           "verification-level": "none",
+          "visibility": "public"
+        },
+        {
+          "name": "voice-drift-detector",
+          "plugin": "research-agents",
+          "type": "agent",
+          "description": "Use this agent to detect voice inconsistency across chapters, blog posts, or documents. Activates when asked to \"check voice consistency\", \"tone drift\", \"does this sound like me\", \"voice fingerprint\", or \"style consistency check\". Quantifies rhythm, formality, person, and metaphor density to flag unintentional drift.",
+          "model": "sonnet",
+          "path": "plugins/research-agents/agents/voice-drift-detector.md",
+          "research-domain": "general",
+          "task-type": "analysis",
+          "research-phase": "paper-writing",
+          "verification-level": "heuristic",
           "visibility": "public"
         },
         {
@@ -913,6 +926,19 @@
           "research-phase": "paper-writing",
           "verification-level": "heuristic",
           "visibility": "internal"
+        },
+        {
+          "name": "pre-submission-audit",
+          "plugin": "research-agents",
+          "type": "orchestrator",
+          "description": "Comprehensive pre-submission paper audit combining reviewer simulation, claim verification, clarity analysis, notation checking, and statistical validation. Use when asked to \"audit before submission\", \"pre-submission check\", \"is my paper ready\", \"self-review\", or \"submission readiness\". Runs 5 diagnostic passes in parallel and produces a unified readiness report.",
+          "model": "opus",
+          "path": "plugins/research-agents/orchestrators/pre-submission-audit.md",
+          "research-domain": "general",
+          "task-type": "verification",
+          "research-phase": "submission",
+          "verification-level": "layered",
+          "visibility": "public"
         },
         {
           "name": "batch-arxiv",

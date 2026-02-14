@@ -15,20 +15,6 @@ metadata:
 
 Configure GitHub Actions CI/CD pipeline with pre-commit hooks for Python projects.
 
-## Stack
-
-- **Python**: 3.11
-- **Formatter**: Black
-- **Import sorting**: isort (Black-compatible)
-- **Linter**: flake8
-- **Testing**: pytest
-
-## Quick Setup
-
-1. Run `scripts/setup_cicd.sh` from skill directory
-2. Commit generated files
-3. Install pre-commit: `pre-commit install`
-
 ## Generated Files
 
 ### `.pre-commit-config.yaml`
@@ -135,27 +121,6 @@ jobs:
         with:
           file: coverage.xml
         continue-on-error: true
-```
-
-## Customization
-
-### Add type checking (optional)
-
-Add mypy to pre-commit:
-```yaml
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.9.0
-    hooks:
-      - id: mypy
-        additional_dependencies: [types-all]
-```
-
-### Matrix testing (multiple Python versions)
-
-```yaml
-strategy:
-  matrix:
-    python-version: ["3.10", "3.11", "3.12"]
 ```
 
 ## Workflow

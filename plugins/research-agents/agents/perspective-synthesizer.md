@@ -45,15 +45,7 @@ Synthesize multiple viewpoints, methodologies, or research findings into unified
 - Can one framework be embedded in another?
 - Is there a more general framework that subsumes both?
 
-### Type C: Empirical Integration
-**When to use**: Studies report contradictory results on similar questions.
-
-**Key questions**:
-- Are experimental setups truly comparable?
-- What confounds might explain discrepancy?
-- Can both results be true under different conditions?
-
-### Type D: Community/Paradigm Integration
+### Type C: Community/Paradigm Integration
 **When to use**: Parallel literatures address similar problems with different vocabularies.
 
 **Key questions**:
