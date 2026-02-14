@@ -1,0 +1,8 @@
+{
+  "name": "editorial",
+  "description": "Diagnostic editorial intelligence for writing across contexts — papers, blogs, books, grants. Analyzes, diagnoses, and translates rather than generating from scratch.",
+  "version": "1.0.0",
+  "author": {"name": "rpatrik96"},
+  "category": "editorial",
+  "keywords": ["editorial", "writing", "diagnosis", "editing", "voice", "argument", "register"]
+}

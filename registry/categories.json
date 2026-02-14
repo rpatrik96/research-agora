@@ -13,6 +13,7 @@
     "writing",
     "verification",
     "analysis",
+    "diagnosis",
     "formatting",
     "automation",
     "dissemination",
@@ -78,6 +79,11 @@
       "label": "Documents & Figures",
       "description": "Office documents, publication figures, and TikZ diagrams",
       "icon": "image"
+    },
+    "editorial": {
+      "label": "Editorial Intelligence",
+      "description": "Diagnose writing issues, map arguments, detect voice drift, and translate between registers",
+      "icon": "stethoscope"
     }
   }
 }
