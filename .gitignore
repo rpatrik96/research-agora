@@ -51,3 +51,6 @@ site/output/
 *.log
 .env
 .env.local
+
+# HiWi application emails (private)
+HiWi-Applications/
