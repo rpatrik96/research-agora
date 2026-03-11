@@ -52,5 +52,20 @@ site/output/
 .env
 .env.local
 
+# Claude Code local config
+.claude/
+
+# oh-my-claudecode local config
+.omc/
+
+# Auto-generated CLAUDE.md files in subdirectories
+.github/workflows/CLAUDE.md
+plugins/*/commands/CLAUDE.md
+plugins/research-agents/agents/CLAUDE.md
+plugins/research-agents/micro-skills/CLAUDE.md
+registry/CLAUDE.md
+scripts/CLAUDE.md
+tests/CLAUDE.md
+
 # HiWi application emails (private)
 HiWi-Applications/
