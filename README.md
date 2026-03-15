@@ -7,6 +7,10 @@
 
 A community-driven skills marketplace for AI-assisted research. Browse, install, and share modular AI workflows for ML research.
 
+<p align="center">
+  <img src="dissemination/research-agora-demo.gif" alt="Research Agora Demo" width="700">
+</p>
+
 **[Browse Skills](https://rpatrik96.github.io/research-agora)** | **[Platform Design](PLATFORM.md)** | **[Contributing](CONTRIBUTING.md)**
 
 ## Installation
