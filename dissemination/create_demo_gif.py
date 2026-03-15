@@ -47,7 +47,7 @@ SCENE_1 = {
         {"text": "", "color": TEXT, "size": 10},
         {"text": "  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", "color": DIM, "size": 9},
         {"text": "", "color": TEXT, "size": 10},
-        {"text": "  74 AI skills for ML research", "color": TEXT, "size": 11},
+        {"text": "  AI skills for ML research", "color": TEXT, "size": 11},
         {"text": "  Plug into Claude Code · Open source · MIT License", "color": GRAY, "size": 9},
     ],
 }
@@ -61,7 +61,7 @@ SCENE_2 = {
             "rest_color": TEXT,
         },
         {"text": "", "color": TEXT, "size": 10},
-        {"text": "  ✓ Installed 17 skills:", "color": GREEN, "size": 10},
+        {"text": "  ✓ Installed academic skills:", "color": GREEN, "size": 10},
         {"text": "    paper-review, paper-abstract, literature-synthesizer,", "color": TEXT, "size": 9},
         {"text": "    citation-verification, paper-references, rebuttal, ...", "color": TEXT, "size": 9},
     ],
@@ -86,12 +86,12 @@ SCENE_4 = {
     "duration_s": 2.5,
     "lines": [
         {"text": "$ ", "color": GREEN, "size": 10, "rest": "claude /paper-references", "rest_color": TEXT},
-        {"text": "  Checking 47 citations against CrossRef, DBLP...", "color": GRAY, "size": 10},
+        {"text": "  Checking citations against CrossRef, DBLP...", "color": GRAY, "size": 10},
         {"text": "", "color": TEXT, "size": 10},
         {"text": "  ✗ 2 hallucinated citations detected", "color": RED, "size": 10},
         {"text": '    → "Smith et al. 2024" — DOI not found', "color": RED, "size": 9},
         {"text": '    → "Lee & Park 2023" — title mismatch', "color": RED, "size": 9},
-        {"text": "  ✓ 45/47 verified", "color": GREEN, "size": 10},
+        {"text": "  ✓ Remaining citations verified", "color": GREEN, "size": 10},
     ],
 }
 
