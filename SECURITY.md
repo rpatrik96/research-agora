@@ -11,7 +11,7 @@
 If you discover a security vulnerability, please report it responsibly:
 
 1. **Do not** open a public issue
-2. Email security concerns to rpatrik96@gmail.com
+2. Email security concerns to patrik.reizinger@tuebingen.mpg.de
 3. Include a description of the vulnerability and steps to reproduce
 4. Allow up to 48 hours for an initial response
 
