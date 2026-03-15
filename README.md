@@ -1,5 +1,10 @@
 # Research Agora
 
+[![Tests](https://github.com/rpatrik96/research-agora/actions/workflows/tests.yml/badge.svg)](https://github.com/rpatrik96/research-agora/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Skills](https://img.shields.io/badge/skills-74-blue.svg)](https://research-agora.github.io)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+
 A community-driven skills marketplace for AI-assisted research. Browse, install, and share modular AI workflows for ML research.
 
 **[Browse Skills](https://research-agora.github.io)** | **[Platform Design](PLATFORM.md)** | **[Contributing](CONTRIBUTING.md)**

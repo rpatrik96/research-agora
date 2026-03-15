@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Research Agora - A plugin marketplace for Claude Code focused on ML research, academic writing, and development automation",
-    "version": "2.0.0"
+    "version": "1.0.0"
   },
   "plugins": [
     {
