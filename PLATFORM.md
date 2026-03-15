@@ -126,7 +126,7 @@ metadata:
 
 ### Static Site (GitHub Pages)
 
-A Jinja2-generated static site at `https://research-agora.github.io` provides:
+A Jinja2-generated static site at `https://rpatrik96.github.io/research-agora` provides:
 
 - **Card grid** showing all skills with name, plugin badge, description, verification badge, model tag
 - **Filter sidebar** with checkboxes for domain, task-type, phase, verification-level

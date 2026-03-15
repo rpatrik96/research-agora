@@ -120,7 +120,7 @@ def draw_frame_4():
             fontsize=36, color=TEXT_COLOR, weight='bold', family='sans-serif')
 
     # Website
-    ax.text(5, 3.8, 'https://research-agora.github.io', ha='center', va='center',
+    ax.text(5, 3.8, 'https://rpatrik96.github.io/research-agora', ha='center', va='center',
             fontsize=22, color=ACCENT2, family='monospace', weight='bold')
 
     # GitHub

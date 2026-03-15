@@ -192,7 +192,7 @@ def main():
             {
                 "repo": "rpatrik96/research-agora",
                 "description": "Research Agora - ML research skills marketplace",
-                "homepage": "https://research-agora.github.io",
+                "homepage": "https://rpatrik96.github.io/research-agora",
                 "skills": skills,
             }
         ],

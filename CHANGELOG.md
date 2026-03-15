@@ -4,7 +4,7 @@
 
 ### Added
 - 74 skills across 6 plugins (academic, development, formatting, office, research-agents, editorial)
-- Static website with search and filtering at research-agora.github.io
+- Static website with search and filtering at rpatrik96.github.io/research-agora
 - Registry system with auto-generated index and category taxonomy
 - 22 specialized research agents for paper analysis
 - 12 micro-skills for parallel processing pipelines

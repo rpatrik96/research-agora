@@ -3,8 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benchmarks — Research Agora</title>
+    <title>HALLMARK: Citation Hallucination Benchmark — Research Agora</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .wip-banner {
+            background: var(--yellow-light);
+            border: 2px solid var(--yellow);
+            border-radius: var(--radius);
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--yellow);
+        }
+        .wip-banner-icon {
+            font-size: 1.4rem;
+            line-height: 1;
+        }
+        .hallmark-overview {
+            margin-bottom: 2rem;
+        }
+        .hallmark-overview p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+        .hallmark-overview h3 {
+            font-size: 1.15rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .hallmark-overview ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .hallmark-overview li {
+            margin-bottom: 0.4rem;
+            line-height: 1.6;
+        }
+        .hallmark-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0 1.5rem;
+        }
+        .hallmark-stat {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1rem;
+            text-align: center;
+        }
+        .hallmark-stat .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .hallmark-stat .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+        .tier-badges {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 0.5rem 0;
+        }
+        .badge-easy { background: var(--green-light); color: var(--green); }
+        .badge-medium { background: var(--yellow-light); color: var(--yellow); }
+        .badge-hard { background: var(--red-light); color: var(--red); }
+        .coming-soon {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-muted);
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            margin: 1.5rem 0;
+        }
+        .coming-soon h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+    </style>
 </head>
 <body>
     <nav class="site-nav">
@@ -20,12 +104,99 @@
 
     <header>
         <div class="container">
-            <h1>Research Agora</h1>
-            <p class="subtitle">Benchmark Leaderboards</p>
+            <h1>HALLMARK: Citation Hallucination Benchmark</h1>
+            <p class="subtitle">Measuring how well tools detect hallucinated citations in ML papers</p>
         </div>
     </header>
 
-    <main class="container">
+    <main class="container" style="padding-top: 2rem;">
+        <div class="wip-banner">
+            <span class="wip-banner-icon">&#9888;</span>
+            <span>Work in Progress &mdash; benchmark dataset and evaluation harness are under active development.</span>
+        </div>
+
+        <section class="hallmark-overview">
+            <p>
+                <strong>HALLMARK</strong> is a citation hallucination benchmark for evaluating reference-verification tools on ML papers.
+                It provides <strong>2,525 annotated entries</strong> spanning <strong>14 hallucination types</strong> across <strong>3 difficulty tiers</strong>,
+                with <strong>6 sub-tests per entry</strong> for fine-grained diagnosis.
+            </p>
+
+            <div class="hallmark-grid">
+                <div class="hallmark-stat">
+                    <div class="stat-value">2,525</div>
+                    <div class="stat-label">Annotated Entries</div>
+                </div>
+                <div class="hallmark-stat">
+                    <div class="stat-value">14</div>
+                    <div class="stat-label">Hallucination Types</div>
+                </div>
+                <div class="hallmark-stat">
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Difficulty Tiers</div>
+                </div>
+                <div class="hallmark-stat">
+                    <div class="stat-value">6</div>
+                    <div class="stat-label">Sub-tests per Entry</div>
+                </div>
+            </div>
+
+            <h3>Difficulty Tiers</h3>
+            <div class="tier-badges">
+                <span class="badge badge-easy">Easy</span>
+                <span class="badge badge-medium">Medium</span>
+                <span class="badge badge-hard">Hard</span>
+            </div>
+            <p>
+                Tiers reflect how difficult a hallucination is to detect: <strong>Easy</strong> entries have obvious errors (e.g., nonexistent DOIs),
+                <strong>Medium</strong> entries require cross-referencing metadata, and <strong>Hard</strong> entries involve subtle misattributions
+                that demand deep semantic understanding of the cited work.
+            </p>
+
+            <h3>Built-in Baselines</h3>
+            <ul>
+                <li><strong>DOI-only</strong> &mdash; resolves DOIs and flags missing or broken links</li>
+                <li><strong>bibtex-updater</strong> &mdash; metadata-based verification via BibTeX normalization</li>
+                <li><strong>LLM-based</strong> &mdash; direct LLM prompting for citation plausibility</li>
+                <li><strong>Ensemble</strong> &mdash; combines DOI + metadata + LLM signals</li>
+                <li><strong>HaRC</strong> &mdash; hallucinated reference classification baseline</li>
+                <li><strong>verify-citations</strong> &mdash; end-to-end citation verification pipeline</li>
+            </ul>
+
+            <h3>Metrics</h3>
+            <ul>
+                <li><strong>Detection Rate</strong> &mdash; fraction of hallucinated citations correctly flagged</li>
+                <li><strong>F1</strong> &mdash; harmonic mean of precision and recall</li>
+                <li><strong>Tier-weighted F1</strong> &mdash; F1 weighted by difficulty tier (Hard counts more)</li>
+                <li><strong>detect@k</strong> &mdash; detection rate within the top-k ranked citations</li>
+                <li><strong>ECE</strong> &mdash; expected calibration error of confidence scores</li>
+            </ul>
+            <p>
+                Final system rankings use <strong>Plackett&ndash;Luce ranking</strong> to aggregate across metrics and tiers into a single ordering.
+            </p>
+
+            <h3>Design Principles</h3>
+            <p>
+                HALLMARK draws on best practices from established code and ML benchmarks:
+                <strong>HumanEval</strong> (functional correctness via test cases),
+                <strong>SWE-bench</strong> (real-world task grounding),
+                <strong>LiveCodeBench</strong> (contamination-resistant temporal splits),
+                and <strong>ONEBench</strong> (multi-metric aggregation into a unified score).
+            </p>
+        </section>
+
+        <section class="benchmark-section">
+            <div class="benchmark-header">
+                <h2>Leaderboard</h2>
+            </div>
+            <div class="coming-soon">
+                <h3>Coming Soon</h3>
+                <p>The HALLMARK leaderboard will be populated once the benchmark dataset and evaluation harness are finalized.</p>
+                <p>Check back for ranked results across all baselines and community submissions.</p>
+            </div>
+        </section>
+
+        {# Keep existing dynamic benchmark rendering for any registered benchmarks #}
         {% for benchmark in benchmarks %}
         <section class="benchmark-section">
             <div class="benchmark-header">
