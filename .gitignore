@@ -67,5 +67,9 @@ registry/CLAUDE.md
 scripts/CLAUDE.md
 tests/CLAUDE.md
 
-# HiWi application emails (private)
+# HiWi materials (private)
 HiWi-Applications/
+dissemination/hiwi-*
+
+# Proposals (private, tracked in paper repo)
+proposals/
