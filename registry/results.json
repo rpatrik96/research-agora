@@ -2,8 +2,239 @@
   "version": "1.0.0",
   "results": [
     {
-      "benchmark-id": "citebench",
-      "entries": []
+      "benchmark-id": "hallmark",
+      "entries": [
+        {
+          "benchmark-id": "hallmark",
+          "skill": "GPT-5.1",
+          "model": "llm",
+          "version": "openai/gpt-5.1",
+          "date": "2026-02-14",
+          "split": "dev_public",
+          "num_entries": 1068,
+          "metrics": {
+            "detection_rate": 0.797,
+            "f1_hallucination": 0.822,
+            "tier_weighted_f1": 0.846,
+            "fpr": 0.171,
+            "ece": 0.107
+          },
+          "tier-breakdown": {
+            "tier-1": {"detection_rate": 0.873, "f1": 0.932},
+            "tier-2": {"detection_rate": 0.760, "f1": 0.864},
+            "tier-3": {"detection_rate": 0.785, "f1": 0.880}
+          },
+          "notes": "OpenAI GPT-5.1 via direct prompting. Best F1 overall with balanced precision-recall.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openai --split dev_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "Qwen 3 235B",
+          "model": "llm",
+          "version": "qwen/qwen3-235b-a22b-2507",
+          "date": "2026-03-15",
+          "split": "dev_public",
+          "num_entries": 1119,
+          "metrics": {
+            "detection_rate": 0.832,
+            "f1_hallucination": 0.737,
+            "tier_weighted_f1": 0.806,
+            "fpr": 0.551,
+            "ece": 0.294
+          },
+          "tier-breakdown": {
+            "tier-1": {"detection_rate": 0.974},
+            "tier-2": {"detection_rate": 0.756},
+            "tier-3": {"detection_rate": 0.833}
+          },
+          "notes": "Qwen 3 235B via OpenRouter. High detection rate but elevated FPR.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openrouter_qwen --split dev_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "DeepSeek R1",
+          "model": "llm",
+          "version": "deepseek/deepseek-r1",
+          "date": "2026-03-15",
+          "split": "dev_public",
+          "num_entries": 1119,
+          "metrics": {
+            "detection_rate": 0.871,
+            "f1_hallucination": 0.737,
+            "tier_weighted_f1": 0.814,
+            "fpr": 0.640,
+            "ece": 0.247
+          },
+          "tier-breakdown": {
+            "tier-1": {"detection_rate": 0.993},
+            "tier-2": {"detection_rate": 0.832},
+            "tier-3": {"detection_rate": 0.832}
+          },
+          "notes": "DeepSeek R1 via OpenRouter. Near-perfect Tier 1 detection but high FPR.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openrouter_deepseek_r1 --split dev_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "Mistral Large",
+          "model": "llm",
+          "version": "mistralai/mistral-large-2512",
+          "date": "2026-03-15",
+          "split": "dev_public",
+          "num_entries": 1119,
+          "metrics": {
+            "detection_rate": 0.691,
+            "f1_hallucination": 0.731,
+            "tier_weighted_f1": 0.743,
+            "fpr": 0.258,
+            "ece": 0.247
+          },
+          "tier-breakdown": {
+            "tier-1": {"detection_rate": 0.954},
+            "tier-2": {"detection_rate": 0.596},
+            "tier-3": {"detection_rate": 0.621}
+          },
+          "notes": "Mistral Large via OpenRouter. Best FPR-to-F1 ratio among LLMs.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openrouter_mistral --split dev_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "DeepSeek V3",
+          "model": "llm",
+          "version": "deepseek/deepseek-v3.2",
+          "date": "2026-03-15",
+          "split": "dev_public",
+          "num_entries": 1119,
+          "metrics": {
+            "detection_rate": 0.880,
+            "f1_hallucination": 0.721,
+            "tier_weighted_f1": 0.805,
+            "fpr": 0.730,
+            "ece": 0.331
+          },
+          "tier-breakdown": {
+            "tier-1": {"detection_rate": 0.994},
+            "tier-2": {"detection_rate": 0.860},
+            "tier-3": {"detection_rate": 0.818}
+          },
+          "notes": "DeepSeek V3 via OpenRouter. Highest DR overall but worst FPR and calibration.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openrouter_deepseek_v3 --split dev_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "Gemini 2.5 Flash",
+          "model": "llm",
+          "version": "google/gemini-2.5-flash",
+          "date": "2026-03-15",
+          "split": "dev_public",
+          "num_entries": 1119,
+          "metrics": {
+            "detection_rate": 0.482,
+            "f1_hallucination": 0.617,
+            "tier_weighted_f1": 0.608,
+            "fpr": 0.101,
+            "ece": 0.286
+          },
+          "tier-breakdown": {
+            "tier-1": {"detection_rate": 0.693},
+            "tier-2": {"detection_rate": 0.385},
+            "tier-3": {"detection_rate": 0.459}
+          },
+          "notes": "Gemini 2.5 Flash via OpenRouter. Lowest FPR among LLMs but lowest detection rate.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openrouter_gemini_flash --split dev_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "DOI-only",
+          "model": "tool",
+          "version": "v1.0",
+          "date": "2026-02-14",
+          "split": "dev_public",
+          "num_entries": 1068,
+          "metrics": {
+            "detection_rate": 0.256,
+            "f1_hallucination": 0.361,
+            "tier_weighted_f1": 0.314,
+            "fpr": 0.195,
+            "ece": 0.143
+          },
+          "tier-breakdown": {
+            "tier-1": {"detection_rate": 0.500},
+            "tier-2": {"detection_rate": 0.204},
+            "tier-3": {"detection_rate": 0.094}
+          },
+          "notes": "DOI resolution baseline. Only checks whether DOI resolves.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines doi_only --split dev_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "HaRC",
+          "model": "tool",
+          "version": "harcx",
+          "date": "2026-02-14",
+          "split": "dev_public",
+          "num_entries": 1079,
+          "metrics": {
+            "detection_rate": 0.143,
+            "f1_hallucination": 0.250,
+            "tier_weighted_f1": 0.165,
+            "fpr": 0.002,
+            "ece": 0.011
+          },
+          "tier-breakdown": {
+            "tier-1": {"detection_rate": 0.437},
+            "tier-2": {"detection_rate": 0.036},
+            "tier-3": {"detection_rate": 0.038}
+          },
+          "notes": "Hallucinated Reference Classification tool. Near-zero FPR but poor recall.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines harc --split dev_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "verify-citations",
+          "model": "tool",
+          "version": "v1.0",
+          "date": "2026-02-12",
+          "split": "dev_public",
+          "num_entries": 500,
+          "metrics": {
+            "detection_rate": 0.300,
+            "f1_hallucination": 0.240,
+            "tier_weighted_f1": 0.302,
+            "fpr": 0.133,
+            "ece": null
+          },
+          "tier-breakdown": {
+            "tier-1": {"detection_rate": 0.300},
+            "tier-2": {"detection_rate": 0.333},
+            "tier-3": {"detection_rate": 0.250}
+          },
+          "notes": "End-to-end citation verification pipeline. Partial coverage (500/1119 entries).",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines verify_citations --split dev_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "bibtex-updater",
+          "model": "tool",
+          "version": "v2.0",
+          "date": "2026-02-14",
+          "split": "dev_public",
+          "num_entries": 1068,
+          "metrics": {
+            "detection_rate": 0.120,
+            "f1_hallucination": 0.215,
+            "tier_weighted_f1": 0.125,
+            "fpr": 0.000,
+            "ece": 0.019
+          },
+          "tier-breakdown": {
+            "tier-1": {"detection_rate": 0.411},
+            "tier-2": {"detection_rate": 0.011},
+            "tier-3": {"detection_rate": 0.013}
+          },
+          "notes": "BibTeX metadata normalization tool. Zero FPR but very low recall beyond Tier 1.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines bibtexupdater --split dev_public"
+        }
+      ]
     }
   ]
 }

@@ -2,21 +2,26 @@
   "version": "1.0.0",
   "benchmarks": [
     {
-      "id": "citebench",
-      "name": "CiteBench: Citation Hallucination Detection",
-      "repo": "rpatrik96/citebench",
-      "homepage": "https://github.com/rpatrik96/citebench",
-      "description": "A benchmark for evaluating citation hallucination detection tools. Contains real and fabricated BibTeX entries with hallucination type taxonomy.",
-      "task": "Given a BibTeX entry and optional context, classify it as valid or fabricated.",
-      "metrics": ["precision", "recall", "f1", "accuracy"],
-      "primary-metric": "f1",
-      "categories": ["non-existent", "wrong-authors", "wrong-venue", "wrong-year", "plausible-fake"],
+      "id": "hallmark",
+      "name": "HALLMARK: Citation Hallucination Detection",
+      "repo": "rpatrik96/hallmark",
+      "homepage": "https://github.com/rpatrik96/hallmark",
+      "description": "Evaluates citation verification tools on detecting hallucinated references in ML papers. 2,525 annotated entries across 14 hallucination types and 3 difficulty tiers.",
+      "task": "Given a BibTeX entry, classify it as valid or hallucinated and identify the hallucination type.",
+      "metrics": ["detection_rate", "f1_hallucination", "tier_weighted_f1", "fpr", "ece"],
+      "primary-metric": "f1_hallucination",
+      "categories": [
+        "fabricated_doi", "nonexistent_venue", "placeholder_authors", "future_date",
+        "chimeric_title", "wrong_venue", "author_mismatch", "preprint_as_published", "hybrid_fabrication",
+        "near_miss_title", "plausible_fabrication",
+        "merged_citation", "partial_author_list", "arxiv_version_mismatch"
+      ],
       "submission-format": "jsonl",
       "dev-set": true,
       "hidden-test-set": true,
       "refresh-cadence": "quarterly",
-      "relevant-skills": ["paper-references", "citation-verifier"],
-      "tags": ["citation", "hallucination", "verification", "bibliography"]
+      "relevant-skills": ["paper-references"],
+      "tags": ["citation", "hallucination", "verification", "bibliography", "bibtex", "ml-papers"]
     }
   ]
 }

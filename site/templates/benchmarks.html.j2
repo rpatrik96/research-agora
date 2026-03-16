@@ -6,23 +6,6 @@
     <title>HALLMARK: Citation Hallucination Benchmark — Research Agora</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .wip-banner {
-            background: var(--yellow-light);
-            border: 2px solid var(--yellow);
-            border-radius: var(--radius);
-            padding: 0.75rem 1.25rem;
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: var(--yellow);
-        }
-        .wip-banner-icon {
-            font-size: 1.4rem;
-            line-height: 1;
-        }
         .hallmark-overview {
             margin-bottom: 2rem;
         }
@@ -110,11 +93,6 @@
     </header>
 
     <main class="container" style="padding-top: 2rem;">
-        <div class="wip-banner">
-            <span class="wip-banner-icon">&#9888;</span>
-            <span>Work in Progress &mdash; benchmark dataset and evaluation harness are under active development.</span>
-        </div>
-
         <section class="hallmark-overview">
             <p>
                 <strong>HALLMARK</strong> is a citation hallucination benchmark for evaluating reference-verification tools on ML papers.
@@ -188,16 +166,57 @@
         <section class="benchmark-section">
             <div class="benchmark-header">
                 <h2>Leaderboard</h2>
+                <div class="benchmark-meta">
+                    <span class="badge badge-formal">F1-H</span>
+                    <span class="badge badge-plugin">dev_public</span>
+                </div>
             </div>
+            {% set hallmark_results = results | selectattr('benchmark-id', 'equalto', 'hallmark') | list %}
+            {% if hallmark_results %}
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                Ranked by F1-Hallucination (primary metric) on <code>dev_public</code> split (1,119 entries).
+                Arrows indicate preferred direction.
+            </p>
+            <div style="overflow-x: auto;">
+            <table class="leaderboard">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Baseline</th>
+                        <th>Type</th>
+                        <th>DR &uarr;</th>
+                        <th>F1-H &uarr;</th>
+                        <th>TW-F1 &uarr;</th>
+                        <th>FPR &darr;</th>
+                        <th>ECE &darr;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in hallmark_results %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td><strong>{{ entry.skill }}</strong></td>
+                        <td><span class="badge {% if entry.model == 'llm' %}badge-formal{% else %}badge-heuristic{% endif %}">{{ entry.model | upper }}</span></td>
+                        <td>{{ "%.3f" | format(entry.metrics.detection_rate) }}</td>
+                        <td><strong>{{ "%.3f" | format(entry.metrics.f1_hallucination) }}</strong></td>
+                        <td>{{ "%.3f" | format(entry.metrics.tier_weighted_f1) }}</td>
+                        <td>{{ "%.3f" | format(entry.metrics.fpr) }}</td>
+                        <td>{% if entry.metrics.ece is not none %}{{ "%.3f" | format(entry.metrics.ece) }}{% else %}&mdash;{% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+            {% else %}
             <div class="coming-soon">
-                <h3>Coming Soon</h3>
-                <p>The HALLMARK leaderboard will be populated once the benchmark dataset and evaluation harness are finalized.</p>
-                <p>Check back for ranked results across all baselines and community submissions.</p>
+                <h3>No Results Yet</h3>
+                <p>Submit results following the <a href="https://github.com/rpatrik96/research-agora/blob/main/registry/BENCHMARKS.md">submission guidelines</a>.</p>
             </div>
+            {% endif %}
         </section>
 
-        {# Keep existing dynamic benchmark rendering for any registered benchmarks #}
-        {% for benchmark in benchmarks %}
+        {# Dynamic rendering for any additional registered benchmarks (skip hallmark — shown above) #}
+        {% for benchmark in benchmarks if benchmark.id != 'hallmark' %}
         <section class="benchmark-section">
             <div class="benchmark-header">
                 <h2>{{ benchmark.name }}</h2>
