@@ -6,6 +6,29 @@
       "entries": [
         {
           "benchmark-id": "hallmark",
+          "skill": "bibtex-updater",
+          "model": "tool",
+          "version": "v2.0 + prescreening",
+          "date": "2026-02-22",
+          "split": "dev_public",
+          "num_entries": 1119,
+          "metrics": {
+            "detection_rate": 0.946,
+            "f1_hallucination": 0.908,
+            "tier_weighted_f1": 0.936,
+            "fpr": 0.179,
+            "ece": 0.297
+          },
+          "tier-breakdown": {
+            "tier-1": {"detection_rate": 0.968, "f1": 0.764},
+            "tier-2": {"detection_rate": 0.955, "f1": 0.848},
+            "tier-3": {"detection_rate": 0.914, "f1": 0.769}
+          },
+          "notes": "BibTeX metadata verification with tool-level fixes and prescreening layer. Best F1 overall.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines bibtexupdater --split dev_public"
+        },
+        {
+          "benchmark-id": "hallmark",
           "skill": "GPT-5.1",
           "model": "llm",
           "version": "openai/gpt-5.1",
@@ -24,7 +47,7 @@
             "tier-2": {"detection_rate": 0.760, "f1": 0.864},
             "tier-3": {"detection_rate": 0.785, "f1": 0.880}
           },
-          "notes": "OpenAI GPT-5.1 via direct prompting. Best F1 overall with balanced precision-recall.",
+          "notes": "OpenAI GPT-5.1 via direct prompting. Best LLM baseline with balanced precision-recall.",
           "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openai --split dev_public"
         },
         {
@@ -210,29 +233,6 @@
           },
           "notes": "End-to-end citation verification pipeline. Partial coverage (500/1119 entries).",
           "reproduction": "uv run python scripts/run_all_baselines.py --baselines verify_citations --split dev_public"
-        },
-        {
-          "benchmark-id": "hallmark",
-          "skill": "bibtex-updater",
-          "model": "tool",
-          "version": "v2.0",
-          "date": "2026-02-14",
-          "split": "dev_public",
-          "num_entries": 1068,
-          "metrics": {
-            "detection_rate": 0.120,
-            "f1_hallucination": 0.215,
-            "tier_weighted_f1": 0.125,
-            "fpr": 0.000,
-            "ece": 0.019
-          },
-          "tier-breakdown": {
-            "tier-1": {"detection_rate": 0.411},
-            "tier-2": {"detection_rate": 0.011},
-            "tier-3": {"detection_rate": 0.013}
-          },
-          "notes": "BibTeX metadata normalization tool. Zero FPR but very low recall beyond Tier 1.",
-          "reproduction": "uv run python scripts/run_all_baselines.py --baselines bibtexupdater --split dev_public"
         }
       ]
     }
