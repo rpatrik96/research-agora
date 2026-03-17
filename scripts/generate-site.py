@@ -243,6 +243,14 @@ def main():
     env.filters["verification_badge"] = verification_badge_class
     env.filters["model_badge"] = model_badge_class
 
+    # Load benchmarks early so count is available for stats
+    benchmarks_path = REGISTRY_DIR / "benchmarks.json"
+    benchmarks = []
+    if benchmarks_path.exists():
+        with open(benchmarks_path) as f:
+            benchmarks_data = json.load(f)
+        benchmarks = benchmarks_data.get("benchmarks", [])
+
     # Build stats for display
     public_stats = {
         "public_skills": len(public_skills),
@@ -250,6 +258,7 @@ def main():
         "total_skills": len(all_skills),
         "groups": len(grouped_skills),
         "plugins": len(plugins),
+        "benchmarks": len(benchmarks),
     }
 
     # Render index page
@@ -271,17 +280,9 @@ def main():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     (OUTPUT_DIR / "index.html").write_text(html)
 
-    # Load benchmarks
-    benchmarks_path = REGISTRY_DIR / "benchmarks.json"
+    # Load results (benchmarks already loaded above for stats)
     results_path = REGISTRY_DIR / "results.json"
-
-    benchmarks = []
     all_results = []
-
-    if benchmarks_path.exists():
-        with open(benchmarks_path) as f:
-            benchmarks_data = json.load(f)
-        benchmarks = benchmarks_data.get("benchmarks", [])
 
     if results_path.exists():
         with open(results_path) as f:
