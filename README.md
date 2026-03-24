@@ -13,21 +13,102 @@ A community-driven skills marketplace for AI-assisted research. Browse, install,
 
 **[Browse Skills](https://rpatrik96.github.io/research-agora)** | **[Platform Design](PLATFORM.md)** | **[Contributing](CONTRIBUTING.md)**
 
-## Installation
+## Getting Started
 
-1. **Add the marketplace:**
-   ```bash
-   /plugin marketplace add rpatrik96/research-agora
-   ```
+**Reading time:** PI: 5 min | Researcher: 15 min | Student: 10 min
 
-2. **Install plugins:**
-   ```bash
-   /plugin install academic@research-agora
-   /plugin install development@research-agora
-   /plugin install formatting@research-agora
-   /plugin install office@research-agora
-   /plugin install research-agents@research-agora
-   ```
+### Install
+
+```bash
+npm install -g @anthropic-ai/claude-code    # if you don't have Claude Code yet
+```
+
+```
+/plugin marketplace add rpatrik96/research-agora
+/plugin install academic@research-agora
+/plugin install development@research-agora
+/plugin install formatting@research-agora
+/plugin install research-agents@research-agora
+```
+
+> **New here?** Run `/onboard` — it asks a few questions about your work and generates a personalized setup with recommended skills.
+
+### Your First 5 Minutes
+
+Run citation verification on any project with a `.bib` file:
+
+```bash
+cd /path/to/your/project && claude
+/paper-references
+```
+
+Every entry marked `mismatch` or `not found` is a potential hallucinated or corrupted reference. **Cost: ~$0.10–0.30.**
+
+No `.bib` file? No CLI? See the [full quickstart](docs/quickstart.md) for browser-only paths.
+
+### Choose Your Path
+
+<details>
+<summary><strong>PI: Evaluate and deploy for your group</strong></summary>
+
+74 reusable AI workflows for the full paper lifecycle. Skills encode your group's standards in a shared `CLAUDE.md` — every student and postdoc runs the same verified checks.
+
+- **Cost:** $20/mo Pro + ~$5–80/mo API tokens depending on usage. Team plan ($30/seat) adds GDPR DPA.
+- **Privacy:** No patient data or unpublished results on Pro. Team plan required for institutional compliance. [Full guide →](docs/privacy-gdpr.md)
+- **Rollout:** (1) Pilot one high-pain task, (2) Create shared `CLAUDE.md`, (3) Set verification standards, (4) Review monthly.
+- Skills are plain Markdown — they transfer across providers. No lock-in.
+
+**Start with:** [Quickstart](docs/quickstart.md) → [Verification guide](docs/verification.md) → [CLAUDE.md template](templates/CLAUDE.md.researcher)
+
+</details>
+
+<details>
+<summary><strong>Researcher: Get productive today</strong></summary>
+
+| I want to... | Run this |
+|-------------|---------|
+| Verify citations | `/paper-references` |
+| Critical review of my draft | `/paper-review path/to/paper.pdf` |
+| Write a rebuttal | `/paper-rebuttal` |
+| Find related work | `/literature-synthesizer` |
+| Publication-ready figures | `/publication-figures` |
+| Debug LaTeX | `/latex-debugger` |
+| Clean up code | `/code-simplify` |
+
+**Not sure which skill?** Run `/choose-skill` — describe your task and get matched recommendations.
+
+**Start with:** [Quickstart](docs/quickstart.md) → [Examples by domain](docs/examples/) → [CLAUDE.md template](templates/CLAUDE.md.researcher)
+
+</details>
+
+<details>
+<summary><strong>Student: Learn by doing</strong></summary>
+
+AI tools amplify expertise — they don't replace it. Verify everything. Build understanding before optimizing speed.
+
+**Week 1:** Run `/paper-references` on your bibliography. Check 3 entries manually.
+**Week 2:** Set up `CLAUDE.md` for your project with `/onboard`.
+**Week 3:** Try `/paper-review` on a section draft. Do you agree with the critique?
+**Week 4:** Connect GitHub MCP, try `/pr-automation`.
+
+**Rule of thumb:** If you couldn't do the task without AI, the AI shouldn't do it for you yet.
+
+**Start with:** [Concepts](docs/concepts.md) → [Examples](docs/examples/) → [Verification guide](docs/verification.md)
+
+</details>
+
+### Documentation
+
+| Doc | What it covers |
+|-----|---------------|
+| [Quickstart](docs/quickstart.md) | Install → first task → 5-minute win |
+| [Concepts](docs/concepts.md) | Evolution stack, key terms, delegate vs. protect |
+| [Verification](docs/verification.md) | TDR recipes, hierarchy, limits |
+| [Privacy & GDPR](docs/privacy-gdpr.md) | Compliance checklist, paid plans, medical data |
+| [Examples](docs/examples/) | Domain-specific prompts by use case |
+| [CLAUDE.md Template](templates/CLAUDE.md.researcher) | Commented template — customizing it IS the tutorial |
+
+---
 
 ## Available Plugins
 
@@ -50,7 +131,6 @@ Paper writing, research, and dissemination skills:
 | `paper-slides` | Create presentation slides from papers |
 | `paper-twitter` | Create Twitter threads to announce research |
 | `paper-title` | Brainstorm compelling paper titles |
-| `literature-synthesizer` | Discover and synthesize relevant literature |
 | `experiment-tracker` | Sync experiment results to paper drafts |
 | `benchmark-scout` | Find benchmarks and generate experiment plans |
 | `openreview-submission` | Prepare OpenReview metadata: plain-text abstract, keywords, TL;DR, lay summary |

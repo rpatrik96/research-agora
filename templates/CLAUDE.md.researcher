@@ -1,0 +1,352 @@
+# [Your Project Name]
+
+<!-- WHY THIS FILE EXISTS: Claude reads this at the start of every session.
+It's your "working with me" manual for the AI agent. The better this file,
+the less time you spend correcting the same mistakes, and the more the agent
+behaves like a collaborator who already knows your project.
+
+HOW TO USE THIS TEMPLATE:
+1. Replace everything in [brackets] with your actual content.
+2. Read each comment — the comment explains WHY the section exists, not just what to put in it.
+3. Delete comments once you understand a section. They're scaffolding, not permanent.
+4. Commit this file to git so all collaborators (human and AI) share the same context.
+
+The act of filling this out is itself useful: it forces you to articulate conventions
+you've been applying implicitly. -->
+
+---
+
+## Project Overview
+
+<!-- 2–3 sentences. What is this project? What stage is it at?
+The agent uses this to calibrate its assumptions about what matters and what
+"good output" looks like. A paper at the writing stage needs different help
+than a codebase at the debugging stage.
+
+Example (ML paper): "NeurIPS 2026 submission on causal representation learning.
+Experiments complete. Currently writing the results section and preparing camera-ready."
+
+Example (software tool): "Python library for automated BibTeX verification.
+Public API stable. Currently adding a CLI and writing documentation." -->
+
+[2–3 sentences describing what this project is and what stage it is at.]
+
+---
+
+## Key Files
+
+<!-- List the files the agent should know about by default. Without this,
+the agent reads whatever seems relevant — which may include files you
+don't want touched, and may miss files you care most about.
+
+Be specific about purpose, not just name. "main.tex" tells the agent
+nothing; "main.tex (paper body, 4-page limit)" tells it what constraints apply.
+
+Example:
+- main.tex          — paper body (4-page limit excluding references)
+- references.bib    — bibliography (all citations must resolve)
+- src/train.py      — main training script
+- src/model.py      — model architecture
+- results/          — experiment outputs (read-only; never modify)
+- CHANGELOG.md      — log of significant changes -->
+
+- [filename] — [what it is and any constraints that apply]
+- [filename] — [what it is and any constraints that apply]
+
+---
+
+## Build Commands
+
+<!-- How to compile, run, or test this project. The agent needs these to
+verify its own outputs — if it edits your LaTeX, it should know how to
+check that the PDF still compiles.
+
+Include the exact commands, not descriptions of them.
+
+Example (LaTeX paper):
+  Compile: latexmk -pdf main.tex
+  Clean:   latexmk -C
+
+Example (Python project):
+  Install: uv sync
+  Test:    pytest --tb=short -q
+  Format:  black . && isort .
+  Lint:    ruff check .
+
+Example (R project):
+  Render:  Rscript -e "rmarkdown::render('analysis.Rmd')"
+  Test:    Rscript -e "testthat::test_dir('tests/')" -->
+
+[List your build/compile/test commands here.]
+
+---
+
+## Conventions
+
+<!-- Your coding and writing standards. This is where you prevent the
+agent from using the wrong cross-reference command, the wrong table style,
+or the wrong import order. Be prescriptive, not aspirational.
+
+The agent will default to common patterns it has seen in training data.
+Your conventions override those defaults — but only if you state them explicitly.
+
+Example (LaTeX paper):
+- Cross-references: \cref{} via cleveref — NEVER \ref{}
+- Tables: booktabs (\toprule, \midrule, \bottomrule) — NEVER \hline
+- Math: amsmath for all equation environments
+- Writing: active voice, no hedging, one claim per sentence
+- Citations: author-year format via natbib
+
+Example (Python project):
+- Formatter: black (line length 88)
+- Import order: isort with black profile
+- Type hints: required on all public functions
+- Docstrings: Google style
+- Tests: pytest; test files mirror src structure in tests/ -->
+
+[List your conventions here — LaTeX packages, coding standards, style rules.]
+
+---
+
+## Verification Requirements
+
+<!-- What must be true before any output is considered done.
+This is the acceptance criteria the agent checks its own work against.
+Without this, "done" means "I finished generating" — which is not the
+same as "correct."
+
+State these as checkable conditions, not aspirations.
+
+Example (paper):
+- All citations must resolve (DOI or Semantic Scholar match)
+- Document must compile without errors: latexmk -pdf main.tex
+- Main text must not exceed 4 pages (check with: pdfinfo main.pdf)
+- No \ref{} — only \cref{}
+- All numbers in the text must match numbers in tables/figures
+
+Example (code):
+- All tests must pass: pytest --tb=short -q
+- No ruff warnings: ruff check .
+- Type checking clean: mypy src/
+- New functions must have docstrings and at least one test -->
+
+[List your verification requirements here.]
+
+---
+
+## Common Mistakes
+
+<!-- Grows over time as you discover failure modes. Start with one or two
+known issues; add more as the agent surprises you.
+
+This section is the most valuable part of the file after a few weeks of use.
+Every entry here is a lesson that took time to learn — encoding it means
+you never have to correct it again.
+
+Example entries:
+- Uses \ref{} instead of \cref{} — always use \cref{}
+- Adds \hline to tables — always use booktabs
+- Writes "we show that" — prefer "X shows that" or reframe as a claim
+- Suggests pip install — this project uses uv; always use uv add
+- Edits results/ directory — those files are generated; never modify manually
+- Invents citations when uncertain — write [CITE NEEDED] instead
+
+Add to this list whenever the agent does something you have to fix. -->
+
+[Leave blank initially. Add entries as you encounter recurring mistakes.]
+
+---
+
+## Constraints
+
+<!-- Hard limits the agent must never violate, regardless of what seems helpful.
+Keep this short — these are the lines that cannot be crossed.
+
+Example:
+- Never exceed 4 pages in main text; ask before adding content
+- Never commit to main branch directly; always use a feature branch
+- Never modify raw data in data/raw/ — only processed outputs in data/processed/
+- Never include patient identifiers in any output
+- API keys are in .env — never read, print, or include in outputs -->
+
+[List hard constraints here.]
+
+---
+
+<!-- DOMAIN-SPECIFIC VARIANTS
+The sections below show how this template looks when filled out for different
+research contexts. Copy the relevant block and adapt it to your project.
+Delete this comment and all variant blocks before using the file. -->
+
+---
+
+<!-- VARIANT: ML PAPER (NeurIPS/ICML/ICLR submission)
+
+# Causal Representation Learning — NeurIPS 2026
+
+## Project Overview
+NeurIPS 2026 submission on identifiable causal representations from observational data.
+Experiments complete. Currently writing the results section; camera-ready deadline May 15.
+
+## Key Files
+- main.tex          — paper body (9-page limit excluding references and appendix)
+- references.bib    — bibliography (all citations must resolve against Semantic Scholar)
+- src/train.py      — main training script; hyperparameters in config/default.yaml
+- src/model.py      — encoder and decoder architectures
+- results/          — experiment outputs (read-only; regenerate with scripts/run_all.sh)
+- rebuttal/         — reviewer response drafts
+
+## Build Commands
+  Compile: latexmk -pdf main.tex
+  Clean:   latexmk -C
+  Tests:   pytest tests/ --tb=short -q
+  Format:  black src/ && isort src/
+
+## Conventions
+- Cross-references: \cref{} via cleveref — NEVER \ref{}
+- Tables: booktabs (\toprule, \midrule, \bottomrule) — NEVER \hline
+- Figures: PDF vector export, colorblind-safe palette (seaborn "colorblind" or Okabe-Ito)
+- Writing: active voice, no hedging, one claim per sentence; cut "basically", "simply", "just"
+- Citations: \citep{} for parenthetical, \citet{} for inline author-year
+
+## Verification Requirements
+- All citations must resolve: run /citation-verify before submission
+- Document compiles without errors or overfull boxes
+- Main text ≤ 9 pages (check: pdfinfo main.pdf | grep Pages)
+- All numerical claims in text match results/ outputs
+- No \ref{} — grep to confirm: grep -r '\\ref{' main.tex should return nothing
+
+## Common Mistakes
+- Uses \ref{} instead of \cref{}
+- Adds \hline to tables instead of booktabs
+- Invents citations when uncertain — write [CITE NEEDED] and flag it
+- Puts new content in main text without asking — page limit is strict; ask first
+-->
+
+---
+
+<!-- VARIANT: CLINICAL / MEDICAL RESEARCH
+
+# [Study Name] — [Phase/Stage]
+
+## Project Overview
+[Phase III RCT / observational cohort / systematic review] on [topic].
+Data collection [complete/ongoing]. Currently [analysis stage].
+Ethics approval: [reference number]. Pre-registration: [DOI or registry ID].
+
+## Key Files
+- protocol.md       — study protocol (do not modify; locked at registration)
+- analysis/         — R scripts for primary and secondary endpoints
+- data/processed/   — de-identified analysis dataset (never modify manually)
+- manuscript/       — paper drafts
+- IMPORTANT: data/raw/ contains identifiable data — NEVER read or reference
+
+## Build Commands
+  Primary analysis: Rscript analysis/primary_endpoint.R
+  All analyses:     make all
+  Render report:    Rscript -e "rmarkdown::render('report/results.Rmd')"
+
+## Conventions
+- Statistics: report with 95% CI, two-sided p-values; p < 0.05 threshold
+- Effect sizes: Cohen's d or OR with CI — never report p-value alone
+- Tables: follow CONSORT/STROBE reporting guidelines
+- Never suggest removing participants from analysis without protocol justification
+- Primary endpoint is pre-specified; any deviation must be flagged as exploratory
+
+## Verification Requirements
+- All analyses must reproduce from data/processed/ with a single make command
+- No identifiable data in any output, figure, or intermediate file
+- Statistical claims cross-checked against analysis output logs
+- Ethics disclosure in manuscript acknowledgements section
+
+## Common Mistakes
+- Proposes new subgroup analyses without flagging them as post-hoc exploratory
+- Uses ANOVA when the protocol specifies mixed-effects model
+- Forgets to adjust for pre-specified covariates
+-->
+
+---
+
+<!-- VARIANT: DATA ANALYSIS PROJECT (Python/R)
+
+# [Project Name] — Data Analysis
+
+## Project Overview
+Analysis of [dataset description] to answer [core research question].
+Language: [Python/R]. Data: [source, N, key variables].
+Stage: [EDA / modeling / write-up].
+
+## Key Files
+- notebooks/01_eda.ipynb       — exploratory data analysis
+- notebooks/02_modeling.ipynb  — model training and evaluation
+- src/preprocess.py            — data cleaning pipeline
+- data/raw/                    — original data (READ ONLY — never modify)
+- data/processed/              — cleaned datasets (generated by src/preprocess.py)
+- outputs/figures/             — all generated figures (regenerate; never hand-edit)
+
+## Build Commands
+  Install:    uv sync
+  Preprocess: python src/preprocess.py
+  Figures:    python src/make_figures.py
+  Tests:      pytest tests/ --tb=short -q
+  Format:     black src/ && isort src/
+
+## Conventions
+- Figures: matplotlib with seaborn "colorblind" palette, PDF export at 300 dpi
+- Never hardcode paths — use pathlib.Path and config constants
+- Never modify data/raw/ — all transformations happen in src/
+- Formatter: black (line length 88); always run before committing
+
+## Verification Requirements
+- Tests pass: pytest --tb=short -q
+- Full pipeline reproducible from raw data: python src/preprocess.py && python src/make_figures.py
+- No hardcoded paths in any script
+- Figures export without error; check outputs/figures/ for results
+
+## Common Mistakes
+- Modifies data/raw/ instead of creating a new step in src/preprocess.py
+- Uses relative paths that break when run from a different directory
+- Proposes pip install — this project uses uv; always suggest uv add
+-->
+
+---
+
+<!-- VARIANT: HUMANITIES / QUALITATIVE RESEARCH
+
+# [Project Title] — [Discipline]
+
+## Project Overview
+[Book chapter / journal article / dissertation chapter] on [topic].
+Discipline: [history / philosophy / linguistics / STS / etc.].
+Stage: [archival research / drafting / revision].
+Target venue: [journal name, word limit].
+
+## Key Files
+- draft.md          — current manuscript draft
+- notes/            — research notes and source summaries
+- sources/          — PDFs of primary sources (fair use; do not redistribute)
+- references.bib    — bibliography
+
+## Build Commands
+  Compile to PDF: pandoc draft.md --citeproc -o draft.pdf
+  Word count:     wc -w draft.md
+
+## Conventions
+- Citation style: [Chicago author-date / MLA / APA / footnote style]
+- Do not paraphrase primary sources without quoting the original first
+- Distinguish between primary sources (archives, texts) and secondary sources (scholarship)
+- Writing: active voice where possible; discipline-appropriate hedging for interpretive claims
+- Translations: always provide original language in footnote or bracket
+
+## Verification Requirements
+- All cited works must appear in references.bib
+- Direct quotes must include page numbers
+- Word count within target range: [X–Y words for main text]
+- Any interpretive claim beyond the sources must be explicitly flagged as interpretation
+
+## Common Mistakes
+- Paraphrases archival sources without quoting them — always show the original text
+- Omits page numbers from direct quotes
+- Conflates the author's interpretation with what a source actually says
+- Suggests adding claims not supported by the provided sources
+-->

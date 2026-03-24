@@ -1,10 +1,10 @@
 {
   "version": "1.0.0",
-  "generated": "2026-03-15",
+  "generated": "2026-03-24",
   "stats": {
-    "total_skills": 74,
-    "public_skills": 55,
-    "commands": 33,
+    "total_skills": 80,
+    "public_skills": 61,
+    "commands": 39,
     "agents": 22,
     "micro_skills": 12,
     "orchestrators": 4,
@@ -31,6 +31,19 @@
           "visibility": "public"
         },
         {
+          "name": "choose-skill",
+          "plugin": "academic",
+          "type": "command",
+          "description": "Interactive decision tree for finding the right Research Agora skill.\nUse when asked to \"which skill should I use\", \"what skill do I need\", \"find me a skill for\",\n\"I want to do X what skill helps\", \"help me pick a skill\", \"what can the Agora do for\",\n\"I need help with X\", \"recommend a skill\", or \"what skills exist for\".\nMaps a natural-language task description to the most relevant skills with confidence scores\nand example invocations.",
+          "model": "sonnet",
+          "path": "plugins/academic/commands/choose-skill.md",
+          "research-domain": "general",
+          "task-type": "analysis",
+          "research-phase": "paper-writing",
+          "verification-level": "none",
+          "visibility": "public"
+        },
+        {
           "name": "experiment-tracker",
           "plugin": "academic",
           "type": "command",
@@ -40,6 +53,19 @@
           "research-domain": "general",
           "task-type": "automation",
           "research-phase": "experiment-design",
+          "verification-level": "none",
+          "visibility": "public"
+        },
+        {
+          "name": "five-minute-win",
+          "plugin": "academic",
+          "type": "command",
+          "description": "Scans the current directory and recommends the single fastest Research Agora \"wow moment\".\nUse when asked for \"quick start\", \"what should I run first\", \"fastest result\", \"show me something useful\",\n\"I want to try this\", \"give me a demo\", \"what can I do right now\", \"get me started fast\",\n\"what's the best first thing to try\", or \"impress me\".\nAuto-detects project contents and returns THE single best skill to run right now,\nwith the exact command using the user's actual filenames.",
+          "model": "sonnet",
+          "path": "plugins/academic/commands/five-minute-win.md",
+          "research-domain": "general",
+          "task-type": "automation",
+          "research-phase": "implementation",
           "verification-level": "none",
           "visibility": "public"
         },
@@ -54,6 +80,19 @@
           "task-type": "writing",
           "research-phase": "literature-review",
           "verification-level": "layered",
+          "visibility": "public"
+        },
+        {
+          "name": "onboard",
+          "plugin": "academic",
+          "type": "command",
+          "description": "Personalized onboarding for the Research Agora. Use when asked to \"get started\",\n\"onboard me\", \"set up my project\", \"what should I use\", \"how do I start\",\n\"configure my workflow\", \"help me get set up\", or \"I'm new here\".\nInterviews the user, determines their tier, generates a personalized CLAUDE.md,\nand recommends a 5-minute first win.",
+          "model": "sonnet",
+          "path": "plugins/academic/commands/onboard.md",
+          "research-domain": "general",
+          "task-type": "automation",
+          "research-phase": "implementation",
+          "verification-level": "none",
           "visibility": "public"
         },
         {
@@ -200,6 +239,19 @@
           "visibility": "public"
         },
         {
+          "name": "review-prompt",
+          "plugin": "academic",
+          "type": "command",
+          "description": "Critiques a prompt using the RIOT framework and teaches one transferable lesson.\nUse when asked to \"review my prompt\", \"improve this prompt\", \"why isn't my prompt working\",\n\"score my prompt\", \"make this prompt better\", \"diagnose my prompt\", \"fix my prompt\",\nor \"what's wrong with this prompt\".\nUser pastes a prompt; skill scores each RIOT component, identifies the failure mode,\nand generates an improved version with minimal changes.",
+          "model": "sonnet",
+          "path": "plugins/academic/commands/review-prompt.md",
+          "research-domain": "general",
+          "task-type": "diagnosis",
+          "research-phase": "paper-writing",
+          "verification-level": "heuristic",
+          "visibility": "public"
+        },
+        {
           "name": "review-triage",
           "plugin": "academic",
           "type": "command",
@@ -223,6 +275,32 @@
           "task-type": "dissemination",
           "research-phase": "dissemination",
           "verification-level": "none",
+          "visibility": "public"
+        },
+        {
+          "name": "whats-new",
+          "plugin": "academic",
+          "type": "command",
+          "description": "Changelog skill for returning users. Summarizes what changed in the Research Agora\nsince a given date or reference point.\nUse when asked \"what's new\", \"what changed since I last used this\", \"what's been added\",\n\"catch me up\", \"what skills are new\", \"what changed last month\", \"any updates\",\n\"what did I miss\", \"has anything changed since [date]\", or \"what's different\".\nReads CHANGELOG.md and git log to produce a researcher-friendly summary with\n\"try these new skills\" recommendations.",
+          "model": "sonnet",
+          "path": "plugins/academic/commands/whats-new.md",
+          "research-domain": "general",
+          "task-type": "analysis",
+          "research-phase": "implementation",
+          "verification-level": "heuristic",
+          "visibility": "public"
+        },
+        {
+          "name": "audit-my-setup",
+          "plugin": "development",
+          "type": "command",
+          "description": "Health check for the user's Research Agora configuration. Reads CLAUDE.md files,\nchecks installed plugins, MCP servers, hooks, and privacy settings.\nUse when asked to \"audit my setup\", \"check my configuration\", \"am I set up correctly\",\n\"health check my Agora\", \"what am I missing\", \"how mature is my setup\",\n\"review my CLAUDE.md\", \"is my configuration good\", or \"help me level up my config\".\nProduces a scored health report with specific, actionable recommendations.",
+          "model": "sonnet",
+          "path": "plugins/development/commands/audit-my-setup.md",
+          "research-domain": "general",
+          "task-type": "analysis",
+          "research-phase": "implementation",
+          "verification-level": "heuristic",
           "visibility": "public"
         },
         {
