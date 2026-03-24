@@ -103,6 +103,14 @@ SKILL_GROUP_MAP = {
     "reader-simulation": "quality-verification",
     "redundancy-radar": "writing-polish",
     "voice-drift-detector": "writing-polish",
+
+    # Onboarding & Navigation
+    "onboard": "development",
+    "choose-skill": "development",
+    "five-minute-win": "development",
+    "review-prompt": "writing-polish",
+    "whats-new": "development",
+    "audit-my-setup": "development",
 }
 
 # Display order for groups
