@@ -9,8 +9,8 @@ description: |
 model: sonnet
 metadata:
   research-domain: general
-  research-phase: setup
-  task-type: onboarding
+  research-phase: implementation
+  task-type: automation
   verification-level: none
 ---
 

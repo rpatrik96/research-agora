@@ -11,9 +11,9 @@ description: |
 model: sonnet
 metadata:
   research-domain: general
-  research-phase: all
-  task-type: changelog
-  verification-level: automated
+  research-phase: implementation
+  task-type: analysis
+  verification-level: heuristic
 ---
 
 # What's New

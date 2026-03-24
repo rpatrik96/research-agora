@@ -22,6 +22,11 @@ Academic paper writing skills for ML conferences (NeurIPS, ICML, ICLR, AAAI).
 | `/literature-synthesizer` | Discover and synthesize relevant literature |
 | `/experiment-tracker` | Sync experiment results to paper drafts |
 | `/benchmark-scout` | Identify benchmarks and generate experiment plans |
+| `/onboard` | Personalized onboarding: interview → tier classification → CLAUDE.md generation |
+| `/review-prompt` | Critique prompts using RIOT framework with named failure modes |
+| `/choose-skill` | Natural-language task → skill recommendation with confidence scores |
+| `/five-minute-win` | Auto-detect project files and suggest fastest demo |
+| `/whats-new` | Returning-user changelog filtered by research impact |
 
 ## Installation
 

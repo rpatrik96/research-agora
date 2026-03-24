@@ -14,6 +14,7 @@ Development automation skills for Python projects.
 | `/latex-sync-setup` | Initialize latex-code-sync for paper-code verification |
 | `/latex-sync-annotate` | Add @latex decorators to link functions with equations |
 | `/latex-sync-verify` | Run verification between paper equations and code |
+| `/audit-my-setup` | Configuration health check with tier scoring and paste-ready fixes |
 
 ## Sub-Skills
 

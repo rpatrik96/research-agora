@@ -10,8 +10,8 @@ description: |
 model: sonnet
 metadata:
   research-domain: general
-  research-phase: all
-  task-type: navigation
+  research-phase: paper-writing
+  task-type: analysis
   verification-level: none
 ---
 

@@ -10,9 +10,9 @@ description: |
 model: sonnet
 metadata:
   research-domain: general
-  research-phase: setup
-  task-type: configuration
-  verification-level: automated
+  research-phase: implementation
+  task-type: analysis
+  verification-level: heuristic
 ---
 
 # Audit My Setup

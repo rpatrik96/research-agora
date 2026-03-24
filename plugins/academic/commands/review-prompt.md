@@ -10,9 +10,9 @@ description: |
 model: sonnet
 metadata:
   research-domain: general
-  research-phase: all
-  task-type: prompt-engineering
-  verification-level: none
+  research-phase: paper-writing
+  task-type: diagnosis
+  verification-level: heuristic
 ---
 
 # Review Prompt
