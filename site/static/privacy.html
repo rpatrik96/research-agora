@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy &amp; GDPR — Research Agora</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 1.5rem 0 0.5rem;
+        }
+        .breadcrumb a { color: var(--primary); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { margin: 0 0.4rem; }
+        .docs-nav {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .docs-nav a {
+            padding: 0.4rem 0.9rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .docs-nav a:hover { background: var(--primary-light); }
+        .legal-notice {
+            background: var(--yellow-light);
+            border: 1px solid var(--yellow);
+            border-radius: var(--radius);
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            color: var(--text);
+        }
+        .flowchart {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            margin: 1rem 0;
+        }
+        .flow-node {
+            margin-bottom: 0.75rem;
+            padding-left: 1rem;
+            border-left: 2px solid var(--border);
+        }
+        .flow-node.flow-root {
+            border-left-color: var(--primary);
+            padding-left: 0;
+            border-left: none;
+        }
+        .flow-question {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .flow-branch {
+            display: flex;
+            gap: 0.5rem;
+            margin: 0.25rem 0;
+            padding-left: 1rem;
+        }
+        .flow-label {
+            font-weight: 700;
+            min-width: 3rem;
+            color: var(--primary);
+        }
+        .flow-result {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.85rem;
+            margin-left: 0.5rem;
+        }
+        .flow-result.flow-ok { border-color: var(--green); color: var(--green); }
+        .flow-result.flow-warn { border-color: var(--yellow); color: var(--yellow); }
+        .flow-result.flow-block { border-color: var(--red); color: var(--red); }
+        .flow-indent {
+            margin-left: 1.5rem;
+            border-left: 2px dashed var(--border);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="site-nav">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">Research Agora</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Skills</a>
+                <a href="benchmarks.html" class="nav-link">Benchmarks</a>
+                <a href="docs.html" class="nav-link active">Docs</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <h1>Privacy &amp; GDPR</h1>
+            <p class="subtitle">Compliance Decisions You Can Act On Today</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="docs.html">Docs</a>
+            <span>›</span>
+            Privacy &amp; GDPR
+        </nav>
+
+        <nav class="docs-nav" aria-label="Documentation pages">
+            <a href="quickstart.html">Quickstart</a>
+            <a href="concepts.html">Concepts</a>
+            <a href="verification.html">Verification</a>
+            <a href="privacy.html">Privacy &amp; GDPR</a>
+            <a href="examples.html">Examples</a>
+        </nav>
+
+        <div class="legal-notice">
+            <strong>Note:</strong> This is informational guidance, not legal advice. For binding guidance on specific situations, consult your institution's Datenschutzbeauftragte(r).
+        </div>
+
+        <section class="docs-section">
+            <h2>Before You Start: Decision Flowchart</h2>
+            <p>Work through this before opening any AI tool with research data.</p>
+
+            <div class="flowchart">
+                <div class="flow-node flow-root">
+                    <div class="flow-question">Does your data contain personal information about identifiable individuals?</div>
+
+                    <div class="flow-indent">
+                        <div class="flow-branch">
+                            <span class="flow-label">YES →</span>
+                            <span>Is it health, biometric, or clinical data?</span>
+                        </div>
+                        <div class="flow-indent">
+                            <div class="flow-branch">
+                                <span class="flow-label">YES →</span>
+                                <span>See <strong>Medical &amp; Clinical Data</strong> section below. Use local models (Ollama) only, on approved infrastructure. Contact your Datenschutzbeauftragte(r) before proceeding.</span>
+                            </div>
+                            <div class="flow-branch">
+                                <span class="flow-label">NO →</span>
+                                <span>Is it pseudonymized or fully anonymized?</span>
+                            </div>
+                            <div class="flow-indent">
+                                <div class="flow-branch">
+                                    <span class="flow-label">ANON →</span>
+                                    <span class="flow-result flow-ok">Cloud AI permitted. Use Team plan (DPA required for GDPR).</span>
+                                </div>
+                                <div class="flow-branch">
+                                    <span class="flow-label">PSEUDO →</span>
+                                    <span>Does your institution have a DPA with the provider?</span>
+                                </div>
+                                <div class="flow-indent">
+                                    <div class="flow-branch">
+                                        <span class="flow-label">YES →</span>
+                                        <span class="flow-result flow-ok">Cloud AI permitted with care (Team/Enterprise). Scope working directory tightly.</span>
+                                    </div>
+                                    <div class="flow-branch">
+                                        <span class="flow-label">NO →</span>
+                                        <span class="flow-result flow-block">Local models only, or upgrade to Team.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-branch" style="margin-top:1rem;">
+                            <span class="flow-label">NO →</span>
+                            <span>Is it unpublished research, embargoed data, or confidential grant content?</span>
+                        </div>
+                        <div class="flow-indent">
+                            <div class="flow-branch">
+                                <span class="flow-label">YES →</span>
+                                <span class="flow-result flow-warn">Do not paste into cloud AI. Draft locally, then paste anonymized/synthetic excerpts for editing help only.</span>
+                            </div>
+                            <div class="flow-branch">
+                                <span class="flow-label">NO →</span>
+                                <span class="flow-result flow-ok">Cloud AI permitted. Standard precautions apply.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="docs-section">
+            <h2>What Gets Sent to the Cloud</h2>
+            <p>Everything you type or paste into a cloud AI tool (Claude.ai, ChatGPT, Copilot) is transmitted to external servers. This includes:</p>
+
+            <table>
+                <thead>
+                    <tr><th>What you do</th><th>What gets transmitted</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Type a prompt</td>
+                        <td>The full prompt text</td>
+                    </tr>
+                    <tr>
+                        <td>Paste text, code, or data into the chat</td>
+                        <td>The full pasted content</td>
+                    </tr>
+                    <tr>
+                        <td>Upload or attach a file</td>
+                        <td>The full file contents</td>
+                    </tr>
+                    <tr>
+                        <td>Run <code>claude</code> in a project directory</td>
+                        <td>Prompts and model responses (encrypted via TLS); <strong>not</strong> your file system</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>Claude Code specifically:</strong> Claude Code runs locally on your machine. It reads files into its context window and sends that context to the API with each request. This is not excerpts or summaries — it is full file contents. A large session with many files read can transmit substantial portions of a codebase.</p>
+
+            <p>What also gets loaded automatically at session start, without a permission prompt:</p>
+            <ul>
+                <li><code>CLAUDE.md</code> files in the current directory and parent directories</li>
+                <li><code>MEMORY.md</code> (first 200 lines from previous sessions)</li>
+                <li>Git state (branch, uncommitted changes, recent commits)</li>
+                <li>Skill descriptions and MCP server tool definitions</li>
+            </ul>
+
+            <p>During the agentic loop, Claude proactively reads additional files — <code>package.json</code>, source files, lock files, tests — to gather context. Each file's content is appended to the context window and transmitted on the next API call.</p>
+        </section>
+
+        <section class="docs-section">
+            <h2>What Stays Local</h2>
+            <table>
+                <thead>
+                    <tr><th>What stays local</th><th>How to enforce it</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Files you do not paste or upload</td>
+                        <td>Don't paste them</td>
+                    </tr>
+                    <tr>
+                        <td>Files excluded by <code>.claudeignore</code></td>
+                        <td>Add patterns to <code>.claudeignore</code> in your project root</td>
+                    </tr>
+                    <tr>
+                        <td>Your file system (not scanned or indexed)</td>
+                        <td>No action needed</td>
+                    </tr>
+                    <tr>
+                        <td>Telemetry and error logs</td>
+                        <td>Set <code>DISABLE_TELEMETRY=1</code> (see Privacy Kill Switches)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Important caveat:</strong> <code>.claudeignore</code> rules are not fully reliable in agentic mode. See "The .env Problem" below.</p>
+        </section>
+
+        <section class="docs-section">
+            <h2>Paid Plan Comparison</h2>
+            <table>
+                <thead>
+                    <tr><th>Feature</th><th>Claude Pro ($20/mo)</th><th>Claude Team ($30/user/mo)</th><th>Claude Enterprise</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Trains on your data</td>
+                        <td>No (opt-in only)</td>
+                        <td>No</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Data retention</td>
+                        <td>30 days</td>
+                        <td>30 days</td>
+                        <td>30 days (custom configurable)</td>
+                    </tr>
+                    <tr>
+                        <td>Zero Data Retention</td>
+                        <td>Not available</td>
+                        <td>Not available</td>
+                        <td>Available</td>
+                    </tr>
+                    <tr>
+                        <td>Data Processing Agreement (DPA)</td>
+                        <td><strong>Not available</strong></td>
+                        <td>Yes — automatic, includes EU SCCs</td>
+                        <td>Yes — automatic, includes EU SCCs</td>
+                    </tr>
+                    <tr>
+                        <td>Anthropic's legal role</td>
+                        <td>Data <strong>controller</strong></td>
+                        <td>Data <strong>processor</strong></td>
+                        <td>Data <strong>processor</strong></td>
+                    </tr>
+                    <tr>
+                        <td>GDPR Art. 28 compliance</td>
+                        <td>No</td>
+                        <td>Yes</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Recommended for institutional use</td>
+                        <td>No</td>
+                        <td>Yes</td>
+                        <td>Yes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Key implications</h3>
+            <ul>
+                <li><strong>Pro plan:</strong> Anthropic does not train on your conversations by default. However, no DPA is available. Anthropic acts as a data controller — not a processor — which means the controller-processor relationship required for GDPR Art. 28 compliance does not exist. This matters for institutional use.</li>
+                <li><strong>Team/Enterprise:</strong> Anthropic acts as a data processor. DPA with EU Standard Contractual Clauses (SCCs) is automatically included. Conversations are never used for training. This is what institutional GDPR compliance requires.</li>
+                <li><strong>All tiers:</strong> Data is stored in the US. Cross-border transfer safeguards rely on SCCs post-Schrems II.</li>
+            </ul>
+            <p>For institutional use with any personal data, Team or Enterprise is the minimum. Pro is not GDPR-compliant for research involving personal data.</p>
+            <p>Sources: <a href="https://privacy.claude.com" target="_blank" rel="noopener">privacy.claude.com</a>, <a href="https://www.anthropic.com/legal/data-processing-addendum" target="_blank" rel="noopener">Anthropic DPA</a>, <a href="https://code.claude.com/docs/en/data-usage" target="_blank" rel="noopener">Claude Code data usage</a></p>
+        </section>
+
+        <section class="docs-section">
+            <h2>Medical &amp; Clinical Data</h2>
+            <p>Health data is a <strong>special category</strong> under GDPR Art. 9. Stricter rules apply beyond standard personal data protections.</p>
+
+            <h3>Legal Basis</h3>
+            <p>Processing health data requires explicit consent <em>or</em> falls under the research exemption (Art. 9(2)(j)). Legitimate interest — the fallback for standard personal data — does not apply.</p>
+
+            <h3>Ethics Board Requirements</h3>
+            <p>Using AI tools on study data may require amendment to your existing ethics approval. German Ethikkommissionen increasingly require AI tool disclosure in study protocols. Check with your ethics board before integrating any cloud AI into a study pipeline.</p>
+
+            <h3>DICOM De-identification</h3>
+            <p>Medical images contain embedded patient metadata — name, date of birth, hospital ID — that survives standard export. This metadata must be stripped before any AI processing.</p>
+            <table>
+                <thead>
+                    <tr><th>Tool</th><th>What it does</th><th>Limitation</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>pydicom</code> with de-identification recipe</td>
+                        <td>Strips DICOM tags systematically</td>
+                        <td>Requires configuration; verify output</td>
+                    </tr>
+                    <tr>
+                        <td>CTP / Clinical Trial Processor</td>
+                        <td>Full de-identification pipeline</td>
+                        <td>Requires Java setup</td>
+                    </tr>
+                    <tr>
+                        <td><code>dcm2niix</code></td>
+                        <td>Format converter</td>
+                        <td><strong>Not designed for anonymization</strong> — strips some headers but not all PII</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Do not rely on format converters for de-identification.</p>
+
+            <h3>Practical Decision Tree</h3>
+            <div class="flowchart">
+                <div class="flow-node flow-root">
+                    <div class="flow-question">Is the data identifiable clinical data (patient records, DICOM, study data)?</div>
+                    <div class="flow-indent">
+                        <div class="flow-branch">
+                            <span class="flow-label">YES →</span>
+                            <span class="flow-result flow-block">Local models (Ollama) only, on approved institutional infrastructure. Contact Datenschutzbeauftragte(r) first.</span>
+                        </div>
+                        <div class="flow-branch" style="margin-top:0.75rem;">
+                            <span class="flow-label">NO →</span>
+                            <span>Is it anonymized research data derived from patient contact?</span>
+                        </div>
+                        <div class="flow-indent">
+                            <div class="flow-branch">
+                                <span class="flow-label">YES →</span>
+                                <span class="flow-result flow-ok">Cloud AI permitted with Team plan (DPA included). Verify anonymization is complete before uploading.</span>
+                            </div>
+                            <div class="flow-branch">
+                                <span class="flow-label">NO →</span>
+                                <span class="flow-result flow-ok">Standard GDPR decision flowchart applies.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Institutional DPA</h3>
+            <p>Contact your Datenschutzbeauftragte(r) before using cloud AI on any data derived from patient contact. The university's framework agreement may or may not cover research use — do not assume it does.</p>
+        </section>
+
+        <section class="docs-section">
+            <h2>Privacy Kill Switches</h2>
+            <p>Add these to your shell profile (<code>~/.zshrc</code> or <code>~/.bashrc</code>) to disable telemetry and non-essential data transmission:</p>
+            <div class="code-block"><code>export DISABLE_TELEMETRY=1                              # No usage metrics sent to Anthropic
+export DISABLE_ERROR_REPORTING=1                         # No error logs to Sentry
+export DISABLE_FEEDBACK_COMMAND=1                        # Prevents transcript upload via /feedback
+export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1        # Disables all non-essential network calls</code></div>
+
+            <p>Add these patterns to <code>.claudeignore</code> in your project root to prevent Claude from reading sensitive files:</p>
+            <div class="code-block"><code>.env
+.env.*
+.env.local
+credentials*
+**/secrets/**
+*.pem
+*.key
+id_rsa*
+**/patient-data/**
+**/dicom/**</code></div>
+            <p><strong>Critical caveat:</strong> <code>.claudeignore</code> is not a security boundary. See "The .env Problem" below. Use <code>.claudeignore</code> as one layer of defense, not the only one.</p>
+        </section>
+
+        <section class="docs-section">
+            <h2>The .env Problem</h2>
+            <p>Claude Code does not reliably prevent reading <code>.env</code> files.</p>
+            <p>Security researcher Dor Munis (<a href="https://www.knostic.ai/blog/claude-loads-secrets-without-permission" target="_blank" rel="noopener">Knostic, 2025</a>) documented that Claude Code loads <code>.env</code>, <code>.env.local</code>, and similar files — including API keys and passwords — into the context window automatically, without explicit permission.</p>
+            <p>In January 2026, <a href="https://www.theregister.com/2026/01/28/claude_code_ai_secrets_files/" target="_blank" rel="noopener"><em>The Register</em></a> verified that <code>.claudeignore</code> rules intended to block <code>.env</code> access were inconsistently enforced. Claude read blocked files when operating in agentic mode.</p>
+            <p><strong>What this means in practice:</strong> Any file in or under your project directory is potentially readable by Claude Code. "Potentially readable" means "potentially transmitted to Anthropic's API."</p>
+
+            <h3>Mitigation</h3>
+            <table>
+                <thead>
+                    <tr><th>What not to do</th><th>What to do instead</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Store secrets in <code>.env</code> inside the project directory</td>
+                        <td>Move <code>.env</code> files to the parent directory (outside the project root)</td>
+                    </tr>
+                    <tr>
+                        <td>Rely on <code>.claudeignore</code> alone to protect secrets</td>
+                        <td>Use a secrets manager (Doppler, 1Password CLI, <code>direnv</code>) that injects credentials at runtime</td>
+                    </tr>
+                    <tr>
+                        <td>Put API keys in any file Claude might read</td>
+                        <td>Use environment variables injected by your shell, not stored in files</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>The pattern to internalize: if a file is in the project directory tree, treat it as readable by the agent. Structure your project so secrets never live there.</p>
+            <p>Sources: <a href="https://code.claude.com/docs/en/data-usage" target="_blank" rel="noopener">Claude Code Data Usage</a>, <a href="https://www.knostic.ai/blog/claude-loads-secrets-without-permission" target="_blank" rel="noopener">Knostic .env research</a>, <a href="https://www.theregister.com/2026/01/28/claude_code_ai_secrets_files/" target="_blank" rel="noopener">The Register investigation</a></p>
+        </section>
+
+        <section class="docs-section">
+            <h2>Local &amp; Self-Hosted Alternatives</h2>
+            <p>When cloud AI is not an option — identifiable clinical data, institutional policy, or sovereignty concerns — local models provide full data control at the cost of capability.</p>
+            <table>
+                <thead>
+                    <tr><th>Tool</th><th>What it does</th><th>Trade-off</th><th>Best for</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a></td>
+                        <td>Run open-weight LLMs locally (Llama 3, Mistral, Phi-3)</td>
+                        <td>Less capable than frontier models; requires GPU for good performance</td>
+                        <td>Privacy-sensitive tasks, offline environments</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://github.com/vllm-project/vllm" target="_blank" rel="noopener">vLLM</a></td>
+                        <td>High-throughput LLM serving on your infrastructure</td>
+                        <td>Requires infrastructure setup</td>
+                        <td>Group-level deployment, shared research infrastructure</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://mistral.ai" target="_blank" rel="noopener">Mistral (Le Chat / API)</a></td>
+                        <td>EU-hosted frontier model, GDPR-native</td>
+                        <td>Smaller ecosystem, fewer agentic tools</td>
+                        <td>EU sovereignty requirements</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://aleph-alpha.com" target="_blank" rel="noopener">Aleph Alpha (Luminous)</a></td>
+                        <td>German-hosted, on-premise available</td>
+                        <td>Smaller models, less capable at coding</td>
+                        <td>Maximum data sovereignty, German institutional preference</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>EU sovereignty note:</strong> Using Mistral or Aleph Alpha addresses concerns about US jurisdiction and data residency. Both offer DPAs and are subject to EU law. Capabilities lag US frontier models, particularly for coding and complex reasoning, as of early 2026.</p>
+            <p><strong>Practical decision:</strong> For routine tasks (editing, brainstorming, literature search) where data is not sensitive, use the best available tool. For anything involving personal data or institutional constraints, default to local models until you've confirmed your DPA coverage.</p>
+        </section>
+
+        <section class="docs-section">
+            <h2>Non-EU Researchers</h2>
+            <p>The workflow patterns in this guide apply regardless of your legal jurisdiction. Equivalent frameworks:</p>
+            <table>
+                <thead>
+                    <tr><th>Jurisdiction</th><th>Framework</th><th>Key similarities to GDPR</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>South Africa</td>
+                        <td>POPIA (Protection of Personal Information Act)</td>
+                        <td>Lawful basis required; cross-border transfer restrictions</td>
+                    </tr>
+                    <tr>
+                        <td>United Kingdom</td>
+                        <td>UK GDPR</td>
+                        <td>Near-identical to EU GDPR; SCCs replaced by International Data Transfer Agreements</td>
+                    </tr>
+                    <tr>
+                        <td>United States</td>
+                        <td>Sector-specific (HIPAA for health data, FERPA for education)</td>
+                        <td>HIPAA in particular: cloud AI requires a Business Associate Agreement (BAA) for PHI</td>
+                    </tr>
+                    <tr>
+                        <td>Canada</td>
+                        <td>PIPEDA / provincial laws</td>
+                        <td>Consent-based; cross-border adequacy requirements</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>US health data specifically:</strong> HIPAA-covered entities need a BAA with any cloud AI provider processing Protected Health Information (PHI). Anthropic offers BAAs only at the Enterprise tier. For health research, check with your IRB and compliance office before using any cloud AI on patient data.</p>
+            <p>The core principle — local models for identifiable data, institutional DPA for anonymized data, cloud AI freely for public/non-personal data — holds across all jurisdictions.</p>
+        </section>
+    </main>
+
+    <footer class="container">
+        <p>
+            <a href="https://github.com/rpatrik96/research-agora">GitHub</a> |
+            <a href="https://github.com/rpatrik96/research-agora/blob/main/CONTRIBUTING.md">Contribute</a> |
+            <a href="https://github.com/rpatrik96/research-agora/blob/main/INTEROP.md">Interop</a> |
+            <a href="https://github.com/rpatrik96/research-agora/blob/main/PLATFORM.md">Platform Design</a>
+        </p>
+        <p class="generated">Generated 2026-03-24</p>
+    </footer>
+</body>
+</html>

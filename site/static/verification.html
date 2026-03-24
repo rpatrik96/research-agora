@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification — Research Agora</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 1.5rem 0 0.5rem;
+        }
+        .breadcrumb a { color: var(--primary); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { margin: 0 0.4rem; }
+        .docs-nav {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .docs-nav a {
+            padding: 0.4rem 0.9rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .docs-nav a:hover { background: var(--primary-light); }
+        .try-this {
+            border-left: 3px solid var(--primary);
+            padding-left: 1rem;
+            margin: 1rem 0;
+        }
+        .try-this > p {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+        .checklist li {
+            padding: 0.4rem 0;
+            padding-left: 1.75rem;
+            position: relative;
+        }
+        .checklist li::before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        details {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        details summary {
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            background: var(--bg-secondary);
+            font-size: 1rem;
+            user-select: none;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        details summary::-webkit-details-marker { display: none; }
+        details summary::before {
+            content: "▶";
+            font-size: 0.75rem;
+            color: var(--primary);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        details[open] summary::before {
+            transform: rotate(90deg);
+        }
+        details .details-body {
+            padding: 1.25rem;
+        }
+        details .details-body > *:last-child { margin-bottom: 0; }
+    </style>
+</head>
+<body>
+    <nav class="site-nav">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">Research Agora</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Skills</a>
+                <a href="benchmarks.html" class="nav-link">Benchmarks</a>
+                <a href="docs.html" class="nav-link active">Docs</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <h1>Verification</h1>
+            <p class="subtitle">Test-Driven Research — Runnable recipes for verifying AI outputs</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="docs.html">Docs</a>
+            <span>›</span>
+            Verification
+        </nav>
+
+        <nav class="docs-nav" aria-label="Documentation pages">
+            <a href="quickstart.html">Quickstart</a>
+            <a href="concepts.html">Concepts</a>
+            <a href="verification.html">Verification</a>
+            <a href="privacy.html">Privacy &amp; GDPR</a>
+            <a href="examples.html">Examples</a>
+        </nav>
+
+        <section class="docs-section">
+            <h2>1. Why Verification Matters</h2>
+            <p>At NeurIPS 2025, 53 accepted papers were found to contain fabricated citations — references that looked plausible but pointed to publications that do not exist. The AI that generated them expressed no uncertainty. It was confidently wrong.</p>
+            <p>This is the core asymmetry: AI systems produce fluent, authoritative-sounding outputs across a jagged frontier of actual competence. They excel at some tasks and fail unpredictably at similar ones, with no reliable signal about which is which. Citations either exist or they do not. Code either implements what the paper claims or it does not. Numbers either match or they diverge. For these correctness tasks, verification is mechanical and automatable — and the cost of skipping it is silent error embedded in the scientific record.</p>
+            <p>Your expertise is the oracle. The tools below help you apply it efficiently.</p>
+            <p>For the full argument, see the <a href="https://openreview.net/forum?id=svFHXBd2wq" target="_blank" rel="noopener">position paper</a> and <a href="https://github.com/rpatrik96/research-agora/blob/main/PLATFORM.md" target="_blank" rel="noopener">Research Agora platform design</a>.</p>
+        </section>
+
+        <section class="docs-section">
+            <h2>2. The Verification Hierarchy</h2>
+            <p>Not all verification is equally tractable. Match the method to the task.</p>
+            <table>
+                <thead>
+                    <tr><th>Level</th><th>Method</th><th>When to Use</th><th>Example</th><th>Research Agora Skill</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Formal</strong></td>
+                        <td>Automated check against ground truth</td>
+                        <td>Citations, numerical claims, code correctness</td>
+                        <td>DOI resolution, unit tests, <code>bibtexupdater</code> output</td>
+                        <td><code>/paper-references</code>, <code>/paper-verify-experiments</code>, <code>/statistical-validator</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Automated</strong></td>
+                        <td>Heuristic or rule-based check</td>
+                        <td>Formatting, consistency, completeness</td>
+                        <td>LaTeX compilation, reference count, grep for claimed values</td>
+                        <td><code>/latex-consistency</code>, grep scripts in <code>/paper-verify-experiments</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Manual review</strong></td>
+                        <td>Human expert reads output critically</td>
+                        <td>Writing quality, argument structure, novelty claims</td>
+                        <td>Read generated text; check that framing matches your intent</td>
+                        <td><code>/paper-review</code>, <code>/claim-auditor</code> (as input to your judgment)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Trust</strong></td>
+                        <td>Accept without checking</td>
+                        <td>Never for research outputs</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>The hierarchy is not a progression — it is a decision rule. Apply the highest-tractable level for each task type. Citations warrant formal checks. Novelty assessments do not have a formal oracle; manual review is the ceiling.</p>
+        </section>
+
+        <section class="docs-section">
+            <h2>3. Runnable Verification Recipes</h2>
+            <p>Each recipe follows a fixed format: what it checks, what you need, exact steps, what success looks like, what it does NOT cover, and an executable prompt you can run immediately.</p>
+
+            <div class="platform-guide">
+                <h3>Recipe A: Citation Verification</h3>
+                <p><strong>What it checks:</strong> Whether each BibTeX entry in your <code>.bib</code> file corresponds to a real publication — correct title, authors, year, and venue — against Semantic Scholar, CrossRef, arXiv, and DBLP. Catches hallucinated references, stale preprints that were published, and author name errors.</p>
+
+                <p><strong>Prerequisites:</strong></p>
+                <ul>
+                    <li>A <code>.bib</code> file (e.g., <code>references.bib</code>)</li>
+                    <li><code>bibtexupdater</code> installed: <code>pip install bibtexupdater</code></li>
+                    <li>Plugin: <code>academic@research-agora</code> (for <code>/paper-references</code>)</li>
+                </ul>
+
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>
+                        Filter your <code>.bib</code> to only cited entries (avoids checking unused references):
+                        <div class="code-block"><code>bibtexupdater-filter --bib references.bib --tex main.tex --output cited.bib</code></div>
+                    </li>
+                    <li>
+                        Run automated verification against scholarly databases:
+                        <div class="code-block"><code>bibtexupdater --bib cited.bib --output verified.bib --report report.json</code></div>
+                    </li>
+                    <li>
+                        Review the report for flagged entries:
+                        <div class="code-block"><code>cat report.json | python3 -c "import json,sys; [print(e) for e in json.load(sys.stdin)['issues']]"</code></div>
+                    </li>
+                    <li>
+                        For entries <code>bibtexupdater</code> cannot resolve (no DOI, preprint-only), invoke the <code>/paper-references</code> skill for LLM-assisted fallback:
+                        <div class="code-block"><code>/paper-references</code></div>
+                        Provide the flagged entries when prompted.
+                    </li>
+                </ol>
+
+                <p><strong>Expected output:</strong> A table with columns <code>cite_key | status | details</code> where status is <code>verified</code>, <code>updated</code> (preprint → published), <code>mismatch</code>, or <code>not_found</code>. Every <code>not_found</code> or <code>mismatch</code> entry requires action before submission.</p>
+
+                <p><strong>What this does NOT verify:</strong> Whether the cited work actually supports the claim you are making. A paper can exist and still not be evidence for your sentence. That requires manual review.</p>
+
+                <div class="try-this">
+                    <p>Try this now:</p>
+                    <div class="code-block"><code>/paper-references
+
+I need to verify the citations in my paper. My .bib file is at references.bib and my main tex file is main.tex.
+
+For each entry:
+1. Check it exists (title, authors, year) against Semantic Scholar and CrossRef
+2. Flag any entry where the publication cannot be confirmed
+3. Identify preprints that have since been published (upgrade them)
+
+Output: table with columns: cite_key | status (verified/mismatch/not_found/upgraded) | issue_detail | suggested_fix</code></div>
+                </div>
+            </div>
+
+            <div class="platform-guide">
+                <h3>Recipe B: Code–Paper Consistency</h3>
+                <p><strong>What it checks:</strong> Whether the experimental claims in your paper match what your code actually does. Targets hyperparameters ("we train with learning rate 1e-4"), architectural choices ("a 3-layer MLP"), dataset sizes ("10,000 training samples"), and training procedures. Catches drift between the paper you wrote and the code you ran.</p>
+
+                <p><strong>Prerequisites:</strong></p>
+                <ul>
+                    <li>Paper <code>.tex</code> files in a directory (e.g., <code>paper/</code>)</li>
+                    <li>Code repository accessible locally (e.g., <code>src/</code> or a cloned repo path)</li>
+                    <li>Plugin: <code>academic@research-agora</code> (for <code>/paper-verify-experiments</code>)</li>
+                </ul>
+
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>
+                        Extract numerical claims from the paper (script-first):
+                        <div class="code-block"><code># Hyperparameters, dataset sizes, epoch counts, architecture specs
+grep -rn --include="*.tex" \
+  -E "(learning.rate|batch.size|epoch|layer|hidden|dimension|training.sample|dataset)" \
+  paper/ &gt; claims_raw.txt</code></div>
+                    </li>
+                    <li>
+                        Extract actual values from code configs and source:
+                        <div class="code-block"><code># Config files (YAML/JSON)
+grep -rn --include="*.yaml" --include="*.json" --include="*.py" \
+  -E "(lr|learning_rate|batch_size|num_epochs|hidden_size|num_layers)" \
+  src/ &gt; code_values.txt</code></div>
+                    </li>
+                    <li>
+                        Run <code>/paper-verify-experiments</code> to cross-reference and generate the discrepancy report:
+                        <div class="code-block"><code>/paper-verify-experiments</code></div>
+                        Provide both output files and the paper + code paths when prompted.
+                    </li>
+                </ol>
+
+                <p><strong>Expected output:</strong> A table with columns: <code>paper_claim (file:line) | code_evidence (file:line) | match | severity</code>. Severity levels: <code>critical</code> (wrong number reported), <code>warning</code> (ambiguous or indirect match), <code>info</code> (confirmed match).</p>
+
+                <p><strong>What this does NOT verify:</strong> Whether the experimental design was appropriate for the research question, whether the reported results are cherry-picked from many runs, or whether the random seed was fixed. Those require your judgment and reproducibility practices (e.g., multiple seeds, ablations logged).</p>
+
+                <div class="try-this">
+                    <p>Try this now:</p>
+                    <div class="code-block"><code>/paper-verify-experiments
+
+Paper directory: paper/
+Code repository: src/
+
+Cross-reference all claims about:
+- Hyperparameters (learning rate, batch size, optimizer, scheduler)
+- Architecture (number of layers, hidden dimensions, activation functions)
+- Dataset (size, splits, preprocessing steps)
+- Training procedure (number of epochs, early stopping, augmentation)
+
+For each claim: quote the paper sentence, find the corresponding code location, classify as match/mismatch/unverifiable.
+Output: table sorted by severity (critical mismatches first).</code></div>
+                </div>
+            </div>
+
+            <div class="platform-guide">
+                <h3>Recipe C: Statistical Validation</h3>
+                <p><strong>What it checks:</strong> Internal consistency of reported statistics — whether p-values, confidence intervals, effect sizes, and significance claims are mutually consistent and correctly interpreted. Flags cases where p &lt; 0.05 is claimed but the confidence interval crosses zero, underpowered tests given the reported effect size, and standard errors reported as standard deviations (or vice versa).</p>
+
+                <p><strong>Prerequisites:</strong></p>
+                <ul>
+                    <li>Paper <code>.tex</code> or <code>.pdf</code> with statistical results reported</li>
+                    <li>Plugin: <code>research-agents@research-agora</code> (for <code>/statistical-validator</code> agent)</li>
+                </ul>
+
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>
+                        Invoke the statistical validator agent:
+                        <div class="code-block"><code>/statistical-validator</code></div>
+                    </li>
+                    <li>Provide the paper section(s) containing statistical results — the methods section and any tables or figures with p-values, CIs, or effect sizes.</li>
+                    <li>
+                        Review the output, which classifies each finding as:
+                        <ul>
+                            <li><code>consistent</code> — values are internally coherent</li>
+                            <li><code>inconsistent</code> — values contradict each other (e.g., CI crosses zero but p &lt; 0.05 claimed)</li>
+                            <li><code>underpowered</code> — sample size insufficient for claimed effect</li>
+                            <li><code>unclear</code> — insufficient information reported to verify</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <p><strong>Expected output:</strong> Per-claim assessment table plus a summary of issues requiring correction. Critical inconsistencies must be resolved before submission; <code>underpowered</code> flags warrant a power analysis or hedged language.</p>
+
+                <p><strong>What this does NOT verify:</strong> Whether the statistical test chosen was appropriate for your data distribution, whether the assumptions of the test (normality, independence) hold, or whether the reported metric is the right one for your problem. That requires domain judgment.</p>
+
+                <div class="try-this">
+                    <p>Try this now:</p>
+                    <div class="code-block"><code>/statistical-validator
+
+Check the statistical claims in the attached paper section for internal consistency.
+
+For each reported statistic:
+1. Identify the claim (p-value, CI, effect size, sample size)
+2. Check internal consistency (e.g., CI should exclude null if p &lt; alpha)
+3. Flag underpowered tests: estimate required n for reported effect size at 80% power
+4. Flag ambiguous reporting (SEM vs SD, one-tailed vs two-tailed not stated)
+
+Output: table with columns: location | statistic | value | status | issue
+Severity: critical (inconsistent) / warning (underpowered or ambiguous) / info (consistent)</code></div>
+                </div>
+            </div>
+
+            <div class="platform-guide">
+                <h3>Recipe D: Claim Auditing</h3>
+                <p><strong>What it checks:</strong> For each substantive claim in your paper, whether the evidence cited actually supports that claim. Classifies claims as: <code>supported</code> (cited evidence directly supports it), <code>partially-supported</code> (weak or indirect evidence), <code>unsupported</code> (no evidence cited), or <code>contradicted</code> (cited evidence argues against the claim). This catches the gap between what you wrote and what your citations actually say.</p>
+
+                <p><strong>Prerequisites:</strong></p>
+                <ul>
+                    <li>Paper <code>.tex</code> files</li>
+                    <li>Plugin: <code>research-agents@research-agora</code> (for <code>/claim-auditor</code> agent)</li>
+                </ul>
+
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>
+                        Run the claim auditor:
+                        <div class="code-block"><code>/claim-auditor</code></div>
+                        For a full paper, use parallel mode for a 2–3x speedup when prompted.
+                    </li>
+                    <li>Provide the paper content. The agent will extract claims, locate cited evidence, and classify each.</li>
+                    <li>For <code>unsupported</code> or <code>contradicted</code> claims: decide whether to add evidence, weaken the claim, or remove it.</li>
+                </ol>
+
+                <p><strong>Expected output:</strong> A structured report with each claim, its evidence classification, and suggested fixes. <code>contradicted</code> claims require immediate attention. <code>unsupported</code> claims either need a citation or need to be qualified ("we conjecture that..." vs. "it is well established that...").</p>
+
+                <p><strong>What this does NOT verify:</strong> Whether the cited papers themselves are correct (science can be wrong), whether your claims are novel (novelty requires knowing the full literature), or whether the framing is fair to related work. Those are judgment calls the auditor surfaces for you to make.</p>
+
+                <div class="try-this">
+                    <p>Try this now:</p>
+                    <div class="code-block"><code>/claim-auditor
+
+Audit all substantive claims in this paper. For each claim:
+1. Identify the exact sentence making the claim
+2. Find the citation(s) used as evidence (if any)
+3. Classify: supported / partially-supported / unsupported / contradicted
+4. For unsupported: note whether the claim should be qualified or needs a citation
+5. For contradicted: quote the conflicting source
+
+Focus on: contributions section, related work comparisons, experimental result interpretations.
+Output: table sorted by severity (contradicted → unsupported → partially-supported → supported).</code></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="docs-section">
+            <h2>4. The Quick Verification Checklist</h2>
+            <p>Before accepting any AI output into your research, run through these five questions. This is a pre-commit check, not a post-hoc rationalization.</p>
+            <p><em>Adapted from <a href="https://simonwillison.net/2026/Mar/16/coding-agents-for-data-analysis/" target="_blank" rel="noopener">Simon Willison's NICAR 2026 workshop</a>.</em></p>
+            <ul class="checklist">
+                <li><strong>Is it correct?</strong> Run it yourself. Don't trust the agent's claim that it works — verify the output directly against ground truth.</li>
+                <li><strong>Is the interpretation right?</strong> Does the agent understand your domain concepts, your notation, your column meanings? AI reads surface patterns; it may miss what the numbers mean in context.</li>
+                <li><strong>Is it actually novel?</strong> Or is this restating something obvious, or something you already said three paragraphs earlier?</li>
+                <li><strong>Could it be an artifact?</strong> Of the data collection? Of how you phrased the prompt? Of the model's training distribution?</li>
+                <li><strong>Does it open a door or close one?</strong> The best findings raise new questions. If the output seems to neatly resolve everything, be skeptical.</li>
+            </ul>
+            <p>This checklist applies whether the output is a generated paragraph, a literature summary, a code snippet, or a statistical result. The same critical eye you apply to peer review applies here.</p>
+        </section>
+
+        <section class="docs-section">
+            <h2>5. Where Verification Breaks Down</h2>
+            <p>Verification works for correctness. Research is not only correctness.</p>
+            <table>
+                <thead>
+                    <tr><th>Task type</th><th>Automatable?</th><th>What to do</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Citations (exist, title/author match)</td>
+                        <td>Yes — formal check</td>
+                        <td>Use <code>/paper-references</code> + <code>bibtexupdater</code>. Delegate freely.</td>
+                    </tr>
+                    <tr>
+                        <td>Numerical claims (hyperparams, dataset sizes)</td>
+                        <td>Yes — grep + cross-reference</td>
+                        <td>Use <code>/paper-verify-experiments</code>. Delegate generation; verify output.</td>
+                    </tr>
+                    <tr>
+                        <td>Statistical internal consistency</td>
+                        <td>Yes — rule-based</td>
+                        <td>Use <code>/statistical-validator</code>. Flag inconsistencies before submission.</td>
+                    </tr>
+                    <tr>
+                        <td>Code correctness (unit behavior)</td>
+                        <td>Yes — tests</td>
+                        <td>Write tests. Run them. CI enforces this.</td>
+                    </tr>
+                    <tr>
+                        <td>Consistency (paper ↔ code, claims ↔ data)</td>
+                        <td>Partially — heuristics</td>
+                        <td>Delegate generation; review mismatches manually.</td>
+                    </tr>
+                    <tr>
+                        <td>Interpretation of results</td>
+                        <td>No</td>
+                        <td>Use AI to <em>generate competing interpretations</em> for you to evaluate. Do not delegate the judgment.</td>
+                    </tr>
+                    <tr>
+                        <td>Novelty of contribution</td>
+                        <td>No</td>
+                        <td>No automated oracle exists. You need to know the literature.</td>
+                    </tr>
+                    <tr>
+                        <td>Fairness of framing (related work)</td>
+                        <td>No</td>
+                        <td><code>/claim-auditor</code> surfaces unsupported comparisons; you decide what's fair.</td>
+                    </tr>
+                    <tr>
+                        <td>Problem importance</td>
+                        <td>No</td>
+                        <td>This is taste. It develops through doing research, not through delegation.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>The boundary is explicit: TDR solves correctness problems. It does not solve epistemological problems.</p>
+            <p>For interpretation, "manual review" means you thinking — not a verification shortcut. AI can generate three competing explanations of your experimental results. Only you can judge which one is scientifically sound given what you know about the system you studied.</p>
+            <p>Your judgment is the only oracle for the things that matter most.</p>
+        </section>
+
+        <section class="docs-section">
+            <h2>6. Verification for Different Roles</h2>
+
+            <details>
+                <summary><strong>PI: Encoding verification policy across the lab</strong></summary>
+                <div class="details-body">
+                    <p>The highest-leverage action is encoding verification requirements in your shared <code>CLAUDE.md</code> so every lab member runs the same checks automatically.</p>
+                    <p>Add a verification section to your project's <code>CLAUDE.md</code>:</p>
+                    <div class="code-block"><code>## Verification Policy
+
+Before any paper submission:
+1. Run `bibtexupdater-filter` + `bibtexupdater` on the .bib file. Zero `not_found` entries required.
+2. Run `/paper-verify-experiments` on the final paper + code. All critical mismatches resolved.
+3. Run `/statistical-validator` on any section with p-values or CIs. Zero `inconsistent` flags.
+
+For AI-generated sections:
+- Run the Quick Verification Checklist (docs/verification.md) before committing.
+- No AI-generated citation added without `bibtexupdater` confirmation it exists.</code></div>
+                    <p>This transforms verification from a personal habit into a lab-wide protocol. Claude Code reads <code>CLAUDE.md</code> at session start — policy is enforced automatically.</p>
+                    <p>For reproducibility, also consider adding <code>paper-verify-experiments</code> as a CI step. The grep-based claim extraction runs without LLM cost and catches the most common drift (hyperparameter changes post-writing).</p>
+                </div>
+            </details>
+
+            <details>
+                <summary><strong>Postdoc / Researcher: A daily verification workflow</strong></summary>
+                <div class="details-body">
+                    <p>Verification does not require running all four recipes every day. Match the check to the stage:</p>
+                    <p><strong>During writing (any session that touches the paper):</strong></p>
+                    <ul>
+                        <li>After adding references: run <code>bibtexupdater</code> on new entries. 30 seconds per entry.</li>
+                        <li>After describing an experiment: run the code–paper grep check on the changed section.</li>
+                    </ul>
+                    <p><strong>Before sending to co-authors:</strong></p>
+                    <ul>
+                        <li>Run <code>/claim-auditor</code> on any new section. Fix <code>unsupported</code> claims before review.</li>
+                        <li>Run the Quick Verification Checklist on any AI-generated paragraphs.</li>
+                    </ul>
+                    <p><strong>Before submission:</strong></p>
+                    <ul>
+                        <li>Full citation verification (Recipe A) — required.</li>
+                        <li>Full code–paper consistency (Recipe B) — required if code is part of the contribution.</li>
+                        <li>Statistical validation (Recipe C) — required if you report p-values, CIs, or significance.</li>
+                        <li>Claim audit (Recipe D) — run on abstract, contributions, and comparison to related work.</li>
+                    </ul>
+                    <p>Front-load verification. Catching a fabricated citation before submission costs 5 minutes. Catching it in a post-publication correction notice costs much more.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary><strong>Student: Building verification habits early</strong></summary>
+                <div class="details-body">
+                    <p>The single most important habit: never copy a citation from AI output into your <code>.bib</code> without running <code>bibtexupdater</code> on it first. Citations are the one category where the cost of a miss is symmetric — the error is visible, permanent, and attached to your name.</p>
+                    <p>Start with Recipe A. Run it every time you add references. Once this is automatic, add Recipe D (claim auditing) to your pre-advisor-meeting checklist.</p>
+                    <p>On the epistemological side: AI is good at pattern-matching what results <em>usually mean</em> in a field. It is bad at knowing what your specific results mean in your specific experimental context. When the AI interprets your experimental output and the interpretation sounds authoritative, that is exactly when you should be most skeptical. Use the competing-interpretations pattern:</p>
+                    <div class="code-block"><code>Generate three different interpretations of this result, ranging from the most conservative
+(it could be an artifact) to the most ambitious (it implies something novel).
+List what evidence would distinguish between them.</code></div>
+                    <p>Then you evaluate which one is scientifically sound. That judgment is not delegatable — and developing it is the point of doing research.</p>
+                </div>
+            </details>
+        </section>
+
+        <section class="docs-section">
+            <h2>See Also</h2>
+            <ul>
+                <li><a href="https://github.com/rpatrik96/research-agora/blob/main/plugins/academic/commands/paper-references.md" target="_blank" rel="noopener"><code>/paper-references</code></a> — full skill documentation</li>
+                <li><a href="https://github.com/rpatrik96/research-agora/blob/main/plugins/academic/commands/paper-verify-experiments.md" target="_blank" rel="noopener"><code>/paper-verify-experiments</code></a> — full skill documentation</li>
+                <li><a href="https://github.com/rpatrik96/research-agora/blob/main/plugins/research-agents/agents/statistical-validator.md" target="_blank" rel="noopener"><code>/statistical-validator</code></a> — agent documentation</li>
+                <li><a href="https://github.com/rpatrik96/research-agora/blob/main/plugins/research-agents/agents/claim-auditor.md" target="_blank" rel="noopener"><code>/claim-auditor</code></a> — agent documentation, including parallel mode</li>
+                <li><a href="https://openreview.net/forum?id=svFHXBd2wq" target="_blank" rel="noopener">Position paper</a> — full argument for Test-Driven Research and the Research Agora</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="container">
+        <p>
+            <a href="https://github.com/rpatrik96/research-agora">GitHub</a> |
+            <a href="https://github.com/rpatrik96/research-agora/blob/main/CONTRIBUTING.md">Contribute</a> |
+            <a href="https://github.com/rpatrik96/research-agora/blob/main/INTEROP.md">Interop</a> |
+            <a href="https://github.com/rpatrik96/research-agora/blob/main/PLATFORM.md">Platform Design</a>
+        </p>
+        <p class="generated">Generated 2026-03-24</p>
+    </footer>
+</body>
+</html>

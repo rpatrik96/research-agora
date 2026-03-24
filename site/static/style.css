@@ -737,3 +737,205 @@ footer a:hover { text-decoration: underline; }
     background: transparent;
     padding: 0;
 }
+
+/* ── Getting Started Hero ───────────────────────────────────────────── */
+
+.hero-cta {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 0 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle geometric grid pattern — CSS only, no images */
+.hero-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+.hero-cta-inner {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-cta-headline {
+    text-align: center;
+    margin-bottom: 1.75rem;
+}
+
+.hero-cta-headline h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.35rem;
+    color: var(--text);
+}
+
+.hero-cta-headline p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* Three pathway cards */
+.pathway-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.875rem;
+    margin-bottom: 1.75rem;
+}
+
+@media (max-width: 640px) {
+    .pathway-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+.pathway-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--pathway-accent, var(--primary));
+    border-radius: var(--radius);
+    padding: 1rem 1.125rem;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s, border-left-color 0.2s, transform 0.15s;
+}
+
+.pathway-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
+.pathway-card-role {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.pathway-card-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.pathway-card-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+    margin: 0;
+}
+
+.pathway-card-link {
+    font-size: 0.78rem;
+    color: var(--pathway-accent, var(--primary));
+    font-weight: 600;
+    margin-top: 0.2rem;
+}
+
+.pathway-card--pi   { --pathway-accent: var(--blue); }
+.pathway-card--res  { --pathway-accent: var(--green); }
+.pathway-card--stu  { --pathway-accent: var(--yellow); }
+
+/* Primary CTA row */
+.hero-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+
+/* Pulsing border on the main CTA — draws the eye, stays tasteful */
+@keyframes cta-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.0); }
+    50%       { box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.25); }
+}
+
+[data-theme="light"] .hero-cta-primary {
+    --cta-pulse-color: rgba(37, 99, 235, 0.2);
+}
+
+@keyframes cta-pulse-light {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.0); }
+    50%       { box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.2); }
+}
+
+.hero-cta-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    padding: 0.65rem 1.4rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    animation: cta-pulse 2.8s ease-in-out infinite;
+    transition: opacity 0.2s, transform 0.15s;
+}
+
+[data-theme="light"] .hero-cta-primary {
+    animation: cta-pulse-light 2.8s ease-in-out infinite;
+}
+
+.hero-cta-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    animation: none;
+    box-shadow: var(--shadow-hover);
+}
+
+.hero-cta-primary code {
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+    padding: 0.1rem 0.45rem;
+    border-radius: 4px;
+    font-size: 0.88rem;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+}
+
+.hero-cta-secondary {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--border);
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.hero-cta-secondary:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+/* ── Getting Started nav link ───────────────────────────────────────── */
+
+.nav-link-cta {
+    background: var(--primary);
+    color: #fff !important;
+    border-radius: var(--radius);
+    font-weight: 700;
+}
+
+.nav-link-cta:hover {
+    background: var(--primary);
+    opacity: 0.88;
+    color: #fff !important;
+}

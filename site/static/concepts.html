@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concepts — Research Agora</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 1.5rem 0 0.5rem;
+        }
+        .breadcrumb a { color: var(--primary); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { margin: 0 0.4rem; }
+        .docs-nav {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .docs-nav a {
+            padding: 0.4rem 0.9rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .docs-nav a:hover { background: var(--primary-light); }
+        .concept-term {
+            margin-bottom: 1.5rem;
+            padding: 1rem 1.25rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+        .concept-term h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        .concept-term p:last-child { margin-bottom: 0; }
+    </style>
+</head>
+<body>
+    <nav class="site-nav">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">Research Agora</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Skills</a>
+                <a href="benchmarks.html" class="nav-link">Benchmarks</a>
+                <a href="docs.html" class="nav-link active">Docs</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <h1>Concepts</h1>
+            <p class="subtitle">How AI Agents Work — Reference material for Research Agora users</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="docs.html">Docs</a>
+            <span>›</span>
+            Concepts
+        </nav>
+
+        <nav class="docs-nav" aria-label="Documentation pages">
+            <a href="quickstart.html">Quickstart</a>
+            <a href="concepts.html">Concepts</a>
+            <a href="verification.html">Verification</a>
+            <a href="privacy.html">Privacy &amp; GDPR</a>
+            <a href="examples.html">Examples</a>
+        </nav>
+
+        <section class="docs-section">
+            <h2>The Evolution Stack: Chat to Skills</h2>
+            <p>AI tools form a complexity ladder. Each level builds on the previous one.</p>
+            <table>
+                <thead>
+                    <tr><th>Level</th><th>What changes</th><th>Example</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Chat</strong></td>
+                        <td>You talk to an LLM</td>
+                        <td>ChatGPT, Claude.ai — Q&amp;A, drafting, brainstorming</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Context</strong></td>
+                        <td>The LLM knows your project</td>
+                        <td><code>CLAUDE.md</code> files, uploaded documents, conversation history</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tools</strong></td>
+                        <td>The LLM can act</td>
+                        <td>Read files, run code, search the web, call APIs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Agents</strong></td>
+                        <td>The LLM pursues multi-step goals</td>
+                        <td>Autonomous research pipelines, iterative debugging</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Skills</strong></td>
+                        <td>Reusable compound workflows</td>
+                        <td><code>/paper-review</code>, <code>/paper-references</code> — packaged expertise</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Most researchers use Chat. The jump to Tools is where AI becomes genuinely useful for research tasks. Skills are the top of the stack — they encode the workflow once and let you (and your collaborators) invoke it repeatedly without rethinking the prompt structure each time.</p>
+        </section>
+
+        <section class="docs-section">
+            <h2>Key Concepts</h2>
+
+            <div class="concept-term">
+                <h3>LLM (Large Language Model)</h3>
+                <p>A neural network trained on text to predict the next token. It has no memory, tools, or goals on its own. Everything it appears to "know" is a learned statistical pattern over training data.</p>
+            </div>
+
+            <div class="concept-term">
+                <h3>Chatbot</h3>
+                <p>An LLM wrapped in a conversational interface (e.g., ChatGPT, Claude.ai). You type, it responds. Stateless between sessions — it remembers nothing from last Tuesday unless you paste it back in.</p>
+            </div>
+
+            <div class="concept-term">
+                <h3>Agent</h3>
+                <p>An LLM that can use tools, maintain context, and pursue multi-step goals autonomously. It reads files, runs code, searches the web, and decides what to do next. This is what separates agents from chatbots: they act, not just respond.</p>
+            </div>
+
+            <div class="concept-term">
+                <h3>Tool use</h3>
+                <p>Agents are not limited to generating text. They can:</p>
+                <table>
+                    <thead>
+                        <tr><th>Capability</th><th>Example</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Read and write files</td><td>Edit your LaTeX source, update a BibTeX file</td></tr>
+                        <tr><td>Execute code</td><td>Run a Python script and interpret the output</td></tr>
+                        <tr><td>Search the web</td><td>Look up a paper on Semantic Scholar</td></tr>
+                        <tr><td>Call APIs</td><td>Query a database, interact with GitHub</td></tr>
+                        <tr><td>Chain actions</td><td>Find a bug, fix it, run tests, commit — all in one go</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="concept-term">
+                <h3>Context window</h3>
+                <p>The buffer of text the model can "see" at once. Everything the agent knows about your project in a given session lives here: your instructions, files it has read, conversation history, tool outputs. When the context window fills, older content gets dropped or summarized. Bigger context = more expensive per token.</p>
+            </div>
+
+            <div class="concept-term">
+                <h3>Tokens</h3>
+                <p>The units LLMs process text in. Roughly: 1 token ≈ 0.75 words, or ~4 characters in English. A 10-page paper is approximately 3,000–5,000 tokens. Token count determines API cost and context window usage.</p>
+            </div>
+
+            <div class="concept-term">
+                <h3>Skills (Custom Commands)</h3>
+                <p>Reusable prompt templates invoked with a slash command. A skill encodes a complete workflow — role, objective, process, output format — so you get consistent, structured output every time without rewriting the prompt.</p>
+                <table>
+                    <thead>
+                        <tr><th>Skill</th><th>What it does</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>/commit</code></td><td>Reviews changes, writes a conventional commit message, commits</td></tr>
+                        <tr><td><code>/paper-review</code></td><td>Reads a paper and generates structured review feedback</td></tr>
+                        <tr><td><code>/literature-synthesizer</code></td><td>Searches for related work given a research question</td></tr>
+                        <tr><td><code>/paper-references</code></td><td>Checks that all citations in a BibTeX file resolve to real papers</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="concept-term">
+                <h3>Context engineering</h3>
+                <p>The practice of systematically providing agents with the right information to do their job well. Think of it as writing documentation for your AI collaborator. The better the "working with me" manual — explicit instructions, project knowledge, acceptance criteria — the better every interaction. A <code>CLAUDE.md</code> file placed in your project root is the primary mechanism.</p>
+            </div>
+        </section>
+
+        <section class="docs-section">
+            <h2>What to Delegate, What to Protect</h2>
+            <p>Not everything should go to an AI agent. The value of delegation depends on whether the task has verifiable outputs and whether the judgment required is yours alone.</p>
+
+            <table>
+                <thead>
+                    <tr><th>Delegate</th><th>Protect</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Code boilerplate and scaffolding</td>
+                        <td>Algorithm design and architectural choices</td>
+                    </tr>
+                    <tr>
+                        <td>BibTeX formatting and citation verification</td>
+                        <td>Deciding which papers are actually relevant</td>
+                    </tr>
+                    <tr>
+                        <td>Generating figure code from described data</td>
+                        <td>Interpreting what the results mean</td>
+                    </tr>
+                    <tr>
+                        <td>Drafting rebuttal structure</td>
+                        <td>Deciding which reviewer concerns are legitimate</td>
+                    </tr>
+                    <tr>
+                        <td>Literature search and summary</td>
+                        <td>Assessing novelty and framing the contribution</td>
+                    </tr>
+                    <tr>
+                        <td>Grammar, style, and consistency passes</td>
+                        <td>Scientific claims and argument structure</td>
+                    </tr>
+                    <tr>
+                        <td>Repetitive data cleaning scripts</td>
+                        <td>Deciding what anomalies mean</td>
+                    </tr>
+                    <tr>
+                        <td>Camera-ready formatting passes</td>
+                        <td>Judging whether a result is publishable</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>The pattern: delegate generation, protect judgment. AI expands what you can do; it does not replace what you are. If you delegate problem selection, you lose the skill that makes the problem selection meaningful.</p>
+
+            <p><strong>The verification asymmetry:</strong> Survey data from 38 ML researchers found that 74% verify AI outputs for coding tasks, but only 11% verify for ideation tasks. This gap is explained entirely by tooling: citation checkers and test suites exist; ideation oracles don't. Tools enable verification. Where tools don't exist yet, the burden falls on your judgment — which means that domain is riskier to delegate, not safer.</p>
+        </section>
+
+        <section class="docs-section">
+            <h2>Where Research Agora Fits</h2>
+            <p>Research Agora lives at the Skills level of the stack. It provides:</p>
+            <ol>
+                <li><strong>A skills marketplace</strong> — a repository of community-contributed, versioned prompt workflows covering the full research lifecycle (writing, verification, review, dissemination, code quality).</li>
+                <li><strong>Verification workflows</strong> — skills that run formal checks: citation resolution against scholarly databases, code-paper consistency checking, statistical claim validation. These turn the "delegate freely, verify with tools" pattern into a one-command workflow.</li>
+                <li><strong>A benchmark agenda</strong> — standardized evaluation protocols so researchers can compare skill performance objectively rather than relying on vibes. (Currently proposed; working examples shipped for pillars 1 and 2.)</li>
+            </ol>
+            <p>The key insight: each pillar alone is insufficient. A skills marketplace without verification lets bad outputs circulate. Verification without discovery means researchers rebuild the same checks from scratch. Benchmarks without skills have nothing to evaluate. The Agora requires all three.</p>
+            <p>For the full argument, see the <a href="https://openreview.net/forum?id=svFHXBd2wq" target="_blank" rel="noopener">position paper</a>.</p>
+        </section>
+
+        <section class="docs-section">
+            <h2>Further Reading</h2>
+            <ul>
+                <li><a href="quickstart.html">Quickstart</a> — Run your first skill in 5 minutes</li>
+                <li><a href="verification.html">Verification</a> — The verification hierarchy in detail</li>
+                <li><a href="https://code.claude.com/docs" target="_blank" rel="noopener">Claude Code documentation</a> — Official reference</li>
+                <li><a href="https://github.com/rpatrik96/research-agora/blob/main/templates/CLAUDE.md.researcher" target="_blank" rel="noopener">CLAUDE.md template</a> — Copy and customize for your project</li>
+                <li>Willison, S. (2026). <a href="https://simonwillison.net/2026/Feb/23/agentic-engineering-patterns/" target="_blank" rel="noopener">Agentic Engineering Patterns</a> — Practical patterns for reliable agent workflows</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="container">
+        <p>
+            <a href="https://github.com/rpatrik96/research-agora">GitHub</a> |
+            <a href="https://github.com/rpatrik96/research-agora/blob/main/CONTRIBUTING.md">Contribute</a> |
+            <a href="https://github.com/rpatrik96/research-agora/blob/main/INTEROP.md">Interop</a> |
+            <a href="https://github.com/rpatrik96/research-agora/blob/main/PLATFORM.md">Platform Design</a>
+        </p>
+        <p class="generated">Generated 2026-03-24</p>
+    </footer>
+</body>
+</html>

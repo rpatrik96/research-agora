@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examples — Research Agora</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 1.5rem 0 0.5rem;
+        }
+        .breadcrumb a { color: var(--primary); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { margin: 0 0.4rem; }
+        .try-this {
+            border-left: 3px solid var(--primary);
+            padding-left: 1rem;
+        }
+        .try-this .code-block {
+            border-color: var(--primary);
+        }
+        .docs-nav {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .docs-nav a {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .docs-nav a:hover {
+            background: var(--primary-light);
+        }
+        .domain-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .domain-section h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <nav class="site-nav">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">Research Agora</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Skills</a>
+                <a href="benchmarks.html" class="nav-link">Benchmarks</a>
+                <a href="docs.html" class="nav-link active">Docs</a>
+                <a href="docs.html#getting-started" class="nav-link nav-link-cta">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <h1>Examples</h1>
+            <p class="subtitle">Domain-specific starter prompts you can run immediately</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumb">
+            <a href="docs.html">Docs</a> <span>›</span> Examples
+        </div>
+
+        <section class="docs-section">
+            <h2>Choose Your Domain</h2>
+            <p>Each section contains self-contained prompts you can copy directly into <a href="https://claude.ai" target="_blank" rel="noopener">Claude.ai</a> (browser) or Claude Code (CLI). Replace <code>[placeholders]</code> with your content.</p>
+            <table>
+                <thead><tr><th>If you work with...</th><th>Jump to</th></tr></thead>
+                <tbody>
+                    <tr><td>Data files, CSV/Excel, visualizations, EDA pipelines</td><td><a href="#code-data">Code &amp; Data</a></td></tr>
+                    <tr><td>Papers, citations, literature reviews, BibTeX files</td><td><a href="#literature">Literature &amp; Citations</a></td></tr>
+                    <tr><td>Email, teaching materials, admin documents, rebuttals</td><td><a href="#writing">Writing &amp; Admin</a></td></tr>
+                    <tr><td>R, clinical workflows, C++/TypeScript, econometrics</td><td><a href="#technical">Technical Workflows</a></td></tr>
+                    <tr><td>Automated pipelines, Zotero+MCP, privacy audits</td><td><a href="#advanced">Advanced Research</a></td></tr>
+                </tbody>
+            </table>
+            <p><strong>General principles:</strong> Verify everything that matters. Start with one task. Rephrase, don't repeat.</p>
+        </section>
+
+        <section class="docs-section" id="code-data">
+            <h2>Code &amp; Data Visualization</h2>
+            <p>Prompts for exploratory data analysis, publication-quality figures, and data cleaning — from raw files to results-ready output.</p>
+
+            <div class="domain-section">
+                <h3>EDA Pipeline</h3>
+                <p><strong>Prerequisites:</strong> Claude Code + data file on disk, or Claude.ai + paste/upload data</p>
+                <div class="try-this">
+                    <p><strong>Try this now:</strong></p>
+                    <div class="code-block"><code>Load [path/to/data.csv]. Produce an EDA report:<br>
+1. Shape, dtypes, missing values per column<br>
+2. Distribution plots for all numeric columns<br>
+3. Correlation heatmap<br>
+4. Top 3 anomalies or unexpected patterns<br>
+Save all figures to outputs/ as PDF (vector).</code></div>
+                </div>
+                <p><strong>What to verify:</strong> Row/column counts match your expectations. Missing value percentages are plausible. Correlation values align with domain knowledge.</p>
+                <p><strong>Related skills:</strong> <code>/code-simplify</code>, <code>/publication-figures</code></p>
+            </div>
+
+            <div class="domain-section">
+                <h3>Publication-Quality Figure</h3>
+                <p><strong>Prerequisites:</strong> Claude Code + matplotlib/seaborn installed</p>
+                <div class="try-this">
+                    <p><strong>Try this now:</strong></p>
+                    <div class="code-block"><code>Create a publication-quality figure from [path/to/data.csv]:<br>
+- Use the Okabe-Ito colorblind-safe palette<br>
+- Font size: 10pt for labels, 8pt for ticks<br>
+- Export as PDF (vector) at 3.5 inches wide (single-column)<br>
+- No title (caption goes in LaTeX)<br>
+- Include error bars where appropriate</code></div>
+                </div>
+                <p><strong>What to verify:</strong> Colors are distinguishable in grayscale. Axis labels are readable at print size. Error bars represent the correct statistic (SD vs. SEM vs. CI).</p>
+                <p><strong>Related skills:</strong> <code>/publication-figures</code>, <code>/tikz-figures</code></p>
+            </div>
+        </section>
+
+        <section class="docs-section" id="literature">
+            <h2>Literature &amp; Citations</h2>
+            <p>Prompts for literature search, synthesis, gap identification, and citation verification — with explicit guards against hallucination.</p>
+            <p><strong>Warning:</strong> LLMs hallucinate 18–29% of citations in literature reviews. These prompts build in verification from the start.</p>
+
+            <div class="domain-section">
+                <h3>Methodology-Focused Search</h3>
+                <div class="try-this">
+                    <p><strong>Try this now:</strong></p>
+                    <div class="code-block"><code>Search for papers that use [specific method] to study [specific problem].<br>
+For each paper found:<br>
+- Full citation (authors, title, venue, year)<br>
+- One-sentence summary of the methodological contribution<br>
+- How it differs from [your approach]<br>
+<br>
+If you are uncertain whether a paper exists, write [UNCERTAIN] rather than guessing.</code></div>
+                </div>
+                <p><strong>What to verify:</strong> Every citation exists. Check at least 3 on <a href="https://semanticscholar.org" target="_blank" rel="noopener">Semantic Scholar</a>.</p>
+                <p><strong>Related skills:</strong> <code>/literature-synthesizer</code>, <code>/paper-references</code></p>
+            </div>
+
+            <div class="domain-section">
+                <h3>Citation Verification (CLI)</h3>
+                <div class="try-this">
+                    <p><strong>Try this now:</strong></p>
+                    <div class="code-block"><code>/paper-references</code></div>
+                </div>
+                <p>Checks every entry in your <code>.bib</code> file against Semantic Scholar and CrossRef. Flags mismatches, preprints with published versions, and entries that don't resolve to any known paper.</p>
+                <p><strong>Citation tools comparison:</strong></p>
+                <table>
+                    <thead><tr><th>Tool</th><th>What it checks</th><th>Notes</th></tr></thead>
+                    <tbody>
+                        <tr><td><a href="https://swanref.org" target="_blank" rel="noopener">SwanRef</a></td><td>Citation existence</td><td>Free, batch upload</td></tr>
+                        <tr><td><a href="https://semanticscholar.org/product/api" target="_blank" rel="noopener">Semantic Scholar API</a></td><td>Programmatic access</td><td>Free API key</td></tr>
+                        <tr><td><a href="https://elicit.com" target="_blank" rel="noopener">Elicit</a></td><td>Structured data extraction</td><td>Free tier available</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="docs-section" id="writing">
+            <h2>Writing &amp; Admin</h2>
+            <p>Everything here works in <a href="https://claude.ai" target="_blank" rel="noopener">Claude.ai</a> with zero installation.</p>
+
+            <div class="domain-section">
+                <h3>Administrative Email Draft</h3>
+                <div class="try-this">
+                    <p><strong>Try this now:</strong></p>
+                    <div class="code-block"><code>Draft a professional email:<br>
+- From: [your name, your role]<br>
+- To: [recipient, their role]<br>
+- Purpose: [what you need]<br>
+- Tone: [formal/collegial/brief]<br>
+- Constraints: [max length, deadline to mention, attachments to reference]<br>
+<br>
+Write the subject line and body. Do not invent facts.</code></div>
+                </div>
+                <p><strong>What to verify:</strong> No fabricated details. Tone matches your relationship with the recipient. All facts are correct.</p>
+            </div>
+
+            <div class="domain-section">
+                <h3>Rebuttal Paragraph</h3>
+                <div class="try-this">
+                    <p><strong>Try this now:</strong></p>
+                    <div class="code-block"><code>Reviewer wrote: "[paste reviewer comment]"<br>
+<br>
+Draft a rebuttal paragraph that:<br>
+1. Acknowledges the concern (one sentence)<br>
+2. Provides evidence addressing it<br>
+3. Describes what changed in the revision<br>
+<br>
+Tone: professional, concessive opening, then firm evidence.</code></div>
+                </div>
+                <p><strong>What to verify:</strong> The evidence you cite is real. The changes described actually happened. The tone is not defensive.</p>
+                <p><strong>Related skills:</strong> <code>/paper-rebuttal</code>, <code>/review-triage</code></p>
+            </div>
+        </section>
+
+        <section class="docs-section" id="technical">
+            <h2>Technical Workflows</h2>
+            <p>Prompts for R/econometrics, clinical/medical imaging setup, C++/TypeScript projects, and referee responses. Assume terminal comfort and a specific task in mind.</p>
+
+            <div class="domain-section">
+                <h3>R Fixed-Effects Panel Regression</h3>
+                <div class="try-this">
+                    <p><strong>Try this now:</strong></p>
+                    <div class="code-block"><code>Read [path/to/panel_data.csv].<br>
+Estimate a two-way fixed-effects model:<br>
+  Y = [outcome] ~ [treatment] + [controls] | [unit_FE] + [time_FE]<br>
+<br>
+Use the fixest package. Cluster standard errors at the [unit] level.<br>
+Output a modelsummary table comparing 3 specifications.<br>
+Export as LaTeX (booktabs).</code></div>
+                </div>
+                <p><strong>What to verify:</strong> Number of observations matches your data. Fixed effects are applied to the correct dimensions. Standard errors are clustered at the right level.</p>
+            </div>
+
+            <div class="domain-section">
+                <h3>Medical/Clinical Setup (Architecture First, No Data)</h3>
+                <div class="try-this">
+                    <p><strong>Try this now:</strong></p>
+                    <div class="code-block"><code>I'm building a [imaging modality] pipeline for [clinical task].<br>
+Do NOT process any patient data.<br>
+<br>
+Design the project architecture:<br>
+1. Directory structure (data/, models/, configs/, outputs/)<br>
+2. .claudeignore excluding all DICOM, NIfTI, and patient-identifiable files<br>
+3. Config template for model parameters<br>
+4. A CLAUDE.md that encodes "never read files in data/"</code></div>
+                </div>
+                <p><strong>What to verify:</strong> The <code>.claudeignore</code> actually blocks all sensitive file types. The CLAUDE.md verification requirements are explicit. No patient data paths are referenced.</p>
+                <p>See also: <a href="privacy.html">Privacy &amp; GDPR guide</a></p>
+            </div>
+        </section>
+
+        <section class="docs-section" id="advanced">
+            <h2>Advanced Research</h2>
+            <p>For daily Claude Code users who want to connect external tools, audit their setup, or maintain AI-generated code.</p>
+
+            <div class="domain-section">
+                <h3>Zotero + MCP Library Search</h3>
+                <p><strong>Prerequisites:</strong> Claude Code + Zotero desktop + <a href="https://github.com/kujenga/zotero-mcp" target="_blank" rel="noopener">Zotero MCP server</a> configured</p>
+                <div class="try-this">
+                    <p><strong>Try this now:</strong></p>
+                    <div class="code-block"><code>Search my Zotero library for papers related to [your topic].<br>
+For each match, show: title, authors, year, and which collection it's in.<br>
+Then identify 3 gaps — topics I should have papers on but don't.</code></div>
+                </div>
+                <p><strong>What to verify:</strong> The papers returned actually exist in your Zotero library. The "gaps" are genuine, not hallucinated subfields.</p>
+            </div>
+
+            <div class="domain-section">
+                <h3>Privacy Audit</h3>
+                <div class="try-this">
+                    <p><strong>Try this now:</strong></p>
+                    <div class="code-block"><code>Audit this session's privacy posture:<br>
+1. List every file you've read in this session<br>
+2. Flag any that contain secrets, credentials, or PII<br>
+3. Check if .claudeignore exists and what it blocks<br>
+4. Report whether DISABLE_TELEMETRY is set<br>
+5. Recommend fixes for any issues found</code></div>
+                </div>
+                <p><strong>What to verify:</strong> Cross-check the file list against your expectations. Verify the <code>.claudeignore</code> recommendations are complete.</p>
+                <p><strong>Related skills:</strong> <code>/audit-my-setup</code></p>
+            </div>
+
+            <div class="domain-section">
+                <h3>Cognitive Debt Audit</h3>
+                <div class="try-this">
+                    <p><strong>Try this now:</strong></p>
+                    <div class="code-block"><code>Audit [path/to/project] for cognitive debt:<br>
+1. Which files were likely AI-generated? (heuristics: uniform style, no TODOs, generic variable names)<br>
+2. For each: can a human maintainer understand it without the AI context?<br>
+3. Are there tests? If not, which functions most need them?<br>
+4. Is there a CONTRIBUTING.md that explains the architecture?<br>
+<br>
+Produce a prioritized refactoring plan. Do NOT refactor — just plan.</code></div>
+                </div>
+                <p><strong>What to verify:</strong> The AI-generated file detection is plausible but imperfect. Read the refactoring plan before acting on it — it's a starting point, not a prescription.</p>
+            </div>
+        </section>
+
+        <div class="docs-nav">
+            <a href="quickstart.html">← Quickstart</a>
+            <a href="concepts.html">Concepts</a>
+            <a href="verification.html">Verification</a>
+            <a href="privacy.html">Privacy &amp; GDPR</a>
+            <a href="docs.html">All Docs</a>
+        </div>
+    </main>
+
+    <footer class="container">
+        <p>
+            <a href="https://github.com/rpatrik96/research-agora">GitHub</a> |
+            <a href="https://github.com/rpatrik96/research-agora/blob/main/CONTRIBUTING.md">Contribute</a> |
+            <a href="https://github.com/rpatrik96/research-agora/blob/main/PLATFORM.md">Platform Design</a>
+        </p>
+    </footer>
+</body>
+</html>

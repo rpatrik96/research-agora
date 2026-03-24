@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quickstart — Research Agora</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 1.5rem 0 0.5rem;
+        }
+        .breadcrumb a { color: var(--primary); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { margin: 0 0.4rem; }
+        .try-this {
+            border-left: 3px solid var(--primary);
+            padding-left: 1rem;
+        }
+        .try-this .code-block {
+            border-color: var(--primary);
+        }
+        .docs-nav {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .docs-nav a {
+            padding: 0.4rem 0.9rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .docs-nav a:hover { background: var(--primary-light); }
+    </style>
+</head>
+<body>
+    <nav class="site-nav">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">Research Agora</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Skills</a>
+                <a href="benchmarks.html" class="nav-link">Benchmarks</a>
+                <a href="docs.html" class="nav-link active">Docs</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <h1>Quickstart</h1>
+            <p class="subtitle">First 5 Minutes with Research Agora</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="docs.html">Docs</a>
+            <span>›</span>
+            Quickstart
+        </nav>
+
+        <nav class="docs-nav" aria-label="Documentation pages">
+            <a href="quickstart.html">Quickstart</a>
+            <a href="concepts.html">Concepts</a>
+            <a href="verification.html">Verification</a>
+            <a href="privacy.html">Privacy &amp; GDPR</a>
+            <a href="examples.html">Examples</a>
+        </nav>
+
+        <section class="docs-section">
+            <h2>Choose Your Path</h2>
+            <p>Here's how to get this running. It takes 5 minutes.</p>
+            <table>
+                <thead>
+                    <tr><th>Path</th><th>Setup time</th><th>What you get</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Browser (Claude.ai)</strong></td>
+                        <td>0 min</td>
+                        <td>Chat interface, no file access, no installation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Claude Code (CLI)</strong></td>
+                        <td>5–10 min</td>
+                        <td>Full agent: reads/writes files, runs code, executes skills</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>If you just want to see citation verification work right now, the browser path gets you there in 3 steps. The CLI path unlocks the full Research Agora skill library and runs against your actual project files.</p>
+        </section>
+
+        <section class="docs-section">
+            <h2>Browser Path (0 min setup)</h2>
+            <p>You don't need to install anything. Open <a href="https://claude.ai" target="_blank" rel="noopener">Claude.ai</a> in a browser tab.</p>
+
+            <h3>Step 1</h3>
+            <p>Go to <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> and sign in (free tier works).</p>
+
+            <h3>Step 2</h3>
+            <p>Paste this prompt:</p>
+            <div class="code-block"><code>You are a BibTeX librarian.
+Objective: Check each entry in the following BibTeX snippet against Semantic Scholar.
+Flag entries where the title, authors, or year don't match any known publication.
+Output: Table with columns — cite key, status (verified / unverified / mismatch), details.
+
+[paste 3–5 entries from your .bib file here]</code></div>
+
+            <h3>Step 3</h3>
+            <p>Review the table. Any row marked <code>mismatch</code> or <code>unverified</code> is a potential hallucination. Fix or remove it before submission.</p>
+            <p>That's it. The browser path has no file access — you paste content in manually. For automated verification against your full <code>.bib</code> file, use the CLI path below.</p>
+        </section>
+
+        <section class="docs-section">
+            <h2>CLI Path (5–10 min setup)</h2>
+            <p><strong>Prerequisites:</strong> Node.js installed, a Claude subscription (Pro or API key).</p>
+
+            <h3>Install Claude Code</h3>
+            <div class="code-block"><code>npm install -g @anthropic-ai/claude-code</code></div>
+
+            <h3>Navigate to your project</h3>
+            <div class="code-block"><code>cd /path/to/your/project</code></div>
+
+            <h3>Start your first session</h3>
+            <div class="code-block"><code>claude</code></div>
+            <p>On first run, Claude Code opens a browser tab to authenticate. Follow the prompts. Once authenticated, you're at the interactive agent prompt.</p>
+        </section>
+
+        <section class="docs-section">
+            <h2>The 5-Minute Win: Run <code>/paper-references</code> on Your .bib File</h2>
+            <p>This is the fastest way to see what Research Agora actually does.</p>
+
+            <h3>Step 1 — Install the Research Agora academic plugin</h3>
+            <div class="code-block"><code>claude mcp add research-agora</code></div>
+            <p>Or manually: follow the installation instructions in <a href="https://github.com/rpatrik96/research-agora/blob/main/README.md" target="_blank" rel="noopener">README.md</a>.</p>
+
+            <h3>Step 2 — Navigate to a project with a <code>.bib</code> file</h3>
+            <div class="code-block"><code>cd /path/to/project-with-references.bib
+claude</code></div>
+
+            <h3>Step 3 — Run the citation verification skill</h3>
+            <div class="code-block"><code>/paper-references</code></div>
+
+            <h3>Step 4 — Read the output</h3>
+            <p>You'll see something like:</p>
+            <div class="code-block"><code>Checking 47 entries against Semantic Scholar and CrossRef...
+
+✓ vaswani2017attention       — verified (Vaswani et al., 2017, NeurIPS)
+✓ lecun1989backprop          — verified (LeCun et al., 1989, Neural Computation)
+⚠ smith2023efficiency        — MISMATCH: title found but year differs (paper is 2022, not 2023)
+✗ johnson2024emergent        — NOT FOUND: no matching publication on any indexed source
+✓ goodfellow2016deep         — verified (Goodfellow et al., 2016, MIT Press)
+...
+
+Summary: 44 verified, 2 mismatches, 1 not found</code></div>
+            <p>That task cost approximately <strong>$0.10–0.30</strong> in API tokens depending on bibliography size.</p>
+
+            <h3>Fallback — no <code>.bib</code> file?</h3>
+            <p>Paste this sample into a file called <code>demo.bib</code> in your current directory:</p>
+            <div class="code-block"><code>@inproceedings{vaswani2017attention,
+  title={Attention is all you need},
+  author={Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and others},
+  booktitle={NeurIPS},
+  year={2017}
+}
+
+@article{invented2024hallucination,
+  title={Emergent reasoning through chain-of-thought distillation at scale},
+  author={Chen, Wei and Park, Soo-Jin and Mueller, Hans},
+  journal={ICML},
+  year={2024}
+}</code></div>
+            <p>The second entry is fabricated. Watch the agent catch it.</p>
+
+            <h3>Fallback — no CLI yet?</h3>
+            <p>Run the browser-path version above. You paste your BibTeX manually; it checks the same way, just one entry at a time.</p>
+        </section>
+
+        <section class="docs-section">
+            <h2>What Just Happened</h2>
+            <p>The agent read your <code>.bib</code> file, extracted each citation's title, authors, and year, then queried Semantic Scholar and CrossRef to find matching records. For each entry it compared the metadata against what's actually indexed. Entries that don't resolve to a real publication — hallucinated references, typos, or year errors — are flagged. This is the same check a careful human reviewer would do manually, run programmatically against scholarly databases in under a minute. The agent didn't guess: it verified against ground truth.</p>
+        </section>
+
+        <section class="docs-section">
+            <h2>Setup Time Reference</h2>
+            <table>
+                <thead>
+                    <tr><th>Component</th><th>First-time setup</th><th>Ongoing overhead</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Claude Code installation</td>
+                        <td>5–10 min (one command + login)</td>
+                        <td>Auto-updates</td>
+                    </tr>
+                    <tr>
+                        <td>CLAUDE.md for a project</td>
+                        <td>20–45 min (or 5 min via <code>/init</code>)</td>
+                        <td>5–10 min every few weeks</td>
+                    </tr>
+                    <tr>
+                        <td>MCP server (e.g., GitHub)</td>
+                        <td>5–15 min per server</td>
+                        <td>None once configured</td>
+                    </tr>
+                    <tr>
+                        <td>Custom skill</td>
+                        <td>10–30 min for a first skill</td>
+                        <td>Minutes to update</td>
+                    </tr>
+                    <tr>
+                        <td>Per-session startup</td>
+                        <td>Automatic (~10 sec)</td>
+                        <td>Context management via <code>/clear</code>, <code>/compact</code></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Total initial investment:</strong> 1–2 hours for a full setup (Claude Code + CLAUDE.md + 2–3 MCP servers + a first skill). After that, per-session overhead is under 5 minutes.</p>
+        </section>
+
+        <section class="docs-section">
+            <h2>What's Next</h2>
+            <ul>
+                <li><a href="concepts.html"><strong>Concepts</strong></a> — How AI agents actually work: the five-level ladder from Chat to Skills, what to delegate vs. protect, where Research Agora fits.</li>
+                <li><a href="verification.html"><strong>Verification</strong></a> — The full verification hierarchy: formal checks, automated heuristics, manual review. When to use each and why ideation gets verified 7× less than code.</li>
+                <li><strong><code>/onboard</code></strong> — Run this skill in your project directory. It reads your codebase and drafts a <code>CLAUDE.md</code> tailored to your project in under 2 minutes.</li>
+            </ul>
+            <p>For a CLAUDE.md template you can copy and customize, see <a href="https://github.com/rpatrik96/research-agora/blob/main/templates/CLAUDE.md.researcher" target="_blank" rel="noopener">templates/CLAUDE.md.researcher</a>.</p>
+        </section>
+    </main>
+
+    <footer class="container">
+        <p>
+            <a href="https://github.com/rpatrik96/research-agora">GitHub</a> |
+            <a href="https://github.com/rpatrik96/research-agora/blob/main/CONTRIBUTING.md">Contribute</a> |
+            <a href="https://github.com/rpatrik96/research-agora/blob/main/INTEROP.md">Interop</a> |
+            <a href="https://github.com/rpatrik96/research-agora/blob/main/PLATFORM.md">Platform Design</a>
+        </p>
+        <p class="generated">Generated 2026-03-24</p>
+    </footer>
+</body>
+</html>
