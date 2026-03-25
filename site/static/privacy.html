@@ -90,6 +90,61 @@
             padding-left: 1rem;
             margin-top: 0.5rem;
         }
+        .toc {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0 2rem;
+        }
+        .toc h3 {
+            margin: 0 0 0.6rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+        }
+        .toc ol {
+            margin: 0;
+            padding-left: 1.2rem;
+        }
+        .toc li {
+            margin: 0.3rem 0;
+        }
+        .toc a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        .toc a:hover { text-decoration: underline; }
+        .back-to-top {
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+        .back-to-top:hover { color: var(--primary); }
+        .key-points {
+            background: var(--primary-light, rgba(99,102,241,0.08));
+            border: 2px solid var(--primary);
+            border-radius: var(--radius);
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        .key-points strong {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .key-points ul {
+            margin: 0;
+            padding-left: 1.2rem;
+        }
+        .key-points li {
+            margin: 0.3rem 0;
+            font-size: 0.95rem;
+        }
     </style>
 </head>
 <body>
@@ -133,7 +188,31 @@
             <strong>Note:</strong> This is informational guidance, not legal advice. For binding guidance on specific situations, consult your institution's Datenschutzbeauftragte(r).
         </div>
 
-        <section class="docs-section">
+        <div class="key-points">
+            <strong>Key Points</strong>
+            <ul>
+                <li>Everything you paste or upload to a cloud AI is transmitted to external servers — including file contents read by Claude Code in agentic mode.</li>
+                <li>For GDPR compliance with personal data, you need Claude Team or Enterprise (includes DPA + EU SCCs). Pro plan is not sufficient.</li>
+                <li>For identifiable clinical or health data, use local models (Ollama) only — cloud AI is not an option regardless of plan tier.</li>
+            </ul>
+        </div>
+
+        <nav class="toc" aria-label="Page contents">
+            <h3>On this page</h3>
+            <ol>
+                <li><a href="#flowchart">Decision Flowchart</a></li>
+                <li><a href="#what-gets-sent">What Gets Sent to the Cloud</a></li>
+                <li><a href="#what-stays-local">What Stays Local</a></li>
+                <li><a href="#plan-comparison">Paid Plan Comparison</a></li>
+                <li><a href="#medical-data">Medical &amp; Clinical Data</a></li>
+                <li><a href="#kill-switches">Privacy Kill Switches</a></li>
+                <li><a href="#env-problem">The .env Problem</a></li>
+                <li><a href="#local-alternatives">Local &amp; Self-Hosted Alternatives</a></li>
+                <li><a href="#non-eu">Non-EU Researchers</a></li>
+            </ol>
+        </nav>
+
+        <section class="docs-section" id="flowchart">
             <h2>Before You Start: Decision Flowchart</h2>
             <p>Work through this before opening any AI tool with research data.</p>
 
@@ -194,9 +273,10 @@
                     </div>
                 </div>
             </div>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <section class="docs-section">
+        <section class="docs-section" id="what-gets-sent">
             <h2>What Gets Sent to the Cloud</h2>
             <p>Everything you type or paste into a cloud AI tool (Claude.ai, ChatGPT, Copilot) is transmitted to external servers. This includes:</p>
 
@@ -235,9 +315,10 @@
             </ul>
 
             <p>During the agentic loop, Claude proactively reads additional files — <code>package.json</code>, source files, lock files, tests — to gather context. Each file's content is appended to the context window and transmitted on the next API call.</p>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <section class="docs-section">
+        <section class="docs-section" id="what-stays-local">
             <h2>What Stays Local</h2>
             <table>
                 <thead>
@@ -263,9 +344,10 @@
                 </tbody>
             </table>
             <p><strong>Important caveat:</strong> <code>.claudeignore</code> rules are not fully reliable in agentic mode. See "The .env Problem" below.</p>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <section class="docs-section">
+        <section class="docs-section" id="plan-comparison">
             <h2>Paid Plan Comparison</h2>
             <table>
                 <thead>
@@ -325,9 +407,10 @@
             </ul>
             <p>For institutional use with any personal data, Team or Enterprise is the minimum. Pro is not GDPR-compliant for research involving personal data.</p>
             <p>Sources: <a href="https://privacy.claude.com" target="_blank" rel="noopener">privacy.claude.com</a>, <a href="https://www.anthropic.com/legal/data-processing-addendum" target="_blank" rel="noopener">Anthropic DPA</a>, <a href="https://code.claude.com/docs/en/data-usage" target="_blank" rel="noopener">Claude Code data usage</a></p>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <section class="docs-section">
+        <section class="docs-section" id="medical-data">
             <h2>Medical &amp; Clinical Data</h2>
             <p>Health data is a <strong>special category</strong> under GDPR Art. 9. Stricter rules apply beyond standard personal data protections.</p>
 
@@ -392,9 +475,10 @@
 
             <h3>Institutional DPA</h3>
             <p>Contact your Datenschutzbeauftragte(r) before using cloud AI on any data derived from patient contact. The university's framework agreement may or may not cover research use — do not assume it does.</p>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <section class="docs-section">
+        <section class="docs-section" id="kill-switches">
             <h2>Privacy Kill Switches</h2>
             <p>Add these to your shell profile (<code>~/.zshrc</code> or <code>~/.bashrc</code>) to disable telemetry and non-essential data transmission:</p>
             <div class="code-block"><code>export DISABLE_TELEMETRY=1                              # No usage metrics sent to Anthropic
@@ -414,9 +498,10 @@ id_rsa*
 **/patient-data/**
 **/dicom/**</code></div>
             <p><strong>Critical caveat:</strong> <code>.claudeignore</code> is not a security boundary. See "The .env Problem" below. Use <code>.claudeignore</code> as one layer of defense, not the only one.</p>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <section class="docs-section">
+        <section class="docs-section" id="env-problem">
             <h2>The .env Problem</h2>
             <p>Claude Code does not reliably prevent reading <code>.env</code> files.</p>
             <p>Security researcher Dor Munis (<a href="https://www.knostic.ai/blog/claude-loads-secrets-without-permission" target="_blank" rel="noopener">Knostic, 2025</a>) documented that Claude Code loads <code>.env</code>, <code>.env.local</code>, and similar files — including API keys and passwords — into the context window automatically, without explicit permission.</p>
@@ -445,9 +530,10 @@ id_rsa*
             </table>
             <p>The pattern to internalize: if a file is in the project directory tree, treat it as readable by the agent. Structure your project so secrets never live there.</p>
             <p>Sources: <a href="https://code.claude.com/docs/en/data-usage" target="_blank" rel="noopener">Claude Code Data Usage</a>, <a href="https://www.knostic.ai/blog/claude-loads-secrets-without-permission" target="_blank" rel="noopener">Knostic .env research</a>, <a href="https://www.theregister.com/2026/01/28/claude_code_ai_secrets_files/" target="_blank" rel="noopener">The Register investigation</a></p>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <section class="docs-section">
+        <section class="docs-section" id="local-alternatives">
             <h2>Local &amp; Self-Hosted Alternatives</h2>
             <p>When cloud AI is not an option — identifiable clinical data, institutional policy, or sovereignty concerns — local models provide full data control at the cost of capability.</p>
             <table>
@@ -483,9 +569,10 @@ id_rsa*
             </table>
             <p><strong>EU sovereignty note:</strong> Using Mistral or Aleph Alpha addresses concerns about US jurisdiction and data residency. Both offer DPAs and are subject to EU law. Capabilities lag US frontier models, particularly for coding and complex reasoning, as of early 2026.</p>
             <p><strong>Practical decision:</strong> For routine tasks (editing, brainstorming, literature search) where data is not sensitive, use the best available tool. For anything involving personal data or institutional constraints, default to local models until you've confirmed your DPA coverage.</p>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <section class="docs-section">
+        <section class="docs-section" id="non-eu">
             <h2>Non-EU Researchers</h2>
             <p>The workflow patterns in this guide apply regardless of your legal jurisdiction. Equivalent frameworks:</p>
             <table>
@@ -517,6 +604,7 @@ id_rsa*
             </table>
             <p><strong>US health data specifically:</strong> HIPAA-covered entities need a BAA with any cloud AI provider processing Protected Health Information (PHI). Anthropic offers BAAs only at the Enterprise tier. For health research, check with your IRB and compliance office before using any cloud AI on patient data.</p>
             <p>The core principle — local models for identifiable data, institutional DPA for anonymized data, cloud AI freely for public/non-personal data — holds across all jurisdictions.</p>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
     </main>
 

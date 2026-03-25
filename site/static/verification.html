@@ -42,6 +42,41 @@
             color: var(--primary);
             margin-bottom: 0.5rem;
         }
+        .toc {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0 2rem;
+        }
+        .toc h3 {
+            margin: 0 0 0.6rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+        }
+        .toc ol {
+            margin: 0;
+            padding-left: 1.2rem;
+        }
+        .toc li {
+            margin: 0.3rem 0;
+        }
+        .toc a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        .toc a:hover { text-decoration: underline; }
+        .back-to-top {
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+        .back-to-top:hover { color: var(--primary); }
         .checklist {
             list-style: none;
             padding-left: 0;
@@ -128,15 +163,29 @@
             <a href="examples.html">Examples</a>
         </nav>
 
-        <section class="docs-section">
+        <nav class="toc" aria-label="Page contents">
+            <h3>On this page</h3>
+            <ol>
+                <li><a href="#why-verification">Why Verification Matters</a></li>
+                <li><a href="#hierarchy">The Verification Hierarchy</a></li>
+                <li><a href="#recipes">Runnable Verification Recipes</a></li>
+                <li><a href="#checklist">The Quick Verification Checklist</a></li>
+                <li><a href="#limits">Where Verification Breaks Down</a></li>
+                <li><a href="#roles">Verification for Different Roles</a></li>
+                <li><a href="#see-also">See Also</a></li>
+            </ol>
+        </nav>
+
+        <section class="docs-section" id="why-verification">
             <h2>1. Why Verification Matters</h2>
             <p>At NeurIPS 2025, 53 accepted papers were found to contain fabricated citations — references that looked plausible but pointed to publications that do not exist. The AI that generated them expressed no uncertainty. It was confidently wrong.</p>
             <p>This is the core asymmetry: AI systems produce fluent, authoritative-sounding outputs across a jagged frontier of actual competence. They excel at some tasks and fail unpredictably at similar ones, with no reliable signal about which is which. Citations either exist or they do not. Code either implements what the paper claims or it does not. Numbers either match or they diverge. For these correctness tasks, verification is mechanical and automatable — and the cost of skipping it is silent error embedded in the scientific record.</p>
             <p>Your expertise is the oracle. The tools below help you apply it efficiently.</p>
             <p>For the full argument, see the <a href="https://openreview.net/forum?id=svFHXBd2wq" target="_blank" rel="noopener">position paper</a> and <a href="https://github.com/rpatrik96/research-agora/blob/main/PLATFORM.md" target="_blank" rel="noopener">Research Agora platform design</a>.</p>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <section class="docs-section">
+        <section class="docs-section" id="hierarchy">
             <h2>2. The Verification Hierarchy</h2>
             <p>Not all verification is equally tractable. Match the method to the task.</p>
             <table>
@@ -175,9 +224,10 @@
                 </tbody>
             </table>
             <p>The hierarchy is not a progression — it is a decision rule. Apply the highest-tractable level for each task type. Citations warrant formal checks. Novelty assessments do not have a formal oracle; manual review is the ceiling.</p>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <section class="docs-section">
+        <section class="docs-section" id="recipes">
             <h2>3. Runnable Verification Recipes</h2>
             <p>Each recipe follows a fixed format: what it checks, what you need, exact steps, what success looks like, what it does NOT cover, and an executable prompt you can run immediately.</p>
 
@@ -377,9 +427,10 @@ Focus on: contributions section, related work comparisons, experimental result i
 Output: table sorted by severity (contradicted → unsupported → partially-supported → supported).</code></div>
                 </div>
             </div>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <section class="docs-section">
+        <section class="docs-section" id="checklist">
             <h2>4. The Quick Verification Checklist</h2>
             <p>Before accepting any AI output into your research, run through these five questions. This is a pre-commit check, not a post-hoc rationalization.</p>
             <p><em>Adapted from <a href="https://simonwillison.net/2026/Mar/16/coding-agents-for-data-analysis/" target="_blank" rel="noopener">Simon Willison's NICAR 2026 workshop</a>.</em></p>
@@ -391,9 +442,10 @@ Output: table sorted by severity (contradicted → unsupported → partially-sup
                 <li><strong>Does it open a door or close one?</strong> The best findings raise new questions. If the output seems to neatly resolve everything, be skeptical.</li>
             </ul>
             <p>This checklist applies whether the output is a generated paragraph, a literature summary, a code snippet, or a statistical result. The same critical eye you apply to peer review applies here.</p>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <section class="docs-section">
+        <section class="docs-section" id="limits">
             <h2>5. Where Verification Breaks Down</h2>
             <p>Verification works for correctness. Research is not only correctness.</p>
             <table>
@@ -451,9 +503,10 @@ Output: table sorted by severity (contradicted → unsupported → partially-sup
             <p>The boundary is explicit: TDR solves correctness problems. It does not solve epistemological problems.</p>
             <p>For interpretation, "manual review" means you thinking — not a verification shortcut. AI can generate three competing explanations of your experimental results. Only you can judge which one is scientifically sound given what you know about the system you studied.</p>
             <p>Your judgment is the only oracle for the things that matter most.</p>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <section class="docs-section">
+        <section class="docs-section" id="roles">
             <h2>6. Verification for Different Roles</h2>
 
             <details>
@@ -513,9 +566,10 @@ List what evidence would distinguish between them.</code></div>
                     <p>Then you evaluate which one is scientifically sound. That judgment is not delegatable — and developing it is the point of doing research.</p>
                 </div>
             </details>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <section class="docs-section">
+        <section class="docs-section" id="see-also">
             <h2>See Also</h2>
             <ul>
                 <li><a href="https://github.com/rpatrik96/research-agora/blob/main/plugins/academic/commands/paper-references.md" target="_blank" rel="noopener"><code>/paper-references</code></a> — full skill documentation</li>
@@ -524,6 +578,7 @@ List what evidence would distinguish between them.</code></div>
                 <li><a href="https://github.com/rpatrik96/research-agora/blob/main/plugins/research-agents/agents/claim-auditor.md" target="_blank" rel="noopener"><code>/claim-auditor</code></a> — agent documentation, including parallel mode</li>
                 <li><a href="https://openreview.net/forum?id=svFHXBd2wq" target="_blank" rel="noopener">Position paper</a> — full argument for Test-Driven Research and the Research Agora</li>
             </ul>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
     </main>
 
