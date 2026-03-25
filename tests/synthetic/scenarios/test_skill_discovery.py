@@ -20,7 +20,8 @@ def test_experienced_user_finds_theory_tools(
 ):
     """Dr. Chen uses search and intent filters to find theory tools."""
     action_history, pages_visited, _, evaluation = run_persona_journey(
-        browser_page, claude_client, experienced_persona, site_server
+        browser_page, claude_client, experienced_persona, site_server,
+        scenario_name="skill_discovery",
     )
 
     assert len(action_history) >= 1, (

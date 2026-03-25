@@ -8,19 +8,27 @@ Tests: search, intent buttons, skill cards, copy-to-clipboard, navigation.
 
 from __future__ import annotations
 
+import time
+
 import pytest
 
 from synthetic.accessibility import extract_a11y_tree
 from synthetic.actions import execute_action
 from synthetic.claude_client import evaluate_journey, get_next_action
+from synthetic.reporter import save_scenario_report
 
 
-def run_persona_journey(browser_page, claude_client, persona, site_server):
+def run_persona_journey(
+    browser_page, claude_client, persona, site_server, scenario_name="journey"
+):
     """Core perceive-reason-act loop shared across scenarios.
+
+    Saves a JSON report to tests/synthetic/reports/ after each run.
 
     Returns:
         Tuple of (action_history, pages_visited, final_a11y_tree, evaluation).
     """
+    start_time = time.monotonic()
     browser_page.goto(f"{site_server}/index.html", timeout=10000)
     browser_page.wait_for_load_state("domcontentloaded")
 
@@ -70,6 +78,24 @@ def run_persona_journey(browser_page, claude_client, persona, site_server):
         pages_visited=pages_visited,
     )
 
+    duration = time.monotonic() - start_time
+
+    # Save JSON report
+    report_path = save_scenario_report(
+        scenario_name=scenario_name,
+        persona_name=persona.name,
+        action_history=action_history,
+        pages_visited=pages_visited,
+        evaluation=evaluation,
+        duration_seconds=duration,
+    )
+    print(
+        f"\n  Report: {report_path.name} | "
+        f"{persona.name}: findability={evaluation.findability_score}/5 "
+        f"clarity={evaluation.clarity_score}/5 "
+        f"issues={len(evaluation.issues)} actions={len(action_history)}"
+    )
+
     return action_history, pages_visited, final_tree, evaluation
 
 
@@ -77,7 +103,8 @@ def run_persona_journey(browser_page, claude_client, persona, site_server):
 def test_pi_evaluates_marketplace(browser_page, claude_client, pi_persona, site_server):
     """Prof. Stein lands on index.html and evaluates the skill catalog."""
     action_history, pages_visited, _, evaluation = run_persona_journey(
-        browser_page, claude_client, pi_persona, site_server
+        browser_page, claude_client, pi_persona, site_server,
+        scenario_name="marketplace_browse",
     )
 
     assert len(action_history) >= 1, (

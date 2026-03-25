@@ -19,7 +19,8 @@ def test_student_onboarding_path(
 ):
     """Maya follows the quickstart path from landing to first skill."""
     action_history, pages_visited, _, evaluation = run_persona_journey(
-        browser_page, claude_client, student_persona, site_server
+        browser_page, claude_client, student_persona, site_server,
+        scenario_name="first_time_visitor",
     )
 
     assert len(action_history) >= 1, (

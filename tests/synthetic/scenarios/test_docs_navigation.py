@@ -8,11 +8,14 @@ Tests: pathway card visibility, routing to correct pages, doc nav tabs.
 
 from __future__ import annotations
 
+import time
+
 import pytest
 
 from synthetic.accessibility import extract_a11y_tree
 from synthetic.actions import execute_action
 from synthetic.claude_client import evaluate_journey, get_next_action
+from synthetic.reporter import save_scenario_report
 
 
 @pytest.mark.synthetic
@@ -20,6 +23,7 @@ def test_pathway_cards_route_correctly(
     browser_page, claude_client, pi_persona, site_server
 ):
     """PI clicks the PI pathway card and reaches verification page."""
+    start_time = time.monotonic()
     browser_page.goto(f"{site_server}/docs.html", timeout=10000)
     browser_page.wait_for_load_state("domcontentloaded")
 
@@ -47,7 +51,9 @@ def test_pathway_cards_route_correctly(
                 "type": action.type,
                 "selector": action.selector,
                 "reasoning": action.reasoning,
-                "result": result.description if result.success else f"FAILED: {result.error}",
+                "result": result.description
+                if result.success
+                else f"FAILED: {result.error}",
             }
         )
         if result.new_url and result.new_url not in pages_visited:
@@ -60,6 +66,22 @@ def test_pathway_cards_route_correctly(
         a11y_tree=final_tree,
         action_history=action_history,
         pages_visited=pages_visited,
+    )
+
+    duration = time.monotonic() - start_time
+    report_path = save_scenario_report(
+        scenario_name="docs_navigation",
+        persona_name=pi_persona.name,
+        action_history=action_history,
+        pages_visited=pages_visited,
+        evaluation=evaluation,
+        duration_seconds=duration,
+    )
+    print(
+        f"\n  Report: {report_path.name} | "
+        f"{pi_persona.name}: findability={evaluation.findability_score}/5 "
+        f"clarity={evaluation.clarity_score}/5 "
+        f"issues={len(evaluation.issues)}"
     )
 
     assert evaluation.findability_score >= 3, (

@@ -19,7 +19,8 @@ def test_cursor_user_finds_interop(
 ):
     """Alex navigates from landing page through docs to interop."""
     action_history, pages_visited, _, evaluation = run_persona_journey(
-        browser_page, claude_client, cursor_user_persona, site_server
+        browser_page, claude_client, cursor_user_persona, site_server,
+        scenario_name="cursor_interop",
     )
 
     assert len(pages_visited) >= 1, "Cursor user should visit the landing page"
@@ -35,7 +36,8 @@ def test_benchmark_reviewer_journey(
 ):
     """Prof. Nakamura evaluates the HALLMARK benchmark."""
     action_history, pages_visited, _, evaluation = run_persona_journey(
-        browser_page, claude_client, benchmark_persona, site_server
+        browser_page, claude_client, benchmark_persona, site_server,
+        scenario_name="benchmark_review",
     )
 
     assert len(action_history) >= 1, (
