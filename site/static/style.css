@@ -82,20 +82,18 @@ header {
 }
 
 .theme-toggle {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: var(--bg);
+    background: var(--bg-secondary);
     border: 1px solid var(--border);
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1rem;
     transition: background 0.3s ease, transform 0.2s ease;
+    flex-shrink: 0;
 }
 
 .theme-toggle:hover {
@@ -708,6 +706,47 @@ footer a:hover { text-decoration: underline; }
     text-decoration: underline;
 }
 
+/* General table styles for docs sections */
+.docs-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.9rem;
+}
+
+.docs-section th,
+.docs-section td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.5;
+}
+
+.docs-section th {
+    background: var(--bg-secondary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+}
+
+.docs-section tbody tr:hover {
+    background: var(--bg-secondary);
+}
+
+.docs-section tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Wrap table in a container for overflow on small screens */
+.docs-section table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
 .platform-guide {
     background: var(--bg-secondary);
     border: 1px solid var(--border);
@@ -738,58 +777,58 @@ footer a:hover { text-decoration: underline; }
     padding: 0;
 }
 
-/* ── Getting Started Hero ───────────────────────────────────────────── */
+/* ── Slim onboarding banner (main page) ────────────────────────────── */
 
-.hero-cta {
+.onboarding-banner {
     background: var(--bg-secondary);
     border-bottom: 1px solid var(--border);
-    padding: 2.5rem 0 2rem;
-    position: relative;
-    overflow: hidden;
+    padding: 0.65rem 0;
 }
 
-/* Subtle geometric grid pattern — CSS only, no images */
-.hero-cta::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 40px 40px;
-    opacity: 0.35;
-    pointer-events: none;
+.onboarding-banner-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    flex-wrap: wrap;
 }
 
-.hero-cta-inner {
-    position: relative;
-    z-index: 1;
-}
-
-.hero-cta-headline {
-    text-align: center;
-    margin-bottom: 1.75rem;
-}
-
-.hero-cta-headline h2 {
-    font-size: 1.35rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    margin-bottom: 0.35rem;
+.onboarding-banner-inner > span:first-child {
+    font-weight: 600;
     color: var(--text);
 }
 
-.hero-cta-headline p {
-    font-size: 0.9rem;
+.onboarding-banner-inner a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.onboarding-banner-inner a:hover {
+    text-decoration: underline;
+}
+
+.onboarding-banner-sep {
     color: var(--text-muted);
 }
 
-/* Three pathway cards */
+.onboarding-banner-cta code {
+    background: var(--primary-light);
+    color: var(--primary);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+}
+
+/* ── Pathway cards (docs page) ─────────────────────────────────────── */
+
 .pathway-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0.875rem;
-    margin-bottom: 1.75rem;
+    margin: 1.25rem 0 1.75rem;
 }
 
 @media (max-width: 640px) {
@@ -803,11 +842,11 @@ footer a:hover { text-decoration: underline; }
     border: 1px solid var(--border);
     border-left: 3px solid var(--pathway-accent, var(--primary));
     border-radius: var(--radius);
-    padding: 1rem 1.125rem;
+    padding: 1.125rem 1.25rem;
     text-decoration: none;
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.5rem;
     box-shadow: var(--shadow);
     transition: box-shadow 0.2s, border-left-color 0.2s, transform 0.15s;
 }
@@ -834,7 +873,7 @@ footer a:hover { text-decoration: underline; }
 .pathway-card-desc {
     font-size: 0.8rem;
     color: var(--text-muted);
-    line-height: 1.45;
+    line-height: 1.55;
     margin: 0;
 }
 
@@ -842,88 +881,12 @@ footer a:hover { text-decoration: underline; }
     font-size: 0.78rem;
     color: var(--pathway-accent, var(--primary));
     font-weight: 600;
-    margin-top: 0.2rem;
+    margin-top: 0.35rem;
 }
 
 .pathway-card--pi   { --pathway-accent: var(--blue); }
 .pathway-card--res  { --pathway-accent: var(--green); }
 .pathway-card--stu  { --pathway-accent: var(--yellow); }
-
-/* Primary CTA row */
-.hero-actions {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.25rem;
-    flex-wrap: wrap;
-}
-
-/* Pulsing border on the main CTA — draws the eye, stays tasteful */
-@keyframes cta-pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.0); }
-    50%       { box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.25); }
-}
-
-[data-theme="light"] .hero-cta-primary {
-    --cta-pulse-color: rgba(37, 99, 235, 0.2);
-}
-
-@keyframes cta-pulse-light {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.0); }
-    50%       { box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.2); }
-}
-
-.hero-cta-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--primary);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius);
-    padding: 0.65rem 1.4rem;
-    font-size: 0.95rem;
-    font-weight: 700;
-    cursor: pointer;
-    text-decoration: none;
-    letter-spacing: 0.01em;
-    animation: cta-pulse 2.8s ease-in-out infinite;
-    transition: opacity 0.2s, transform 0.15s;
-}
-
-[data-theme="light"] .hero-cta-primary {
-    animation: cta-pulse-light 2.8s ease-in-out infinite;
-}
-
-.hero-cta-primary:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
-    animation: none;
-    box-shadow: var(--shadow-hover);
-}
-
-.hero-cta-primary code {
-    background: rgba(255,255,255,0.18);
-    color: #fff;
-    padding: 0.1rem 0.45rem;
-    border-radius: 4px;
-    font-size: 0.88rem;
-    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
-}
-
-.hero-cta-secondary {
-    font-size: 0.88rem;
-    color: var(--text-muted);
-    text-decoration: none;
-    border-bottom: 1px dashed var(--border);
-    padding-bottom: 1px;
-    transition: color 0.2s, border-color 0.2s;
-}
-
-.hero-cta-secondary:hover {
-    color: var(--primary);
-    border-color: var(--primary);
-}
 
 /* ── Getting Started nav link ───────────────────────────────────────── */
 

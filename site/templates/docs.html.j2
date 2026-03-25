@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentation — Research Agora</title>
     <link rel="stylesheet" href="style.css">
+    <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
 </head>
 <body>
     <nav class="site-nav">
@@ -15,6 +16,9 @@
                 <a href="benchmarks.html" class="nav-link">Benchmarks</a>
                 <a href="docs.html" class="nav-link active">Docs</a>
                 <a href="docs.html#getting-started" class="nav-link nav-link-cta">Get Started</a>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark/light mode" title="Toggle theme">
+                    <span class="theme-icon">&#x2600;&#xFE0F;</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -29,15 +33,46 @@
     <main class="container">
         <section class="docs-section" id="getting-started">
             <h2>Getting Started</h2>
-            <p>New to Research Agora? Start here based on your role:</p>
+            <p>New to Research Agora? Pick the path that fits your role:</p>
+
+            <div class="pathway-cards">
+                <a href="verification.html" class="pathway-card pathway-card--pi">
+                    <div class="pathway-card-role">
+                        <span class="pathway-card-icon">🔬</span>
+                        <span>Principal Investigator</span>
+                    </div>
+                    <p class="pathway-card-desc">Set verification policy for your group. Encode standards in a shared CLAUDE.md. Evaluate privacy and cost.</p>
+                    <span class="pathway-card-link">Verification &amp; policy →</span>
+                </a>
+
+                <a href="examples.html" class="pathway-card pathway-card--res">
+                    <div class="pathway-card-role">
+                        <span class="pathway-card-icon">⚗️</span>
+                        <span>Researcher</span>
+                    </div>
+                    <p class="pathway-card-desc">Copy-paste prompts for citation checks, literature synthesis, figure generation, and code review.</p>
+                    <span class="pathway-card-link">Examples by domain →</span>
+                </a>
+
+                <a href="concepts.html" class="pathway-card pathway-card--stu">
+                    <div class="pathway-card-role">
+                        <span class="pathway-card-icon">🎓</span>
+                        <span>Student</span>
+                    </div>
+                    <p class="pathway-card-desc">Understand how AI agents work, what to delegate vs. protect, and how to build verification habits.</p>
+                    <span class="pathway-card-link">Core concepts →</span>
+                </a>
+            </div>
+
+            <h3>All Guides</h3>
             <table>
                 <thead><tr><th>Guide</th><th>What it covers</th><th>Reading time</th></tr></thead>
                 <tbody>
-                    <tr><td><a href="https://github.com/rpatrik96/research-agora/blob/main/docs/quickstart.md" target="_blank" rel="noopener">Quickstart</a></td><td>Install → first task → 5-minute win</td><td>5 min</td></tr>
-                    <tr><td><a href="https://github.com/rpatrik96/research-agora/blob/main/docs/concepts.md" target="_blank" rel="noopener">Concepts</a></td><td>Evolution stack, key terms, delegate vs. protect</td><td>10 min</td></tr>
-                    <tr><td><a href="https://github.com/rpatrik96/research-agora/blob/main/docs/verification.md" target="_blank" rel="noopener">Verification</a></td><td>Test-Driven Research recipes, hierarchy, limits</td><td>15 min</td></tr>
-                    <tr><td><a href="https://github.com/rpatrik96/research-agora/blob/main/docs/privacy-gdpr.md" target="_blank" rel="noopener">Privacy &amp; GDPR</a></td><td>Compliance checklist, paid plans, medical data, local alternatives</td><td>10 min</td></tr>
-                    <tr><td><a href="https://github.com/rpatrik96/research-agora/blob/main/docs/examples/" target="_blank" rel="noopener">Examples</a></td><td>Domain-specific prompts: code, literature, writing, technical, advanced</td><td>5 min each</td></tr>
+                    <tr><td><a href="quickstart.html">Quickstart</a></td><td>Install → first task → 5-minute win</td><td>5 min</td></tr>
+                    <tr><td><a href="concepts.html">Concepts</a></td><td>Evolution stack, key terms, delegate vs. protect</td><td>10 min</td></tr>
+                    <tr><td><a href="verification.html">Verification</a></td><td>Test-Driven Research recipes, hierarchy, limits</td><td>15 min</td></tr>
+                    <tr><td><a href="privacy.html">Privacy &amp; GDPR</a></td><td>Compliance checklist, paid plans, medical data, local alternatives</td><td>10 min</td></tr>
+                    <tr><td><a href="examples.html">Examples</a></td><td>Domain-specific prompts: code, literature, writing, technical, advanced</td><td>5 min each</td></tr>
                     <tr><td><a href="https://github.com/rpatrik96/research-agora/blob/main/templates/CLAUDE.md.researcher" target="_blank" rel="noopener">CLAUDE.md Template</a></td><td>Commented template — customizing it IS the tutorial</td><td>15 min</td></tr>
                 </tbody>
             </table>
@@ -45,171 +80,9 @@
         </section>
 
         <section class="docs-section">
-            <h2>Overview</h2>
-            <p>Research Agora skills are <strong>agent-agnostic</strong>—they work with any LLM coding tool. While designed for Claude Code, these skills can be converted for use with Cursor, Gemini CLI, GitHub Copilot, or any tool supporting the <a href="https://agentskills.io" target="_blank" rel="noopener">AgentSkills.io</a> standard.</p>
-            <p>At their core, skills are structured markdown files with YAML frontmatter. This simple format makes them portable across platforms.</p>
-        </section>
-
-        <section class="docs-section">
-            <h2>AgentSkills.io Standard</h2>
-            <p>Research Agora skills follow the <strong>AgentSkills.io</strong> standard—an open format that enables skill interoperability across different AI coding platforms. The standard defines:</p>
-            <ul>
-                <li><strong>SKILL.md format:</strong> YAML frontmatter with metadata + markdown instruction content</li>
-                <li><strong>Common metadata fields:</strong> name, version, description, author, tags, platforms</li>
-                <li><strong>Portability guidelines:</strong> How to structure prompts for cross-platform compatibility</li>
-            </ul>
-            <p>This standardization allows skills developed for one platform (like Claude Code) to be converted for others (Cursor, Gemini CLI, etc.) with minimal adaptation.</p>
-        </section>
-
-        <section class="docs-section">
-            <h2>Platform Quick-Start Guides</h2>
-
-            <div class="platform-guide">
-                <h3>Claude Code (Native)</h3>
-                <p>Research Agora skills are built natively for Claude Code and work out of the box:</p>
-                <div class="code-block">
-                    <code>/plugin marketplace add rpatrik96/research-agora</code>
-                </div>
-                <div class="code-block">
-                    <code>/plugin install academic@research-agora</code>
-                </div>
-                <p>Then use skills with slash commands like <code>/paper-introduction</code> or <code>/evidence-checker</code>.</p>
-            </div>
-
-            <div class="platform-guide">
-                <h3>Cursor</h3>
-                <p>Convert skills to Cursor's <code>.mdc</code> rules format:</p>
-                <div class="code-block">
-                    <code># Convert a single skill<br>
-python scripts/convert-skill.py --format cursor --skill paper-references --output /path/to/project</code>
-                </div>
-                <div class="code-block">
-                    <code># Convert all skills in a plugin<br>
-python scripts/convert-skill.py --format cursor --plugin academic --output /path/to/project</code>
-                </div>
-                <p>Converted files are placed in <code>.cursor/rules/</code>. Cursor will automatically load them as context rules.</p>
-                <p><strong>Manual conversion:</strong> Copy skill content to <code>.cursor/rules/skill-name.mdc</code> with frontmatter:</p>
-                <div class="code-block">
-                    <code>---<br>
-description: Brief description<br>
-globs:<br>
-alwaysApply: false<br>
----<br>
-# Skill content...</code>
-                </div>
-            </div>
-
-            <div class="platform-guide">
-                <h3>Gemini CLI</h3>
-                <p>Convert skills to Gemini CLI's agent format:</p>
-                <div class="code-block">
-                    <code># Convert a single skill<br>
-python scripts/convert-skill.py --format gemini --skill paper-references --output /path/to/project</code>
-                </div>
-                <div class="code-block">
-                    <code># Convert all skills in a plugin<br>
-python scripts/convert-skill.py --format gemini --plugin academic --output /path/to/project</code>
-                </div>
-                <p>Converted files are placed in <code>.gemini/agents/</code> as markdown files.</p>
-                <p><strong>Manual conversion:</strong> Copy skill content to <code>.gemini/agents/skill-name.md</code>:</p>
-                <div class="code-block">
-                    <code># skill-name<br>
-Brief description<br>
-# Skill content...</code>
-                </div>
-            </div>
-
-            <div class="platform-guide">
-                <h3>GitHub Copilot</h3>
-                <p>Convert skills to GitHub Copilot's instructions format:</p>
-                <div class="code-block">
-                    <code># Convert all skills to a single file<br>
-python scripts/convert-skill.py --format copilot --all --output /path/to/project</code>
-                </div>
-                <p>All skills are concatenated into <code>.github/copilot-instructions.md</code>. GitHub Copilot reads this file automatically.</p>
-                <p><strong>Manual conversion:</strong> Add skills to <code>.github/copilot-instructions.md</code>:</p>
-                <div class="code-block">
-                    <code>## skill-name<br>
-Brief description<br>
-# Skill content...</code>
-                </div>
-            </div>
-
-            <div class="platform-guide">
-                <h3>AgentSkills.io Standard Format</h3>
-                <p>Export skills in the portable AgentSkills.io format:</p>
-                <div class="code-block">
-                    <code># Convert a single skill<br>
-python scripts/convert-skill.py --format agentskills --skill paper-references --output /path/to/export</code>
-                </div>
-                <div class="code-block">
-                    <code># Convert all skills<br>
-python scripts/convert-skill.py --format agentskills --all --output /path/to/export</code>
-                </div>
-                <p>Generates <code>SKILL.md</code> files with standardized metadata that any AgentSkills.io-compatible tool can consume.</p>
-            </div>
-        </section>
-
-        <section class="docs-section">
-            <h2>Using the Converter Tool</h2>
-            <p>The <code>scripts/convert-skill.py</code> utility handles conversion to all supported formats:</p>
-
-            <h3>Command-Line Options</h3>
-            <ul>
-                <li><code>--format {cursor,gemini,copilot,agentskills}</code> — Target format (required)</li>
-                <li><code>--skill SKILL_NAME</code> — Convert a single skill by name</li>
-                <li><code>--plugin PLUGIN_NAME</code> — Convert all skills in a plugin (academic, development, formatting, research-agents)</li>
-                <li><code>--all</code> — Convert all skills across all plugins</li>
-                <li><code>--output PATH</code> — Output directory (default: current directory)</li>
-            </ul>
-
-            <h3>Example Workflows</h3>
-            <div class="code-block">
-                <code># Use paper verification skills in Cursor<br>
-python scripts/convert-skill.py --format cursor --skill paper-references --output ~/my-project<br>
-python scripts/convert-skill.py --format cursor --skill paper-verify-experiments --output ~/my-project</code>
-            </div>
-            <div class="code-block">
-                <code># Use all development skills in Gemini CLI<br>
-python scripts/convert-skill.py --format gemini --plugin development --output ~/my-project</code>
-            </div>
-            <div class="code-block">
-                <code># Export everything for sharing<br>
-python scripts/convert-skill.py --format agentskills --all --output ~/research-agora-skills</code>
-            </div>
-        </section>
-
-        <section class="docs-section">
-            <h2>Manual Conversion Guide</h2>
-            <p>You can manually adapt any skill for your preferred LLM tool. The core content is plain markdown—any LLM can use it.</p>
-
-            <h3>Basic Steps</h3>
-            <ol>
-                <li><strong>Find the skill source:</strong> Browse <a href="https://github.com/rpatrik96/research-agora" target="_blank" rel="noopener">github.com/rpatrik96/research-agora</a> or click "Source" on any skill card</li>
-                <li><strong>Extract the content:</strong> Copy the markdown body (everything after the YAML frontmatter)</li>
-                <li><strong>Adapt the frontmatter:</strong> Adjust metadata to match your tool's format (see examples above)</li>
-                <li><strong>Place in the right location:</strong> Follow your tool's conventions (.cursor/rules/, .gemini/agents/, .github/copilot-instructions.md, etc.)</li>
-            </ol>
-
-            <h3>Handling Tool-Specific Features</h3>
-            <p>Some skills reference Claude Code-specific features that may need adaptation:</p>
-            <ul>
-                <li><strong>Tool calls:</strong> Skills using MCP tools (e.g., <code>mcp__arxiv__search_papers</code>) may need equivalent APIs or manual steps</li>
-                <li><strong>Model routing:</strong> Model tiers (opus/sonnet/haiku) map differently across platforms—adjust as needed</li>
-                <li><strong>Agent architecture:</strong> Multi-agent skills (orchestrator/helper patterns) are Claude Code-specific; adapt to your tool's capabilities</li>
-            </ul>
-        </section>
-
-        <section class="docs-section">
-            <h2>Contributing Cross-Platform Skills</h2>
-            <p>When creating new skills for Research Agora, consider cross-platform compatibility:</p>
-            <ul>
-                <li><strong>Use standard markdown:</strong> Avoid platform-specific syntax where possible</li>
-                <li><strong>Document dependencies clearly:</strong> Specify CLI tools, APIs, or libraries required</li>
-                <li><strong>Avoid platform-specific tool names:</strong> Describe what to do, not which tool to call</li>
-                <li><strong>Test with the converter:</strong> Verify skills convert cleanly before submitting</li>
-            </ul>
-            <p>See <a href="https://github.com/rpatrik96/research-agora/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">CONTRIBUTING.md</a> for detailed guidelines.</p>
+            <h2>Cross-Platform Interop</h2>
+            <p>Research Agora skills are <strong>agent-agnostic</strong> — while designed for Claude Code, they work with any LLM coding tool. Skills follow the <a href="https://agentskills.io" target="_blank" rel="noopener">AgentSkills.io</a> standard and can be converted for Cursor, Gemini CLI, and GitHub Copilot.</p>
+            <p><a href="interop.html"><strong>Platform guides, converter tool, and manual conversion instructions →</strong></a></p>
         </section>
 
         <section class="docs-section">
@@ -232,5 +105,6 @@ python scripts/convert-skill.py --format agentskills --all --output ~/research-a
         </p>
         <p class="generated">Generated {{ generated }}</p>
     </footer>
+    <script src="theme.js"></script>
 </body>
 </html>
