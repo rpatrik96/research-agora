@@ -39,6 +39,79 @@
             font-weight: 500;
         }
         .docs-nav a:hover { background: var(--primary-light); }
+        .toc {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0 2rem;
+        }
+        .toc h3 {
+            margin: 0 0 0.6rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+        }
+        .toc ol {
+            margin: 0;
+            padding-left: 1.2rem;
+        }
+        .toc li {
+            margin: 0.3rem 0;
+        }
+        .toc a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        .toc a:hover { text-decoration: underline; }
+        .back-to-top {
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+        .back-to-top:hover { color: var(--primary); }
+        .highlight-box {
+            background: var(--primary-light, rgba(99,102,241,0.08));
+            border: 2px solid var(--primary);
+            border-radius: var(--radius);
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+        .highlight-box strong {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 0.4rem;
+        }
+        .skills-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .skills-box h3 {
+            margin: 0 0 0.75rem;
+            font-size: 1rem;
+        }
+        .skills-box ul {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .skills-box li {
+            padding: 0.35rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+        .skills-box li:last-child { border-bottom: none; }
+        .skills-box code {
+            color: var(--primary);
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -95,7 +168,17 @@
             <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem;">Run Step 2 inside a Claude Code session. If you're on the browser path (Claude.ai), skip both steps — no installation needed.</p>
         </section>
 
-        <section class="docs-section">
+        <nav class="toc" aria-label="Page contents">
+            <h3>On this page</h3>
+            <ol>
+                <li><a href="#install">Install</a></li>
+                <li><a href="#choose-path">Choose Your Path</a></li>
+                <li><a href="#five-minute-win">The 5-Minute Win</a></li>
+                <li><a href="#whats-next">What's Next</a></li>
+            </ol>
+        </nav>
+
+        <section class="docs-section" id="choose-path">
             <h2>Choose Your Path</h2>
             <p>Here's how to get this running. It takes 5 minutes.</p>
             <table>
@@ -117,6 +200,7 @@
             </table>
             <p>If you just want to see citation verification work right now, the browser path gets you there in 3 steps. The CLI path unlocks the full Research Agora skill library and runs against your actual project files.</p>
             <p>Not sure which path fits your role? See the <a href="docs.html#getting-started">role-based guides</a> for PIs, researchers, and students.</p>
+            <a href="#install" class="back-to-top">&#8593; Back to top</a>
         </section>
 
         <section class="docs-section">
@@ -138,6 +222,7 @@ Output: Table with columns — cite key, status (verified / unverified / mismatc
             <h3>Step 3</h3>
             <p>Review the table. Any row marked <code>mismatch</code> or <code>unverified</code> is a potential hallucination. Fix or remove it before submission.</p>
             <p>That's it. The browser path has no file access — you paste content in manually. For automated verification against your full <code>.bib</code> file, use the CLI path below.</p>
+            <a href="#install" class="back-to-top">&#8593; Back to top</a>
         </section>
 
         <section class="docs-section">
@@ -153,15 +238,18 @@ Output: Table with columns — cite key, status (verified / unverified / mismatc
             <h3>Start your first session</h3>
             <div class="code-block"><code>claude</code></div>
             <p>On first run, Claude Code opens a browser tab to authenticate. Follow the prompts. Once authenticated, you're at the interactive agent prompt.</p>
+            <a href="#install" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <section class="docs-section">
+        <section class="docs-section" id="five-minute-win">
             <h2>The 5-Minute Win: Run <code>/paper-references</code> on Your .bib File</h2>
             <p>This is the fastest way to see what Research Agora actually does.</p>
 
-            <h3>Step 1 — Install the Research Agora academic plugin</h3>
-            <div class="code-block"><code>claude mcp add research-agora</code></div>
-            <p>Or manually: follow the installation instructions in <a href="https://github.com/rpatrik96/research-agora/blob/main/README.md" target="_blank" rel="noopener">README.md</a>.</p>
+            <div class="highlight-box">
+                <strong>Step 1 — Start here: install the Research Agora academic plugin</strong>
+                <div class="code-block"><code>claude mcp add research-agora</code></div>
+                <p style="margin: 0.5rem 0 0; font-size: 0.9rem;">Or manually: follow the installation instructions in <a href="https://github.com/rpatrik96/research-agora/blob/main/README.md" target="_blank" rel="noopener">README.md</a>.</p>
+            </div>
 
             <h3>Step 2 — Navigate to a project with a <code>.bib</code> file</h3>
             <div class="code-block"><code>cd /path/to/project-with-references.bib
@@ -203,6 +291,17 @@ Summary: 44 verified, 2 mismatches, 1 not found</code></div>
 
             <h3>Fallback — no CLI yet?</h3>
             <p>Run the browser-path version above. You paste your BibTeX manually; it checks the same way, just one entry at a time.</p>
+
+            <div class="skills-box">
+                <h3>Popular first skills for paper writing</h3>
+                <ul>
+                    <li><code>/paper-abstract</code> — Draft or improve your paper abstract</li>
+                    <li><code>/paper-title</code> — Brainstorm compelling paper titles</li>
+                    <li><code>/literature-synthesizer</code> — Find and synthesize related work</li>
+                    <li><code>/paper-review</code> — Get a critical review of your draft</li>
+                </ul>
+            </div>
+            <a href="#install" class="back-to-top">&#8593; Back to top</a>
         </section>
 
         <section class="docs-section">
@@ -247,7 +346,7 @@ Summary: 44 verified, 2 mismatches, 1 not found</code></div>
             <p><strong>Total initial investment:</strong> 1–2 hours for a full setup (Claude Code + CLAUDE.md + 2–3 MCP servers + a first skill). After that, per-session overhead is under 5 minutes.</p>
         </section>
 
-        <section class="docs-section">
+        <section class="docs-section" id="whats-next">
             <h2>What's Next</h2>
             <ul>
                 <li><a href="concepts.html"><strong>Concepts</strong></a> — How AI agents actually work: the five-level ladder from Chat to Skills, what to delegate vs. protect, where Research Agora fits.</li>
@@ -255,6 +354,7 @@ Summary: 44 verified, 2 mismatches, 1 not found</code></div>
                 <li><strong><code>/onboard</code></strong> — Run this skill in your project directory. It reads your codebase and drafts a <code>CLAUDE.md</code> tailored to your project in under 2 minutes.</li>
             </ul>
             <p>For a CLAUDE.md template you can copy and customize, see <a href="https://github.com/rpatrik96/research-agora/blob/main/templates/CLAUDE.md.researcher" target="_blank" rel="noopener">templates/CLAUDE.md.researcher</a>.</p>
+            <a href="#install" class="back-to-top">&#8593; Back to top</a>
         </section>
     </main>
 
