@@ -14,7 +14,7 @@ If you write related work sections, maintain a BibTeX file, run systematic revie
 
 | For browser prompts | For citation verification (CLI) |
 |--------------------|--------------------------------|
-| [Claude.ai](https://claude.ai) account (free tier works) | Claude Code + `pip install bibtexupdater` |
+| [Claude.ai](https://claude.ai) account (free tier works) | Claude Code + `pip install bibtex-updater` |
 | Papers available as PDFs to upload, or titles/abstracts to paste | `.bib` file on disk in your project directory |
 | — | Internet access (queries Semantic Scholar and CrossRef) |
 
@@ -90,7 +90,7 @@ Output: The synthesis paragraph, followed by a list of all citations used with f
 
 First, install the dependency:
 ```bash
-pip install bibtexupdater
+pip install bibtex-updater
 ```
 
 Then run the Research Agora skill:

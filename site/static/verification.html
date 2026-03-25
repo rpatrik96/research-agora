@@ -161,6 +161,7 @@
             <a href="verification.html">Verification</a>
             <a href="privacy.html">Privacy &amp; GDPR</a>
             <a href="examples.html">Examples</a>
+            <a href="interop.html">Interop</a>
         </nav>
 
         <nav class="toc" aria-label="Page contents">
@@ -238,28 +239,24 @@
                 <p><strong>Prerequisites:</strong></p>
                 <ul>
                     <li>A <code>.bib</code> file (e.g., <code>references.bib</code>)</li>
-                    <li><code>bibtexupdater</code> installed: <code>pip install bibtexupdater</code></li>
+                    <li><code>bibtex-updater</code> installed: <code>pip install bibtex-updater</code></li>
                     <li>Plugin: <code>academic@research-agora</code> (for <code>/paper-references</code>)</li>
+                    <li>Optional: <code>checkcites</code> for finding unused/missing cite keys: <code>tlmgr install checkcites</code></li>
                 </ul>
 
                 <p><strong>Steps:</strong></p>
                 <ol>
                     <li>
-                        Filter your <code>.bib</code> to only cited entries (avoids checking unused references):
-                        <div class="code-block"><code>bibtexupdater-filter --bib references.bib --tex main.tex --output cited.bib</code></div>
+                        Optionally, find unused or missing cite keys with <code>checkcites</code>:
+                        <div class="code-block"><code>checkcites --unused main.aux</code></div>
                     </li>
                     <li>
-                        Run automated verification against scholarly databases:
-                        <div class="code-block"><code>bibtexupdater --bib cited.bib --output verified.bib --report report.json</code></div>
-                    </li>
-                    <li>
-                        Review the report for flagged entries:
-                        <div class="code-block"><code>cat report.json | python3 -c "import json,sys; [print(e) for e in json.load(sys.stdin)['issues']]"</code></div>
-                    </li>
-                    <li>
-                        For entries <code>bibtexupdater</code> cannot resolve (no DOI, preprint-only), invoke the <code>/paper-references</code> skill for LLM-assisted fallback:
+                        Run the <code>/paper-references</code> skill — it checks each BibTeX entry against Semantic Scholar, CrossRef, arXiv, and DBLP, flags hallucinated references, and upgrades stale preprints to their published version:
                         <div class="code-block"><code>/paper-references</code></div>
-                        Provide the flagged entries when prompted.
+                        Provide your <code>.bib</code> file path and main <code>.tex</code> file path when prompted.
+                    </li>
+                    <li>
+                        Review the skill's output table and resolve every <code>not_found</code> or <code>mismatch</code> entry before submission.
                     </li>
                 </ol>
 
@@ -456,7 +453,7 @@ Output: table sorted by severity (contradicted → unsupported → partially-sup
                     <tr>
                         <td>Citations (exist, title/author match)</td>
                         <td>Yes — formal check</td>
-                        <td>Use <code>/paper-references</code> + <code>bibtexupdater</code>. Delegate freely.</td>
+                        <td>Use <code>/paper-references</code>. Delegate freely.</td>
                     </tr>
                     <tr>
                         <td>Numerical claims (hyperparams, dataset sizes)</td>
@@ -517,13 +514,13 @@ Output: table sorted by severity (contradicted → unsupported → partially-sup
                     <div class="code-block"><code>## Verification Policy
 
 Before any paper submission:
-1. Run `bibtexupdater-filter` + `bibtexupdater` on the .bib file. Zero `not_found` entries required.
+1. Run `/paper-references` on the .bib file. Zero `not_found` entries required.
 2. Run `/paper-verify-experiments` on the final paper + code. All critical mismatches resolved.
 3. Run `/statistical-validator` on any section with p-values or CIs. Zero `inconsistent` flags.
 
 For AI-generated sections:
 - Run the Quick Verification Checklist (docs/verification.md) before committing.
-- No AI-generated citation added without `bibtexupdater` confirmation it exists.</code></div>
+- No AI-generated citation added without `/paper-references` confirmation it exists.</code></div>
                     <p>This transforms verification from a personal habit into a lab-wide protocol. Claude Code reads <code>CLAUDE.md</code> at session start — policy is enforced automatically.</p>
                     <p>For reproducibility, also consider adding <code>paper-verify-experiments</code> as a CI step. The grep-based claim extraction runs without LLM cost and catches the most common drift (hyperparameter changes post-writing).</p>
                 </div>

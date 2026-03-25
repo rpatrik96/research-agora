@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Research Agora is a Claude Code plugin marketplace providing skills for ML research workflows. It bundles 5 category-based plugins: `academic`, `development`, `formatting`, `office`, and `research-agents`.
+Research Agora is a Claude Code plugin marketplace providing skills for ML research workflows. It bundles 6 category-based plugins: `academic`, `development`, `editorial`, `formatting`, `office`, and `research-agents`.
 
 ## Commands
 
@@ -137,4 +137,4 @@ This copies the PPTX and generates `STYLE.md` and `specs.json`.
 ## Dependencies
 
 - `python-pptx` - Template analysis and Office document creation
-- `bibtexupdater` - Optional, for `paper-references` skill
+- `bibtex-updater` - BibTeX reference verification (`pip install bibtex-updater`)

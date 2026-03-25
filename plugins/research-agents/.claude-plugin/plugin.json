@@ -6,8 +6,8 @@
     "name": "rpatrik96",
     "email": "rpatrik96@gmail.com"
   },
-  "homepage": "https://github.com/rpatrik96/claude-skills",
-  "repository": "https://github.com/rpatrik96/claude-skills",
+  "homepage": "https://github.com/rpatrik96/research-agora",
+  "repository": "https://github.com/rpatrik96/research-agora",
   "license": "MIT",
   "keywords": [
     "research",
@@ -28,17 +28,13 @@
       "items": [
         "claim-auditor",
         "devils-advocate",
-        "evidence-checker",
         "perspective-synthesizer",
         "audience-checker",
-        "clarity-optimizer",
         "figure-storyteller",
         "latex-debugger",
         "statistical-validator",
         "artifact-packager",
         "reviewer-response-generator",
-        "co-author-sync",
-        "discussion-monitor",
         "state-generator",
         "proof-auditor",
         "bounds-analyst",
@@ -47,7 +43,11 @@
         "proof-strategy-advisor",
         "counterexample-searcher",
         "intuition-formalizer",
-        "theory-connector"
+        "theory-connector",
+        "content-archaeologist",
+        "voice-drift-detector",
+        "redundancy-radar",
+        "reader-simulation"
       ]
     },
     "micro-skills": {
@@ -72,7 +72,8 @@
       "items": [
         "parallel-audit",
         "parallel-review",
-        "parallel-theory-audit"
+        "parallel-theory-audit",
+        "pre-submission-audit"
       ]
     },
     "helpers": {

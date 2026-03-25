@@ -15,6 +15,23 @@
         .breadcrumb a { color: var(--primary); text-decoration: none; }
         .breadcrumb a:hover { text-decoration: underline; }
         .breadcrumb span { margin: 0 0.4rem; }
+        .docs-nav {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .docs-nav a {
+            padding: 0.4rem 0.9rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .docs-nav a:hover { background: var(--primary-light); }
     </style>
 </head>
 <body>
@@ -47,6 +64,15 @@
             Cross-Platform Interop
         </nav>
 
+        <nav class="docs-nav" aria-label="Documentation pages">
+            <a href="quickstart.html">Quickstart</a>
+            <a href="concepts.html">Concepts</a>
+            <a href="verification.html">Verification</a>
+            <a href="privacy.html">Privacy &amp; GDPR</a>
+            <a href="examples.html">Examples</a>
+            <a href="interop.html">Interop</a>
+        </nav>
+
         <section class="docs-section">
             <h2>AgentSkills.io Standard</h2>
             <p>Research Agora skills follow the <strong>AgentSkills.io</strong> standard — an open format that enables skill interoperability across different AI coding platforms. The standard defines:</p>
@@ -69,8 +95,9 @@
                 </div>
                 <div class="code-block">
                     <code>/plugin install academic@research-agora</code>
+                    <p style="margin: 0.5rem 0 0; font-size: 0.85rem; color: var(--text-muted);">Note: this per-plugin syntax installs a single plugin. Use <code>/plugin marketplace add rpatrik96/research-agora</code> above to install all plugins at once.</p>
                 </div>
-                <p>Then use skills with slash commands like <code>/paper-introduction</code> or <code>/evidence-checker</code>.</p>
+                <p>Then use skills with slash commands like <code>/paper-introduction</code> or <code>/paper-verify-experiments</code>, or agents like <code>/claim-auditor</code>.</p>
             </div>
 
             <div class="platform-guide">
@@ -155,7 +182,7 @@ python scripts/convert-skill.py --format agentskills --all --output /path/to/exp
             <ul>
                 <li><code>--format {cursor,gemini,copilot,agentskills}</code> — Target format (required)</li>
                 <li><code>--skill SKILL_NAME</code> — Convert a single skill by name</li>
-                <li><code>--plugin PLUGIN_NAME</code> — Convert all skills in a plugin (academic, development, formatting, research-agents)</li>
+                <li><code>--plugin PLUGIN_NAME</code> — Convert all skills in a plugin (academic, development, editorial, formatting, office, research-agents)</li>
                 <li><code>--all</code> — Convert all skills across all plugins</li>
                 <li><code>--output PATH</code> — Output directory (default: current directory)</li>
             </ul>

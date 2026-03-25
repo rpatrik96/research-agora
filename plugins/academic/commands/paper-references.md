@@ -19,7 +19,7 @@ Verify the accuracy of citations in ML conference papers by cross-referencing ag
 
 ### Primary: bibtexupdater
 
-Install via pip: `pip install bibtexupdater` (or from https://github.com/rpatrik96/bibtexupdater)
+Install from PyPI: `pip install bibtex-updater` (source: https://github.com/rpatrik96/bibtexupdater)
 
 Three complementary commands:
 1. **bibtexupdater** - Upgrade preprints to published versions, verify/fill fields
