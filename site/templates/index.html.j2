@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Research Agora — AI Skills for Research</title>
     <link rel="stylesheet" href="style.css">
+    <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
 </head>
 <body>
     <nav class="site-nav">
@@ -15,6 +16,9 @@
                 <a href="benchmarks.html" class="nav-link">Benchmarks</a>
                 <a href="docs.html" class="nav-link">Docs</a>
                 <a href="docs.html#getting-started" class="nav-link nav-link-cta">Get Started</a>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark/light mode" title="Toggle theme">
+                    <span class="theme-icon">&#x2600;&#xFE0F;</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -36,51 +40,16 @@
         </div>
     </header>
 
-    <!-- Getting Started Hero -->
-    <section class="hero-cta">
-        <div class="container hero-cta-inner">
-            <div class="hero-cta-headline">
-                <h2>New here? Start in 5 minutes.</h2>
-                <p>55 AI-powered skills for every stage of ML research — install once, use everywhere.</p>
-            </div>
-
-            <div class="pathway-cards">
-                <a href="verification.html" class="pathway-card pathway-card--pi">
-                    <div class="pathway-card-role">
-                        <span class="pathway-card-icon">🔬</span>
-                        <span>Principal Investigator</span>
-                    </div>
-                    <p class="pathway-card-desc">Set verification policy for your group. Encode standards in a shared CLAUDE.md. Evaluate privacy and cost.</p>
-                    <span class="pathway-card-link">Verification &amp; policy →</span>
-                </a>
-
-                <a href="examples.html" class="pathway-card pathway-card--res">
-                    <div class="pathway-card-role">
-                        <span class="pathway-card-icon">⚗️</span>
-                        <span>Researcher</span>
-                    </div>
-                    <p class="pathway-card-desc">Copy-paste prompts for citation checks, literature synthesis, figure generation, and code review.</p>
-                    <span class="pathway-card-link">Examples by domain →</span>
-                </a>
-
-                <a href="concepts.html" class="pathway-card pathway-card--stu">
-                    <div class="pathway-card-role">
-                        <span class="pathway-card-icon">🎓</span>
-                        <span>Student</span>
-                    </div>
-                    <p class="pathway-card-desc">Understand how AI agents work, what to delegate vs. protect, and how to build verification habits.</p>
-                    <span class="pathway-card-link">Core concepts →</span>
-                </a>
-            </div>
-
-            <div class="hero-actions">
-                <a href="quickstart.html" class="hero-cta-primary">
-                    Run <code>/onboard</code> to get a personalized setup
-                </a>
-                <a href="quickstart.html" class="hero-cta-secondary">5-minute quickstart →</a>
-            </div>
+    <!-- Slim onboarding banner -->
+    <div class="onboarding-banner">
+        <div class="container onboarding-banner-inner">
+            <span>New here?</span>
+            <a href="quickstart.html">5-minute quickstart</a>
+            <span class="onboarding-banner-sep">or</span>
+            <a href="quickstart.html" class="onboarding-banner-cta">Run <code>/onboard</code></a>
+            <span class="onboarding-banner-sep">for a personalized setup</span>
         </div>
-    </section>
+    </div>
 
     <section class="intent-section container">
         <div class="intent-buttons">
@@ -239,5 +208,6 @@
     </footer>
 
     <script src="search.js"></script>
+    <script src="theme.js"></script>
 </body>
 </html>

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Examples — Research Agora</title>
     <link rel="stylesheet" href="style.css">
+    <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
     <style>
         .breadcrumb {
             font-size: 0.85rem;
@@ -59,7 +60,9 @@
                 <a href="index.html" class="nav-link">Skills</a>
                 <a href="benchmarks.html" class="nav-link">Benchmarks</a>
                 <a href="docs.html" class="nav-link active">Docs</a>
-                <a href="docs.html#getting-started" class="nav-link nav-link-cta">Get Started</a>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark/light mode" title="Toggle theme">
+                    <span class="theme-icon">&#x2600;&#xFE0F;</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -72,9 +75,19 @@
     </header>
 
     <main class="container">
-        <div class="breadcrumb">
-            <a href="docs.html">Docs</a> <span>›</span> Examples
-        </div>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="docs.html">Docs</a>
+            <span>›</span>
+            Examples
+        </nav>
+
+        <nav class="docs-nav" aria-label="Documentation pages">
+            <a href="quickstart.html">Quickstart</a>
+            <a href="concepts.html">Concepts</a>
+            <a href="verification.html">Verification</a>
+            <a href="privacy.html">Privacy &amp; GDPR</a>
+            <a href="examples.html">Examples</a>
+        </nav>
 
         <section class="docs-section">
             <h2>Choose Your Domain</h2>
@@ -291,13 +304,6 @@ Produce a prioritized refactoring plan. Do NOT refactor — just plan.</code></d
             </div>
         </section>
 
-        <div class="docs-nav">
-            <a href="quickstart.html">← Quickstart</a>
-            <a href="concepts.html">Concepts</a>
-            <a href="verification.html">Verification</a>
-            <a href="privacy.html">Privacy &amp; GDPR</a>
-            <a href="docs.html">All Docs</a>
-        </div>
     </main>
 
     <footer class="container">
@@ -307,5 +313,6 @@ Produce a prioritized refactoring plan. Do NOT refactor — just plan.</code></d
             <a href="https://github.com/rpatrik96/research-agora/blob/main/PLATFORM.md">Platform Design</a>
         </p>
     </footer>
+    <script src="theme.js"></script>
 </body>
 </html>

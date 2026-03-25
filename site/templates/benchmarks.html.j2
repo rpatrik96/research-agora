@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HALLMARK: Citation Hallucination Benchmark — Research Agora</title>
     <link rel="stylesheet" href="style.css">
+    <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
     <style>
         .hallmark-overview {
             margin-bottom: 2rem;
@@ -81,6 +82,9 @@
                 <a href="index.html" class="nav-link">Skills</a>
                 <a href="benchmarks.html" class="nav-link active">Benchmarks</a>
                 <a href="docs.html" class="nav-link">Docs</a>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark/light mode" title="Toggle theme">
+                    <span class="theme-icon">&#x2600;&#xFE0F;</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -293,5 +297,6 @@
         </p>
         <p class="generated">Generated {{ generated }}</p>
     </footer>
+    <script src="theme.js"></script>
 </body>
 </html>

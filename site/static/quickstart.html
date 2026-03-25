@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quickstart — Research Agora</title>
     <link rel="stylesheet" href="style.css">
+    <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
     <style>
         .breadcrumb {
             font-size: 0.85rem;
@@ -48,6 +49,9 @@
                 <a href="index.html" class="nav-link">Skills</a>
                 <a href="benchmarks.html" class="nav-link">Benchmarks</a>
                 <a href="docs.html" class="nav-link active">Docs</a>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark/light mode" title="Toggle theme">
+                    <span class="theme-icon">&#x2600;&#xFE0F;</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -95,6 +99,7 @@
                 </tbody>
             </table>
             <p>If you just want to see citation verification work right now, the browser path gets you there in 3 steps. The CLI path unlocks the full Research Agora skill library and runs against your actual project files.</p>
+            <p>Not sure which path fits your role? See the <a href="docs.html#getting-started">role-based guides</a> for PIs, researchers, and students.</p>
         </section>
 
         <section class="docs-section">
@@ -245,5 +250,6 @@ Summary: 44 verified, 2 mismatches, 1 not found</code></div>
         </p>
         <p class="generated">Generated 2026-03-24</p>
     </footer>
+    <script src="theme.js"></script>
 </body>
 </html>
