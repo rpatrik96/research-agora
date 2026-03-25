@@ -36,8 +36,10 @@ research-agora/
 |--------|---------|
 | `academic` | Paper writing, citations, presentations |
 | `development` | Code quality, CI/CD, git workflows |
+| `editorial` | Editing, proofreading, writing style |
 | `formatting` | LaTeX, figures, document styling |
 | `office` | Word, PowerPoint, Excel creation |
+| `research-agents` | Autonomous multi-step research analysis |
 
 ### 2. Create the Skill File
 

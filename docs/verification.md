@@ -43,7 +43,7 @@ Each recipe follows a fixed format: what it checks, what you need, exact steps, 
 
 **Prerequisites:**
 - A `.bib` file (e.g., `references.bib`)
-- `bibtexupdater` installed: `pip install bibtexupdater`
+- `bibtex-updater` installed: `pip install bibtex-updater`
 - Plugin: `academic@research-agora` (for `/paper-references`)
 
 **Steps:**

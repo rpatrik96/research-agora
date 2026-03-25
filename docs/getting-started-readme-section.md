@@ -32,7 +32,7 @@ claude
 
 **Step 2.** Install the citation verification dependency:
 ```bash
-pip install bibtexupdater
+pip install bibtex-updater
 ```
 
 **Step 3.** Run the skill:

@@ -220,7 +220,7 @@ python analyze_template.py /path/to/your/template.pptx --output slides --name "t
 
 For the `paper-references` skill:
 ```bash
-pip install bibtexupdater
+pip install bibtex-updater
 ```
 
 ## Domain Context
