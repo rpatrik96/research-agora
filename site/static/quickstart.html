@@ -71,12 +71,29 @@
         </nav>
 
         <nav class="docs-nav" aria-label="Documentation pages">
+            <a href="#install">Install</a>
             <a href="quickstart.html">Quickstart</a>
             <a href="concepts.html">Concepts</a>
             <a href="verification.html">Verification</a>
             <a href="privacy.html">Privacy &amp; GDPR</a>
             <a href="examples.html">Examples</a>
         </nav>
+
+        <section class="docs-section" id="install">
+            <h2>Prerequisites</h2>
+            <p>Before you start, run these two commands. The whole setup takes under 2 minutes.</p>
+            <p><strong>Step 1 — Install Claude Code:</strong></p>
+            <div class="install-banner">
+                <code>npm install -g @anthropic-ai/claude-code</code>
+                <button onclick="navigator.clipboard.writeText('npm install -g @anthropic-ai/claude-code')" title="Copy to clipboard" aria-label="Copy install command">Copy</button>
+            </div>
+            <p style="margin-top: 1rem;"><strong>Step 2 — Add the Research Agora plugin:</strong></p>
+            <div class="install-banner">
+                <code>/plugin marketplace add rpatrik96/research-agora</code>
+                <button onclick="navigator.clipboard.writeText('/plugin marketplace add rpatrik96/research-agora')" title="Copy to clipboard" aria-label="Copy plugin install command">Copy</button>
+            </div>
+            <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem;">Run Step 2 inside a Claude Code session. If you're on the browser path (Claude.ai), skip both steps — no installation needed.</p>
+        </section>
 
         <section class="docs-section">
             <h2>Choose Your Path</h2>

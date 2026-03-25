@@ -96,7 +96,8 @@
                 <thead><tr><th>If you work with...</th><th>Jump to</th></tr></thead>
                 <tbody>
                     <tr><td>Data files, CSV/Excel, visualizations, EDA pipelines</td><td><a href="#code-data">Code &amp; Data</a></td></tr>
-                    <tr><td>Papers, citations, literature reviews, BibTeX files</td><td><a href="#literature">Literature &amp; Citations</a></td></tr>
+                    <tr><td>Writing abstracts, introductions, discussions, titles</td><td><a href="#paper-writing">Paper Writing</a></td></tr>
+                    <tr><td>Papers, citations, literature reviews, BibTeX files</td><td><a href="#literature">Literature Search &amp; Citation Verification</a></td></tr>
                     <tr><td>Email, teaching materials, admin documents, rebuttals</td><td><a href="#writing">Writing &amp; Admin</a></td></tr>
                     <tr><td>R, clinical workflows, C++/TypeScript, econometrics</td><td><a href="#technical">Technical Workflows</a></td></tr>
                     <tr><td>Automated pipelines, Zotero+MCP, privacy audits</td><td><a href="#advanced">Advanced Research</a></td></tr>
@@ -142,8 +143,74 @@ Save all figures to outputs/ as PDF (vector).</code></div>
             </div>
         </section>
 
+        <section class="docs-section" id="paper-writing">
+            <h2>Paper Writing</h2>
+            <p>Prompts for drafting core paper sections — abstract, introduction, discussion, and titles. Works best when you supply your method, results, and context directly.</p>
+
+            <div class="domain-section">
+                <h3>Abstract</h3>
+                <p><strong>Prerequisites:</strong> Claude.ai or Claude Code — no installation needed</p>
+                <div class="try-this">
+                    <p><strong>Try this now:</strong></p>
+                    <div class="code-block"><code>/paper-abstract<br>
+<br>
+My paper: [one-paragraph summary of your method and results]<br>
+Venue: [NeurIPS / ICML / ICLR / AAAI / other]<br>
+Key result: [single most important finding, with numbers]<br>
+Contribution type: [new method / new dataset / analysis / theory]</code></div>
+                </div>
+                <p><strong>What to verify:</strong> All numbers match your results section exactly. No claims that aren't backed by your experiments. The problem statement matches your introduction.</p>
+                <p><strong>Related skills:</strong> <code>/paper-abstract</code></p>
+            </div>
+
+            <div class="domain-section">
+                <h3>Introduction</h3>
+                <div class="try-this">
+                    <p><strong>Try this now:</strong></p>
+                    <div class="code-block"><code>/paper-introduction<br>
+<br>
+Problem: [what problem does your paper solve, and why does it matter?]<br>
+Gap: [what does existing work fail to do?]<br>
+Approach: [one sentence describing your method]<br>
+Contributions: [3-4 bullet points listing your specific contributions]<br>
+Related work to cite: [list key papers you want positioned against]</code></div>
+                </div>
+                <p><strong>What to verify:</strong> The gap claim is accurate — don't overstate what prior work misses. Contribution bullets are falsifiable. The narrative flows from problem to gap to your solution.</p>
+                <p><strong>Related skills:</strong> <code>/paper-introduction</code></p>
+            </div>
+
+            <div class="domain-section">
+                <h3>Discussion Section</h3>
+                <div class="try-this">
+                    <p><strong>Try this now:</strong></p>
+                    <div class="code-block"><code>/paper-discussion<br>
+<br>
+Main findings: [paste your key results and numbers]<br>
+Surprising result (if any): [anything that didn't go as expected]<br>
+Limitations: [what your method can't do or where it breaks down]<br>
+Broader impact: [what this enables for future work]</code></div>
+                </div>
+                <p><strong>What to verify:</strong> Limitations are honest and complete — reviewers will add any you omit. Broader impact claims aren't overclaimed. All "future work" suggestions are technically plausible.</p>
+                <p><strong>Related skills:</strong> <code>/paper-discussion</code></p>
+            </div>
+
+            <div class="domain-section">
+                <h3>Paper Titles</h3>
+                <div class="try-this">
+                    <p><strong>Try this now:</strong></p>
+                    <div class="code-block"><code>/paper-title<br>
+<br>
+Abstract: [paste your abstract]<br>
+Venue: [target venue]<br>
+Style preference: [descriptive / catchy acronym / question-form / neutral]</code></div>
+                </div>
+                <p><strong>What to verify:</strong> The title accurately reflects your actual contribution. If using an acronym, make sure it's not already taken by a prominent paper.</p>
+                <p><strong>Related skills:</strong> <code>/paper-title</code></p>
+            </div>
+        </section>
+
         <section class="docs-section" id="literature">
-            <h2>Literature &amp; Citations</h2>
+            <h2>Literature Search &amp; Citation Verification</h2>
             <p>Prompts for literature search, synthesis, gap identification, and citation verification — with explicit guards against hallucination.</p>
             <p><strong>Warning:</strong> LLMs hallucinate 18–29% of citations in literature reviews. These prompts build in verification from the start.</p>
 
