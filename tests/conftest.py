@@ -12,6 +12,12 @@ from typing import Any, Optional
 import pytest
 import yaml
 
+# Skip synthetic test directory when playwright is not installed
+try:
+    import playwright  # noqa: F401
+except ImportError:
+    collect_ignore_glob = ["synthetic/**"]
+
 # Repository root
 REPO_ROOT = Path(__file__).parent.parent
 

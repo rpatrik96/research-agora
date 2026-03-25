@@ -35,6 +35,11 @@ htmlcov/
 .tox/
 .nox/
 
+# Synthetic user test reports (generated, not tracked)
+tests/synthetic/reports/*.json
+tests/synthetic/reports/*.md
+!tests/synthetic/reports/.gitkeep
+
 # Generated site output
 site/output/
 

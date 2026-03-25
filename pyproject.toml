@@ -17,6 +17,11 @@ site = [
 dev = [
     "pre-commit>=3.0.0",
 ]
+synthetic = [
+    "anthropic>=0.40.0",
+    "playwright>=1.48.0",
+    "pytest-asyncio>=0.24.0",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -30,4 +35,5 @@ addopts = [
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
     "integration: marks tests requiring external resources",
+    "synthetic: LLM-based synthetic user tests (requires ANTHROPIC_API_KEY)",
 ]
