@@ -134,6 +134,8 @@ Comment "research" if you want a heads-up when it launches.
 
 ### Launch Post (Accompanies Carousel)
 
+**Visual**: Use `branding/spiral-pure-og-image.png` (1200x630) or `branding/spiral-pure-mark-light.png` as the post image. The spiral logo has 6 color segments representing the plugin categories.
+
 Most researchers use AI to write. Almost none use it with any form of verification.
 
 That gap is the problem Research Agora was built to close.

@@ -42,7 +42,7 @@
 
 1. - [ ] Rewrite headline: `ML Researcher | Building AI tools for research workflows | Research Agora — 61 open-source skills | P-AGI @ ICLR 2026`
 2. - [ ] Rewrite About section opening (see `dissemination/social-copy.md` for draft)
-3. - [ ] Add Research Agora to Featured section — link card with marketplace screenshot + ICLR paper as second item
+3. - [ ] Add Research Agora to Featured section — link card with spiral logo (`branding/spiral-pure-mark-light.png`) or marketplace screenshot + ICLR paper as second item
 4. - [ ] Update experience to reflect tool-builder identity, not just PhD student
 
 ### LinkedIn — Pre-Launch Content (2 weeks before)
@@ -78,6 +78,19 @@ See `dissemination/social-copy.md` for full drafts.
 | LinkedIn carousel | `assets/linkedin-carousel.pptx` | Needed |
 | Twitter banner | `assets/twitter-banner.png` | Needed |
 | Launch strategy (this file) | `launch-strategy.md` | Ready |
+
+### Branding Assets
+
+| Asset | Path | Dimensions |
+|-------|------|------------|
+| Primary logo (dark bg) | `branding/spiral-pure-mark-dark.png` | — |
+| Primary logo (light bg) | `branding/spiral-pure-mark-light.png` | — |
+| Social preview | `branding/spiral-pure-social-preview.png` | 1280×640 |
+| og:image | `branding/spiral-pure-og-image.png` | 1200×630 |
+| Twitter banner | `dissemination/assets/twitter-banner.png` | 1500×500 |
+| Favicon | `site/static/favicon-32.png` | 32×32 |
+
+The logo is an Archimedean spiral with 6 color segments, each representing one plugin category.
 
 ---
 

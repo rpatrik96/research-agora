@@ -1,16 +1,123 @@
 """Generate LinkedIn carousel PPTX for Research Agora."""
 
+import io
+import math
+
+import matplotlib
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import numpy as np
 from pptx import Presentation
 from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN
 from pptx.util import Inches, Pt
 
 # ── Colors ───────────────────────────────────────────────────────────────────
-BG_DARK = RGBColor(0x1A, 0x1A, 0x2E)  # dark navy
+BG_DARK = RGBColor(0x1A, 0x1A, 0x2E)  # dark navy  (#1a1a2e)
 WHITE = RGBColor(0xFF, 0xFF, 0xFF)
-TEAL = RGBColor(0x4E, 0xCD, 0xC4)  # accent
+TEAL = RGBColor(0x4E, 0xCD, 0xC4)  # accent  (#4ecdc4)
 CORAL = RGBColor(0xE9, 0x45, 0x60)  # secondary accent
 MUTED = RGBColor(0xAA, 0xAA, 0xCC)  # muted white for body
+
+# Hex strings for matplotlib (keep in sync with RGBColor constants above)
+_DARK_BG_HEX = "#1a1a2e"
+_TEAL_HEX = "#4ecdc4"
+
+# ── Spiral brand colors (one per plugin category) ─────────────────────────────
+# Order: outermost → innermost (matches generate_spiral_final.py SPIRAL_COLORS)
+SPIRAL_COLORS = [
+    "#4A90D9",  # academic       (outermost)
+    "#50C878",  # development
+    "#E8855A",  # editorial
+    "#9B7FD4",  # formatting
+    "#F5C242",  # office
+    "#E05A7A",  # research-agents (innermost)
+]
+
+# ── Archimedean spiral geometry (mirrors generate_spiral_final.py) ────────────
+_THETA_START = math.pi / 2
+_TURNS = 2.0
+_THETA_END = _THETA_START + _TURNS * 2 * math.pi
+_R_MAX = 0.78
+
+_raw_a = 0.04
+_raw_b = 0.12
+_raw_rmax = _raw_a + _raw_b * (_THETA_END - _THETA_START)
+_scale = _R_MAX / _raw_rmax
+_A = _raw_a * _scale
+_B = _raw_b * _scale
+
+
+def _archimedean_pts(n=2500):
+    theta = np.linspace(_THETA_START, _THETA_END, n)
+    r = _A + _B * (theta - _THETA_START)
+    x = r * np.cos(theta)
+    y = r * np.sin(theta)
+    return np.column_stack([x, y])
+
+
+def _arc_lengths(pts):
+    d = np.diff(pts, axis=0)
+    return np.concatenate([[0.0], np.cumsum(np.hypot(d[:, 0], d[:, 1]))])
+
+
+def _color_segments(pts, colors):
+    arcs = _arc_lengths(pts)
+    total = arcs[-1]
+    n = len(colors)
+    segs = []
+    for i, color in enumerate(colors):
+        lo = total * i / n
+        hi = total * (i + 1) / n
+        mask = (arcs >= lo) & (arcs <= hi)
+        idx = np.where(mask)[0]
+        if len(idx) < 2:
+            continue
+        s = max(0, idx[0] - 1)
+        e = min(len(pts) - 1, idx[-1] + 1)
+        segs.append((pts[s : e + 1], color))
+    return segs
+
+
+def _draw_spiral(ax, lw=4.0):
+    """Draw Archimedean spiral with category colors onto a matplotlib Axes."""
+    pts = _archimedean_pts()
+    segs = _color_segments(pts[::-1], SPIRAL_COLORS)
+    for seg_pts, color in segs:
+        ax.plot(
+            seg_pts[:, 0],
+            seg_pts[:, 1],
+            color=color,
+            linewidth=lw,
+            solid_capstyle="round",
+            solid_joinstyle="round",
+            zorder=4,
+        )
+    # White center dot
+    dot = plt.Circle((0, 0), 0.028, color="white", zorder=8)
+    ax.add_patch(dot)
+
+
+def render_spiral_png(size_px=400, dpi=100):
+    """Render spiral mark to a PNG bytes buffer. Returns io.BytesIO."""
+    size_in = size_px / dpi
+    fig, ax = plt.subplots(figsize=(size_in, size_in), dpi=dpi)
+    fig.patch.set_facecolor(_DARK_BG_HEX)
+    ax.set_facecolor(_DARK_BG_HEX)
+    half = 1.05
+    ax.set_xlim(-half, half)
+    ax.set_ylim(-half, half)
+    ax.set_aspect("equal")
+    ax.axis("off")
+    fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
+    lw = max(2.0, size_in * dpi * 0.003)
+    _draw_spiral(ax, lw=lw)
+    buf = io.BytesIO()
+    fig.savefig(buf, format="png", facecolor=fig.get_facecolor())
+    plt.close(fig)
+    buf.seek(0)
+    return buf
 
 # ── Dimensions (1080×1080 px at 108 dpi → 10 × 10 inches) ───────────────────
 SLIDE_W = Inches(10)
@@ -132,15 +239,23 @@ def _solid_shape(slide, x, y, w, h, color, border=False, border_color=None, bord
 
 
 def slide1(prs):
-    """Title slide."""
+    """Title slide — includes Archimedean spiral mark."""
     s = blank_slide(prs)
     fill_bg(s)
 
     # decorative top stripe
     _solid_shape(s, Inches(0), Inches(0), SLIDE_W, Inches(0.35), TEAL)
 
-    # big title — centered
-    txb = s.shapes.add_textbox(MARGIN_L, Inches(2.8), CONTENT_W, Inches(1.8))
+    # ── Spiral mark (centered, upper half) ───────────────────────────────────
+    # Render at 600×600 px for crisp display at 10-inch slide width.
+    spiral_buf = render_spiral_png(size_px=600, dpi=150)
+    spiral_size = Inches(2.8)
+    spiral_x = (SLIDE_W - spiral_size) / 2  # horizontally centered
+    spiral_y = Inches(0.55)
+    s.shapes.add_picture(spiral_buf, spiral_x, spiral_y, spiral_size, spiral_size)
+
+    # big title — centered, below spiral
+    txb = s.shapes.add_textbox(MARGIN_L, Inches(3.55), CONTENT_W, Inches(1.4))
     tf = txb.text_frame
     tf.word_wrap = True
     p = tf.paragraphs[0]
@@ -153,13 +268,13 @@ def slide1(prs):
     run.font.name = "Calibri"
 
     # accent rule
-    rule = s.shapes.add_shape(1, Inches(3.5), Inches(4.85), Inches(3.0), Pt(4))
+    rule = s.shapes.add_shape(1, Inches(3.5), Inches(5.1), Inches(3.0), Pt(4))
     rule.fill.solid()
     rule.fill.fore_color.rgb = TEAL
     rule.line.fill.background()
 
     # subtitle
-    txb2 = s.shapes.add_textbox(MARGIN_L, Inches(5.1), CONTENT_W, Inches(0.9))
+    txb2 = s.shapes.add_textbox(MARGIN_L, Inches(5.35), CONTENT_W, Inches(0.9))
     tf2 = txb2.text_frame
     tf2.word_wrap = True
     p2 = tf2.paragraphs[0]
@@ -172,7 +287,7 @@ def slide1(prs):
     run2.font.name = "Calibri"
 
     # tagline
-    txb3 = s.shapes.add_textbox(MARGIN_L, Inches(6.2), CONTENT_W, Inches(0.7))
+    txb3 = s.shapes.add_textbox(MARGIN_L, Inches(6.45), CONTENT_W, Inches(0.7))
     tf3 = txb3.text_frame
     tf3.word_wrap = True
     p3 = tf3.paragraphs[0]

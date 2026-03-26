@@ -11,7 +11,7 @@ We wrote a position paper for ICLR 2026 on why AI-assisted research needs verifi
 
 Paper + code: rpatrik96.github.io/research-agora
 
-[ATTACH: research-agora-demo.gif]
+[ATTACH: research-agora-demo.gif or branding/spiral-pure-mark-dark.png — the Archimedean spiral logo with 6 color segments representing plugin categories]
 
 ---
 
@@ -77,7 +77,7 @@ Code: github.com/rpatrik96/research-agora
 
 ## Posting notes
 - Post 1 first, then reply to it with posts 2-7 as a thread
-- Attach demo GIF only to post 1
+- Attach demo GIF or spiral logo (`branding/spiral-pure-mark-dark.png`) to post 1
 - Move site URL to bio to avoid reach penalty — keep only in Post 1
 - Best posting times: Tue-Thu, 9-11am ET (ML Twitter peak)
 - Tag relevant people only if you have a relationship (avoid cold-tagging)
