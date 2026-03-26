@@ -142,7 +142,7 @@ ax.text(
 # Tagline
 ax.text(
     tx, 0.42,
-    "61 AI Skills for ML Research",
+    "AI skills for researchers, by researchers.",
     color="#ccccdd",
     fontsize=13,
     fontweight="normal",

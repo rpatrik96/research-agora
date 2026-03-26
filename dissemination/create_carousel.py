@@ -280,7 +280,7 @@ def slide1(prs):
     p2 = tf2.paragraphs[0]
     p2.alignment = PP_ALIGN.CENTER
     run2 = p2.add_run()
-    run2.text = "61 Open-Source AI Skills for ML Research"
+    run2.text = "AI skills for researchers, by researchers."
     run2.font.size = Pt(28)
     run2.font.bold = False
     run2.font.color.rgb = TEAL

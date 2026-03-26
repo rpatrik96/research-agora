@@ -201,7 +201,7 @@ def make_social_preview(width, height, dpi, center_mode="dot"):
     tx = 0.42
     ax.text(tx, 0.62, "Research Agora", color="white", fontsize=36,
             fontweight="bold", va="center", ha="left", fontfamily="DejaVu Sans")
-    ax.text(tx, 0.42, "Reusable skills for ML research workflows",
+    ax.text(tx, 0.42, "AI skills for researchers, by researchers.",
             color="#a1a1aa", fontsize=16, va="center", ha="left",
             fontfamily="DejaVu Sans")
     ax.text(tx, 0.25, "61 skills  ·  6 plugins  ·  10 workflows",

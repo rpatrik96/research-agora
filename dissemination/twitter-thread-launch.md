@@ -75,6 +75,11 @@ Code: github.com/rpatrik96/research-agora
 
 ---
 
+## Tagline
+AI skills for researchers, by researchers.
+
+---
+
 ## Posting notes
 - Post 1 first, then reply to it with posts 2-7 as a thread
 - Attach demo GIF or spiral logo (`branding/spiral-pure-mark-dark.png`) to post 1
