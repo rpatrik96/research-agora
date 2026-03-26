@@ -554,6 +554,15 @@ footer a:hover { text-decoration: underline; }
     color: var(--text);
     text-decoration: none;
     transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-logo {
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
 }
 
 .nav-brand:hover {
