@@ -77,6 +77,7 @@ After processing Batch 1 answers, ask 2-3 follow-ups selected from:
 - **If task is literature review**: "Do you use a reference manager? (Zotero, Mendeley, BibTeX files directly)"
 - **If task is writing**: "What do you write in? (LaTeX, Overleaf, Word, Markdown)"
 - **If task is code**: "What does your typical project look like? (Jupyter notebooks, Python packages, R scripts, etc.)"
+- **If CLI comfort >= (b)**: "Is your project under version control (git)? If not, would you like help setting it up? It acts as an undo button for agent edits."
 - **Always ask**: "What would make this setup successful for you? In other words: what's the thing you wish 'just worked'?"
 
 Also ask about concerns if it feels natural:
@@ -174,6 +175,26 @@ latexmk -pdf main.tex          # if LaTeX
 ```bash
 [language-appropriate commands: pytest, Rscript, julia, make, etc.]
 ```
+
+## Git Safety Net
+
+[Include if user does not already use git, or if Tier 0-1]
+
+Before running any AI agent on your project, take a snapshot so you can undo changes:
+
+```bash
+git add -A && git commit -m "Snapshot before agent session"
+```
+
+After a session, review what the agent changed:
+
+```bash
+git diff HEAD
+```
+
+Undo everything if needed: `git restore .`
+
+For the full guide: https://rpatrik96.github.io/research-agora/git-backup.html
 
 ## Verification Requirements
 
@@ -288,7 +309,17 @@ Tell them: "This is what structured prompting looks like. The Research Agora pac
 
 ### Tier 1: Run Your First Skill
 
-Walk them through running a single skill. Choose based on their task:
+If the user doesn't have git set up, offer to initialize it first as a safety net:
+
+```bash
+# Optional but recommended: set up git as your undo button
+cd /path/to/your/project
+git init
+git add -A && git commit -m "Initial snapshot before using AI agents"
+# Full guide: https://rpatrik96.github.io/research-agora/git-backup.html
+```
+
+Then walk them through running a single skill. Choose based on their task:
 
 **If literature/references:**
 ```bash
@@ -315,9 +346,14 @@ Tell them: "That's it. One command, one skill, one result you can evaluate. If i
 
 ### Tier 2: Set Up Verification
 
+If their project isn't under git yet, set it up first. If it is, recommend more frequent commits during agent sessions (see the "If You Already Use Git" section at https://rpatrik96.github.io/research-agora/git-backup.html).
+
 Walk them through a verification workflow:
 
 ```bash
+# 0. Safety net: snapshot before agent work
+git add -A && git commit -m "Before verification run"
+
 # 1. Save the CLAUDE.md we just generated
 #    (copy the block above to your project root)
 
@@ -359,7 +395,8 @@ Close with a short orientation pointing to the appropriate next steps. Adjust ba
 
 1. **Try the structured prompts** above for your immediate task
 2. **When you're ready for more**: Install Claude Code (https://docs.anthropic.com/en/docs/claude-code)
-3. **Come back**: Run `/onboard` again once you have Claude Code --- I'll set you up with skills
+3. **Set up git as a safety net**: Follow the 2-minute setup at https://rpatrik96.github.io/research-agora/git-backup.html --- it gives you an undo button for agent edits
+4. **Come back**: Run `/onboard` again once you have Claude Code --- I'll set you up with skills
 ```
 
 ### Tier 1
@@ -367,9 +404,10 @@ Close with a short orientation pointing to the appropriate next steps. Adjust ba
 ## What's Next
 
 1. **Save your CLAUDE.md** to your project root
-2. **Try 2-3 skills** this week --- see which ones stick
-3. **When something doesn't work**: That's feedback. Adjust your CLAUDE.md or try a different skill
-4. **Level up**: Once you're comfortable, explore the verification workflows (`/paper-references`, `/paper-verify-experiments`)
+2. **Set up git** if you haven't already --- it's your undo button for agent edits (https://rpatrik96.github.io/research-agora/git-backup.html)
+3. **Try 2-3 skills** this week --- see which ones stick
+4. **When something doesn't work**: That's feedback. Adjust your CLAUDE.md or try a different skill
+5. **Level up**: Once you're comfortable, explore the verification workflows (`/paper-references`, `/paper-verify-experiments`)
 ```
 
 ### Tier 2
@@ -377,10 +415,11 @@ Close with a short orientation pointing to the appropriate next steps. Adjust ba
 ## What's Next
 
 1. **Save your CLAUDE.md** and commit it to your repo
-2. **Integrate verification** into your pre-submission checklist
-3. **Explore MCP tools**: Zotero, arXiv, and GitHub MCPs extend what skills can do
-4. **Customize**: Edit your CLAUDE.md as you learn what works --- it's a living document
-5. **Share**: If a colleague asks how you verified your citations, show them `/onboard`
+2. **Snapshot before agent sessions**: `git add -A && git commit -m "Before: [task]"` --- see agent-specific git tips at https://rpatrik96.github.io/research-agora/git-backup.html#already-use-git
+3. **Integrate verification** into your pre-submission checklist
+4. **Explore MCP tools**: Zotero, arXiv, and GitHub MCPs extend what skills can do
+5. **Customize**: Edit your CLAUDE.md as you learn what works --- it's a living document
+6. **Share**: If a colleague asks how you verified your citations, show them `/onboard`
 ```
 
 ### Tier 3
