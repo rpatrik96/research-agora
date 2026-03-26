@@ -33,22 +33,24 @@
 
     <header>
         <div class="container hero-layout">
-            <div class="hero-logo-wrap">
-                <img src="spiral-hero.png" alt="Research Agora spiral logo" class="hero-logo">
+            <div class="hero-top-group">
+                <div class="hero-logo-wrap">
+                    <img src="spiral-hero.png" alt="Research Agora spiral logo" class="hero-logo">
+                </div>
+                <div class="hero-text">
+                    <h1>Research Agora</h1>
+                    <p class="subtitle">Reusable skills for ML research workflows</p>
+                    <div class="stats">
+                        <span class="stat"><strong>{{ stats.public_skills }}</strong> skills</span>
+                        <span class="stat"><strong>{{ stats.groups }}</strong> workflows</span>
+                        <span class="stat"><strong>{{ stats.plugins }}</strong> plugins</span>
+                        <span class="stat"><strong>{{ stats.benchmarks }}</strong> benchmarks</span>
+                    </div>
+                </div>
             </div>
-            <div class="hero-text">
-                <h1>Research Agora</h1>
-                <p class="subtitle">Reusable skills for ML research workflows</p>
-                <div class="stats">
-                    <span class="stat"><strong>{{ stats.public_skills }}</strong> skills</span>
-                    <span class="stat"><strong>{{ stats.groups }}</strong> workflows</span>
-                    <span class="stat"><strong>{{ stats.plugins }}</strong> plugins</span>
-                    <span class="stat"><strong>{{ stats.benchmarks }}</strong> benchmarks</span>
-                </div>
-                <div class="install-banner">
-                    <code>/plugin marketplace add rpatrik96/research-agora</code>
-                    <button onclick="navigator.clipboard.writeText('/plugin marketplace add rpatrik96/research-agora')" title="Copy to clipboard" aria-label="Copy install command">Copy</button>
-                </div>
+            <div class="install-banner">
+                <code>/plugin marketplace add rpatrik96/research-agora</code>
+                <button onclick="navigator.clipboard.writeText('/plugin marketplace add rpatrik96/research-agora')" title="Copy to clipboard" aria-label="Copy install command">Copy</button>
             </div>
         </div>
     </header>
