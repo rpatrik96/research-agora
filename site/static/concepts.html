@@ -127,17 +127,12 @@
 
             <div class="concept-term">
                 <h3>LLM (Large Language Model)</h3>
-                <p>A neural network trained on text to predict the next token. It has no memory, tools, or goals on its own. Everything it appears to "know" is a learned statistical pattern over training data.</p>
-            </div>
-
-            <div class="concept-term">
-                <h3>Chatbot</h3>
-                <p>An LLM wrapped in a conversational interface (e.g., ChatGPT, Claude.ai). You type, it responds. Stateless between sessions — it remembers nothing from last Tuesday unless you paste it back in.</p>
+                <p>Stateless next-token predictor. No memory, tools, or goals unless scaffolded by an agent framework. Everything it appears to "know" is a learned statistical pattern over training data.</p>
             </div>
 
             <div class="concept-term">
                 <h3>Agent</h3>
-                <p>An LLM that can use tools, maintain context, and pursue multi-step goals autonomously. It reads files, runs code, searches the web, and decides what to do next. This is what separates agents from chatbots: they act, not just respond.</p>
+                <p>Unlike a chatbot (stateless Q&A), an agent uses tools, maintains context across steps, and pursues multi-step goals. It reads files, runs code, searches the web, and decides what to do next. Stateless between sessions — it retains nothing from prior conversations unless you re-provide the context.</p>
             </div>
 
             <div class="concept-term">
@@ -163,8 +158,10 @@
             </div>
 
             <div class="concept-term">
-                <h3>Tokens</h3>
-                <p>The units LLMs process text in. Roughly: 1 token ≈ 0.75 words, or ~4 characters in English. A 10-page paper is approximately 3,000–5,000 tokens. Token count determines API cost and context window usage.</p>
+                <details>
+                    <summary><h3 style="display:inline;">Tokens</h3></summary>
+                    <p>The units LLMs process text in. Roughly: 1 token ≈ 0.75 words, or ~4 characters in English. A 10-page paper is approximately 3,000–5,000 tokens. Token count determines API cost and context window usage.</p>
+                </details>
             </div>
 
             <div class="concept-term">
@@ -233,7 +230,7 @@
                 </tbody>
             </table>
 
-            <p>The pattern: delegate generation, protect judgment. AI expands what you can do; it does not replace what you are. If you delegate problem selection, you lose the skill that makes the problem selection meaningful.</p>
+            <p>The pattern: delegate generation, protect judgment. AI expands what you can do; it does not replace what you are. If you delegate problem selection, you atrophy the judgment that makes good problem selection possible.</p>
 
             <p><strong>The verification asymmetry:</strong> Survey data from 38 ML researchers found that 74% verify AI outputs for coding tasks, but only 11% verify for ideation tasks. This gap is explained entirely by tooling: citation checkers and test suites exist; ideation oracles don't. Tools enable verification. Where tools don't exist yet, the burden falls on your judgment — which means that domain is riskier to delegate, not safer.</p>
         </section>
@@ -255,7 +252,7 @@
             <ul>
                 <li><a href="quickstart.html">Quickstart</a> — Run your first skill in 5 minutes</li>
                 <li><a href="verification.html">Verification</a> — The verification hierarchy in detail</li>
-                <li><a href="https://code.claude.com/docs" target="_blank" rel="noopener">Claude Code documentation</a> — Official reference</li>
+                <li><a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="noopener">Claude Code documentation</a> — Official reference</li>
                 <li><a href="https://github.com/rpatrik96/research-agora/blob/main/templates/CLAUDE.md.researcher" target="_blank" rel="noopener">CLAUDE.md template</a> — Copy and customize for your project</li>
                 <li>Willison, S. (2026). <a href="https://simonwillison.net/2026/Feb/23/agentic-engineering-patterns/" target="_blank" rel="noopener">Agentic Engineering Patterns</a> — Practical patterns for reliable agent workflows</li>
             </ul>

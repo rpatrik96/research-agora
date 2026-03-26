@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/rpatrik96/research-agora/actions/workflows/tests.yml/badge.svg)](https://github.com/rpatrik96/research-agora/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Skills](https://img.shields.io/badge/skills-74-blue.svg)](https://rpatrik96.github.io/research-agora)
+[![Skills](https://img.shields.io/badge/skills-61-blue.svg)](https://rpatrik96.github.io/research-agora)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 
 A community-driven skills marketplace for AI-assisted research. Browse, install, and share modular AI workflows for ML research.
@@ -23,11 +23,15 @@ A community-driven skills marketplace for AI-assisted research. Browse, install,
 npm install -g @anthropic-ai/claude-code    # if you don't have Claude Code yet
 ```
 
+In a Claude Code session, run:
+
 ```
 /plugin marketplace add rpatrik96/research-agora
 /plugin install academic@research-agora
 /plugin install development@research-agora
 /plugin install formatting@research-agora
+/plugin install office@research-agora
+/plugin install editorial@research-agora
 /plugin install research-agents@research-agora
 ```
 
@@ -51,9 +55,9 @@ No `.bib` file? No CLI? See the [full quickstart](docs/quickstart.md) for browse
 <details>
 <summary><strong>PI: Evaluate and deploy for your group</strong></summary>
 
-74 reusable AI workflows for the full paper lifecycle. Skills encode your group's standards in a shared `CLAUDE.md` — every student and postdoc runs the same verified checks.
+61 public AI workflows for the full paper lifecycle. Skills encode your group's standards in a shared `CLAUDE.md` — every student and postdoc runs the same verified checks.
 
-- **Cost:** $20/mo Pro + ~$5–80/mo API tokens depending on usage. Team plan ($30/seat) adds GDPR DPA.
+- **Cost:** $20/mo Pro + ~$5–80/mo API tokens depending on usage. Team plan (see [Anthropic pricing](https://www.anthropic.com/pricing)) includes a GDPR DPA.
 - **Privacy:** No patient data or unpublished results on Pro. Team plan required for institutional compliance. [Full guide →](docs/privacy-gdpr.md)
 - **Rollout:** (1) Pilot one high-pain task, (2) Create shared `CLAUDE.md`, (3) Set verification standards, (4) Review monthly.
 - Skills are plain Markdown — they transfer across providers. No lock-in.
@@ -69,9 +73,7 @@ No `.bib` file? No CLI? See the [full quickstart](docs/quickstart.md) for browse
 |-------------|---------|
 | Verify citations | `/paper-references` |
 | Critical review of my draft | `/paper-review path/to/paper.pdf` |
-| Write a rebuttal | `/paper-rebuttal` |
 | Find related work | `/literature-synthesizer` |
-| Publication-ready figures | `/publication-figures` |
 | Debug LaTeX | `/latex-debugger` |
 | Clean up code | `/code-simplify` |
 
@@ -124,13 +126,10 @@ Paper writing, research, and dissemination skills:
 | `paper-experiments` | Document experimental setups with GitHub integration |
 | `paper-discussion` | Write discussion and limitations sections |
 | `paper-review` | Generate critical reviews simulating skeptical reviewers |
-| `paper-rebuttal` | Write rebuttals to reviewer comments |
-| `paper-references` | Fact-check citations using bibtexupdater |
+| `paper-references` | Fact-check citations using bibtex-updater |
 | `paper-verify-experiments` | Verify claims against source code |
 | `paper-poster` | Create academic conference posters |
 | `paper-slides` | Create presentation slides from papers |
-| `paper-twitter` | Create Twitter threads to announce research |
-| `paper-title` | Brainstorm compelling paper titles |
 | `experiment-tracker` | Sync experiment results to paper drafts |
 | `benchmark-scout` | Find benchmarks and generate experiment plans |
 | `openreview-submission` | Prepare OpenReview metadata: plain-text abstract, keywords, TL;DR, lay summary |
@@ -144,7 +143,6 @@ Code quality and automation skills:
 | `commit` | Create conventional commits with co-authorship |
 | `code-simplify` | Remove dead code, eliminate duplication |
 | `pr-automation` | Create GitHub pull requests from changes |
-| `python-docs` | Generate NumPy-style docstrings |
 | `python-cicd` | Set up CI/CD with GitHub Actions |
 | `htcondor` | Generate HTCondor submission files for cluster jobs |
 | `latex-sync-setup` | Initialize latex-code-sync in a project |
@@ -158,7 +156,6 @@ Document and code formatting skills:
 | Skill | Description |
 |-------|-------------|
 | `latex-consistency` | Enforce consistent LaTeX formatting |
-| `publication-figures` | Create publication-ready matplotlib figures |
 | `tikz-figures` | Create TikZ/PGF diagrams for ML papers |
 
 ### office@research-agora
@@ -171,6 +168,17 @@ Microsoft Office document creation:
 | `docx-create` | Create Word documents |
 | `xlsx-create` | Create Excel spreadsheets |
 
+### editorial@research-agora
+
+Editorial intelligence and writing analysis skills:
+
+| Skill | Description |
+|-------|-------------|
+| `writing-diagnosis` | Diagnose writing issues across genres |
+| `argument-autopsy` | Dissect argument structure |
+| `register-translator` | Translate between registers |
+| `editorial-brain` | Comprehensive editorial intelligence |
+
 ### research-agents@research-agora
 
 Specialized research analysis agents:
@@ -178,19 +186,20 @@ Specialized research analysis agents:
 | Agent | Description |
 |-------|-------------|
 | `devils-advocate` | Challenge arguments and identify biases |
-| `evidence-checker` | Verify evidence quality for claims |
+| `claim-auditor` | Deep verify all paper claims |
 | `perspective-synthesizer` | Synthesize multiple viewpoints |
 | `audience-checker` | Evaluate audience alignment |
-| `claim-auditor` | Deep verify all paper claims |
 | `clarity-optimizer` | Analyze readability and reduce jargon |
 | `statistical-validator` | Verify statistical rigor |
 | `figure-storyteller` | Generate publication-quality figures |
 | `reviewer-response-generator` | Generate structured rebuttals |
 | `latex-debugger` | Parse logs and diagnose compilation errors |
 | `artifact-packager` | Prepare code/data for public release |
-| `co-author-sync` | Multi-author coordination |
-| `discussion-monitor` | Track citations and social mentions |
 | `state-generator` | Generate research-state.json for parallel analysis pipelines |
+| `content-archaeologist` | Map blog posts into book structure |
+| `voice-drift-detector` | Detect voice inconsistency across documents |
+| `redundancy-radar` | Find semantic overlap across documents |
+| `reader-simulation` | Simulate first-time reader experience |
 | `proof-auditor` | Decompose and verify proofs step-by-step (T1-T6 hierarchy) |
 | `bounds-analyst` | Analyze convergence rates and complexity bounds |
 | `notation-consistency-checker` | Build symbol table, detect notation inconsistencies |

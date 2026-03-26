@@ -14,6 +14,7 @@ research-agora/
 │   │   ├── commands/         # Skill definitions
 │   │   └── templates/posters/
 │   ├── development/          # Code quality & automation skills
+│   ├── editorial/            # Diagnostic editorial intelligence skills
 │   ├── formatting/           # Document formatting skills
 │   ├── office/               # Office document creation skills
 │   │   ├── .claude-plugin/plugin.json
@@ -36,7 +37,7 @@ research-agora/
 |--------|---------|
 | `academic` | Paper writing, citations, presentations |
 | `development` | Code quality, CI/CD, git workflows |
-| `editorial` | Editing, proofreading, writing style |
+| `editorial` | Diagnostic editorial intelligence — analyzes, diagnoses, and translates writing across contexts |
 | `formatting` | LaTeX, figures, document styling |
 | `office` | Word, PowerPoint, Excel creation |
 | `research-agents` | Autonomous multi-step research analysis |
@@ -61,7 +62,7 @@ description: |
 model: sonnet  # or haiku for simpler tasks
 metadata:
   research-domain: general    # ml, nlp, cv, robotics, theory, statistics, biology, general
-  task-type: writing          # writing, verification, analysis, formatting, automation, dissemination, review
+  task-type: writing          # writing, verification, analysis, formatting, automation, dissemination, review, diagnosis
   research-phase: paper-writing  # literature-review, experiment-design, implementation, paper-writing, submission, rebuttal, dissemination
   verification-level: none    # formal, heuristic, layered, none
 ---
@@ -112,8 +113,9 @@ Create a markdown file in `plugins/research-agents/agents/agent-name.md`:
 ---
 name: agent-name
 description: Brief description for the Task tool
+model: opus
 tools: Read, Grep, Glob, Bash, WebFetch  # Tools this agent can use
-color: yellow  # Optional: yellow, blue, green, red
+color: yellow  # Optional: yellow, blue, green, red, orange, violet, purple, teal, cyan
 ---
 
 # Agent Title

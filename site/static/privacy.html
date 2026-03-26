@@ -165,7 +165,7 @@
     <header>
         <div class="container">
             <h1>Privacy &amp; GDPR</h1>
-            <p class="subtitle">Compliance Decisions You Can Act On Today</p>
+            <p class="subtitle">Practical Compliance Guide for Research Data</p>
         </div>
     </header>
 
@@ -186,14 +186,14 @@
         </nav>
 
         <div class="legal-notice">
-            <strong>Note:</strong> This is informational guidance, not legal advice. For binding guidance on specific situations, consult your institution's Datenschutzbeauftragte(r).
+            <strong>Note:</strong> This is informational guidance, not legal advice. For binding guidance on specific situations, consult your institution's Data Protection Officer (DPO; in German: Datenschutzbeauftragte/r).
         </div>
 
         <div class="key-points">
             <strong>Key Points</strong>
             <ul>
                 <li>Everything you paste or upload to a cloud AI is transmitted to external servers — including file contents read by Claude Code in agentic mode.</li>
-                <li>For GDPR compliance with personal data, you need Claude Team or Enterprise (includes DPA + EU SCCs). Pro plan is not sufficient.</li>
+                <li>For GDPR compliance with personal data, you need Claude Team or Enterprise (includes DPA (Data Processing Agreement) + EU SCCs (Standard Contractual Clauses)). Pro plan is not sufficient.</li>
                 <li>For identifiable clinical or health data, use local models (Ollama) only — cloud AI is not an option regardless of plan tier.</li>
             </ul>
         </div>
@@ -229,7 +229,7 @@
                         <div class="flow-indent">
                             <div class="flow-branch">
                                 <span class="flow-label">YES →</span>
-                                <span>See <strong>Medical &amp; Clinical Data</strong> section below. Use local models (Ollama) only, on approved infrastructure. Contact your Datenschutzbeauftragte(r) before proceeding.</span>
+                                <span>See <strong>Medical &amp; Clinical Data</strong> section below. Use local models (Ollama) only, on approved infrastructure. Contact your Data Protection Officer (DPO) before proceeding.</span>
                             </div>
                             <div class="flow-branch">
                                 <span class="flow-label">NO →</span>
@@ -310,7 +310,7 @@
             <p>What also gets loaded automatically at session start, without a permission prompt:</p>
             <ul>
                 <li><code>CLAUDE.md</code> files in the current directory and parent directories</li>
-                <li><code>MEMORY.md</code> (first 200 lines from previous sessions)</li>
+                <li>Project memory files (from previous sessions, if any)</li>
                 <li>Git state (branch, uncommitted changes, recent commits)</li>
                 <li>Skill descriptions and MCP server tool definitions</li>
             </ul>
@@ -386,6 +386,9 @@
                         <td>Data <strong>processor</strong></td>
                     </tr>
                     <tr>
+                        <td colspan="4" style="font-size:0.85rem;color:var(--text-muted);padding:0.4rem 0.75rem;">Controller = Anthropic decides how data is used. Processor = your institution decides, Anthropic handles it per your instructions.</td>
+                    </tr>
+                    <tr>
                         <td>GDPR Art. 28 compliance</td>
                         <td>No</td>
                         <td>Yes</td>
@@ -404,7 +407,7 @@
             <ul>
                 <li><strong>Pro plan:</strong> Anthropic does not train on your conversations by default. However, no DPA is available. Anthropic acts as a data controller — not a processor — which means the controller-processor relationship required for GDPR Art. 28 compliance does not exist. This matters for institutional use.</li>
                 <li><strong>Team/Enterprise:</strong> Anthropic acts as a data processor. DPA with EU Standard Contractual Clauses (SCCs) is automatically included. Conversations are never used for training. This is what institutional GDPR compliance requires.</li>
-                <li><strong>All tiers:</strong> Data is stored in the US. Cross-border transfer safeguards rely on SCCs post-Schrems II.</li>
+                <li><strong>All tiers:</strong> Data is stored in the US. Cross-border transfer safeguards rely on SCCs, the primary mechanism for EU-US data transfers since the Schrems II ruling (2020).</li>
             </ul>
             <p>For institutional use with any personal data, Team or Enterprise is the minimum. Pro is not GDPR-compliant for research involving personal data.</p>
             <p>Sources: <a href="https://privacy.claude.com" target="_blank" rel="noopener">privacy.claude.com</a>, <a href="https://www.anthropic.com/legal/data-processing-addendum" target="_blank" rel="noopener">Anthropic DPA</a>, <a href="https://code.claude.com/docs/en/data-usage" target="_blank" rel="noopener">Claude Code data usage</a></p>
@@ -413,13 +416,13 @@
 
         <section class="docs-section" id="medical-data">
             <h2>Medical &amp; Clinical Data</h2>
-            <p>Health data is a <strong>special category</strong> under GDPR Art. 9. Stricter rules apply beyond standard personal data protections.</p>
+            <p>Health data is a <strong>special category</strong> under GDPR Art. 9 (health, biometric, genetic data receiving extra legal protection). Stricter rules apply beyond standard personal data protections.</p>
 
             <h3>Legal Basis</h3>
-            <p>Processing health data requires explicit consent <em>or</em> falls under the research exemption (Art. 9(2)(j)). Legitimate interest — the fallback for standard personal data — does not apply.</p>
+            <p>Processing health data requires explicit consent <em>or</em> falls under the research exemption (Art. 9(2)(j) — the GDPR provision permitting processing for scientific research purposes in the public interest). Legitimate interest (the general-purpose legal basis allowing processing when an organisation has a compelling reason) — the fallback for standard personal data — does not apply.</p>
 
             <h3>Ethics Board Requirements</h3>
-            <p>Using AI tools on study data may require amendment to your existing ethics approval. German Ethikkommissionen increasingly require AI tool disclosure in study protocols. Check with your ethics board before integrating any cloud AI into a study pipeline.</p>
+            <p>Using AI tools on study data may require amendment to your existing ethics approval. Ethics committees (e.g., German Ethikkommissionen) increasingly require AI tool disclosure in study protocols. Check with your ethics board before integrating any cloud AI into a study pipeline.</p>
 
             <h3>DICOM De-identification</h3>
             <p>Medical images contain embedded patient metadata — name, date of birth, hospital ID — that survives standard export. This metadata must be stripped before any AI processing.</p>
@@ -454,7 +457,7 @@
                     <div class="flow-indent">
                         <div class="flow-branch">
                             <span class="flow-label">YES →</span>
-                            <span class="flow-result flow-block">Local models (Ollama) only, on approved institutional infrastructure. Contact Datenschutzbeauftragte(r) first.</span>
+                            <span class="flow-result flow-block">Local models (Ollama) only, on approved institutional infrastructure. Contact Data Protection Officer (DPO) first.</span>
                         </div>
                         <div class="flow-branch" style="margin-top:0.75rem;">
                             <span class="flow-label">NO →</span>
@@ -475,7 +478,7 @@
             </div>
 
             <h3>Institutional DPA</h3>
-            <p>Contact your Datenschutzbeauftragte(r) before using cloud AI on any data derived from patient contact. The university's framework agreement may or may not cover research use — do not assume it does.</p>
+            <p>Contact your Data Protection Officer (DPO) before using cloud AI on any data derived from patient contact. The university's framework agreement does not necessarily cover research use — do not assume it does.</p>
             <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
@@ -562,9 +565,9 @@ id_rsa*
                     </tr>
                     <tr>
                         <td><a href="https://aleph-alpha.com" target="_blank" rel="noopener">Aleph Alpha (Luminous)</a></td>
-                        <td>German-hosted, on-premise available</td>
+                        <td>EU/German-hosted, on-premise available</td>
                         <td>Smaller models, less capable at coding</td>
-                        <td>Maximum data sovereignty, German institutional preference</td>
+                        <td>Maximum data sovereignty, EU data sovereignty requirements</td>
                     </tr>
                 </tbody>
             </table>
@@ -593,17 +596,17 @@ id_rsa*
                     </tr>
                     <tr>
                         <td>United States</td>
-                        <td>Sector-specific (HIPAA for health data, FERPA for education)</td>
-                        <td>HIPAA in particular: cloud AI requires a Business Associate Agreement (BAA) for PHI</td>
+                        <td>Sector-specific (HIPAA (Health Insurance Portability and Accountability Act) for health data, FERPA for education)</td>
+                        <td>HIPAA in particular: cloud AI requires a BAA (Business Associate Agreement) for PHI (Protected Health Information)</td>
                     </tr>
                     <tr>
                         <td>Canada</td>
-                        <td>PIPEDA / provincial laws</td>
+                        <td>PIPEDA (Personal Information Protection and Electronic Documents Act) / provincial laws</td>
                         <td>Consent-based; cross-border adequacy requirements</td>
                     </tr>
                 </tbody>
             </table>
-            <p><strong>US health data specifically:</strong> HIPAA-covered entities need a BAA with any cloud AI provider processing Protected Health Information (PHI). Anthropic offers BAAs only at the Enterprise tier. For health research, check with your IRB and compliance office before using any cloud AI on patient data.</p>
+            <p><strong>US health data specifically:</strong> HIPAA-covered entities need a BAA with any cloud AI provider processing Protected Health Information (PHI). Anthropic offers BAAs only at the Enterprise tier. For health research, check with your IRB (Institutional Review Board) and compliance office before using any cloud AI on patient data.</p>
             <p>The core principle — local models for identifiable data, institutional DPA for anonymized data, cloud AI freely for public/non-personal data — holds across all jurisdictions.</p>
             <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>

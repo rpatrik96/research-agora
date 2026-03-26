@@ -144,7 +144,7 @@
     <header>
         <div class="container">
             <h1>Verification</h1>
-            <p class="subtitle">Test-Driven Research — Runnable recipes for verifying AI outputs</p>
+            <p class="subtitle">Test-Driven Research — Verification methods for AI-generated research outputs</p>
         </div>
     </header>
 
@@ -179,8 +179,8 @@
 
         <section class="docs-section" id="why-verification">
             <h2>1. Why Verification Matters</h2>
-            <p>At NeurIPS 2025, 53 accepted papers were found to contain fabricated citations — references that looked plausible but pointed to publications that do not exist. The AI that generated them expressed no uncertainty. It was confidently wrong.</p>
-            <p>This is the core asymmetry: AI systems produce fluent, authoritative-sounding outputs across a jagged frontier of actual competence. They excel at some tasks and fail unpredictably at similar ones, with no reliable signal about which is which. Citations either exist or they do not. Code either implements what the paper claims or it does not. Numbers either match or they diverge. For these correctness tasks, verification is mechanical and automatable — and the cost of skipping it is silent error embedded in the scientific record.</p>
+            <p>At NeurIPS 2025, post-acceptance audits identified 53 papers containing fabricated citations (<a href='https://openreview.net/forum?id=svFHXBd2wq'>Reizinger et al., 2026</a>) — references that looked plausible but pointed to publications that do not exist. The AI that generated them expressed no uncertainty. It was confidently wrong.</p>
+            <p>This is the asymmetry: AI systems produce fluent, authoritative-sounding outputs across a jagged frontier of actual competence. They excel at some tasks and fail unpredictably at similar ones, with no reliable signal about which is which. Citations either exist or they do not. Code either implements what the paper claims or it does not. Numbers either match or they diverge. For these correctness tasks, verification is mechanical and automatable — and the cost of skipping it is silent error embedded in the scientific record.</p>
             <p>Your expertise is the oracle. The tools below help you apply it efficiently.</p>
             <p>For the full argument, see the <a href="https://openreview.net/forum?id=svFHXBd2wq" target="_blank" rel="noopener">position paper</a> and <a href="https://github.com/rpatrik96/research-agora/blob/main/PLATFORM.md" target="_blank" rel="noopener">Research Agora platform design</a>.</p>
             <a href="#" class="back-to-top">&#8593; Back to top</a>
@@ -234,7 +234,7 @@
 
             <div class="platform-guide">
                 <h3>Recipe A: Citation Verification</h3>
-                <p><strong>What it checks:</strong> Whether each BibTeX entry in your <code>.bib</code> file corresponds to a real publication — correct title, authors, year, and venue — against Semantic Scholar, CrossRef, arXiv, and DBLP. Catches hallucinated references, stale preprints that were published, and author name errors.</p>
+                <p><strong>What it checks:</strong> Whether each BibTeX entry in your <code>.bib</code> file corresponds to a real publication — correct title, authors, year, and venue — against Semantic Scholar, CrossRef, arXiv, and DBLP. Flags likely hallucinated references, stale preprints that were published, and author name errors.</p>
 
                 <p><strong>Prerequisites:</strong></p>
                 <ul>
@@ -497,7 +497,7 @@ Output: table sorted by severity (contradicted → unsupported → partially-sup
                     </tr>
                 </tbody>
             </table>
-            <p>The boundary is explicit: TDR solves correctness problems. It does not solve epistemological problems.</p>
+            <p>The boundary is explicit: Test-Driven Research (TDR) solves correctness problems. It does not solve epistemological problems.</p>
             <p>For interpretation, "manual review" means you thinking — not a verification shortcut. AI can generate three competing explanations of your experimental results. Only you can judge which one is scientifically sound given what you know about the system you studied.</p>
             <p>Your judgment is the only oracle for the things that matter most.</p>
             <a href="#" class="back-to-top">&#8593; Back to top</a>
