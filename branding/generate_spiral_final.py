@@ -1,24 +1,23 @@
 #!/usr/bin/env python3
 """
-Research Agora — Final Spiral Logo Generator
+Research Agora — Spiral Logo Generator
 
-Two options for comparison:
-  Option A: Pure spiral + circle boundary, white dot at center (simplicity wins)
-  Option B: Same spiral + circle boundary, upright "RA" at center (identity anchor)
+Generates the production Archimedean spiral mark with 6 color segments
+(one per plugin category) and a white center dot.
 
-Both generate: mark (dark/light/transparent), favicon-32, social-preview, og-image.
+Assets: mark (dark/light/transparent), favicon-32, social-preview, og-image, hero.
 
 Usage:
     python branding/generate_spiral_final.py
 """
 
 import math
+import shutil
 from pathlib import Path
 
 import matplotlib
 
 matplotlib.use("Agg")
-import matplotlib.patheffects as pe
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -90,11 +89,8 @@ def color_segments(pts, colors):
 # ── Drawing ───────────────────────────────────────────────────────────────────
 
 
-def draw_spiral(ax, lw=4.0, circle_border=False, center_mode="dot"):
-    """Draw the spiral mark.
-
-    center_mode: "dot" = white circle, "ra" = upright RA text, "none" = nothing
-    """
+def draw_spiral(ax, lw=4.0):
+    """Draw the multi-color Archimedean spiral with white center dot."""
     pts = archimedean_pts()
 
     # Color segments — outermost first (reverse so outer = colors[0])
@@ -110,51 +106,12 @@ def draw_spiral(ax, lw=4.0, circle_border=False, center_mode="dot"):
             zorder=4,
         )
 
-    # Circle boundary
-    if circle_border:
-        border = plt.Circle(
-            (0, 0),
-            R_MAX + 0.06,
-            fill=False,
-            edgecolor="white",
-            linewidth=lw * 0.35,
-            alpha=0.7,
-            zorder=2,
-        )
-        ax.add_patch(border)
-
-    # Center element
-    if center_mode == "dot":
-        dot = plt.Circle((0, 0), 0.028, color="white", zorder=8)
-        ax.add_patch(dot)
-    elif center_mode == "ra":
-        # Compute font size relative to axes
-        fig = ax.get_figure()
-        ax_w = ax.get_position().width * fig.get_figwidth()
-        xlim = ax.get_xlim()
-        data_range = xlim[1] - xlim[0]
-        # RA should fit within the inner spiral loop (~0.15 data units radius)
-        inner_r_inches = (0.26 / data_range) * ax_w
-        fontsize = inner_r_inches * 72 * 0.55
-
-        ax.text(
-            0,
-            0,
-            "RA",
-            color="white",
-            fontsize=fontsize,
-            fontweight="bold",
-            fontfamily="Helvetica",
-            ha="center",
-            va="center",
-            zorder=8,
-            path_effects=[
-                pe.withStroke(linewidth=fontsize * 0.04, foreground=(0, 0, 0, 0.35)),
-            ],
-        )
+    # White center dot
+    dot = plt.Circle((0, 0), 0.028, color="white", zorder=8)
+    ax.add_patch(dot)
 
 
-def make_mark(size_in, dpi, bg, center_mode="dot", circle_border=False):
+def make_mark(size_in, dpi, bg):
     """Create a figure with the spiral mark."""
     fig, ax = plt.subplots(figsize=(size_in, size_in), dpi=dpi)
     if bg == "transparent":
@@ -172,11 +129,11 @@ def make_mark(size_in, dpi, bg, center_mode="dot", circle_border=False):
     fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
 
     lw = max(2.0, size_in * dpi * 0.003)
-    draw_spiral(ax, lw=lw, circle_border=circle_border, center_mode=center_mode)
+    draw_spiral(ax, lw=lw)
     return fig
 
 
-def make_social_preview(width, height, dpi, center_mode="dot"):
+def make_social_preview(width, height, dpi):
     """Social preview with spiral mark on left + text on right."""
     fig_w = width / dpi
     fig_h = height / dpi
@@ -195,7 +152,7 @@ def make_social_preview(width, height, dpi, center_mode="dot"):
     mark_ax.set_aspect("equal")
     mark_ax.axis("off")
     mark_ax.set_facecolor("none")
-    draw_spiral(mark_ax, lw=2.5, circle_border=False, center_mode=center_mode)
+    draw_spiral(mark_ax, lw=2.5)
 
     # Text on right
     tx = 0.42
@@ -219,8 +176,6 @@ def make_hero_mark():
     Output: branding/spiral-hero.png (copied to site/static/spiral-hero.png)
     Size: 6 inches @ 300 dpi = 1800 x 1800 px
     """
-    import shutil
-
     size_in = 6
     dpi = 300
     lw = 10.0
@@ -236,7 +191,7 @@ def make_hero_mark():
     ax.axis("off")
     fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
 
-    draw_spiral(ax, lw=lw, circle_border=False, center_mode="dot")
+    draw_spiral(ax, lw=lw)
 
     out = Path(__file__).parent / "spiral-hero.png"
     fig.savefig(out, transparent=True, dpi=dpi)
@@ -263,43 +218,44 @@ def _save(fig, path):
 # ── Generate All Assets ──────────────────────────────────────────────────────
 
 
-def generate_option(out, prefix, center_mode):
-    """Generate full asset suite for one option."""
-    print(f"\n  === {prefix.upper()} (center={center_mode}) ===")
+def generate_assets(out):
+    """Generate the full production asset suite."""
+    prefix = "spiral-pure"
+    print(f"\n  === {prefix.upper()} ===")
 
     # High-res mark — dark bg
-    fig = make_mark(8, 300, DARK_BG, center_mode=center_mode)
+    fig = make_mark(8, 300, DARK_BG)
     p = out / f"{prefix}-mark-dark.png"
     _save(fig, p)
     print(f"  Mark (dark): {p.name}")
 
     # Light bg
-    fig = make_mark(8, 300, LIGHT_BG, center_mode=center_mode)
+    fig = make_mark(8, 300, LIGHT_BG)
     p = out / f"{prefix}-mark-light.png"
     _save(fig, p)
     print(f"  Mark (light): {p.name}")
 
     # Transparent
-    fig = make_mark(8, 300, "transparent", center_mode=center_mode)
+    fig = make_mark(8, 300, "transparent")
     p = out / f"{prefix}-mark.png"
     fig.savefig(p, transparent=True)
     plt.close(fig)
     print(f"  Mark (transparent): {p.name}")
 
     # Favicon 32
-    fig = make_mark(1, 32, DARK_BG, center_mode=center_mode)
+    fig = make_mark(1, 32, DARK_BG)
     p = out / f"{prefix}-favicon-32.png"
     _save(fig, p)
     print(f"  Favicon 32: {p.name}")
 
     # Social preview
-    fig = make_social_preview(1280, 640, 150, center_mode=center_mode)
+    fig = make_social_preview(1280, 640, 150)
     p = out / f"{prefix}-social-preview.png"
     _save(fig, p)
     print(f"  Social preview: {p.name}")
 
     # OG image
-    fig = make_social_preview(1200, 630, 150, center_mode=center_mode)
+    fig = make_social_preview(1200, 630, 150)
     p = out / f"{prefix}-og-image.png"
     _save(fig, p)
     print(f"  OG image: {p.name}")
@@ -308,16 +264,14 @@ def generate_option(out, prefix, center_mode):
 def main():
     out = Path(__file__).parent
     out.mkdir(parents=True, exist_ok=True)
-    print("Generating final spiral logo options...")
+    print("Generating spiral logo assets...")
 
-    generate_option(out, "spiral-pure", center_mode="dot")
-    generate_option(out, "spiral-ra", center_mode="ra")
+    generate_assets(out)
+    make_hero_mark()
 
-    # Copy winner candidates to site/static for easy preview
+    # Copy to site/static
     site = out.parent / "site" / "static"
     if site.exists():
-        import shutil
-
         for f in ["spiral-pure-favicon-32.png", "spiral-pure-og-image.png",
                    "spiral-pure-mark.png"]:
             src = out / f
@@ -325,9 +279,7 @@ def main():
                 shutil.copy2(src, site / f)
                 print(f"  Copied to site/static: {f}")
 
-    print("\nDone! Compare:")
-    print(f"  Option A (pure):  {out}/spiral-pure-mark-dark.png")
-    print(f"  Option B (RA):    {out}/spiral-ra-mark-dark.png")
+    print("\nDone!")
 
 
 if __name__ == "__main__":
