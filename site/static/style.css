@@ -951,77 +951,38 @@ footer a:hover { text-decoration: underline; }
 
 .hero-layout {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 2.5rem;
-    text-align: left;
+    gap: 1.5rem;
+    text-align: center;
 }
 
 .hero-logo-wrap {
     flex-shrink: 0;
-    width: 140px;
-    height: 140px;
-    border-radius: 20px;
-    background: rgba(20, 20, 40, 0.6);
+    width: 160px;
+    height: 160px;
+    border-radius: 24px;
+    /* Transparent background — spiral-hero.png has no bg */
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Soft glow from the spiral's color mix */
-    box-shadow: 0 0 32px rgba(96, 165, 250, 0.15), 0 4px 20px rgba(0, 0, 0, 0.4);
-}
-
-[data-theme="light"] .hero-logo-wrap {
-    background: rgba(245, 245, 255, 0.8);
-    box-shadow: 0 0 24px rgba(37, 99, 235, 0.1), 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 .hero-logo {
-    width: 120px;
-    height: 120px;
+    width: 160px;
+    height: 160px;
     display: block;
 }
 
 .hero-text {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.5rem;
 }
 
-/* Stats and install-banner already have their own styles;
-   override centering that came from the old text-align:center on header */
+/* Stats and install-banner: keep centered */
 .hero-text .stats {
-    justify-content: flex-start;
-}
-
-.hero-text .install-banner {
-    /* keep it left-aligned in the flex text block */
-}
-
-/* Responsive: stack on mobile */
-@media (max-width: 640px) {
-    .hero-layout {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 1.5rem;
-    }
-
-    .hero-logo-wrap {
-        width: 100px;
-        height: 100px;
-        border-radius: 16px;
-    }
-
-    .hero-logo {
-        width: 84px;
-        height: 84px;
-    }
-
-    .hero-text {
-        align-items: center;
-    }
-
-    .hero-text .stats {
-        justify-content: center;
-    }
+    justify-content: center;
 }

@@ -112,19 +112,19 @@ ax.scatter(xs, ys, s=sizes, color=TEAL, alpha=0.10, zorder=1)
 # ── Thin teal bottom line ─────────────────────────────────────────────────────
 ax.axhline(y=0.04, xmin=0, xmax=1, color=TEAL, linewidth=2.0, zorder=5)
 
-# ── Spiral mark: left ~30% of figure ─────────────────────────────────────────
+# ── Spiral mark: left ~38% of figure ─────────────────────────────────────────
 # add_axes([left, bottom, width, height]) in figure-fraction coordinates.
-# The banner is 3:1 aspect, so a 0.28-wide square sub-axes sits left of center.
-mark_ax = fig.add_axes([0.02, 0.10, 0.28, 0.82])
+# The banner is 3:1 aspect, so a 0.38-wide square sub-axes sits left of center.
+mark_ax = fig.add_axes([0.01, 0.06, 0.38, 0.90])
 mark_ax.set_xlim(-1.1, 1.1)
 mark_ax.set_ylim(-1.1, 1.1)
 mark_ax.set_aspect("equal")
 mark_ax.axis("off")
 mark_ax.set_facecolor("none")
-draw_spiral(mark_ax, lw=2.8)
+draw_spiral(mark_ax, lw=4.0)
 
-# ── Text: center-right (x from ~0.38 onward) ─────────────────────────────────
-tx = 0.38
+# ── Text: center-right (x from ~0.46 onward) ─────────────────────────────────
+tx = 0.46
 
 # "Research Agora" title
 ax.text(

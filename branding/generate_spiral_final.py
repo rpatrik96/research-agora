@@ -213,6 +213,44 @@ def make_social_preview(width, height, dpi, center_mode="dot"):
     return fig
 
 
+def make_hero_mark():
+    """Generate a hero-sized spiral with transparent bg and thicker stroke.
+
+    Output: branding/spiral-hero.png (copied to site/static/spiral-hero.png)
+    Size: 6 inches @ 300 dpi = 1800 x 1800 px
+    """
+    import shutil
+
+    size_in = 6
+    dpi = 300
+    lw = 6.0
+
+    fig, ax = plt.subplots(figsize=(size_in, size_in), dpi=dpi)
+    fig.patch.set_alpha(0)
+    ax.set_facecolor("none")
+
+    half = 1.05
+    ax.set_xlim(-half, half)
+    ax.set_ylim(-half, half)
+    ax.set_aspect("equal")
+    ax.axis("off")
+    fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
+
+    draw_spiral(ax, lw=lw, circle_border=False, center_mode="dot")
+
+    out = Path(__file__).parent / "spiral-hero.png"
+    fig.savefig(out, transparent=True, dpi=dpi)
+    plt.close(fig)
+    print(f"  Hero mark: {out}")
+
+    site = out.parent.parent / "site" / "static"
+    if site.exists():
+        shutil.copy2(out, site / "spiral-hero.png")
+        print("  Copied to site/static: spiral-hero.png")
+
+    return out
+
+
 def _save(fig, path):
     """Save and close figure."""
     if "transparent" in str(path) or "mark.png" in str(path):
