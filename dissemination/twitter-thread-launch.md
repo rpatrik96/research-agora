@@ -1,93 +1,86 @@
 # Research Agora Launch Thread (X.com)
 
-**Strategy:** 7 posts, each under 280 chars. Attach demo GIF to post 1. Pin thread after posting.
+**Strategy:** 7 posts, co-announcement of ICLR 2026 position paper + open-source framework. Vision-first, then practical CTAs. Each post under 280 chars. Pin thread after posting.
 
 ---
 
-## Post 1 (Hook + GIF)
-Releasing Research Agora — 61 open-source AI skills for ML research across 6 plugins.
+## Post 1 (Vision hook + co-announcement)
+Three of your LLM-checked citations don't exist. You just don't know which three yet.
 
-Paper writing, citation verification, adversarial review, proof auditing, editorial diagnostics — modular workflows you install in one command.
+We wrote a position paper for ICLR 2026 on why AI-assisted research needs verification infrastructure — and built the open-source framework to deliver it.
 
-Built by a researcher, for researchers.
-
-🔗 rpatrik96.github.io/research-agora
+Paper + code: rpatrik96.github.io/research-agora
 
 [ATTACH: research-agora-demo.gif]
 
 ---
 
-## Post 2 (The problem)
-The problem: researchers use ChatGPT for everything but lack verified, reusable workflows.
+## Post 2 (The thesis — what the paper argues)
+The paper's argument:
 
-Meanwhile 53 papers at NeurIPS 2025 had hallucinated citations that passed peer review.
+AI skills without benchmarks are just fancy prompts. You need three things:
 
-We need infrastructure — not just chat.
-
----
-
-## Post 3 (What it does)
-What Research Agora provides:
-
-- Skills marketplace + benchmarks
-- 22 research agents (adversarial review, claim auditing, proof verification)
-- Citation checking that catches hallucinations
-- Cross-platform: Claude Code, Cursor, Gemini CLI, Copilot, AgentSkills.io — with a conversion tool
-
-All open source. MIT license.
+1. Reusable skills — not one-off prompts
+2. Benchmarks — measure what each skill catches
+3. Verification — grade every claim before you trust it
 
 ---
 
-## Post 4 (Concrete example)
-Example: run /paper-review on your draft.
+## Post 3 (Concrete proof — practical CTA)
+What this looks like in practice:
 
-It simulates a skeptical reviewer — finds unsupported claims, statistical issues, missing citations.
+/paper-references checks every BibTeX entry against CrossRef, DBLP, Semantic Scholar, arXiv.
 
-Then /paper-references checks every BibTeX entry against CrossRef, DBLP, Semantic Scholar, arXiv.
+Flags fabricated DOIs, wrong authors, title mismatches.
 
-Flags the errors peer review misses.
-
----
-
-## Post 5 (Verification + benchmarks)
-We don't just ship skills — we benchmark them.
-
-CiteBench: an open benchmark for citation hallucination detection. Our /paper-references skill scores 0.89 F1 on detecting fabricated, wrong-author, and stale-preprint citations.
-
-Every skill has a verification level (formal → heuristic → layered → none). Check before you trust.
-
-rpatrik96.github.io/research-agora/benchmarks.html
+Benchmark is public — try it on your own .bib file.
 
 ---
 
-## Post 6 (The vision — link to paper)
+## Post 4 (Adversarial review — vivid example)
+Another example: /paper-review simulates your worst reviewer.
 
-This accompanies our P-AGI Workshop @ ICLR 2026 position paper:
+It finds unsupported claims, statistical gaps, missing baselines — before submission.
 
-"Skills, Benchmarks, and Verification Are What AI-Assisted Research Needs"
-
-We argue for test-driven research — define verification criteria BEFORE delegating to AI.
-
-The paper, framework, and benchmarks — together.
+What would Reviewer 2 say about your draft? Find out first.
 
 ---
 
-## Post 7 (CTA)
-Get started in 5 minutes:
+## Post 5 (Scope — what's inside)
+Research Agora ships 61 skills across 6 plugins:
 
-1. Browse skills: rpatrik96.github.io/research-agora
-2. Install: /plugin marketplace add rpatrik96/research-agora
-3. Try it: /paper-review on any draft
+Paper workflow (abstract → rebuttal), 22 autonomous research agents, citation verification, LaTeX diagnostics, slides + posters.
 
-Quickstart guide + cross-platform setup: rpatrik96.github.io/research-agora/quickstart.html
+Built for Claude Code. Also works with Cursor, Gemini CLI, and Copilot. MIT license.
 
-Contributions welcome. github.com/rpatrik96/research-agora
+---
+
+## Post 6 (Vision — why it matters)
+Some skills are fully script-verified — /paper-references either finds the DOI or it doesn't. Others are LLM-based and tell you so. You always know which is which.
+
+That's the core idea: define "correct" before you delegate to AI. The full argument is in the paper.
+
+---
+
+## Post 7 (CTA — get started)
+Get started in 5 minutes with Claude Code:
+
+1. /plugin marketplace add rpatrik96/research-agora
+2. /paper-review on any draft
+3. /paper-references on your .bib file
+
+Quickstart: rpatrik96.github.io/research-agora/quickstart.html
+Paper: [arXiv link]
+Code: github.com/rpatrik96/research-agora
 
 ---
 
 ## Posting notes
 - Post 1 first, then reply to it with posts 2-7 as a thread
 - Attach demo GIF only to post 1
+- Move site URL to bio to avoid reach penalty — keep only in Post 1
 - Best posting times: Tue-Thu, 9-11am ET (ML Twitter peak)
 - Tag relevant people only if you have a relationship (avoid cold-tagging)
 - Free account: no edit button, double-check before posting
+- Fill [arXiv link] placeholder in Post 7 before posting
+- Twitter counts URLs as 23 chars regardless of actual length
