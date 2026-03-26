@@ -72,8 +72,8 @@ color: orange  # optional
 ### Research-Agents Architecture
 The `research-agents` plugin uses a layered architecture:
 - **Orchestrators** (`orchestrators/`) - Fan-out/fan-in parallel coordinators
-- **Agents** (`agents/`) - 14 high-level analysis agents
-- **Micro-skills** (`micro-skills/`) - 8 atomic, parallelizable operations
+- **Agents** (`agents/`) - 22 high-level analysis agents
+- **Micro-skills** (`micro-skills/`) - 12 atomic, parallelizable operations
 - **Helpers** (`helpers/`) - Utility skills for efficiency
 
 Central to this is `research-state.json`, an intermediate representation enabling parallel claim processing.

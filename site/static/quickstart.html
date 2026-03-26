@@ -166,7 +166,7 @@
                 <code>/plugin marketplace add rpatrik96/research-agora</code>
                 <button onclick="navigator.clipboard.writeText('/plugin marketplace add rpatrik96/research-agora')" title="Copy to clipboard" aria-label="Copy plugin install command">Copy</button>
             </div>
-            <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem;">Run Step 2 inside a Claude Code session. If you're on the browser path (Claude.ai), skip both steps — no installation needed.</p>
+            <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem;">Run Step 2 inside a Claude Code session. If you're using Claude.ai in the browser, no installation is needed — but skills (slash commands) are CLI-only. The browser path uses direct prompts instead.</p>
         </section>
 
         <nav class="toc" aria-label="Page contents">
@@ -174,7 +174,7 @@
             <ol>
                 <li><a href="#install">Install</a></li>
                 <li><a href="#choose-path">Choose Your Path</a></li>
-                <li><a href="#five-minute-win">The 5-Minute Win</a></li>
+                <li><a href="#five-minute-win">Quick Start: Verify Citations</a></li>
                 <li><a href="#whats-next">What's Next</a></li>
             </ol>
         </nav>
@@ -199,7 +199,7 @@
                     </tr>
                 </tbody>
             </table>
-            <p>If you just want to see citation verification work right now, the browser path gets you there in 3 steps. The CLI path unlocks the full Research Agora skill library and runs against your actual project files.</p>
+            <p>If you want to see citation verification work right now, the browser path gets you there in 3 steps. The CLI path gives you access to the full skill library and runs against your actual project files.</p>
             <p>Not sure which path fits your role? See the <a href="docs.html#getting-started">role-based guides</a> for PIs, researchers, and students.</p>
             <a href="#install" class="back-to-top">&#8593; Back to top</a>
         </section>
@@ -243,8 +243,8 @@ Output: Table with columns — cite key, status (verified / unverified / mismatc
         </section>
 
         <section class="docs-section" id="five-minute-win">
-            <h2>The 5-Minute Win: Run <code>/paper-references</code> on Your .bib File</h2>
-            <p>This is the fastest way to see what Research Agora actually does.</p>
+            <h2>Quick Start: Verify Citations</h2>
+            <p>This is the most concrete way to evaluate what a skill does.</p>
 
             <div class="highlight-box">
                 <strong>Step 1 — Start here: install the Research Agora academic plugin</strong>
@@ -271,7 +271,7 @@ claude</code></div>
 ...
 
 Summary: 44 verified, 2 mismatches, 1 not found</code></div>
-            <p>That task cost approximately <strong>$0.10–0.30</strong> in API tokens depending on bibliography size.</p>
+            <p>That run costs <strong>$0.10–0.30</strong> in API tokens depending on bibliography size.</p>
 
             <h3>Fallback — no <code>.bib</code> file?</h3>
             <p>Paste this sample into a file called <code>demo.bib</code> in your current directory:</p>
@@ -288,10 +288,10 @@ Summary: 44 verified, 2 mismatches, 1 not found</code></div>
   journal={ICML},
   year={2024}
 }</code></div>
-            <p>The second entry is fabricated. Watch the agent catch it.</p>
+            <p>The second entry is fabricated. The agent flags it as <code>not_found</code>.</p>
 
             <h3>Fallback — no CLI yet?</h3>
-            <p>Run the browser-path version above. You paste your BibTeX manually; it checks the same way, just one entry at a time.</p>
+            <p>Run the browser-path version above. Note: the browser version relies on the LLM's knowledge, not the database-backed verification the CLI skill provides.</p>
 
             <div class="skills-box">
                 <h3>Popular first skills for paper writing</h3>
@@ -351,7 +351,7 @@ Summary: 44 verified, 2 mismatches, 1 not found</code></div>
             <h2>What's Next</h2>
             <ul>
                 <li><a href="concepts.html"><strong>Concepts</strong></a> — How AI agents actually work: the five-level ladder from Chat to Skills, what to delegate vs. protect, where Research Agora fits.</li>
-                <li><a href="verification.html"><strong>Verification</strong></a> — The full verification hierarchy: formal checks, automated heuristics, manual review. When to use each and why ideation gets verified 7× less than code.</li>
+                <li><a href="verification.html"><strong>Verification</strong></a> — The full verification hierarchy: formal checks, automated heuristics, manual review. When to use each and why ideation gets verified ~7× less than code.</li>
                 <li><strong><code>/onboard</code></strong> — Run this skill in your project directory. It reads your codebase and drafts a <code>CLAUDE.md</code> tailored to your project in under 2 minutes.</li>
             </ul>
             <p>For a CLAUDE.md template you can copy and customize, see <a href="https://github.com/rpatrik96/research-agora/blob/main/templates/CLAUDE.md.researcher" target="_blank" rel="noopener">templates/CLAUDE.md.researcher</a>.</p>

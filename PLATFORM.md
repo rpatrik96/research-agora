@@ -218,6 +218,8 @@ Different research tasks afford different levels of verification:
 | L4 | Consensus | Community agreement | Peer review, reproducibility |
 | L5 | Judgment | Human expert assessment | Writing quality, research taste |
 
+> **Note**: Skills currently use a 4-level subset: formal, heuristic, layered, none.
+
 ### Trust Badges
 
 Skills display verification badges on the static site:
@@ -229,13 +231,13 @@ Skills display verification badges on the static site:
 
 ### Evidence Hierarchy (Already Implemented)
 
-The `evidence-checker` agent implements a 6-level evidence hierarchy:
-- L1: Empirical (controlled experiments, statistical significance)
-- L2: Theoretical (formal proofs, established theorems)
-- L3: Observational (case studies, correlational evidence)
-- L4: Precedent (peer-reviewed citations, standard practice)
-- L5: Reasoning (logical arguments, analogies)
-- L6: Assumed (unstated assumptions, "well known")
+The `claim-auditor` agent implements a 6-level evidence hierarchy:
+- L1: CODE_VERIFIED (reproducible with code)
+- L2: REPRODUCIBLE_EXPERIMENT
+- L3: PAPER_EVIDENCE (tables/figures)
+- L4: CITATION_SUPPORT
+- L5: LOGICAL_ARGUMENT
+- L6: ASSERTION (no evidence)
 
 ---
 
@@ -329,7 +331,7 @@ Skills are citable software. Each skill includes a suggested BibTeX entry:
 
 ### Phase 1: Static Site + Registry Index (Current)
 
-- [x] Skills marketplace with 70+ workflows across 5 plugins
+- [x] Skills marketplace with 80 skills across 6 plugins
 - [x] Test suite with 50+ tests validating structure and metadata
 - [ ] Registry index (`registry/index.json`) generated from skill files
 - [ ] Research metadata on all skills (domain, task-type, phase, verification-level)
