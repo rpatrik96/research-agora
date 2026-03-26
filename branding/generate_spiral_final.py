@@ -223,7 +223,7 @@ def make_hero_mark():
 
     size_in = 6
     dpi = 300
-    lw = 6.0
+    lw = 10.0
 
     fig, ax = plt.subplots(figsize=(size_in, size_in), dpi=dpi)
     fig.patch.set_alpha(0)
