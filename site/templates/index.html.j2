@@ -18,7 +18,7 @@
 <body>
     <nav class="site-nav">
         <div class="container nav-container">
-            <a href="index.html" class="nav-brand"><img src="logo-mark.png" alt="" class="nav-logo">Research Agora</a>
+            <a href="index.html" class="nav-brand"><span class="nav-logo-wrap"><img src="logo-mark.png" alt="" class="nav-logo"></span>Research Agora</a>
             <div class="nav-links">
                 <a href="index.html" class="nav-link active">Skills</a>
                 <a href="benchmarks.html" class="nav-link">Benchmarks</a>
@@ -32,18 +32,23 @@
     </nav>
 
     <header>
-        <div class="container">
-            <h1>Research Agora</h1>
-            <p class="subtitle">Reusable skills for ML research workflows</p>
-            <div class="stats">
-                <span class="stat"><strong>{{ stats.public_skills }}</strong> skills</span>
-                <span class="stat"><strong>{{ stats.groups }}</strong> workflows</span>
-                <span class="stat"><strong>{{ stats.plugins }}</strong> plugins</span>
-                <span class="stat"><strong>{{ stats.benchmarks }}</strong> benchmarks</span>
+        <div class="container hero-layout">
+            <div class="hero-logo-wrap">
+                <img src="logo-mark.png" alt="Research Agora spiral logo" class="hero-logo">
             </div>
-            <div class="install-banner">
-                <code>/plugin marketplace add rpatrik96/research-agora</code>
-                <button onclick="navigator.clipboard.writeText('/plugin marketplace add rpatrik96/research-agora')" title="Copy to clipboard" aria-label="Copy install command">Copy</button>
+            <div class="hero-text">
+                <h1>Research Agora</h1>
+                <p class="subtitle">Reusable skills for ML research workflows</p>
+                <div class="stats">
+                    <span class="stat"><strong>{{ stats.public_skills }}</strong> skills</span>
+                    <span class="stat"><strong>{{ stats.groups }}</strong> workflows</span>
+                    <span class="stat"><strong>{{ stats.plugins }}</strong> plugins</span>
+                    <span class="stat"><strong>{{ stats.benchmarks }}</strong> benchmarks</span>
+                </div>
+                <div class="install-banner">
+                    <code>/plugin marketplace add rpatrik96/research-agora</code>
+                    <button onclick="navigator.clipboard.writeText('/plugin marketplace add rpatrik96/research-agora')" title="Copy to clipboard" aria-label="Copy install command">Copy</button>
+                </div>
             </div>
         </div>
     </header>
