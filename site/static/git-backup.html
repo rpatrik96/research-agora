@@ -7,160 +7,39 @@
     <link rel="stylesheet" href="style.css">
     <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
     <style>
-        .breadcrumb {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin: 1.5rem 0 0.5rem;
-        }
+        .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin: 1.5rem 0 0.5rem; }
         .breadcrumb a { color: var(--primary); text-decoration: none; }
         .breadcrumb a:hover { text-decoration: underline; }
         .breadcrumb span { margin: 0 0.4rem; }
-        .docs-nav {
-            display: flex;
-            gap: 1rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-        .docs-nav a {
-            padding: 0.4rem 0.9rem;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            color: var(--primary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
+        .docs-nav { display: flex; gap: 1rem; margin: 2rem 0; flex-wrap: wrap; }
+        .docs-nav a { padding: 0.4rem 0.9rem; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius); color: var(--primary); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
         .docs-nav a:hover { background: var(--primary-light); }
-        .docs-nav a.active {
-            background: var(--primary);
-            color: var(--bg);
-            border-color: var(--primary);
-        }
-        .toc {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1rem 1.5rem;
-            margin: 1.5rem 0 2rem;
-        }
-        .toc h3 {
-            margin: 0 0 0.6rem;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-        }
-        .toc ol {
-            margin: 0;
-            padding-left: 1.2rem;
-        }
-        .toc li {
-            margin: 0.3rem 0;
-        }
-        .toc a {
-            color: var(--primary);
-            text-decoration: none;
-            font-size: 0.95rem;
-        }
+        .docs-nav a.active { background: var(--primary); color: var(--bg); border-color: var(--primary); }
+        .toc { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.5rem; margin: 1.5rem 0 2rem; }
+        .toc h3 { margin: 0 0 0.6rem; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+        .toc ol { margin: 0; padding-left: 1.2rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--primary); text-decoration: none; font-size: 0.95rem; }
         .toc a:hover { text-decoration: underline; }
-        .back-to-top {
-            display: inline-block;
-            margin-top: 1rem;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-decoration: none;
-        }
+        .back-to-top { display: inline-block; margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted); text-decoration: none; }
         .back-to-top:hover { color: var(--primary); }
-        .warning-box {
-            background: var(--orange-light);
-            border: 2px solid var(--orange);
-            border-radius: var(--radius);
-            padding: 1rem 1.25rem;
-            margin: 1.5rem 0;
-        }
-        .warning-box strong {
-            color: var(--orange);
-        }
-        .warning-box ul {
-            margin: 0.5rem 0 0;
-            padding-left: 1.2rem;
-        }
-        .warning-box li {
-            margin: 0.35rem 0;
-        }
-        .skip-box {
-            background: var(--blue-light);
-            border: 2px solid var(--blue);
-            border-radius: var(--radius);
-            padding: 0.75rem 1.25rem;
-            margin: 1rem 0 1.5rem;
-        }
-        .skip-box a {
-            color: var(--blue);
-            font-weight: 600;
-        }
-        .refcard {
-            background: var(--bg-secondary);
-            border: 2px solid var(--primary);
-            border-radius: var(--radius);
-            padding: 1.25rem 1.5rem;
-            margin: 1.5rem 0;
-        }
-        .refcard h3 {
-            margin: 0 0 0.75rem;
-            color: var(--primary);
-        }
-        .refcard code {
-            color: var(--green);
-        }
-        .mental-model {
-            counter-reset: model-step;
-            list-style: none;
-            padding-left: 0;
-        }
-        .mental-model li {
-            counter-increment: model-step;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--border);
-        }
+        .warning-box { background: var(--orange-light); border: 2px solid var(--orange); border-radius: var(--radius); padding: 1rem 1.25rem; margin: 1.5rem 0; }
+        .warning-box strong { color: var(--orange); }
+        .warning-box ul { margin: 0.5rem 0 0; padding-left: 1.2rem; }
+        .warning-box li { margin: 0.35rem 0; }
+        .skip-box { background: var(--blue-light); border: 2px solid var(--blue); border-radius: var(--radius); padding: 0.75rem 1.25rem; margin: 1rem 0 1.5rem; }
+        .skip-box a { color: var(--blue); font-weight: 600; }
+        .refcard { background: var(--bg-secondary); border: 2px solid var(--primary); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+        .refcard h3 { margin: 0 0 0.75rem; color: var(--primary); }
+        .refcard code { color: var(--green); }
+        .mental-model { counter-reset: model-step; list-style: none; padding-left: 0; }
+        .mental-model li { counter-increment: model-step; padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
         .mental-model li:last-child { border-bottom: none; }
-        .mental-model li::before {
-            content: counter(model-step);
-            display: inline-block;
-            width: 1.6rem;
-            height: 1.6rem;
-            line-height: 1.6rem;
-            text-align: center;
-            background: var(--primary);
-            color: var(--bg);
-            border-radius: 50%;
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-right: 0.75rem;
-            flex-shrink: 0;
-        }
-        .advanced-gate {
-            background: var(--purple-light);
-            border: 1px solid var(--purple);
-            border-radius: var(--radius);
-            padding: 0.6rem 1rem;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            color: var(--purple);
-            font-weight: 500;
-        }
-        .editor-warning {
-            background: var(--yellow-light);
-            border: 1px solid var(--yellow);
-            border-radius: var(--radius);
-            padding: 0.6rem 1rem;
-            margin: 0.75rem 0;
-            font-size: 0.9rem;
-        }
-        .editor-warning strong {
-            color: var(--yellow);
-        }
+        .mental-model li::before { content: counter(model-step); display: inline-block; width: 1.6rem; height: 1.6rem; line-height: 1.6rem; text-align: center; background: var(--primary); color: var(--bg); border-radius: 50%; font-size: 0.8rem; font-weight: 700; margin-right: 0.75rem; }
+        .advanced-gate { background: var(--purple-light); border: 1px solid var(--purple); border-radius: var(--radius); padding: 0.6rem 1rem; margin-bottom: 1rem; font-size: 0.9rem; color: var(--purple); font-weight: 500; }
+        .editor-warning { background: var(--yellow-light); border: 1px solid var(--yellow); border-radius: var(--radius); padding: 0.6rem 1rem; margin: 0.75rem 0; font-size: 0.9rem; }
+        .editor-warning strong { color: var(--yellow); }
+        .note-box { background: var(--bg-secondary); border-left: 3px solid var(--primary); padding: 0.6rem 1rem; margin: 0.75rem 0; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -209,17 +88,17 @@
         <nav class="toc" aria-label="Page contents">
             <h3>On this page</h3>
             <ol>
-                <li><a href="#the-problem">The Problem: Agents Act Faster Than You Can Review</a></li>
+                <li><a href="#the-problem">The Problem</a></li>
                 <li><a href="#limitations">What This Guide Does NOT Cover</a></li>
-                <li><a href="#what-git-does">What Git Does (30-Second Version)</a></li>
+                <li><a href="#what-git-does">What Git Does (30 Seconds)</a></li>
                 <li><a href="#before-you-start">Before You Start</a></li>
-                <li><a href="#setup">Setup (One Time, 2 Minutes)</a></li>
+                <li><a href="#setup">Setup (One Time)</a></li>
                 <li><a href="#two-commands">The Two Commands That Matter</a></li>
                 <li><a href="#when-to-snapshot">When to Snapshot</a></li>
-                <li><a href="#recovery">Recovering from Bad Agent Edits</a></li>
-                <li><a href="#mental-model">Making Mistakes Cheap to Fix</a></li>
-                <li><a href="#ignore-list">What You Can Safely Ignore</a></li>
-                <li><a href="#branches">Advanced: Branches for Risky Experiments</a></li>
+                <li><a href="#recovery">Recovering from Bad Edits</a></li>
+                <li><a href="#mental-model">Making Mistakes Cheap</a></li>
+                <li><a href="#ignore-list">What You Can Ignore</a></li>
+                <li><a href="#branches">Advanced: Branches</a></li>
                 <li><a href="#refcard">Quick Reference Card</a></li>
                 <li><a href="#already-use-git">If You Already Use Git</a></li>
                 <li><a href="#faq">FAQ</a></li>
@@ -228,10 +107,10 @@
 
         <p>AI agents edit your files directly. That's what makes them powerful &mdash; and what makes them risky. A single misunderstood instruction can rewrite a section of your paper, delete a file, or overwrite hours of work. Git makes those mistakes cheap to fix.</p>
 
-        <!-- Section: The Problem -->
+        <!-- The Problem -->
         <section class="docs-section" id="the-problem">
             <h2>The Problem: Agents Act Faster Than You Can Review</h2>
-            <p>When you use Claude Code (or any agentic coding tool), the agent reads and writes files on your machine. Most of the time, this is exactly what you want. But agents can:</p>
+            <p>When you use Claude Code (or any agentic coding tool), the agent reads and writes files on your machine. But agents can:</p>
             <ul>
                 <li><strong>Overwrite good work</strong> &mdash; an edit that "improves" a paragraph may destroy a carefully worded argument.</li>
                 <li><strong>Delete files</strong> &mdash; cleanup operations can remove things you still need.</li>
@@ -241,25 +120,26 @@
             <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <!-- Section: Limitations -->
+        <!-- Limitations -->
         <section class="docs-section" id="limitations">
             <h2>What This Guide Does NOT Cover</h2>
-            <p>Git recovery works only if a snapshot exists before the damage happens. Be aware of these limitations:</p>
+            <p>Git recovery works only if a snapshot exists before the damage happens:</p>
             <div class="warning-box">
                 <ul>
-                    <li><strong>No prior snapshot = no recovery.</strong> If you never ran <code>git commit</code> before starting an agent session, git cannot help you. This is the most common way people lose work.</li>
-                    <li><strong>New files survive undo.</strong> When you undo agent changes, files the agent <em>created</em> (that were never committed) are not removed automatically. You must delete them manually or with <code>git clean -fd</code> (which permanently deletes all untracked files &mdash; cannot be undone).</li>
-                    <li><strong>Shared repositories need extra care.</strong> If your project lives on GitHub with collaborators, agent changes pushed to a shared branch affect everyone. Local undo does not reverse a remote push. Always review before pushing.</li>
-                    <li><strong>Data leaves your machine.</strong> Claude Code sends file contents to Anthropic's servers for processing. <strong>Do not use it with</strong>: patient/health data (HIPAA), student records (FERPA), export-controlled material (ITAR/EAR), data covered by a third-party NDA or data-sharing agreement, or anything under a confidentiality clause in a grant. For general unpublished research, review <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">Anthropic's privacy policy</a> and your institution's acceptable-use policy for AI tools. If in doubt, check with your research compliance office. See also our <a href="privacy.html">Privacy &amp; GDPR guide</a>.</li>
+                    <li><strong>No prior snapshot = no recovery.</strong> If you never ran <code>git commit</code> (the save command you'll learn below) before an agent session, git cannot help you.</li>
+                    <li><strong>New files survive undo.</strong> Files the agent <em>created</em> (never committed) are not removed by undo. Delete them manually or with <code>git clean -fd</code> (permanently deletes untracked files &mdash; cannot be undone).</li>
+                    <li><strong>Shared repositories need extra care.</strong> Agent changes pushed to a shared branch affect everyone. Local undo does not reverse a remote push.</li>
+                    <li><strong>Local git is not a backup.</strong> Git protects against bad edits, not hardware failure. If your laptop dies, your <code>.git</code> directory dies with it. For real backup, push to a private GitHub/GitLab repository or use your institution's backup infrastructure.</li>
+                    <li><strong>Data leaves your machine.</strong> Claude Code sends file contents to Anthropic's servers. <strong>Do not use with</strong>: patient/health data (HIPAA), student records (FERPA), export-controlled material (ITAR/EAR), data under NDA, or grant-confidential material. Review <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">Anthropic's privacy policy</a> and your institution's acceptable-use policy. If in doubt, check with your research compliance office (often called the IRB or Office of Research). See our <a href="privacy.html">Privacy &amp; GDPR guide</a>.</li>
                 </ul>
             </div>
             <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <!-- Section: What Git Does -->
+        <!-- What Git Does -->
         <section class="docs-section" id="what-git-does">
             <h2>What Git Does (30-Second Version)</h2>
-            <p>Git takes <strong>snapshots</strong> of your project. Each snapshot (called a <strong>commit</strong>) records the exact state of every file at that moment. Files included in a snapshot are called <strong>tracked</strong>. New files the agent creates are <strong>untracked</strong> until you include them in a snapshot &mdash; undoing changes does not remove untracked files.</p>
+            <p>Git takes <strong>snapshots</strong> of your project. Each snapshot (called a <strong>commit</strong>) records the exact state of every file. Files in a snapshot are <strong>tracked</strong>; new agent-created files are <strong>untracked</strong> until you include them &mdash; undo does not remove untracked files.</p>
             <p>You can:</p>
             <ul>
                 <li><strong>Compare</strong> any two snapshots to see what changed.</li>
@@ -269,247 +149,277 @@
             <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <!-- Section: Before You Start -->
+        <!-- Before You Start -->
         <section class="docs-section" id="before-you-start">
             <h2>Before You Start</h2>
-            <p>Two things must be true before the commands below will work.</p>
+            <p>Three things must be true before the commands below will work.</p>
 
             <h3>1. Git must be installed</h3>
             <p>Open your terminal:</p>
             <ul>
-                <li><strong>macOS</strong>: Press Cmd+Space, type "Terminal", press Enter.</li>
-                <li><strong>Windows</strong>: Search for "Git Bash" in the Start menu (installed with git). If you don't have it, install git first.</li>
+                <li><strong>macOS</strong>: Press Cmd+Space, type "Terminal", press Enter. On first run, macOS may show a popup asking to install "Command Line Developer Tools" &mdash; click "Install" and wait. This is normal.</li>
+                <li><strong>Windows</strong>: Open <strong>PowerShell</strong> (search in Start menu) to check if git is installed. If it isn't, install from <a href="https://git-scm.com/downloads" target="_blank" rel="noopener">git-scm.com</a>, which also installs <strong>Git Bash</strong>. After installation, use Git Bash for all commands in this guide.</li>
                 <li><strong>Linux</strong>: Open your distribution's terminal application.</li>
             </ul>
-            <p>Type this and press Enter:</p>
             <div class="code-block"><code>git --version</code></div>
-            <p>If you see a version number (e.g., <code>git version 2.39.0</code>), you're ready. If you see an error, install git from <a href="https://git-scm.com/downloads" target="_blank" rel="noopener">git-scm.com/downloads</a>, restart your terminal, and try again.</p>
+            <p>If you see a version number (e.g., <code>git version 2.39.0</code>), you're ready. If you see <code>command not found</code> or <code>'git' is not recognized</code>, install from <a href="https://git-scm.com/downloads" target="_blank" rel="noopener">git-scm.com</a>, restart your terminal, and try again.</p>
 
-            <h3>2. You need to know where your project folder is</h3>
-            <p>You'll need the <strong>path</strong> &mdash; the address of your folder on disk:</p>
+            <h3>2. You need your project folder's path</h3>
+            <p>The <strong>path</strong> is the address of your folder on disk (e.g., <code>/Users/jane/Documents/thesis</code> on macOS, <code>C:\Users\jane\Documents\thesis</code> on Windows):</p>
             <ul>
-                <li><strong>macOS</strong>: Drag your project folder from Finder into the Terminal window. The path appears automatically.</li>
-                <li><strong>Windows</strong>: Right-click the folder in File Explorer and choose "Copy as path."</li>
-                <li><strong>Linux</strong>: Right-click the folder in your file manager and look for "Copy path."</li>
+                <li><strong>macOS</strong>: Drag your project folder from Finder into the Terminal window.</li>
+                <li><strong>Windows</strong>: Right-click the folder in File Explorer &rarr; "Copy as path."</li>
+                <li><strong>Linux</strong>: Right-click in file manager &rarr; "Copy path."</li>
             </ul>
+
+            <h3>3. First-time git users: set your identity</h3>
+            <p>Git needs your name and email to label snapshots. This is stored locally &mdash; it does not create an account or send anything anywhere.</p>
+            <div class="code-block"><code>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"</code></div>
+            <p>Replace with your actual name and email. You only need to do this once, ever.</p>
+            <p><strong>Windows users only</strong> &mdash; also run this to prevent line-ending issues:</p>
+            <div class="code-block"><code>git config --global core.autocrlf true</code></div>
             <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <!-- Section: Setup -->
+        <div class="note-box" style="margin: 1.5rem 0;">
+            <strong>Recommended starter setup for the CLI route:</strong> Install <a href="https://code.visualstudio.com" target="_blank" rel="noopener">VS Code</a> and the <a href="https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code" target="_blank" rel="noopener">Claude Code extension</a>. VS Code gives you a built-in terminal, a visual git diff viewer (Source Control panel, Ctrl+Shift+G / Cmd+Shift+G), and a file explorer &mdash; all in one window. You can run every command in this guide from VS Code's integrated terminal while seeing changes highlighted in the editor. This is the lowest-friction way to start with both git and AI agents if you're new to the command line.
+        </div>
+
+        <!-- Setup -->
         <section class="docs-section" id="setup">
             <h2>Setup (One Time, 2 Minutes)</h2>
 
             <h3>Step 1: Create a .gitignore file</h3>
-            <p>This tells git which files to skip &mdash; large binaries, credentials, and generated output. The safest way to create it: open <strong>VS Code</strong>, press Ctrl+N (Windows/Linux) or Cmd+N (macOS) to create a new file, paste the contents below, then use "Save As" and type <code>.gitignore</code> exactly (including the dot) as the filename, saving it in your project folder.</p>
+            <p>This tells git which files to skip. Open <strong>VS Code</strong>, create a new file, paste the contents below, "Save As" with filename <code>.gitignore</code> (with the dot) in your project folder.</p>
             <div class="editor-warning">
-                <strong>Warning:</strong> If you use Notepad (Windows) or TextEdit (macOS) instead, they may silently append <code>.txt</code> to the filename, producing <code>.gitignore.txt</code> &mdash; which git ignores entirely. VS Code does not have this problem.
+                <strong>Warning:</strong> Notepad and TextEdit silently append <code>.txt</code>, producing <code>.gitignore.txt</code> which git ignores. VS Code doesn't have this problem. If you don't have it: <a href="https://code.visualstudio.com" target="_blank" rel="noopener">code.visualstudio.com</a>.
             </div>
             <div class="code-block"><code># Large files (model weights, datasets)
 *.pt
 *.pkl
 *.h5
 *.ckpt
+*.safetensors
+*.bin
+*.npy
+*.npz
 data/
 outputs/
 wandb/
+checkpoints/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
 
 # Secrets and credentials
 .env
 .env.*</code></div>
-            <p>After saving, verify it worked by running this in your terminal (Windows users: run this in Git Bash, not PowerShell or Command Prompt):</p>
+            <p>Verify (Windows: use Git Bash):</p>
             <div class="code-block"><code>ls -a</code></div>
-            <p>You should see <code>.gitignore</code> in the output. (<code>ls -a</code> lists all files, including hidden ones that start with a dot.)</p>
+            <p>You should see <code>.gitignore</code> in the output.</p>
 
             <h3>Step 2: Initialize git and take your first snapshot</h3>
-            <p><code>cd</code> means "change directory" &mdash; it tells the terminal which folder to work in. Replace the example path with your actual project path. (<code>~</code> is shorthand for your home folder, so <code>~/Documents</code> is the same as <code>/Users/yourname/Documents</code> on macOS.)</p>
+            <p><code>cd</code> means "change directory." Replace the path with yours. (<code>~</code> = your home folder.) If your folder name has spaces, wrap in quotes: <code>cd "~/Documents/my thesis"</code>.</p>
             <div class="code-block"><code>cd ~/Documents/my-paper
 git init
 git add -A
 git commit -m "Initial snapshot before using AI agents"</code></div>
-            <p>What each line does:</p>
-            <ol>
-                <li><code>cd ~/Documents/my-paper</code> &mdash; navigates to your project folder. Replace with your actual path (see above).</li>
-                <li><code>git init</code> &mdash; tells git to start tracking this folder. A hidden <code>.git</code> folder is created inside your project. You won't see it in your file manager &mdash; that's normal and intentional. Verify it exists by running <code>ls -a</code> and looking for <code>.git</code> in the output.</li>
-                <li><code>git add -A</code> &mdash; selects all files (except those in <code>.gitignore</code>) for the snapshot.</li>
-                <li><code>git commit -m "..."</code> &mdash; saves the snapshot with a label you choose.</li>
-            </ol>
-            <p>If any command shows an error starting with <code>error:</code> or <code>fatal:</code>, check that git is installed (<code>git --version</code>) and that you're in the right folder.</p>
+            <div class="note-box">
+                <strong>After <code>cd</code>, verify</strong> with <code>pwd</code> &mdash; it should show your project folder, not your home directory. If you see "Reinitialized existing Git repository," your project already had git &mdash; that's fine.
+            </div>
+            <p>If you see a <code>fatal:</code> error, common causes: (a) git not installed, (b) wrong folder (<code>pwd</code> to check), (c) identity not set &mdash; see step 3 above (look for "Author identity unknown").</p>
             <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <!-- Section: Two Commands -->
+        <!-- Two Commands -->
         <section class="docs-section" id="two-commands">
             <h2>The Two Commands That Matter</h2>
 
             <h3>Before an agent session: save a snapshot</h3>
             <div class="code-block"><code>git add -A && git commit -m "Snapshot before agent session"</code></div>
-            <p>(<code>&&</code> runs the second command only if the first succeeds. You can also type them as two separate commands, one at a time.)</p>
-            <p>Before committing, scan for surprises with <code>git status</code> &mdash; agents occasionally create configuration or credential files. Verify nothing sensitive is listed before proceeding.</p>
-            <p>This records the current state. If the agent makes unwanted changes, you can always get back here.</p>
+            <p>(<code>&&</code> runs the second command only if the first succeeds. You can also type them separately.)</p>
+            <p>Before committing, scan with <code>git status</code> &mdash; agents occasionally create config or credential files.</p>
 
             <h3>After an agent session: review what changed</h3>
             <div class="code-block"><code>git diff HEAD</code></div>
-            <p>This shows every line the agent added, removed, or modified in your working tree since your last snapshot. In the output, lines starting with <code>+</code> were added and lines starting with <code>-</code> were removed. Use the arrow keys or spacebar to scroll. Press <code>q</code> to exit the diff view.</p>
-            <p>Read through it. If the changes look good, save a new snapshot:</p>
-            <div class="code-block"><code>git add -A && git commit -m "Agent session: revised introduction"</code></div>
-            <p>If the changes look bad, undo everything:</p>
+            <p>Lines starting with <code>+</code> were added; <code>-</code> were removed. If output fills your terminal, scroll with arrow keys and press <code>q</code> to exit. For short diffs, output appears directly.</p>
+            <p>If changes look good:</p>
+            <div class="code-block"><code>git status                    # review which files will be included
+git add -A && git commit -m "Agent session: revised introduction"</code></div>
+            <p>If changes look bad:</p>
             <div class="code-block"><code>git restore .</code></div>
-            <p>This restores every <strong>tracked</strong> file to the last snapshot. Files the agent <em>created</em> (that were never in a snapshot) remain &mdash; remove them manually or run <code>git clean -fd</code> (which permanently deletes all untracked files &mdash; cannot be undone).</p>
+            <p>Restores every <strong>tracked</strong> file (the <code>.</code> means "all files"). Agent-created files remain &mdash; remove with <code>git clean -fd</code> (permanently deletes untracked files not in <code>.gitignore</code>).</p>
+            <div class="note-box">
+                <strong>If you ran <code>git add</code> before restoring:</strong> <code>git restore .</code> alone may not fully undo. Use: <code>git restore --staged . && git restore .</code>
+            </div>
+
+            <h3>Partial undo: keep some changes, discard others</h3>
+            <div class="code-block"><code>git restore paper/bad-section.tex                # discard one file
+git add paper/good-section.tex paper/methods.tex # stage only the good files
+git commit -m "Kept methods rewrite, discarded bad section"</code></div>
             <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <!-- Section: When to Snapshot -->
+        <!-- When to Snapshot -->
         <section class="docs-section" id="when-to-snapshot">
             <h2>When to Snapshot</h2>
             <table>
-                <thead>
-                    <tr><th>Moment</th><th>Why</th></tr>
-                </thead>
+                <thead><tr><th>Moment</th><th>Why</th></tr></thead>
                 <tbody>
-                    <tr>
-                        <td>Before starting Claude Code</td>
-                        <td>Creates a restore point</td>
-                    </tr>
-                    <tr>
-                        <td>After reviewing good changes</td>
-                        <td>Locks in the progress</td>
-                    </tr>
-                    <tr>
-                        <td>Before risky instructions ("refactor", "rewrite", "clean up")</td>
-                        <td>Extra safety for broad edits</td>
-                    </tr>
-                    <tr>
-                        <td>At the end of a work session</td>
-                        <td>Checkpoint before you step away</td>
-                    </tr>
+                    <tr><td>Before starting Claude Code</td><td>Creates a restore point</td></tr>
+                    <tr><td>After reviewing good changes</td><td>Locks in progress</td></tr>
+                    <tr><td>Before risky instructions</td><td>Extra safety for broad edits</td></tr>
+                    <tr><td>End of a work session</td><td>Checkpoint before stepping away</td></tr>
                 </tbody>
             </table>
-            <p>The cost of snapshotting is near zero (one command, under a second). The cost of <em>not</em> snapshotting is potentially hours of lost work.</p>
+            <p>Cost of snapshotting: near zero (one command, under a second). Cost of <em>not</em> snapshotting: potentially hours of lost work.</p>
             <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <!-- Section: Recovery -->
+        <!-- Recovery -->
         <section class="docs-section" id="recovery">
             <h2>Recovering from Bad Agent Edits</h2>
 
-            <h3>Undo all changes since last snapshot</h3>
+            <h3>Undo all changes</h3>
             <div class="code-block"><code>git restore .</code></div>
-            <p>(Tracked files only. To also remove new files the agent created: <code>git clean -fd</code> &mdash; this permanently deletes all untracked files and cannot be undone.)</p>
+            <p>(Tracked files only. <code>git clean -fd</code> removes agent-created files &mdash; permanently. Files in <code>.gitignore</code> like <code>outputs/</code> are not removed.)</p>
 
-            <h3>Undo changes to one specific file</h3>
+            <h3>Undo one file</h3>
             <div class="code-block"><code>git restore paper/introduction.tex</code></div>
 
-            <h3>See what the agent changed</h3>
-            <div class="code-block"><code>git diff HEAD                # Everything changed since last snapshot
-git log --oneline -10        # Last 10 snapshots (change the number to see more)</code></div>
+            <h3>See what changed</h3>
+            <div class="code-block"><code>git diff HEAD                        # All changes since last snapshot
+git log --oneline -10                # Last 10 snapshots
+git log --oneline -- paper/intro.tex # History of one file</code></div>
 
             <h3>Go back to a specific snapshot</h3>
-            <p><code>git log --oneline</code> shows output like:</p>
+            <p><code>git log --oneline</code> output:</p>
             <div class="code-block"><code>3f2a9c1 Before agent: rewrite methods section
 a7d3e02 Agent session: revised introduction
-e5b1f83 Initial snapshot before using AI agents</code></div>
-            <p>The 7-character code at the start is the snapshot ID. Use it to restore:</p>
+e5b1f83 Initial snapshot</code></div>
+            <p>The 7-character code is the snapshot ID:</p>
             <div class="code-block"><code>git restore --source=3f2a9c1 .</code></div>
-            <p>This updates your working files to match that snapshot. Your commit history is unchanged &mdash; older commits remain visible in <code>git log</code>. After running this, run <code>git add -A && git commit -m "Restored to pre-agent state"</code> to record the rollback as a new snapshot.</p>
-            <a href="#" class="back-to-top">&#8593; Back to top</a>
-        </section>
-
-        <!-- Section: Mental Model -->
-        <section class="docs-section" id="mental-model">
-            <h2>Making Mistakes Cheap to Fix</h2>
-            <p>Git doesn't prevent agents from making mistakes &mdash; it makes those mistakes <strong>cheap to fix</strong>.</p>
-            <ol class="mental-model">
-                <li><strong>Snapshot before, review after.</strong> This is the entire workflow. Everything else is optional.</li>
-                <li><strong>Small snapshots beat big ones.</strong> If you snapshot every 15 minutes, the most you can lose is 15 minutes of work. If you snapshot once a day, you could lose an entire day.</li>
-                <li><strong>Commit messages are your memory.</strong> Write what you're about to ask the agent to do: <code>"Before agent: rewrite methods section"</code>. When something goes wrong, you'll know exactly which snapshot to return to.</li>
-                <li><strong><code>git diff HEAD</code> is your review tool.</strong> Agents can change 50 files at once. Scrolling through terminal output isn't enough. <code>git diff HEAD</code> gives you a structured, line-by-line account of every change.</li>
-            </ol>
-            <a href="#" class="back-to-top">&#8593; Back to top</a>
-        </section>
-
-        <!-- Section: What You Can Safely Ignore -->
-        <section class="docs-section" id="ignore-list">
-            <h2>What You Can Safely Ignore (For Now)</h2>
-            <p>Git has hundreds of commands and concepts. For backup purposes with a <strong>solo, local</strong> project, you need exactly these:</p>
-            <table>
-                <thead>
-                    <tr><th>Command</th><th>What it does</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><code>git init</code></td><td>One-time setup</td></tr>
-                    <tr><td><code>git add -A</code></td><td>Select all changes for snapshot</td></tr>
-                    <tr><td><code>git commit -m "message"</code></td><td>Take a snapshot</td></tr>
-                    <tr><td><code>git diff HEAD</code></td><td>See what changed since last snapshot</td></tr>
-                    <tr><td><code>git restore .</code></td><td>Undo all changes since last snapshot</td></tr>
-                    <tr><td><code>git log --oneline</code></td><td>List your snapshots</td></tr>
-                </tbody>
-            </table>
-            <p>If you work in a <strong>shared repository</strong> with collaborators (e.g., a paper repo on GitHub), you will also need <code>git push</code>, <code>git pull</code>, and branches. The key rule: <strong>never push agent-generated changes to a shared branch without reviewing them first.</strong> Create a personal branch (see <a href="#branches">Branches for Risky Experiments</a> below &mdash; ignore the "skip this" note if you are on a shared repository), review with <code>git diff HEAD</code>, and coordinate with collaborators before merging.</p>
-            <a href="#" class="back-to-top">&#8593; Back to top</a>
-        </section>
-
-        <!-- Section: Branches (Advanced) -->
-        <section class="docs-section" id="branches">
-            <h2>Advanced: Branches for Risky Experiments</h2>
-            <div class="advanced-gate">Skip this until you are comfortable with the six commands above &mdash; unless you work on a shared repository, in which case read this now.</div>
-            <p>If you want to try a risky agent instruction without touching your main work, create a separate branch &mdash; an independent copy of your project:</p>
-            <div class="code-block"><code>git switch -c experiment-rewrite     # Create a separate branch
-# ... run the agent ...
-git switch main                      # Switch back to your safe version
-git branch -D experiment-rewrite     # Delete the experiment if it failed</code></div>
-            <p><code>-D</code> force-deletes the branch even if you haven't merged it. Use it when you're sure the experiment failed. Use <code>-d</code> (lowercase) for a safer delete that warns you if you have unmerged work.</p>
-            <p>Note: your default branch may be called <code>main</code> or <code>master</code> depending on your git version. Check with <code>git branch</code> &mdash; the one marked with <code>*</code> is your current branch.</p>
-            <a href="#" class="back-to-top">&#8593; Back to top</a>
-        </section>
-
-        <!-- Section: Quick Reference Card -->
-        <section class="docs-section" id="refcard">
-            <h2>Quick Reference Card</h2>
-            <div class="refcard">
-                <h3>Copy this and keep it next to your terminal</h3>
-                <div class="code-block"><code>BEFORE agent session:     git add -A && git commit -m "Before: [what you plan to do]"
-AFTER agent session:      git diff HEAD
-KEEP changes:             git add -A && git commit -m "After: [what the agent did]"
-UNDO all changes:         git restore .                       # if nothing is staged
-UNDO + remove new files:  git restore . && git clean -fd      # irreversible
-UNDO one file:            git restore paper/introduction.tex</code></div>
+            <p>Updates working files to match that snapshot. History unchanged. Run <code>git add -A && git commit -m "Restored to pre-agent state"</code> to record the rollback.</p>
+            <div class="note-box">
+                Use <code>git restore --source=</code>, not <code>git checkout &lt;hash&gt;</code>. The latter creates "detached HEAD" state where snapshots can be silently lost.
             </div>
             <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <!-- Section: Already Use Git -->
+        <!-- Mental Model -->
+        <section class="docs-section" id="mental-model">
+            <h2>Making Mistakes Cheap to Fix</h2>
+            <ol class="mental-model">
+                <li><strong>Snapshot before, review after.</strong> This is the entire workflow.</li>
+                <li><strong>Small snapshots beat big ones.</strong> Every 15 min = most you lose is 15 min.</li>
+                <li><strong>Commit messages are your memory.</strong> Write what you're about to ask the agent.</li>
+                <li><strong><code>git diff HEAD</code> is your review tool.</strong> Line-by-line account of every change.</li>
+            </ol>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
+        </section>
+
+        <!-- Safely Ignore -->
+        <section class="docs-section" id="ignore-list">
+            <h2>What You Can Safely Ignore (For Now)</h2>
+            <p>For a <strong>solo, local</strong> project, you need exactly these:</p>
+            <table>
+                <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+                <tbody>
+                    <tr><td><code>git init</code></td><td>One-time setup</td></tr>
+                    <tr><td><code>git add -A</code></td><td>Select all changes</td></tr>
+                    <tr><td><code>git commit -m "msg"</code></td><td>Take a snapshot</td></tr>
+                    <tr><td><code>git diff HEAD</code></td><td>See what changed</td></tr>
+                    <tr><td><code>git restore .</code></td><td>Undo all changes</td></tr>
+                    <tr><td><code>git log --oneline</code></td><td>List snapshots</td></tr>
+                </tbody>
+            </table>
+            <p>For <strong>shared repositories</strong>, you'll also need <code>git push</code>, <code>git pull</code>, and branches. Key rule: <strong>never push agent changes to a shared branch without reviewing.</strong> See <a href="#branches">Branches</a> below.</p>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
+        </section>
+
+        <!-- Branches -->
+        <section class="docs-section" id="branches">
+            <h2>Advanced: Branches for Risky Experiments</h2>
+            <div class="advanced-gate">Skip until comfortable with the six commands above &mdash; unless on a shared repository.</div>
+            <div class="code-block"><code>git switch -c experiment-rewrite     # Create a branch
+# ... run the agent ...
+git switch main                      # Switch back
+git branch -D experiment-rewrite     # Delete if failed</code></div>
+            <p>If the experiment <strong>succeeded</strong>, merge instead:</p>
+            <div class="code-block"><code>git switch main
+git merge experiment-rewrite
+git branch -d experiment-rewrite</code></div>
+            <p>Merge conflict? Open conflicted files, find <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> / <code>=======</code> / <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> markers, keep the version you want, remove markers, then <code>git add -A && git commit</code>.</p>
+            <p><code>-D</code> force-deletes; <code>-d</code> warns about unmerged work. Default branch may be <code>main</code> or <code>master</code> &mdash; check with <code>git branch</code>.</p>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
+        </section>
+
+        <!-- Quick Reference -->
+        <section class="docs-section" id="refcard">
+            <h2>Quick Reference Card</h2>
+            <div class="refcard">
+                <h3>Copy this and keep it next to your terminal</h3>
+                <div class="code-block"><code>BEFORE agent session:     git add -A && git commit -m "Before: [task]"
+AFTER agent session:      git diff HEAD
+KEEP changes:             git status  then  git add -A && git commit -m "After: [task]"
+UNDO all changes:         git restore .
+UNDO (if you ran add):    git restore --staged . && git restore .
+UNDO + remove new files:  git restore . && git clean -fd      # irreversible
+UNDO one file:            git restore paper/introduction.tex
+KEEP some, discard rest:  git restore bad-file  then  git add good-files && git commit</code></div>
+            </div>
+            <a href="#" class="back-to-top">&#8593; Back to top</a>
+        </section>
+
+        <!-- Already Use Git -->
         <section class="docs-section" id="already-use-git">
             <h2>If You Already Use Git</h2>
-            <p>You already have the safety net. Agent-specific recommendations:</p>
             <ul>
-                <li><strong>Commit more frequently.</strong> Agents make more changes per unit time than humans. A commit per logical agent task is a reasonable cadence.</li>
-                <li><strong>Claude Code writes to your working tree by default.</strong> It does not stage, commit, or push unless you instruct it to &mdash; but it can execute shell commands, so a sufficiently broad instruction (e.g., "save and sync your changes") could trigger a push. If your lab uses shared repositories, establish an explicit rule: no <code>git push</code> during agent sessions.</li>
-                <li><strong>Stash or commit before starting.</strong> If you have staged but uncommitted changes, the agent can overwrite those files. Run <code>git stash --include-untracked</code> (to set aside all work including new files) or <code>git add -A && git commit</code> (to record the current state as a snapshot) before starting a session.</li>
-                <li><strong>Pre-commit hooks run normally.</strong> When you commit after a session, your hooks fire as usual &mdash; the agent does not bypass them.</li>
-                <li><strong>Use <code>git switch -c experiment/&lt;task&gt;</code> for risky instructions.</strong> Keeps your main branch clean regardless of outcome.</li>
-                <li><strong><code>git reflog</code> is your last resort.</strong> If you accidentally reset or delete commits, <code>git reflog</code> shows recent HEAD positions and lets you recover.</li>
+                <li><strong>Commit more frequently.</strong> One commit per logical agent task.</li>
+                <li><strong>Claude Code writes to your working tree by default.</strong> It won't stage/commit/push unless instructed &mdash; but shell commands from broad instructions could trigger a push. Rule: no <code>git push</code> during agent sessions.</li>
+                <li><strong>Stash or commit before starting.</strong> <code>git stash --include-untracked</code> or <code>git add -A && git commit</code>.</li>
+                <li><strong>Pre-commit hooks run normally.</strong> If hooks block a backup commit, use <code>git commit --no-verify -m "snapshot"</code> temporarily.</li>
+                <li><strong><code>git switch -c experiment/&lt;task&gt;</code></strong> for risky instructions.</li>
+                <li><strong><code>git reflog</code></strong> recovers accidentally reset or deleted commits.</li>
             </ul>
             <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
 
-        <!-- Section: FAQ -->
+        <!-- FAQ -->
         <section class="docs-section" id="faq">
             <h2>FAQ</h2>
 
             <h3>Will git slow down my workflow?</h3>
-            <p>No. A commit takes under a second. Reviewing a diff takes 30 seconds. Compared to the hours you could lose from an unrecoverable agent edit, this is negligible.</p>
+            <p>No. A commit takes under a second for text-file projects. Diff review gets faster with practice.</p>
 
-            <h3>What about large files (datasets, models)?</h3>
-            <p>The <code>.gitignore</code> file created during setup excludes them. Git works best with text files (<code>.tex</code>, <code>.py</code>, <code>.md</code>). Large binary files like model weights or datasets should always be in <code>.gitignore</code>.</p>
+            <h3>What about large files?</h3>
+            <p>The <code>.gitignore</code> excludes common ones. For versioning large files, see <a href="https://git-lfs.com" target="_blank" rel="noopener">Git LFS</a>.</p>
 
-            <h3>What if I forget to snapshot and the agent wrecks my files?</h3>
-            <p>If the files were never committed, git cannot recover them. This is why the pre-session snapshot habit matters. As a last resort: VS Code and PyCharm maintain local file history independently &mdash; check there. On macOS, Time Machine may also have a recent backup.</p>
+            <h3>What if I forget to snapshot?</h3>
+            <p>Git cannot recover uncommitted files. VS Code and PyCharm maintain local history &mdash; check there. macOS Time Machine may also help.</p>
 
             <h3>My lab uses Overleaf. Does this apply?</h3>
-            <p>Overleaf has its own version history (History tab in the editor). If you don't use Overleaf's git sync feature, this guide does not apply directly &mdash; use Overleaf's built-in history instead. If you do use git sync, the same snapshot workflow works.</p>
+            <p>Overleaf has its own history (History tab). For the best of both worlds, <strong>sync Overleaf with a GitHub repository</strong> &mdash; this is the recommended setup for paper writing. You get Overleaf's real-time collaboration plus git's full version control and off-machine backup. The sync is manual push/pull (not automatic) and requires an Overleaf paid or institutional plan. See <a href="https://www.overleaf.com/learn/how-to/GitHub_Synchronization" target="_blank" rel="noopener">Overleaf's GitHub sync documentation</a>. If your institution provides Overleaf (many do), this feature is likely already available.</p>
+            <p>To use Claude Code on a local copy: clone via Overleaf's git URL (Menu &gt; Git) or from the linked GitHub repo, then apply this guide. Push changes back when done.</p>
 
-            <h3>Can an agent push changes to my GitHub repo?</h3>
-            <p>Not unless you instruct it to. Claude Code does not push automatically. However, broadly worded instructions could trigger a push via shell commands, so be specific in your prompts. Always review changes locally with <code>git diff HEAD</code> before pushing to a shared remote.</p>
+            <h3>Can an agent push to GitHub?</h3>
+            <p>Not unless you instruct it to. Be specific in prompts. Always <code>git diff HEAD</code> before pushing.</p>
+
+            <h3>Should I also push to GitHub for backup?</h3>
+            <p>Yes, strongly recommended. Local git protects against bad edits but not hardware failure. A private GitHub repository gives off-machine backup, collaboration tools, and a paper trail. Students and academics get <strong>free GitHub Pro</strong> (unlimited private repos) and <strong>free GitHub Copilot</strong> through the <a href="https://education.github.com/pack" target="_blank" rel="noopener">GitHub Education Student Developer Pack</a>. Verified teachers get <a href="https://docs.github.com/en/copilot/managing-copilot/managing-copilot-as-an-individual-subscriber/getting-free-access-to-copilot-as-a-student-teacher-or-maintainer" target="_blank" rel="noopener">free Copilot Pro</a>.</p>
+            <div class="code-block"><code>git remote add origin https://github.com/yourname/your-repo.git
+git push -u origin main</code></div>
+            <p>After the initial setup, run <code>git push</code> after commits you want backed up.</p>
             <a href="#" class="back-to-top">&#8593; Back to top</a>
         </section>
     </main>
