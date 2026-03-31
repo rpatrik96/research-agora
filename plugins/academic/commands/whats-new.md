@@ -5,7 +5,8 @@ description: |
   since a given date or reference point.
   Use when asked "what's new", "what changed since I last used this", "what's been added",
   "catch me up", "what skills are new", "what changed last month", "any updates",
-  "what did I miss", "has anything changed since [date]", or "what's different".
+  "what did I miss", "has anything changed since [date]", "what's different",
+  "changelog", "view changelog", or "bring me up to speed".
   Reads CHANGELOG.md and git log to produce a researcher-friendly summary with
   "try these new skills" recommendations.
 model: sonnet
