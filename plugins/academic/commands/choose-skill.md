@@ -57,9 +57,9 @@ Use this mapping to identify candidate skills. Match on task type first, then re
 | Write or diagnose an abstract | `/paper-abstract` | User mentions "abstract", "summary of contribution" |
 | Draft or restructure an introduction | `/paper-introduction` | "intro", "introduction", "motivation section" |
 | Write a discussion or conclusion | `/paper-discussion` | "discussion", "conclusion", "implications" |
-| Edit for clarity, concision, flow | `/paper-review` | "editing", "proofreading", "improve prose", "wordsmithing" |
-| Write a literature review section | `/paper-literature` | "related work", "position the paper", "literature review section" |
-| Write a rebuttal response | `/paper-rebuttal` | "rebuttal", "reviewer response", "camera-ready" |
+| Edit for clarity, concision, flow | `/editorial-brain` | "editing", "proofreading", "improve prose", "wordsmithing" |
+| Write a literature review section | `/literature-synthesizer` | "related work", "position the paper", "literature review section" |
+| Write a rebuttal response | `/review-prompt` | "rebuttal", "reviewer response", "camera-ready" |
 
 ### Literature & References
 
@@ -87,7 +87,7 @@ Use this mapping to identify candidate skills. Match on task type first, then re
 |------|-------|-------------------|
 | Get skeptical reviewer feedback | `/paper-review` | "reviewer feedback", "review my paper", "what's wrong with my paper", "simulate reviewer" |
 | Check statistical claims | `/statistical-validator` | "p-values", "confidence intervals", "statistics", "significance" |
-| Find weak evidence in claims | `/evidence-checker` | "evidence quality", "unsupported claims", "citation needed", "fact-check" |
+| Find weak evidence in claims | `/claim-auditor` | "evidence quality", "unsupported claims", "citation needed", "fact-check" |
 
 ### Dissemination & Communication
 
@@ -97,7 +97,7 @@ Use this mapping to identify candidate skills. Match on task type first, then re
 | Create a poster | `/paper-poster` | "poster", "conference poster", "A0", "A1" |
 | Write a Twitter thread | `/paper-twitter` | "Twitter thread", "announce paper", "social media" |
 | Generate a TikZ figure | `/tikz-figures` | "TikZ", "diagram", "figure", "LaTeX figure" |
-| Create publication-ready figures | `/publication-figures` | "matplotlib", "plot", "figure", "visualization", "chart" |
+| Create publication-ready figures | `/figure-storyteller` | "matplotlib", "plot", "figure", "visualization", "chart" |
 | Make a science animation | `/science-gif` | "animation", "GIF", "animated figure", "method visualization" |
 
 ### Administration & Teaching

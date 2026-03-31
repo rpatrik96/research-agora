@@ -1,7 +1,7 @@
 {
   "name": "academic",
   "description": "Academic paper writing skills for ML conferences (NeurIPS, ICML, ICLR, AAAI)",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
     "name": "rpatrik96",
     "email": "rpatrik96@gmail.com"
