@@ -1,6 +1,6 @@
 # Research Agora Launch Thread (X.com)
 
-**Strategy:** 8 posts. Start a conversation about what AI-assisted research actually needs — frame through three unsolved problems (discoverability, verification, benchmarking), use bibtexupdater as the origin story that revealed the pattern, then reveal the platform. Discussion-first, tool second. Each post under 280 chars. Pin thread after posting.
+**Strategy:** 9 posts. Start a conversation about what AI-assisted research actually needs — frame through three unsolved problems (discoverability, verification, benchmarking), use bibtexupdater + HALLMARK as the origin story showing coevolution, then reveal the platform. Science at large, not just ML. Discussion-first, tool second. Each post under 280 chars. Pin thread after posting.
 
 ---
 
@@ -16,74 +16,77 @@ A thread. 🧵
 ## Post 2 (Problem 1 — Discoverability)
 Problem 1: Discoverability.
 
-There are thousands of AI prompts, agents, and workflows for research. You can't find them. There's no search, no taxonomy, no way to compare.
+There are probably thousands of AI prompts, agents, and workflows for research. You can't find them. There's no search, no taxonomy, no way to compare.
 
-We need a shared registry — categorized by research phase, task type, and domain — so the best tools surface, not just the loudest.
+We need a shared registry so the best tools actually surface, not just the loudest.
 
 ---
 
 ## Post 3 (Problem 2 — Verification)
 Problem 2: Verification.
 
-Most AI research tools have no way to tell you when they're wrong. They generate text that looks right. You trust it. Sometimes it isn't.
+Most AI research tools can't tell you when they're wrong. They generate text that looks right. You trust it. Sometimes it isn't.
 
-The fix isn't "don't use AI." It's defining what "correct" means *before* you delegate — acceptance criteria, not vibes.
+The fix isn't "don't use AI." It's defining "correct" before you delegate — acceptance criteria, not vibes.
 
 ---
 
 ## Post 4 (Problem 3 — Benchmarking)
 Problem 3: Benchmarking.
 
-If you can't measure a skill, you can't improve it. And right now, almost nobody ships benchmarks with their AI research tools.
+If you can't measure a skill, you can't improve it. Almost nobody ships benchmarks with their AI research tools.
 
-How good is your citation checker? Your paper reviewer? Without numbers, you're guessing. With numbers, you're engineering.
+Without numbers, you're guessing. With numbers, you're engineering — and building the trust we need to preserve.
 
 ---
 
 ## Post 5 (Origin story — bibtexupdater)
 This started with one tool.
 
-In January, I released bibtexupdater — a CLI that verifies BibTeX references against CrossRef, DBLP, Semantic Scholar, and arXiv. Upgrades preprints to published versions. Catches wrong authors, bad DOIs, missing fields.
-
-It solved verification for citations. But building it surfaced the bigger question: why isn't every AI research tool this verifiable?
+In January, I released bibtexupdater — verifies BibTeX references against CrossRef, DBLP, Semantic Scholar, arXiv. Catches wrong authors, bad DOIs, upgrades preprints to published versions.
 
 github.com/rpatrik96/bibtexupdater
 
 ---
 
-## Post 6 (The platform — generalizing the pattern)
-That question became a position paper for ICLR 2026 — and then a platform.
+## Post 6 (HALLMARK — coevolution)
+Weeks later, I had second thoughts: how well does bibtexupdater actually work?
 
-Research Agora: 61 open-source skills across 6 plugins. Paper writing, adversarial review, LaTeX diagnostics, 22 research agents, slides, posters.
+So we built HALLMARK — a citation hallucination benchmark. Born from honest doubt.
+
+The benchmark improved the tool. The tool sharpened the benchmark. They coevolve.
+
+---
+
+## Post 7 (The platform — generalizing the pattern)
+That pattern became a position paper for ICLR 2026 — and a platform.
+
+Research Agora: 61 open-source skills. Paper writing, adversarial review, LaTeX diagnostics, research agents, slides, posters.
 
 Built for Claude Code. Works with Cursor, Gemini CLI, Copilot. MIT license.
 
-[ATTACH: branding/spiral-pure-mark-dark.png — Archimedean spiral logo]
+---
+
+## Post 8 (How the three problems map to the tool)
+How the three problems map to Research Agora:
+
+Discoverability → searchable skill registry
+Verification → evidence hierarchy (L1–L6)
+Benchmarking → shipped benchmarks, run them yourself
+
+bibtexupdater + HALLMARK: the proof of concept — tool and benchmark coevolving in the open.
 
 ---
 
-## Post 7 (How the three problems map to the tool)
-How the three problems map to the platform:
+## Post 9 (CTA — join the conversation)
+No expertise needed. Run /onboard — it asks about your research and sets you up in 5 minutes.
 
-1. Discoverability → skills marketplace with searchable taxonomy (domain, phase, task type)
-2. Verification → evidence hierarchy (L1–L6) grading every claim from CODE_VERIFIED to ASSERTION
-3. Benchmarking → shipped benchmarks you can run yourself and compare against
-
-bibtexupdater is the proof of concept — script-verified, benchmarked, discoverable through the registry.
-
----
-
-## Post 8 (CTA — join the conversation)
-Get started in 5 minutes:
-
-1. /plugin marketplace add rpatrik96/research-agora
-2. Try /paper-review on any draft
-3. Browse the skill registry: rpatrik96.github.io/research-agora
-
+Install: /plugin marketplace add rpatrik96/research-agora
+Site: rpatrik96.github.io/research-agora
 Paper: [arXiv link]
 Code: github.com/rpatrik96/research-agora
 
-What's your biggest friction point in AI-assisted research? Curious what problems 4, 5, 6 are.
+What's your biggest friction in AI-assisted research?
 
 ---
 
@@ -93,13 +96,15 @@ AI skills for researchers, by researchers.
 ---
 
 ## Posting notes
-- Post 1 first, then reply to it with posts 2–8 as a thread
-- Attach spiral logo (`branding/spiral-pure-mark-dark.png`) to post 6 (the platform reveal)
-- Move site URL to bio to avoid reach penalty — keep only in post 8
+- Post 1 first, then reply to it with posts 2–9 as a thread
+- Attach spiral logo (`branding/spiral-pure-mark-dark.png`) to post 7 (the platform reveal)
+- Move site URL to bio to avoid reach penalty — keep only in post 9
 - Best posting times: Tue–Thu, 9–11am ET (ML Twitter peak)
 - Tag relevant people only if you have a relationship (avoid cold-tagging)
 - Free account: no edit button, double-check before posting
-- Fill [arXiv link] placeholder in Post 8 before posting
+- Fill [arXiv link] placeholder in Post 9 before posting
 - Twitter counts URLs as 23 chars regardless of actual length
-- Post 8 ends with a question to spark replies — this is intentional for engagement
+- Post 9 ends with a question to spark replies — this is intentional for engagement
 - bibtexupdater link in post 5 gives the thread a concrete, already-shipped artifact — establishes credibility before the bigger platform announcement
+- Thread targets science at large, not just ML/CS — language is deliberately domain-agnostic
+- /onboard in post 9 lowers the barrier: no expertise required, the skill figures out what you need
