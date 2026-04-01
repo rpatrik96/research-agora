@@ -2,6 +2,7 @@
 name: register-translator
 description: Translate writing between registers — paper to blog, blog to book chapter, academic to conversational. Use when asked to "convert this for blog", "make this more conversational", "translate register", "paper to blog", "blog to book", or "adapt for audience". Performs structural transformation, not just tone adjustment.
 model: opus
+disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: paper-writing

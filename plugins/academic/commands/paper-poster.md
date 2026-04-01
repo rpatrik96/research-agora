@@ -4,6 +4,7 @@ description: |
   Create academic conference posters from research papers. Use when asked to
   "create poster", "make poster", "turn paper into poster", "poster for conference".
 model: sonnet
+disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: dissemination

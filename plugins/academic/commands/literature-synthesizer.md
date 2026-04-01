@@ -7,6 +7,7 @@ description: |
   or "what papers should I cite". Supports both guided mode (provide papers to include) and
   autonomous mode (multi-query arXiv searches with paper approval workflow).
 model: sonnet
+disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: literature-review

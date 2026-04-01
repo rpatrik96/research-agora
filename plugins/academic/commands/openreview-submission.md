@@ -6,6 +6,7 @@ description: |
   "write TL;DR", "create lay summary", "submission form", or "camera-ready metadata".
   Produces copy-pasteable abstract, keywords, TL;DR, and lay summary.
 model: sonnet
+disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: paper-writing

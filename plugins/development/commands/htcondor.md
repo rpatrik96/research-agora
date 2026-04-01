@@ -6,6 +6,7 @@ description: |
   "htcondor setup", "cluster job", or "batch submission". Supports GPU/CPU jobs,
   parameter sweeps, multi-seed experiments, and ablation studies.
 model: sonnet
+disable-model-invocation: true
 allowed-tools: Read, Write, Bash(ls *), Glob, Grep
 metadata:
   research-domain: general

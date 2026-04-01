@@ -2,6 +2,7 @@
 name: review-triage
 description: Triage and prioritize revision work after receiving peer reviews. Decodes reviewer subtext and plans strategic responses. Use when asked to "triage reviews", "plan my revision", "revision strategy", "prioritize reviewer comments", "what should I fix first", "decode reviewer feedback", or "what do reviewers really mean". Step 1 of a 2-step pipeline (review-triage → reviewer-response-generator).
 model: sonnet
+disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: paper-writing

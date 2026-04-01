@@ -7,6 +7,7 @@ description: |
   "check my abstract", or "abstract feedback". Structures context, problem,
   approach, results, and impact.
 model: sonnet
+disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: paper-writing

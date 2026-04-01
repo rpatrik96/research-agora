@@ -2,6 +2,7 @@
 name: docx-create
 description: Create and edit Word documents using python-docx
 model: haiku
+disable-model-invocation: true
 version: 1.0.0
 triggers:
   - document

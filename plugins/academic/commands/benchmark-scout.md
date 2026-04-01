@@ -6,6 +6,7 @@ description: |
   "standard evaluation", "what to compare against", or "evaluation protocol".
   Searches arXiv for benchmark papers and extracts evaluation protocols.
 model: sonnet
+disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: literature-review

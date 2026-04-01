@@ -2,6 +2,7 @@
 name: argument-autopsy
 description: Visualize the logical skeleton of a paper's argument as a claim-evidence DAG. Use when asked to "map my argument", "does my logic hold", "argument structure", "find logical gaps", or "why doesn't my paper flow". Flags missing links, orphan claims, circular reasoning, and unsupported assertions.
 model: opus
+disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: paper-writing

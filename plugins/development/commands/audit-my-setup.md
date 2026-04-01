@@ -8,6 +8,7 @@ description: |
   "review my CLAUDE.md", "is my configuration good", or "help me level up my config".
   Produces a scored health report with specific, actionable recommendations.
 model: sonnet
+disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: implementation
