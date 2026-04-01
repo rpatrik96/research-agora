@@ -25,21 +25,35 @@ Think of yourself as a senior postdoc helping a new colleague get set up on day 
 
 ## Workflow
 
-1. **Interview**: Ask 5-7 focused questions (adapt based on answers)
-2. **Classify**: Determine the user's tier (0-3) from their responses
-3. **Generate**: Read `onboard-reference.md` (same directory as this file), then create a personalized `CLAUDE.md`
-4. **Recommend**: Suggest a 5-minute first win appropriate to their tier
-5. **Orient**: Point them to what's next
+> **2-turn max**: Ask all questions in turn 1. Generate ALL output in turn 2. Never exceed 2 turns.
 
-> **IMPORTANT — Lazy loading**: Phases 3-5 templates, examples, and skill recommendation tables are in `onboard-reference.md` in the same directory as this skill file. Use the Read tool to load that file ONLY when you reach Phase 3. Do NOT load it during the interview phases.
+1. **Interview** (turn 1): Ask all questions in a single message, or skip if returning user
+2. **Classify + Generate + Recommend + Orient** (turn 2): After receiving answers, do ALL of the following in a single response:
+   - Determine the user's tier (0-3)
+   - Read `../resources/onboard-reference.md` and generate a personalized `CLAUDE.md`
+   - Suggest a 5-minute first win
+   - Point them to what's next
+
+> **Lazy loading**: Templates and skill tables are in `../resources/onboard-reference.md`. Read it ONLY at the start of turn 2, not during the interview.
 
 ## Phase 1: The Interview
 
-Ask questions **one batch at a time**, not all at once. Start with the first batch. Based on answers, decide whether follow-ups from the second batch are needed.
+> **CRITICAL — Rate limit prevention**: This skill MUST complete in **2 turns max** (one question message, one output message). Multi-turn interviews re-send the full system context (~100K+ tokens) per round-trip, which triggers API rate limits. Ask ALL questions in a single message. NEVER split into multiple batches.
 
-### Batch 1: Who Are You? (Always ask)
+### Returning User Fast Path
 
-Present these together in a single message:
+Before asking questions, check for existing context:
+1. Read the project's `CLAUDE.md` (if it exists)
+2. Check the user's global `~/.claude/CLAUDE.md` for profile info
+3. Scan the project directory (look for `.tex`, `.py`, `.bib`, `.git/`)
+
+If you can determine their tier, domain, and task from existing context, **skip the interview entirely**. Confirm your inferences in one line and go straight to Phase 3:
+
+> "Based on your setup, you're an ML researcher comfortable with the CLI, using Python, LaTeX, and git. Let me generate your personalized recommendations. Correct me if I'm off."
+
+### New User: All Questions in One Message
+
+Present everything together in a **single message**:
 
 ---
 
@@ -69,24 +83,18 @@ Present these together in a single message:
 - (e) Admin, grant writing, email, teaching prep
 - (f) Something else: ___
 
+**5. A few more (answer any that apply):**
+- What programming languages do you use? (skip if you don't code)
+- What do you write in? (LaTeX, Overleaf, Word, Markdown)
+- Do you use a reference manager? (Zotero, Mendeley, BibTeX directly)
+- Is your project under version control (git)?
+- What would make this setup successful for you?
+
 ---
-
-### Batch 2: Context (Adapt based on Batch 1)
-
-After processing Batch 1 answers, ask 2-3 follow-ups selected from:
-
-- **If CLI comfort >= (c)**: "What programming languages do you use?"
-- **If AI usage >= (c)**: "What tools are in your current stack?"
-- **If task is literature review**: "Do you use a reference manager? (Zotero, Mendeley, BibTeX files directly)"
-- **If task is writing**: "What do you write in? (LaTeX, Overleaf, Word, Markdown)"
-- **If task is code**: "What does your typical project look like?"
-- **If CLI comfort >= (b)**: "Is your project under version control (git)?"
-- **Always ask**: "What would make this setup successful for you?"
 
 ### Interview Principles
 
-- **Don't interrogate.** React to answers naturally.
-- **Skip what you can infer.** If someone mentions Cursor and Claude Code, skip CLI comfort.
+- **Skip what you can infer.** If someone mentions Cursor and Claude Code, don't ask CLI comfort.
 - **Acknowledge expertise.** Power users get "let me focus on what the Agora adds."
 - **Read the room.** Terse answers get tight responses.
 
@@ -112,12 +120,12 @@ Heavy AI user. Wants orchestration, governance, or to contribute.
 
 ## Phases 3-5: Generate, Recommend, Orient
 
-> **READ the companion file now**: Use the Read tool to load `onboard-reference.md` from the same directory as this skill file. It contains:
+> **READ the companion file now**: Use the Read tool to load `onboard-reference.md`. It contains:
 > - Phase 3: CLAUDE.md template structure + skill recommendation tables by task
 > - Phase 4: 5-minute win examples for each tier
 > - Phase 5: What's Next guidance for each tier
 >
-> The file path is: `plugins/academic/commands/onboard-reference.md` (relative to repo root)
+> The file path is: `plugins/academic/resources/onboard-reference.md` (relative to repo root)
 
 ## Tone Guide
 
