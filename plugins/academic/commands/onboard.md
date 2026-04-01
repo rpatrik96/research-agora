@@ -7,6 +7,7 @@ description: |
   Interviews the user, determines their tier, generates a personalized CLAUDE.md,
   and recommends a 5-minute first win.
 model: sonnet
+disable-model-invocation: true
 metadata:
   research-domain: general
   task-type: automation
