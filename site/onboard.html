@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started — Research Agora</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="output/favicon-32.png">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://rpatrik96.github.io/research-agora/og-image.png">
+    <meta property="og:title" content="Get Started — Research Agora">
+    <meta property="og:description" content="Find your path into Research Agora in 2 minutes.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="description" content="Personalized onboarding for Research Agora — discover the right skills for your workflow.">
+    <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
+    <style>
+/* ── Reset & base ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --bg: #1a1a2e;
+    --bg-secondary: #16213e;
+    --bg-card: #1e2440;
+    --text: #e4e4e7;
+    --text-muted: #a1a1aa;
+    --border: #3f3f56;
+    --border-focus: #60a5fa;
+    --primary: #60a5fa;
+    --primary-light: #1e3a5f;
+    --primary-btn: #2563eb;
+    --primary-btn-hover: #1d4ed8;
+    --green: #22c55e;
+    --green-light: #14532d;
+    --yellow: #eab308;
+    --yellow-light: #422006;
+    --orange: #fb923c;
+    --orange-light: #431407;
+    --purple: #a78bfa;
+    --purple-light: #2e1065;
+    --radius: 10px;
+    --radius-sm: 6px;
+    --shadow: 0 2px 8px rgba(0,0,0,0.35);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+    --transition: 0.2s ease;
+}
+
+[data-theme="light"] {
+    --bg: #f4f5f8;
+    --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
+    --text: #1e2030;
+    --text-muted: #6b7280;
+    --border: #d1d5db;
+    --border-focus: #2563eb;
+    --primary: #2563eb;
+    --primary-light: #dbeafe;
+    --primary-btn: #2563eb;
+    --primary-btn-hover: #1d4ed8;
+    --green: #16a34a;
+    --green-light: #dcfce7;
+    --yellow: #ca8a04;
+    --yellow-light: #fef9c3;
+    --orange: #ea580c;
+    --orange-light: #fff7ed;
+    --purple: #7c3aed;
+    --purple-light: #ede9fe;
+    --shadow: 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding-top: 60px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+}
+
+/* ── Nav ───────────────────────────────────────────────────────── */
+.site-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 60px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-brand {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+}
+.nav-brand:hover { color: var(--primary); text-decoration: none; }
+
+.nav-logo-wrap {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    background: rgba(30,30,50,0.55);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+[data-theme="light"] .nav-logo-wrap { background: rgba(220,220,240,0.7); }
+.nav-logo { width: 28px; height: 28px; display: block; }
+
+.nav-links { display: flex; gap: 0.25rem; align-items: center; }
+
+.nav-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s;
+}
+.nav-link:hover { color: var(--text); background: var(--bg-secondary); text-decoration: none; }
+.nav-link.active { color: var(--primary); background: var(--primary-light); }
+
+.theme-toggle {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    margin-left: 0.5rem;
+    transition: background 0.2s, transform 0.2s;
+}
+.theme-toggle:hover { transform: scale(1.1); background: var(--border); }
+
+@media (max-width: 640px) {
+    .nav-links { gap: 0; }
+    .nav-link { font-size: 0.8rem; padding: 0.35rem 0.5rem; }
+}
+
+/* ── Page header ───────────────────────────────────────────────── */
+.page-header {
+    text-align: center;
+    padding: 3rem 0 2rem;
+}
+.page-header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+}
+.page-header p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+/* ── Progress bar ──────────────────────────────────────────────── */
+.progress-wrap {
+    margin: 0 0 2rem;
+}
+
+.progress-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.progress-bar-track {
+    height: 4px;
+    background: var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 999px;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.step-dots {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 0.75rem;
+}
+
+.step-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: background 0.3s, transform 0.2s;
+}
+.step-dot.done { background: var(--primary); opacity: 0.5; }
+.step-dot.active { background: var(--primary); transform: scale(1.4); }
+
+/* ── Question card ─────────────────────────────────────────────── */
+.wizard-stage {
+    position: relative;
+    min-height: 360px;
+}
+
+.question-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    opacity: 0;
+    transform: translateX(40px);
+    pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.question-card.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+    position: relative;
+}
+
+.question-card.exit-left {
+    opacity: 0;
+    transform: translateX(-40px);
+}
+
+.question-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--primary);
+    margin-bottom: 0.6rem;
+}
+
+.question-card h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+    line-height: 1.3;
+}
+
+.question-hint {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+/* Multiple choice options */
+.options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.option-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    width: 100%;
+    background: var(--bg-secondary);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.85rem 1rem;
+    cursor: pointer;
+    text-align: left;
+    color: var(--text);
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color 0.15s, background 0.15s, transform 0.1s;
+}
+
+.option-btn:hover {
+    border-color: var(--border-focus);
+    background: var(--primary-light);
+}
+
+.option-btn.selected {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.option-btn:active { transform: scale(0.99); }
+
+.option-key {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    color: var(--text-muted);
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.option-btn.selected .option-key {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+/* Text inputs */
+.text-input-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.text-input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: var(--bg-secondary);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.text-input:focus { border-color: var(--border-focus); }
+.text-input::placeholder { color: var(--text-muted); }
+
+.optional-tag {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Stack step — combined optional fields */
+.stack-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.stack-field label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 0.35rem;
+}
+
+.git-options {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.git-btn {
+    flex: 1;
+    padding: 0.65rem 0.5rem;
+    background: var(--bg-secondary);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: inherit;
+    color: var(--text);
+    text-align: center;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+.git-btn:hover { border-color: var(--border-focus); background: var(--primary-light); }
+.git-btn.selected { border-color: var(--primary); background: var(--primary-light); color: var(--primary); font-weight: 600; }
+
+/* ── Navigation buttons ────────────────────────────────────────── */
+.wizard-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    gap: 0.75rem;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.65rem 1.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+}
+
+.btn-primary {
+    background: var(--primary-btn);
+    color: white;
+}
+.btn-primary:hover { background: var(--primary-btn-hover); }
+.btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1.5px solid var(--border);
+}
+.btn-ghost:hover { border-color: var(--border-focus); color: var(--text); }
+
+.btn-sm {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.85rem;
+}
+
+.skip-link {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: inherit;
+    padding: 0.4rem;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: color 0.15s, text-decoration-color 0.15s;
+}
+.skip-link:hover { color: var(--text); text-decoration-color: currentColor; }
+
+/* ── Results page ──────────────────────────────────────────────── */
+#results-view {
+    display: none;
+    padding-bottom: 4rem;
+}
+
+.results-header {
+    text-align: center;
+    padding: 2.5rem 0 2rem;
+}
+
+.tier-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 1rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.9rem;
+}
+
+.tier-0 { background: var(--purple-light); color: var(--purple); }
+.tier-1 { background: var(--green-light); color: var(--green); }
+.tier-2 { background: var(--primary-light); color: var(--primary); }
+.tier-3 { background: var(--orange-light); color: var(--orange); }
+
+.results-header h2 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+}
+
+.results-header p {
+    color: var(--text-muted);
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+/* Result sections */
+.result-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+    box-shadow: var(--shadow);
+}
+
+.result-section-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.result-section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+/* Code block with copy */
+.code-block-wrap {
+    position: relative;
+}
+
+.code-block {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.1rem;
+    font-family: 'Monaco', 'Menlo', 'Cascadia Code', 'Consolas', monospace;
+    font-size: 0.82rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    white-space: pre;
+    color: var(--text);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.3rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-family: inherit;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.copy-btn:hover { background: var(--primary-light); border-color: var(--primary); color: var(--primary); }
+.copy-btn.copied { background: var(--green-light); border-color: var(--green); color: var(--green); }
+
+/* Skills table */
+.skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+}
+
+.skills-table th {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+}
+
+.skills-table td {
+    padding: 0.65rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+}
+
+.skills-table tr:last-child td { border-bottom: none; }
+.skills-table tr:hover td { background: var(--bg-secondary); }
+
+.skill-cmd {
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+    font-size: 0.8rem;
+    color: var(--primary);
+    background: var(--primary-light);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+/* Win block */
+.win-block {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--primary);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.1rem;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+    font-size: 0.82rem;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    color: var(--text);
+    margin-top: 0.5rem;
+}
+
+/* What's next list */
+.next-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 0.25rem;
+}
+
+.next-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.92rem;
+}
+
+.next-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px; height: 22px;
+    min-width: 22px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    color: var(--primary);
+    font-size: 0.7rem;
+    font-weight: 800;
+    margin-top: 0.15rem;
+}
+
+/* Results actions */
+.results-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+/* ── Footer ────────────────────────────────────────────────────── */
+footer {
+    text-align: center;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    margin-top: 3rem;
+}
+footer a { color: var(--primary); }
+
+/* ── Animations ────────────────────────────────────────────────── */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.45s ease both;
+}
+
+.fade-in-up:nth-child(1) { animation-delay: 0.05s; }
+.fade-in-up:nth-child(2) { animation-delay: 0.12s; }
+.fade-in-up:nth-child(3) { animation-delay: 0.19s; }
+.fade-in-up:nth-child(4) { animation-delay: 0.26s; }
+
+/* ── Mobile ────────────────────────────────────────────────────── */
+@media (max-width: 520px) {
+    .page-header h1 { font-size: 1.6rem; }
+    .question-card { padding: 1.4rem; }
+    .result-section { padding: 1.1rem; }
+}
+
+/* ── Theme transitions ─────────────────────────────────────────── */
+*, *::before, *::after {
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+/* But NOT layout/animation properties */
+.question-card { transition: opacity 0.35s ease, transform 0.35s ease, background-color 0.25s ease, border-color 0.25s ease; }
+.progress-bar-fill { transition: width 0.4s cubic-bezier(0.4,0,0.2,1); }
+    </style>
+</head>
+<body>
+
+<!-- ── Navigation ────────────────────────────────────────────── -->
+<nav class="site-nav">
+    <div class="nav-container">
+        <a href="output/index.html" class="nav-brand">
+            <span class="nav-logo-wrap">
+                <img src="output/logo-mark.png" alt="" class="nav-logo">
+            </span>
+            Research Agora
+        </a>
+        <div class="nav-links">
+            <a href="output/index.html" class="nav-link">Skills</a>
+            <a href="output/benchmarks.html" class="nav-link">Benchmarks</a>
+            <a href="output/docs.html" class="nav-link">Docs</a>
+            <a href="onboard.html" class="nav-link active">Get Started</a>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle dark/light mode">
+                <span class="theme-icon">&#x2600;&#xFE0F;</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- ── Wizard view ────────────────────────────────────────────── -->
+<div id="wizard-view">
+    <div class="container">
+        <div class="page-header">
+            <h1>Find your path</h1>
+            <p>Answer 5 quick questions — get a personalized setup and skill recommendations.</p>
+        </div>
+
+        <!-- Progress -->
+        <div class="progress-wrap" id="progress-wrap">
+            <div class="progress-meta">
+                <span id="progress-label">Step 1 of 5</span>
+                <span id="progress-pct">0%</span>
+            </div>
+            <div class="progress-bar-track">
+                <div class="progress-bar-fill" id="progress-bar" style="width: 0%"></div>
+            </div>
+            <div class="step-dots" id="step-dots"></div>
+        </div>
+
+        <!-- Question cards -->
+        <div class="wizard-stage" id="wizard-stage">
+
+            <!-- Step 1: CLI comfort -->
+            <div class="question-card active" id="step-0">
+                <div class="question-label">Step 1 of 5</div>
+                <h2>What's your command line comfort level?</h2>
+                <p class="question-hint">Be honest — this shapes what tools we recommend.</p>
+                <div class="options-list" id="opts-cli">
+                    <button class="option-btn" data-value="a" onclick="selectOption('cli','a',this)">
+                        <span class="option-key">A</span>
+                        <span>I avoid it entirely</span>
+                    </button>
+                    <button class="option-btn" data-value="b" onclick="selectOption('cli','b',this)">
+                        <span class="option-key">B</span>
+                        <span>I can <code>cd</code> and <code>ls</code> but that's about it</span>
+                    </button>
+                    <button class="option-btn" data-value="c" onclick="selectOption('cli','c',this)">
+                        <span class="option-key">C</span>
+                        <span>Comfortable — I use git, run scripts, install packages</span>
+                    </button>
+                    <button class="option-btn" data-value="d" onclick="selectOption('cli','d',this)">
+                        <span class="option-key">D</span>
+                        <span>It's my primary interface</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: AI tools -->
+            <div class="question-card" id="step-1">
+                <div class="question-label">Step 2 of 5</div>
+                <h2>How do you currently use AI tools?</h2>
+                <p class="question-hint">Pick the option that best describes your current workflow.</p>
+                <div class="options-list" id="opts-ai">
+                    <button class="option-btn" data-value="a" onclick="selectOption('ai','a',this)">
+                        <span class="option-key">A</span>
+                        <span>I haven't really</span>
+                    </button>
+                    <button class="option-btn" data-value="b" onclick="selectOption('ai','b',this)">
+                        <span class="option-key">B</span>
+                        <span>ChatGPT/Claude in the browser, mostly chat</span>
+                    </button>
+                    <button class="option-btn" data-value="c" onclick="selectOption('ai','c',this)">
+                        <span class="option-key">C</span>
+                        <span>Regularly — browser + some IDE integration (Copilot, Cursor)</span>
+                    </button>
+                    <button class="option-btn" data-value="d" onclick="selectOption('ai','d',this)">
+                        <span class="option-key">D</span>
+                        <span>Extensively — agentic coding, custom prompts, MCP tools, API access</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Domain -->
+            <div class="question-card" id="step-2">
+                <div class="question-label">Step 3 of 5</div>
+                <h2>What's your research domain?</h2>
+                <p class="question-hint">e.g., ML/AI, neuroscience, physics, biology, social sciences</p>
+                <div class="text-input-wrap">
+                    <input class="text-input" type="text" id="input-domain"
+                           placeholder="Machine Learning" autocomplete="off"
+                           oninput="answers.domain = this.value"
+                           onkeydown="if(event.key==='Enter') advanceStep()">
+                </div>
+            </div>
+
+            <!-- Step 4: Primary task -->
+            <div class="question-card" id="step-3">
+                <div class="question-label">Step 4 of 5</div>
+                <h2>What research task is bothering you most right now?</h2>
+                <p class="question-hint">Pick the one that costs you the most time or headache.</p>
+                <div class="options-list" id="opts-task">
+                    <button class="option-btn" data-value="a" onclick="selectOption('task','a',this)">
+                        <span class="option-key">A</span>
+                        <span>Literature review — finding and managing papers</span>
+                    </button>
+                    <button class="option-btn" data-value="b" onclick="selectOption('task','b',this)">
+                        <span class="option-key">B</span>
+                        <span>Data analysis or experiment pipelines</span>
+                    </button>
+                    <button class="option-btn" data-value="c" onclick="selectOption('task','c',this)">
+                        <span class="option-key">C</span>
+                        <span>Writing code for research</span>
+                    </button>
+                    <button class="option-btn" data-value="d" onclick="selectOption('task','d',this)">
+                        <span class="option-key">D</span>
+                        <span>Writing papers — drafting, editing, structuring</span>
+                    </button>
+                    <button class="option-btn" data-value="e" onclick="selectOption('task','e',this)">
+                        <span class="option-key">E</span>
+                        <span>Admin, grant writing, email, teaching prep</span>
+                    </button>
+                    <button class="option-btn" data-value="f" onclick="selectOption('task','f',this)">
+                        <span class="option-key">F</span>
+                        <span>Something else</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 5: Stack (combined) -->
+            <div class="question-card" id="step-4">
+                <div class="question-label">Step 5 of 5 — Optional</div>
+                <h2>Tell us about your stack</h2>
+                <p class="question-hint">Skip anything that doesn't apply — these refine the generated CLAUDE.md.</p>
+                <div class="stack-fields">
+                    <div class="stack-field">
+                        <label>Programming languages <span class="optional-tag">(optional)</span></label>
+                        <input class="text-input" type="text" id="input-languages"
+                               placeholder="Python, R, Julia, MATLAB"
+                               oninput="answers.languages = this.value">
+                    </div>
+                    <div class="stack-field">
+                        <label>Writing tool <span class="optional-tag">(optional)</span></label>
+                        <input class="text-input" type="text" id="input-writing"
+                               placeholder="LaTeX, Overleaf, Word, Markdown"
+                               oninput="answers.writing_tool = this.value">
+                    </div>
+                    <div class="stack-field">
+                        <label>Reference manager <span class="optional-tag">(optional)</span></label>
+                        <input class="text-input" type="text" id="input-refs"
+                               placeholder="Zotero, Mendeley, BibTeX, none"
+                               oninput="answers.ref_manager = this.value">
+                    </div>
+                    <div class="stack-field">
+                        <label>Version control <span class="optional-tag">(optional)</span></label>
+                        <div class="git-options" id="git-options">
+                            <button class="git-btn" onclick="selectGit('y', this)">Yes, I use git</button>
+                            <button class="git-btn" onclick="selectGit('n', this)">No git yet</button>
+                            <button class="git-btn" onclick="selectGit('s', this)">Skip</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.wizard-stage -->
+
+        <!-- Navigation -->
+        <div class="wizard-nav">
+            <button class="btn btn-ghost" id="btn-back" onclick="prevStep()" style="visibility:hidden">
+                &#8592; Back
+            </button>
+            <div style="display:flex; gap:0.75rem; align-items:center">
+                <button class="skip-link" id="btn-skip" onclick="skipStep()">Skip this step</button>
+                <button class="btn btn-primary" id="btn-next" onclick="advanceStep()">
+                    Next &#8594;
+                </button>
+            </div>
+        </div>
+
+    </div><!-- /.container -->
+</div><!-- /#wizard-view -->
+
+
+<!-- ── Results view ───────────────────────────────────────────── -->
+<div id="results-view">
+    <div class="container">
+        <div class="results-header fade-in-up">
+            <div class="tier-badge" id="tier-badge">Profile</div>
+            <h2 id="results-title">Your personalized setup</h2>
+            <p id="results-subtitle">Based on your answers, here's where to start.</p>
+        </div>
+
+        <!-- CLAUDE.md -->
+        <div class="result-section fade-in-up">
+            <div class="result-section-title">Your CLAUDE.md</div>
+            <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:0.85rem;">
+                Save this to your project root. It tells Claude Code about your research context.
+            </p>
+            <div class="code-block-wrap">
+                <pre class="code-block" id="claude-md-output"></pre>
+                <button class="copy-btn" id="copy-claude-btn" onclick="copyClaudeMd()">Copy</button>
+            </div>
+        </div>
+
+        <!-- Skill recommendations -->
+        <div class="result-section fade-in-up">
+            <div class="result-section-title">Recommended skills</div>
+            <table class="skills-table" id="skills-table">
+                <thead>
+                    <tr>
+                        <th>Skill</th>
+                        <th>What it does</th>
+                    </tr>
+                </thead>
+                <tbody id="skills-tbody"></tbody>
+            </table>
+        </div>
+
+        <!-- 5-minute win -->
+        <div class="result-section fade-in-up">
+            <div class="result-section-title">Your 5-minute win</div>
+            <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:0.75rem;">
+                The fastest way to see value right now.
+            </p>
+            <div class="win-block" id="win-block"></div>
+        </div>
+
+        <!-- What's next -->
+        <div class="result-section fade-in-up">
+            <div class="result-section-title">What's next</div>
+            <ul class="next-list" id="next-list"></ul>
+        </div>
+
+        <!-- Actions -->
+        <div class="results-actions">
+            <button class="btn btn-ghost" onclick="startOver()">&#8635; Start over</button>
+            <a href="output/index.html" class="btn btn-primary">Browse all skills &#8594;</a>
+        </div>
+    </div>
+</div>
+
+<!-- ── Footer ─────────────────────────────────────────────────── -->
+<footer>
+    <div class="container">
+        <p>Research Agora &mdash; <a href="https://github.com/rpatrik96/research-agora">GitHub</a> &mdash; <a href="output/docs.html">Docs</a></p>
+    </div>
+</footer>
+
+<script>
+// ──────────────────────────────────────────────────────────────
+// State
+// ──────────────────────────────────────────────────────────────
+const TOTAL_STEPS = 5;
+let currentStep = 0;
+
+const answers = {
+    cli: '',
+    ai: '',
+    domain: '',
+    task: '',
+    languages: '',
+    writing_tool: '',
+    ref_manager: '',
+    git: ''
+};
+
+// Which steps can be skipped
+const SKIPPABLE = [false, false, false, false, true];
+// Steps that use free text (no required selection)
+const FREE_TEXT_STEPS = [2, 4]; // domain and stack
+
+// ──────────────────────────────────────────────────────────────
+// Theme
+// ──────────────────────────────────────────────────────────────
+function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateThemeIcon(next);
+}
+
+function updateThemeIcon(theme) {
+    document.querySelectorAll('.theme-icon').forEach(el => {
+        el.textContent = theme === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+    });
+}
+
+(function initThemeIcon() {
+    const t = localStorage.getItem('theme') || 'dark';
+    updateThemeIcon(t);
+})();
+
+// ──────────────────────────────────────────────────────────────
+// Progress
+// ──────────────────────────────────────────────────────────────
+function renderDots() {
+    const wrap = document.getElementById('step-dots');
+    wrap.innerHTML = '';
+    for (let i = 0; i < TOTAL_STEPS; i++) {
+        const d = document.createElement('div');
+        d.className = 'step-dot' + (i < currentStep ? ' done' : '') + (i === currentStep ? ' active' : '');
+        wrap.appendChild(d);
+    }
+}
+
+function updateProgress() {
+    const pct = Math.round((currentStep / TOTAL_STEPS) * 100);
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = `Step ${currentStep + 1} of ${TOTAL_STEPS}`;
+    document.getElementById('progress-pct').textContent = pct + '%';
+    renderDots();
+    document.getElementById('btn-back').style.visibility = currentStep === 0 ? 'hidden' : 'visible';
+
+    const nextBtn = document.getElementById('btn-next');
+    const isLastStep = currentStep === TOTAL_STEPS - 1;
+    nextBtn.textContent = isLastStep ? 'See my results \u2192' : 'Next \u2192';
+
+    const skipBtn = document.getElementById('btn-skip');
+    skipBtn.style.display = SKIPPABLE[currentStep] ? 'inline' : 'none';
+}
+
+// ──────────────────────────────────────────────────────────────
+// Option selection
+// ──────────────────────────────────────────────────────────────
+function selectOption(key, value, btn) {
+    answers[key] = value;
+    const container = btn.closest('.options-list');
+    container.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+}
+
+function selectGit(value, btn) {
+    answers.git = value;
+    document.querySelectorAll('.git-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+}
+
+// ──────────────────────────────────────────────────────────────
+// Navigation
+// ──────────────────────────────────────────────────────────────
+function isStepValid() {
+    if (currentStep === 0) return answers.cli !== '';
+    if (currentStep === 1) return answers.ai !== '';
+    if (currentStep === 2) return true; // domain: free text, optional enough
+    if (currentStep === 3) return answers.task !== '';
+    if (currentStep === 4) return true; // stack: all optional
+    return true;
+}
+
+function transitionTo(fromIdx, toIdx, direction) {
+    const fromCard = document.getElementById('step-' + fromIdx);
+    const toCard = document.getElementById('step-' + toIdx);
+
+    // Animate out
+    fromCard.classList.remove('active');
+    fromCard.classList.add(direction === 'forward' ? 'exit-left' : 'exit-right');
+
+    // Prepare toCard off-screen
+    toCard.style.opacity = '0';
+    toCard.style.transform = direction === 'forward' ? 'translateX(40px)' : 'translateX(-40px)';
+    toCard.style.position = 'absolute';
+    toCard.style.top = '0';
+    toCard.style.left = '0';
+    toCard.style.right = '0';
+
+    // Measure height of toCard for smooth resize
+    toCard.style.display = 'block';
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            toCard.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+            toCard.style.opacity = '1';
+            toCard.style.transform = 'translateX(0)';
+            toCard.style.position = 'relative';
+
+            // Cleanup from-card after animation
+            setTimeout(() => {
+                fromCard.classList.remove('exit-left', 'exit-right');
+                fromCard.style.position = 'absolute';
+                fromCard.style.opacity = '0';
+                fromCard.style.transform = direction === 'forward' ? 'translateX(-40px)' : 'translateX(40px)';
+            }, 350);
+
+            toCard.classList.add('active');
+        });
+    });
+}
+
+function advanceStep() {
+    if (!isStepValid()) {
+        // Shake feedback
+        const card = document.getElementById('step-' + currentStep);
+        card.style.transition = 'transform 0.08s ease';
+        card.style.transform = 'translateX(-6px)';
+        setTimeout(() => { card.style.transform = 'translateX(6px)'; }, 80);
+        setTimeout(() => { card.style.transform = 'translateX(-4px)'; }, 160);
+        setTimeout(() => { card.style.transform = 'translateX(0)'; card.style.transition = 'opacity 0.35s ease, transform 0.35s ease'; }, 240);
+        return;
+    }
+
+    if (currentStep === TOTAL_STEPS - 1) {
+        showResults();
+        return;
+    }
+
+    const prev = currentStep;
+    currentStep++;
+    transitionTo(prev, currentStep, 'forward');
+    updateProgress();
+
+    // Focus first input on free text steps
+    if (currentStep === 2) setTimeout(() => document.getElementById('input-domain').focus(), 400);
+}
+
+function prevStep() {
+    if (currentStep === 0) return;
+    const prev = currentStep;
+    currentStep--;
+    transitionTo(prev, currentStep, 'backward');
+    updateProgress();
+}
+
+function skipStep() {
+    if (!SKIPPABLE[currentStep]) return;
+    if (currentStep === TOTAL_STEPS - 1) {
+        showResults();
+        return;
+    }
+    const prev = currentStep;
+    currentStep++;
+    transitionTo(prev, currentStep, 'forward');
+    updateProgress();
+}
+
+// Init
+updateProgress();
+
+// ──────────────────────────────────────────────────────────────
+// Classification logic — exact port of onboard.py
+// ──────────────────────────────────────────────────────────────
+const LEVEL_MAP = { a: 0, b: 1, c: 2, d: 3 };
+
+function classifyTier(ans) {
+    const cli = LEVEL_MAP[ans.cli] ?? 0;
+    const ai  = LEVEL_MAP[ans.ai]  ?? 0;
+    const langs = (ans.languages || '').trim();
+
+    if (cli <= 1 && ai <= 1) return 0;
+    if (cli <= 2 && ai <= 2 && langs) return 1;
+    if (cli >= 2 && ai >= 2) {
+        const aiText = ans.ai || '';
+        if (cli >= 3 && (ai >= 3 || aiText.toLowerCase().includes('mcp') || aiText.toLowerCase().includes('agent'))) {
+            return 3;
+        }
+        return 2;
+    }
+    return 1;
+}
+
+// ──────────────────────────────────────────────────────────────
+// Skill recommendations
+// ──────────────────────────────────────────────────────────────
+const SKILL_TABLE = {
+    a: {
+        1: [['/paper-references',       'Verify citations against arXiv, Crossref, DBLP'],
+            ['/literature-synthesizer', 'Discover and synthesize related work']],
+        2: [['/paper-references',       'Verify citations against arXiv, Crossref, DBLP'],
+            ['/literature-synthesizer', 'Discover and synthesize related work'],
+            ['/benchmark-scout',        'Find relevant benchmarks and baselines']]
+    },
+    b: {
+        1: [['/experiment-tracker', 'Sync experiment results to paper tables'],
+            ['/commit',             'Write clean, conventional commits']],
+        2: [['/paper-verify-experiments', 'Check paper claims against source code'],
+            ['/experiment-tracker',       'Sync experiment results to paper tables'],
+            ['/benchmark-scout',          'Find relevant benchmarks and baselines']]
+    },
+    c: {
+        1: [['/commit',                   'Write clean, conventional commits'],
+            ['/paper-verify-experiments', 'Check paper claims against source code']],
+        2: [['/paper-verify-experiments', 'Check paper claims against source code'],
+            ['/experiment-tracker',       'Sync experiment results to paper tables']]
+    },
+    d: {
+        1: [['/paper-abstract',      'Write or diagnose abstracts'],
+            ['/paper-introduction',  'Structure and draft introductions'],
+            ['/paper-review',        'Simulate skeptical reviewer feedback']],
+        2: [['/paper-abstract',      'Write or diagnose abstracts'],
+            ['/paper-review',        'Simulate skeptical reviewer feedback'],
+            ['/paper-references',    'Verify citations before submission'],
+            ['/editorial-brain',     'Context-aware editorial feedback']]
+    },
+    e: {
+        1: [['/paper-slides',  'Generate presentation slides from paper'],
+            ['/paper-poster',  'Generate conference poster from paper']],
+        2: [['/review-triage',          'Organize and prioritize reviewer comments'],
+            ['/paper-slides',           'Generate presentation slides'],
+            ['/openreview-submission',  'Format and submit to OpenReview']]
+    }
+};
+
+const DEFAULT_SKILLS = [
+    ['/paper-review',     'Simulate skeptical reviewer feedback'],
+    ['/paper-references', 'Verify citations before submission'],
+    ['/choose-skill',     'Interactive skill finder for your task']
+];
+
+function getSkillRecommendations(task, tier) {
+    const taskSkills = SKILL_TABLE[task];
+    if (!taskSkills) return DEFAULT_SKILLS;
+    const maxTier = Math.min(tier, 3);
+    for (let t = maxTier; t >= 0; t--) {
+        if (taskSkills[t]) return taskSkills[t];
+    }
+    return DEFAULT_SKILLS;
+}
+
+// ──────────────────────────────────────────────────────────────
+// 5-minute wins
+// ──────────────────────────────────────────────────────────────
+const FIVE_MIN_WINS = {
+    0: `Paste this into Claude.ai or ChatGPT — it's a structured prompt
+that shows what the Research Agora skills do under the hood:
+
+---
+I'm writing a paper about [TOPIC] in [DOMAIN]. Diagnose my abstract:
+- Does it have all 5 parts? (context, problem, approach, results, impact)
+- Are claims specific or vague?
+- What's the weakest sentence and how would you fix it?
+
+[PASTE YOUR ABSTRACT]
+---
+
+When you're ready to move to the CLI, come back and run /onboard again.`,
+
+    1: `Run your first skill — pick one based on your task:
+
+  # Literature/references:
+  claude "/paper-references"
+
+  # Writing:
+  claude "/paper-review"
+
+  # Code:
+  claude "/commit"
+
+That's it. One command, one result you can evaluate.`,
+
+    2: `Set up a verification pipeline:
+
+  # 1. Snapshot your work
+  git add -A && git commit -m "Before verification run"
+
+  # 2. Run citation verification
+  claude "/paper-references"
+
+  # 3. Check paper-code consistency
+  claude "/paper-verify-experiments"
+
+  # 4. Get a simulated review
+  claude "/paper-review"
+
+Before your next submission, run steps 2-4.`,
+
+    3: `You know the tools. Here's what scales:
+
+- Package one of your existing workflows as a skill and submit a PR
+- Explore research-agents: 22 agents for parallel claim verification,
+  devil's advocate analysis, audience checking
+- Use CLAUDE.md as a governance document — encode your lab's standards`
+};
+
+// ──────────────────────────────────────────────────────────────
+// What's next
+// ──────────────────────────────────────────────────────────────
+const WHATS_NEXT = {
+    0: [
+        'Try the structured prompts above in your browser AI tool',
+        'Install Claude Code when ready: <a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank">docs.anthropic.com</a>',
+        'Set up git as a safety net before using AI agents',
+        'Run <code>/onboard</code> again once you have Claude Code'
+    ],
+    1: [
+        'Save your CLAUDE.md to your project root',
+        'Set up git if you haven\'t already',
+        'Try 2–3 skills this week',
+        'Explore verification workflows when comfortable'
+    ],
+    2: [
+        'Save your CLAUDE.md and commit it',
+        'Integrate verification into your pre-submission checklist',
+        'Explore MCP tools: Zotero, arXiv, GitHub',
+        'Customize CLAUDE.md as you learn what works'
+    ],
+    3: [
+        'Audit your workflows — which ones are skill-shaped?',
+        'Package one workflow as a skill and <a href="https://github.com/rpatrik96/research-agora" target="_blank">submit a PR</a>',
+        'Explore research-agents: 22 specialized agents',
+        'Use CLAUDE.md to encode lab standards across projects'
+    ]
+};
+
+// ──────────────────────────────────────────────────────────────
+// Tier metadata
+// ──────────────────────────────────────────────────────────────
+const TIER_NAMES = {
+    0: 'Browser-first researcher',
+    1: 'CLI-ready, AI-curious',
+    2: 'Systematic workflow builder',
+    3: 'Power user — ready to scale'
+};
+
+const TIER_SUBTITLES = {
+    0: 'Start with browser-based prompts and move to the CLI when you\'re ready.',
+    1: 'You have the foundation. A few skills will meaningfully accelerate your work.',
+    2: 'You\'re in the sweet spot — verification pipelines will save you hours at submission.',
+    3: 'You already know the tools. Research Agora helps you systematize and share your workflows.'
+};
+
+const TIER_CLASS = { 0: 'tier-0', 1: 'tier-1', 2: 'tier-2', 3: 'tier-3' };
+
+// ──────────────────────────────────────────────────────────────
+// CLAUDE.md generation — exact port of onboard.py
+// ──────────────────────────────────────────────────────────────
+function generateClaudeMd(ans, tier) {
+    const domain    = ans.domain       || 'Research';
+    const langs     = ans.languages    || '';
+    const writingTool = ans.writing_tool || '';
+    const refMgr    = ans.ref_manager  || '';
+    const usesGit   = ['y', 'yes'].includes((ans.git || '').toLowerCase());
+    const task      = ans.task         || 'd';
+    const skills    = getSkillRecommendations(task, tier);
+
+    const sections = [];
+
+    sections.push(`# ${domain} Project — CLAUDE.md\n`);
+    sections.push('## Project Overview\n');
+    sections.push('[One-line description of this project\'s contribution]\n');
+
+    // Domain & conventions
+    const conventions = [`- **Field**: ${domain}`];
+    if (writingTool) conventions.push(`- **Writing format**: ${writingTool}`);
+    if (refMgr)      conventions.push(`- **Citation manager**: ${refMgr}`);
+    if (langs)       conventions.push(`- **Languages**: ${langs}`);
+    sections.push('## Domain & Conventions\n');
+    sections.push(conventions.join('\n') + '\n');
+
+    // Build commands
+    const buildCmds = [];
+    if (writingTool && /latex|overleaf|tex/i.test(writingTool)) {
+        buildCmds.push('### Paper\n```bash\nlatexmk -pdf main.tex\n```\n');
+    }
+    if (langs) {
+        const lLow = langs.toLowerCase();
+        if (lLow.includes('python')) {
+            buildCmds.push('### Code\n```bash\npytest --tb=short -q\nruff check .\n```\n');
+        } else if (/\br\b/.test(lLow.split(',')[0].trim())) {
+            buildCmds.push('### Code\n```bash\nRscript run_analysis.R\n```\n');
+        } else if (lLow.includes('julia')) {
+            buildCmds.push('### Code\n```bash\njulia --project=. main.jl\n```\n');
+        }
+    }
+    if (buildCmds.length > 0) {
+        sections.push('## Build Commands\n');
+        buildCmds.forEach(c => sections.push(c));
+    }
+
+    // Git safety net (Tier 0-1 or no git)
+    if (tier <= 1 || !usesGit) {
+        sections.push('## Git Safety Net\n');
+        sections.push(
+`Before running any AI agent on your project, take a snapshot:
+
+\`\`\`bash
+git add -A && git commit -m "Snapshot before agent session"
+\`\`\`
+
+After a session, review what changed: \`git diff HEAD\`
+Undo everything if needed: \`git restore .\`
+`);
+    }
+
+    // Verification requirements
+    sections.push('## Verification Requirements\n');
+    if (tier <= 1) {
+        sections.push(
+`- Check AI-generated citations against Google Scholar before including them
+- Read AI-drafted text critically — treat it as a first draft from a hasty coauthor
+`);
+    } else if (tier === 2) {
+        sections.push(
+`- Run \`/paper-references\` on bibliography before submission
+- Use \`/paper-verify-experiments\` to check claims against code
+- Cross-reference AI-generated literature claims with actual papers
+`);
+    } else {
+        sections.push(
+`- All citations verified via \`bibtexupdater\` before merge
+- Experiment-paper sync via \`/experiment-tracker\`
+- Code-paper consistency checked in CI
+`);
+    }
+
+    // Recommended skills table
+    sections.push('## Recommended Skills\n');
+    const header = '| Skill | What it does |\n|-------|-------------|';
+    const rows = skills.map(([name, desc]) => `| \`${name}\` | ${desc} |`).join('\n');
+    sections.push(header + '\n' + rows + '\n');
+
+    return sections.join('\n');
+}
+
+// ──────────────────────────────────────────────────────────────
+// Show results
+// ──────────────────────────────────────────────────────────────
+function showResults() {
+    // Capture any outstanding text inputs
+    const domainEl = document.getElementById('input-domain');
+    if (domainEl) answers.domain = domainEl.value.trim();
+    const langsEl = document.getElementById('input-languages');
+    if (langsEl) answers.languages = langsEl.value.trim();
+    const writingEl = document.getElementById('input-writing');
+    if (writingEl) answers.writing_tool = writingEl.value.trim();
+    const refsEl = document.getElementById('input-refs');
+    if (refsEl) answers.ref_manager = refsEl.value.trim();
+
+    const tier = classifyTier(answers);
+
+    // Tier badge
+    const badge = document.getElementById('tier-badge');
+    badge.textContent = TIER_NAMES[tier];
+    badge.className = 'tier-badge ' + TIER_CLASS[tier];
+
+    document.getElementById('results-title').textContent = 'Your personalized setup';
+    document.getElementById('results-subtitle').textContent = TIER_SUBTITLES[tier];
+
+    // CLAUDE.md
+    const claudeMd = generateClaudeMd(answers, tier);
+    document.getElementById('claude-md-output').textContent = claudeMd;
+
+    // Skills table
+    const task = answers.task || 'd';
+    const skills = getSkillRecommendations(task, tier);
+    const tbody = document.getElementById('skills-tbody');
+    tbody.innerHTML = '';
+    skills.forEach(([name, desc]) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td><span class="skill-cmd">${escapeHtml(name)}</span></td><td>${escapeHtml(desc)}</td>`;
+        tbody.appendChild(tr);
+    });
+
+    // 5-min win
+    document.getElementById('win-block').textContent = FIVE_MIN_WINS[tier] || FIVE_MIN_WINS[1];
+
+    // What's next
+    const nextList = document.getElementById('next-list');
+    nextList.innerHTML = '';
+    (WHATS_NEXT[tier] || WHATS_NEXT[1]).forEach((item, i) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span class="next-num">${i + 1}</span><span>${item}</span>`;
+        nextList.appendChild(li);
+    });
+
+    // Swap views
+    document.getElementById('wizard-view').style.display = 'none';
+    const rv = document.getElementById('results-view');
+    rv.style.display = 'block';
+
+    // Trigger staggered fade-in
+    rv.querySelectorAll('.fade-in-up').forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.animation = 'none';
+        void el.offsetHeight; // reflow
+        el.style.animation = `fadeInUp 0.45s ease ${0.05 + i * 0.1}s both`;
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ──────────────────────────────────────────────────────────────
+// Copy CLAUDE.md
+// ──────────────────────────────────────────────────────────────
+function copyClaudeMd() {
+    const text = document.getElementById('claude-md-output').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copy-claude-btn');
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+            btn.textContent = 'Copy';
+            btn.classList.remove('copied');
+        }, 2200);
+    }).catch(() => {
+        // Fallback for older browsers
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+    });
+}
+
+// ──────────────────────────────────────────────────────────────
+// Start over
+// ──────────────────────────────────────────────────────────────
+function startOver() {
+    // Reset state
+    currentStep = 0;
+    Object.keys(answers).forEach(k => answers[k] = '');
+
+    // Reset UI selections
+    document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+    document.querySelectorAll('.git-btn').forEach(b => b.classList.remove('selected'));
+    ['input-domain', 'input-languages', 'input-writing', 'input-refs'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+    });
+
+    // Reset card positions
+    for (let i = 0; i < TOTAL_STEPS; i++) {
+        const card = document.getElementById('step-' + i);
+        card.className = 'question-card' + (i === 0 ? ' active' : '');
+        card.style.cssText = '';
+    }
+
+    updateProgress();
+
+    document.getElementById('results-view').style.display = 'none';
+    document.getElementById('wizard-view').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ──────────────────────────────────────────────────────────────
+// Utilities
+// ──────────────────────────────────────────────────────────────
+function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+    const wv = document.getElementById('wizard-view');
+    if (wv.style.display === 'none') return;
+
+    if (e.key === 'Enter' && e.target.tagName !== 'BUTTON') {
+        advanceStep();
+    }
+    if (e.key === 'ArrowLeft' || (e.key === 'Backspace' && e.target.tagName !== 'INPUT')) {
+        if (currentStep > 0) prevStep();
+    }
+    // Letter shortcuts for multiple-choice steps
+    const mcSteps = { 0: 'cli', 1: 'ai', 3: 'task' };
+    if (mcSteps[currentStep]) {
+        const key = e.key.toLowerCase();
+        const validKeys = currentStep === 3 ? ['a','b','c','d','e','f'] : ['a','b','c','d'];
+        if (validKeys.includes(key) && e.target.tagName !== 'INPUT') {
+            const btn = document.querySelector(`#step-${currentStep} .option-btn[data-value="${key}"]`);
+            if (btn) {
+                selectOption(mcSteps[currentStep], key, btn);
+                setTimeout(advanceStep, 220);
+            }
+        }
+    }
+});
+</script>
+</body>
+</html>
