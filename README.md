@@ -174,6 +174,7 @@ Editorial intelligence and writing analysis skills:
 
 | Skill | Description |
 |-------|-------------|
+| `writing-verify` | Quantitative writing quality scoring (A-F grade) |
 | `writing-diagnosis` | Diagnose writing issues across genres |
 | `argument-autopsy` | Dissect argument structure |
 | `register-translator` | Translate between registers |

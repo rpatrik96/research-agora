@@ -10,6 +10,7 @@ Diagnostic editorial intelligence for writing across contexts — papers, blogs,
 | `/editorial-brain` | Comprehensive prose diagnostics with clarity analysis |
 | `/register-translator` | Translate writing between registers (academic, blog, grant, etc.) |
 | `/writing-diagnosis` | Identify named writing failure patterns with educational feedback |
+| `/writing-verify` | Quantitative writing quality verification with A-F grade and dimension scores |
 
 ## Installation
 
