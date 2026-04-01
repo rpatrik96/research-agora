@@ -97,6 +97,7 @@ SKILL_GROUP_MAP = {
     "editorial-brain": "editorial",
     "register-translator": "editorial",
     "writing-diagnosis": "editorial",
+    "writing-verify": "editorial",
 
     # Research Agents (public)
     "content-archaeologist": "literature-discovery",

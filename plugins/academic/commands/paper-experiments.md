@@ -2,6 +2,7 @@
 name: paper-experiments
 description: Write experimental details sections for ML papers with GitHub repository integration. Use when asked to "write experiments section", "document experimental setup", "describe methodology", "write reproducibility details", or "experimental details". Extracts information from code to ensure accuracy.
 model: sonnet
+disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: paper-writing

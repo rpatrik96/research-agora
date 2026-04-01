@@ -2,6 +2,7 @@
 name: paper-summarizer
 description: Summarize research papers for rapid triage and comprehension. Use when asked to "summarize this paper", "paper summary", "what does this paper do", "triage papers", or "TLDR this paper". Takes an arXiv ID or paper text and produces structured summaries at configurable depth.
 model: sonnet
+disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: literature-review

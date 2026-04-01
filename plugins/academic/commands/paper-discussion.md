@@ -2,6 +2,7 @@
 name: paper-discussion
 description: Write or improve discussion and limitations sections for ML conference papers. Use when asked to "write discussion", "add limitations", "discuss results", "write conclusion", or "identify weaknesses". Generates balanced analysis of contributions, implications, and honest limitations.
 model: sonnet
+disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: paper-writing

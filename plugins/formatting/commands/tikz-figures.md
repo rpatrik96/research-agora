@@ -5,6 +5,7 @@ description: |
   Use when asked to "create TikZ figure", "draw neural network", "make diagram in LaTeX",
   "TikZ flowchart", or "create architecture diagram".
 model: sonnet
+disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: paper-writing

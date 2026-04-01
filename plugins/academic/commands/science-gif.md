@@ -5,6 +5,7 @@ description: |
   websites. Use when asked to "create science gif", "animate results", "make animated figure",
   "gif for twitter", "animate method", "visualize algorithm".
 model: sonnet
+disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: dissemination

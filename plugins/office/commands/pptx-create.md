@@ -2,6 +2,7 @@
 name: pptx-create
 description: Create and edit PowerPoint presentations using python-pptx
 model: haiku
+disable-model-invocation: true
 version: 1.0.0
 triggers:
   - presentation

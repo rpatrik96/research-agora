@@ -6,6 +6,7 @@ description: |
   "experiment to paper", "refresh results", or "sync paper with repo".
   Extracts metrics from code/logs and updates paper sections.
 model: sonnet
+disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: experiment-design

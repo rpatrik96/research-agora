@@ -2,6 +2,7 @@
 name: code-simplify
 description: Analyze and refactor Python codebases to remove dead code, eliminate duplication, and simplify complexity. Use when asked to "simplify code", "remove dead code", "find duplicates", "refactor", "clean up codebase", or "reduce complexity".
 model: sonnet
+disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: implementation

@@ -8,6 +8,7 @@ description: |
   User pastes a prompt; skill scores each RIOT component, identifies the failure mode,
   and generates an improved version with minimal changes.
 model: sonnet
+disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: paper-writing

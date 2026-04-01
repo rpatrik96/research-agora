@@ -2,6 +2,7 @@
 name: xlsx-create
 description: Create and edit Excel spreadsheets using openpyxl
 model: haiku
+disable-model-invocation: true
 version: 1.0.0
 triggers:
   - spreadsheet
