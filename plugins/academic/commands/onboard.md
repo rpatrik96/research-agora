@@ -17,115 +17,46 @@ metadata:
 
 # Research Agora Onboarding
 
-> **LLM-required**: Onboarding requires conversational interview, adaptive questioning, and personalized generation. No script alternative.
-
-Welcome a new user to the Research Agora. Through a short interview, determine their experience level, research context, and goals --- then generate a personalized setup.
-
-Think of yourself as a senior postdoc helping a new colleague get set up on day one. Warm, direct, no corporate fluff.
+> **Script-first**: Core onboarding logic lives in `scripts/onboard.py` (stdlib Python, no dependencies). This skill runs the script and optionally personalizes the output.
 
 ## Workflow
 
-> **2-turn max**: Ask all questions in turn 1. Generate ALL output in turn 2. Never exceed 2 turns.
+1. Run `scripts/onboard.py --detect --json` to auto-detect project and generate structured output
+2. If detection is insufficient, run `scripts/onboard.py --json` for interactive interview
+3. Present the script's output to the user with light LLM personalization
 
-1. **Interview** (turn 1): Ask all questions in a single message, or skip if returning user
-2. **Classify + Generate + Recommend + Orient** (turn 2): After receiving answers, do ALL of the following in a single response:
-   - Determine the user's tier (0-3)
-   - Read `../resources/onboard-reference.md` and generate a personalized `CLAUDE.md`
-   - Suggest a 5-minute first win
-   - Point them to what's next
+## Step 1: Run the Script
 
-> **Lazy loading**: Templates and skill tables are in `../resources/onboard-reference.md`. Read it ONLY at the start of turn 2, not during the interview.
+Use the Bash tool to run the onboarding script from the Research Agora repo root:
 
-## Phase 1: The Interview
+```bash
+# Try auto-detect first (no user input needed)
+python3 scripts/onboard.py --detect --json --dir .
+```
 
-> **CRITICAL — Rate limit prevention**: This skill MUST complete in **2 turns max** (one question message, one output message). Multi-turn interviews re-send the full system context (~100K+ tokens) per round-trip, which triggers API rate limits. Ask ALL questions in a single message. NEVER split into multiple batches.
+If the JSON output has insufficient information (empty domain, no languages detected), fall back to asking the user directly — but keep it to ONE message with all questions, then run the script with explicit flags:
 
-### Returning User Fast Path
+```bash
+python3 scripts/onboard.py --tier <N> --domain "<domain>" --task <letter> --json
+```
 
-Before asking questions, check for existing context:
-1. Read the project's `CLAUDE.md` (if it exists)
-2. Check the user's global `~/.claude/CLAUDE.md` for profile info
-3. Scan the project directory (look for `.tex`, `.py`, `.bib`, `.git/`)
+## Step 2: Present Results
 
-If you can determine their tier, domain, and task from existing context, **skip the interview entirely**. Confirm your inferences in one line and go straight to Phase 3:
+Parse the JSON output and present it conversationally:
 
-> "Based on your setup, you're an ML researcher comfortable with the CLI, using Python, LaTeX, and git. Let me generate your personalized recommendations. Correct me if I'm off."
+1. **Profile summary**: One line confirming what was detected/classified
+2. **CLAUDE.md**: Show the generated content in a code block, offer to save it
+3. **5-minute win**: Present the tier-appropriate first task
+4. **Skill recommendations**: Show the recommended skills table
+5. **What's next**: List the next steps
 
-### New User: All Questions in One Message
+## Step 3: Personalize (Optional)
 
-Present everything together in a **single message**:
+If context allows, enhance the script output:
 
----
-
-**Welcome to the Research Agora.** Let me ask a few questions so I can set things up for you. Answer as briefly or verbosely as you like --- I'll adapt.
-
-**1. What's your command line comfort level?**
-- (a) I avoid it entirely
-- (b) I can `cd` and `ls` but that's about it
-- (c) Comfortable --- I use git, run scripts, install packages
-- (d) It's my primary interface
-
-**2. How do you currently use AI tools?**
-- (a) I haven't really
-- (b) ChatGPT/Claude in the browser, mostly chat
-- (c) Regularly --- browser + some IDE integration (Copilot, Cursor)
-- (d) Extensively --- agentic coding, custom prompts, MCP tools, API access
-
-**3. What's your research domain?**
-   (e.g., ML/AI, neuroscience, physics, biology, social sciences, law, linguistics --- or something else)
-
-**4. What research task is bothering you most right now?**
-   Pick the one you'd most like to improve:
-- (a) Literature review / finding and managing papers
-- (b) Data analysis or experiment pipelines
-- (c) Writing code for research
-- (d) Writing papers (drafting, editing, structuring)
-- (e) Admin, grant writing, email, teaching prep
-- (f) Something else: ___
-
-**5. A few more (answer any that apply):**
-- What programming languages do you use? (skip if you don't code)
-- What do you write in? (LaTeX, Overleaf, Word, Markdown)
-- Do you use a reference manager? (Zotero, Mendeley, BibTeX directly)
-- Is your project under version control (git)?
-- What would make this setup successful for you?
-
----
-
-### Interview Principles
-
-- **Skip what you can infer.** If someone mentions Cursor and Claude Code, don't ask CLI comfort.
-- **Acknowledge expertise.** Power users get "let me focus on what the Agora adds."
-- **Read the room.** Terse answers get tight responses.
-
-## Phase 2: Tier Classification
-
-Classify the user into one of four tiers. These guide your recommendations — don't label the user.
-
-### Tier 0: Browser-Only User
-No CLI experience. May be a domain expert who hasn't needed a terminal.
-- CLI: (a-b), AI: (a-b), no programming language
-
-### Tier 1: CLI-Ready, AI-Curious
-Can install things and run commands. Uses AI ad hoc.
-- CLI: (b-c), AI: (b-c), has a programming language, concrete task
-
-### Tier 2: Regular User Wanting Systematic Workflows
-Already uses AI regularly. Wants repeatable, verifiable workflows.
-- CLI: (c-d), AI: (c), mentions consistency/verification/reproducibility
-
-### Tier 3: Power User Wanting to Scale
-Heavy AI user. Wants orchestration, governance, or to contribute.
-- CLI: (d), AI: (d), mentions agents/pipelines/MCP/contributing
-
-## Phases 3-5: Generate, Recommend, Orient
-
-> **READ the companion file now**: Use the Read tool to load `onboard-reference.md`. It contains:
-> - Phase 3: CLAUDE.md template structure + skill recommendation tables by task
-> - Phase 4: 5-minute win examples for each tier
-> - Phase 5: What's Next guidance for each tier
->
-> The file path is: `plugins/academic/resources/onboard-reference.md` (relative to repo root)
+- Add domain-specific notes (e.g., "Since you use Zotero, the Zotero MCP can connect Claude Code directly to your library")
+- Adjust tone based on the user's communication style
+- Suggest skills not in the script's lookup table if they match the user's stated needs
 
 ## Tone Guide
 
@@ -133,21 +64,14 @@ Heavy AI user. Wants orchestration, governance, or to contribute.
 - **Direct but not curt.** Explain the why, skip the filler.
 - **Practitioner voice.** You've used these tools. Share what works honestly.
 - **Respect expertise.** A biologist who doesn't use the CLI is an expert in their domain.
-- **No jargon without context.** First mention of MCP gets a parenthetical explanation.
-- **Honest about limitations.** If a skill isn't great for their use case, say so.
 
-## Error Handling
+## Standalone Usage
 
-- **Minimal answers**: Work with what you have, flag assumptions.
-- **Between tiers**: Default lower, mention what's available at next level.
-- **Non-ML domain**: Flag which skills assume ML conventions.
-- **Existing CLAUDE.md**: Read it first, suggest additions not replacements.
-- **Wants everything**: Gently focus on the highest-impact item this week.
+Users can also run the script directly without Claude Code:
 
-## Output Deliverables
-
-1. **Tier classification** (internal --- don't label the user)
-2. **Personalized `CLAUDE.md`** (complete, ready to save)
-3. **5-minute win** (one concrete task with exact commands)
-4. **What's next** (3-5 next steps appropriate to tier)
-5. **Skill recommendations** (3-5 skills with one-line descriptions)
+```bash
+python3 scripts/onboard.py                # interactive interview
+python3 scripts/onboard.py --detect       # auto-detect from project files
+python3 scripts/onboard.py --tier 2       # skip interview, specify tier
+python3 scripts/onboard.py --json         # structured output for automation
+```
