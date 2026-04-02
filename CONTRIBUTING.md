@@ -31,6 +31,8 @@ research-agora/
 
 ## Adding a New Skill
 
+> **Before you start:** [Take the onboarding quiz](https://rpatrik96.github.io/research-agora/onboard.html) to see how users discover skills. Your skill's description and trigger phrases should match the vocabulary users express in their quiz answers.
+
 ### 1. Choose the Right Plugin
 
 | Plugin | Use For |

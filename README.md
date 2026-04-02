@@ -35,7 +35,7 @@ In a Claude Code session, run:
 /plugin install research-agents@research-agora
 ```
 
-> **New here?** Run `/onboard` — it asks a few questions about your work and generates a personalized setup with recommended skills.
+> **New here?** Run `/onboard` in Claude Code, or [take the 2-minute quiz](https://rpatrik96.github.io/research-agora/onboard.html) in your browser — no installation needed.
 
 ### Your First 5 Minutes
 
@@ -48,7 +48,7 @@ cd /path/to/your/project && claude
 
 Every entry marked `mismatch` or `not found` is a potential hallucinated or corrupted reference. **Cost: ~$0.10–0.30.**
 
-No `.bib` file? No CLI? See the [full quickstart](docs/quickstart.md) for browser-only paths.
+No `.bib` file? No CLI? [Take the onboarding quiz](https://rpatrik96.github.io/research-agora/onboard.html) — it runs in your browser and recommends where to start.
 
 ### Choose Your Path
 
