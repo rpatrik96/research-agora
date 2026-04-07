@@ -233,6 +233,45 @@
           },
           "notes": "End-to-end citation verification pipeline. Partial coverage (500/1119 entries).",
           "reproduction": "uv run python scripts/run_all_baselines.py --baselines verify_citations --split dev_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "paper-references",
+          "model": "hybrid-controller",
+          "version": "33a10b4a10052a2bee9b9e9769918a533c9c705d",
+          "date": "2026-04-07",
+          "split": "test_public",
+          "num_entries": 831,
+          "metrics": {
+            "detection_rate": 0.9444444444444444,
+            "f1_hallucination": 0.9280397022332506,
+            "tier_weighted_f1": 0.9379042690815007,
+            "fpr": 0.1722488038277512,
+            "ece": 0.03546694214876035
+          },
+          "category-breakdown": {
+            "arxiv_version_mismatch": {"count": 28.0, "detection_rate": 0.9615384615384616, "f1": 0.9803921568627451, "false_positive_rate": 0.0},
+            "chimeric_title": {"count": 24.0, "detection_rate": 1.0, "f1": 1.0, "false_positive_rate": 0.0},
+            "fabricated_doi": {"count": 29.0, "detection_rate": 0.9642857142857143, "f1": 0.9818181818181818, "false_positive_rate": 0.0},
+            "future_date": {"count": 29.0, "detection_rate": 1.0, "f1": 1.0, "false_positive_rate": 0.0},
+            "hybrid_fabrication": {"count": 40.0, "detection_rate": 0.9615384615384616, "f1": 0.9803921568627451, "false_positive_rate": 0.0},
+            "merged_citation": {"count": 29.0, "detection_rate": 1.0, "f1": 1.0, "false_positive_rate": 0.0},
+            "near_miss_title": {"count": 38.0, "detection_rate": 0.4, "f1": 0.5714285714285715, "false_positive_rate": 0.0},
+            "nonexistent_venue": {"count": 38.0, "detection_rate": 1.0, "f1": 1.0, "false_positive_rate": 0.0},
+            "partial_author_list": {"count": 29.0, "detection_rate": 1.0, "f1": 1.0, "false_positive_rate": 0.0},
+            "placeholder_authors": {"count": 36.0, "detection_rate": 1.0, "f1": 1.0, "false_positive_rate": 0.0},
+            "plausible_fabrication": {"count": 103.0, "detection_rate": 0.9824561403508771, "f1": 0.9911504424778761, "false_positive_rate": 0.0},
+            "preprint_as_published": {"count": 29.0, "detection_rate": 1.0, "f1": 1.0, "false_positive_rate": 0.0},
+            "swapped_authors": {"count": 56.0, "detection_rate": 0.9142857142857143, "f1": 0.955223880597015, "false_positive_rate": 0.0},
+            "wrong_venue": {"count": 36.0, "detection_rate": 1.0, "f1": 1.0, "false_positive_rate": 0.0}
+          },
+          "tier-breakdown": {
+            "tier-1": {"detection_rate": 0.991304347826087, "f1": 0.860377358490566, "false_positive_rate": 0.1722488038277512, "num_hallucinated": 132.0, "num_valid": 287.0, "precision": 0.76},
+            "tier-2": {"detection_rate": 0.976878612716763, "f1": 0.8941798941798941, "false_positive_rate": 0.1722488038277512, "num_hallucinated": 243.0, "num_valid": 287.0, "precision": 0.824390243902439},
+            "tier-3": {"detection_rate": 0.8425925925925926, "f1": 0.774468085106383, "false_positive_rate": 0.1722488038277512, "num_hallucinated": 169.0, "num_valid": 287.0, "precision": 0.7165354330708661}
+          },
+          "notes": "BibTeX-first deterministic controller with scholarly tool fallback. Official evaluator run with 5s per-entry timeout and 8-way sharding.",
+          "reproduction": "uv run python scripts/run_submission_eval.py --upstream-root /tmp/hallmark-upstream --split test_public --target controller --output-dir artifacts/submission_eval/test_public_controller"
         }
       ]
     }
