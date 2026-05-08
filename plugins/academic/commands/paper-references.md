@@ -23,9 +23,9 @@ Verify the accuracy of citations in ML conference papers by cross-referencing ag
 Install from PyPI: `pip install bibtex-updater` (source: https://github.com/rpatrik96/bibtexupdater)
 
 Three complementary commands:
-1. **bibtexupdater** - Upgrade preprints to published versions, verify/fill fields
-2. **bibtexupdater-filter** - Filter .bib to only cited references
-3. **bibtexupdater-zotero** - Update Zotero library preprints
+1. **bibtex-update** - Upgrade preprints to published versions, verify/fill fields
+2. **bibtex-filter** - Filter .bib to only cited references
+3. **bibtex-zotero** - Update Zotero library preprints
 
 ### Secondary: arXiv MCP
 
@@ -57,22 +57,22 @@ Keep only references actually cited in the paper:
 cd /path/to/paper
 
 # List all citations found in LaTeX
-bibtexupdater-filter *.tex -b references.bib --list-citations
+bibtex-filter *.tex -b references.bib --list-citations
 
 # Create filtered bibliography (dry-run first)
-bibtexupdater-filter *.tex -b references.bib -o refs_filtered.bib --dry-run
+bibtex-filter *.tex -b references.bib -o refs_filtered.bib --dry-run
 
 # Apply filter
-bibtexupdater-filter *.tex -b references.bib -o refs_filtered.bib
+bibtex-filter *.tex -b references.bib -o refs_filtered.bib
 ```
 
 For multi-file projects:
 ```bash
 # Recursive search in chapters directory
-bibtexupdater-filter ./chapters/ -b refs.bib -o filtered.bib -r
+bibtex-filter ./chapters/ -b refs.bib -o filtered.bib -r
 
 # Multiple bib files merged
-bibtexupdater-filter *.tex -b refs1.bib refs2.bib -o merged_filtered.bib
+bibtex-filter *.tex -b refs1.bib refs2.bib -o merged_filtered.bib
 ```
 
 ## Step 2: Verify & Upgrade References
@@ -82,7 +82,7 @@ bibtexupdater-filter *.tex -b refs1.bib refs2.bib -o merged_filtered.bib
 Always preview changes first:
 
 ```bash
-bibtexupdater references.bib \
+bibtex-check references.bib \
     --dry-run \
     --verbose \
     --report changes.jsonl \
@@ -142,7 +142,7 @@ After reviewing dry-run output:
 
 ```bash
 # Output to new file (safest)
-bibtexupdater references.bib \
+bibtex-update references.bib \
     -o references_updated.bib \
     --verbose \
     --keep-preprint-note \
@@ -150,7 +150,7 @@ bibtexupdater references.bib \
     --field-fill-mode recommended
 
 # Or edit in-place
-bibtexupdater references.bib \
+bibtex-update references.bib \
     --in-place \
     --keep-preprint-note
 ```
@@ -313,13 +313,13 @@ export ZOTERO_LIBRARY_ID="your_user_id"
 export ZOTERO_API_KEY="your_api_key"
 
 # Preview updates
-bibtexupdater-zotero --dry-run --verbose
+bibtex-zotero --dry-run --verbose
 
 # Update specific collection
-bibtexupdater-zotero --collection ABCD1234
+bibtex-zotero --collection ABCD1234
 
 # Update items with specific tag
-bibtexupdater-zotero --tag "to-update"
+bibtex-zotero --tag "to-update"
 ```
 
 ## API Sources Used
@@ -351,14 +351,14 @@ After verification, assess:
 cd /path/to/paper
 
 # 1. Filter to cited references only
-bibtexupdater-filter *.tex -b refs.bib -o refs_cited.bib
+bibtex-filter *.tex -b refs.bib -o refs_cited.bib
 
 # 2. Dry-run verification
-bibtexupdater refs_cited.bib \
+bibtex-update refs_cited.bib \
     --dry-run --verbose --report verify.jsonl --check-fields
 
 # 3. Review verify.jsonl, then apply
-bibtexupdater refs_cited.bib \
+bibtex-update refs_cited.bib \
     -o refs_verified.bib --keep-preprint-note --fill-fields
 
 # 4. Manually verify failures using arXiv MCP
