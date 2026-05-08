@@ -180,13 +180,13 @@
                 <h2>Leaderboard</h2>
                 <div class="benchmark-meta">
                     <span class="badge badge-formal">F1-H</span>
-                    <span class="badge badge-plugin">dev_public</span>
+                    <span class="badge badge-plugin">test_public</span>
                 </div>
             </div>
             {% set hallmark_results = results | selectattr('benchmark-id', 'equalto', 'hallmark') | list %}
             {% if hallmark_results %}
             <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-                Ranked by F1-Hallucination (primary metric) on <code>dev_public</code> split (1,119 entries).
+                Ranked by F1-Hallucination (primary metric) on <code>test_public</code> split (831 entries).
                 Arrows indicate preferred direction.
             </p>
             <div style="overflow-x: auto;">
