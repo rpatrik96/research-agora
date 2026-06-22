@@ -6,236 +6,6 @@
       "entries": [
         {
           "benchmark-id": "hallmark",
-          "skill": "bibtex-updater",
-          "model": "tool",
-          "version": "v2.0 + prescreening",
-          "date": "2026-02-22",
-          "split": "dev_public",
-          "num_entries": 1119,
-          "metrics": {
-            "detection_rate": 0.946,
-            "f1_hallucination": 0.908,
-            "tier_weighted_f1": 0.936,
-            "fpr": 0.179,
-            "ece": 0.297
-          },
-          "tier-breakdown": {
-            "tier-1": {"detection_rate": 0.968, "f1": 0.764},
-            "tier-2": {"detection_rate": 0.955, "f1": 0.848},
-            "tier-3": {"detection_rate": 0.914, "f1": 0.769}
-          },
-          "notes": "BibTeX metadata verification with tool-level fixes and prescreening layer. Best F1 overall.",
-          "reproduction": "uv run python scripts/run_all_baselines.py --baselines bibtexupdater --split dev_public"
-        },
-        {
-          "benchmark-id": "hallmark",
-          "skill": "GPT-5.1",
-          "model": "llm",
-          "version": "openai/gpt-5.1",
-          "date": "2026-02-14",
-          "split": "dev_public",
-          "num_entries": 1068,
-          "metrics": {
-            "detection_rate": 0.797,
-            "f1_hallucination": 0.822,
-            "tier_weighted_f1": 0.846,
-            "fpr": 0.171,
-            "ece": 0.107
-          },
-          "tier-breakdown": {
-            "tier-1": {"detection_rate": 0.873, "f1": 0.932},
-            "tier-2": {"detection_rate": 0.760, "f1": 0.864},
-            "tier-3": {"detection_rate": 0.785, "f1": 0.880}
-          },
-          "notes": "OpenAI GPT-5.1 via direct prompting. Best LLM baseline with balanced precision-recall.",
-          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openai --split dev_public"
-        },
-        {
-          "benchmark-id": "hallmark",
-          "skill": "Qwen 3 235B",
-          "model": "llm",
-          "version": "qwen/qwen3-235b-a22b-2507",
-          "date": "2026-03-15",
-          "split": "dev_public",
-          "num_entries": 1119,
-          "metrics": {
-            "detection_rate": 0.832,
-            "f1_hallucination": 0.737,
-            "tier_weighted_f1": 0.806,
-            "fpr": 0.551,
-            "ece": 0.294
-          },
-          "tier-breakdown": {
-            "tier-1": {"detection_rate": 0.974},
-            "tier-2": {"detection_rate": 0.756},
-            "tier-3": {"detection_rate": 0.833}
-          },
-          "notes": "Qwen 3 235B via OpenRouter. High detection rate but elevated FPR.",
-          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openrouter_qwen --split dev_public"
-        },
-        {
-          "benchmark-id": "hallmark",
-          "skill": "DeepSeek R1",
-          "model": "llm",
-          "version": "deepseek/deepseek-r1",
-          "date": "2026-03-15",
-          "split": "dev_public",
-          "num_entries": 1119,
-          "metrics": {
-            "detection_rate": 0.871,
-            "f1_hallucination": 0.737,
-            "tier_weighted_f1": 0.814,
-            "fpr": 0.640,
-            "ece": 0.247
-          },
-          "tier-breakdown": {
-            "tier-1": {"detection_rate": 0.993},
-            "tier-2": {"detection_rate": 0.832},
-            "tier-3": {"detection_rate": 0.832}
-          },
-          "notes": "DeepSeek R1 via OpenRouter. Near-perfect Tier 1 detection but high FPR.",
-          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openrouter_deepseek_r1 --split dev_public"
-        },
-        {
-          "benchmark-id": "hallmark",
-          "skill": "Mistral Large",
-          "model": "llm",
-          "version": "mistralai/mistral-large-2512",
-          "date": "2026-03-15",
-          "split": "dev_public",
-          "num_entries": 1119,
-          "metrics": {
-            "detection_rate": 0.691,
-            "f1_hallucination": 0.731,
-            "tier_weighted_f1": 0.743,
-            "fpr": 0.258,
-            "ece": 0.247
-          },
-          "tier-breakdown": {
-            "tier-1": {"detection_rate": 0.954},
-            "tier-2": {"detection_rate": 0.596},
-            "tier-3": {"detection_rate": 0.621}
-          },
-          "notes": "Mistral Large via OpenRouter. Best FPR-to-F1 ratio among LLMs.",
-          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openrouter_mistral --split dev_public"
-        },
-        {
-          "benchmark-id": "hallmark",
-          "skill": "DeepSeek V3",
-          "model": "llm",
-          "version": "deepseek/deepseek-v3.2",
-          "date": "2026-03-15",
-          "split": "dev_public",
-          "num_entries": 1119,
-          "metrics": {
-            "detection_rate": 0.880,
-            "f1_hallucination": 0.721,
-            "tier_weighted_f1": 0.805,
-            "fpr": 0.730,
-            "ece": 0.331
-          },
-          "tier-breakdown": {
-            "tier-1": {"detection_rate": 0.994},
-            "tier-2": {"detection_rate": 0.860},
-            "tier-3": {"detection_rate": 0.818}
-          },
-          "notes": "DeepSeek V3 via OpenRouter. Highest DR overall but worst FPR and calibration.",
-          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openrouter_deepseek_v3 --split dev_public"
-        },
-        {
-          "benchmark-id": "hallmark",
-          "skill": "Gemini 2.5 Flash",
-          "model": "llm",
-          "version": "google/gemini-2.5-flash",
-          "date": "2026-03-15",
-          "split": "dev_public",
-          "num_entries": 1119,
-          "metrics": {
-            "detection_rate": 0.482,
-            "f1_hallucination": 0.617,
-            "tier_weighted_f1": 0.608,
-            "fpr": 0.101,
-            "ece": 0.286
-          },
-          "tier-breakdown": {
-            "tier-1": {"detection_rate": 0.693},
-            "tier-2": {"detection_rate": 0.385},
-            "tier-3": {"detection_rate": 0.459}
-          },
-          "notes": "Gemini 2.5 Flash via OpenRouter. Lowest FPR among LLMs but lowest detection rate.",
-          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openrouter_gemini_flash --split dev_public"
-        },
-        {
-          "benchmark-id": "hallmark",
-          "skill": "DOI-only",
-          "model": "tool",
-          "version": "v1.0",
-          "date": "2026-02-14",
-          "split": "dev_public",
-          "num_entries": 1068,
-          "metrics": {
-            "detection_rate": 0.256,
-            "f1_hallucination": 0.361,
-            "tier_weighted_f1": 0.314,
-            "fpr": 0.195,
-            "ece": 0.143
-          },
-          "tier-breakdown": {
-            "tier-1": {"detection_rate": 0.500},
-            "tier-2": {"detection_rate": 0.204},
-            "tier-3": {"detection_rate": 0.094}
-          },
-          "notes": "DOI resolution baseline. Only checks whether DOI resolves.",
-          "reproduction": "uv run python scripts/run_all_baselines.py --baselines doi_only --split dev_public"
-        },
-        {
-          "benchmark-id": "hallmark",
-          "skill": "HaRC",
-          "model": "tool",
-          "version": "harcx",
-          "date": "2026-02-14",
-          "split": "dev_public",
-          "num_entries": 1079,
-          "metrics": {
-            "detection_rate": 0.143,
-            "f1_hallucination": 0.250,
-            "tier_weighted_f1": 0.165,
-            "fpr": 0.002,
-            "ece": 0.011
-          },
-          "tier-breakdown": {
-            "tier-1": {"detection_rate": 0.437},
-            "tier-2": {"detection_rate": 0.036},
-            "tier-3": {"detection_rate": 0.038}
-          },
-          "notes": "Hallucinated Reference Classification tool. Near-zero FPR but poor recall.",
-          "reproduction": "uv run python scripts/run_all_baselines.py --baselines harc --split dev_public"
-        },
-        {
-          "benchmark-id": "hallmark",
-          "skill": "verify-citations",
-          "model": "tool",
-          "version": "v1.0",
-          "date": "2026-02-12",
-          "split": "dev_public",
-          "num_entries": 500,
-          "metrics": {
-            "detection_rate": 0.300,
-            "f1_hallucination": 0.240,
-            "tier_weighted_f1": 0.302,
-            "fpr": 0.133,
-            "ece": null
-          },
-          "tier-breakdown": {
-            "tier-1": {"detection_rate": 0.300},
-            "tier-2": {"detection_rate": 0.333},
-            "tier-3": {"detection_rate": 0.250}
-          },
-          "notes": "End-to-end citation verification pipeline. Partial coverage (500/1119 entries).",
-          "reproduction": "uv run python scripts/run_all_baselines.py --baselines verify_citations --split dev_public"
-        },
-        {
-          "benchmark-id": "hallmark",
           "skill": "paper-references",
           "model": "hybrid-controller",
           "version": "33a10b4a10052a2bee9b9e9769918a533c9c705d",
@@ -272,6 +42,454 @@
           },
           "notes": "BibTeX-first deterministic controller with scholarly tool fallback. Official evaluator run with 5s per-entry timeout and 8-way sharding.",
           "reproduction": "uv run python scripts/run_submission_eval.py --upstream-root /tmp/hallmark-upstream --split test_public --target controller --output-dir artifacts/submission_eval/test_public_controller"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "Claude Sonnet 4.6 + BibTeX-Updater (agentic)",
+          "model": "llm",
+          "version": "anthropic/claude-sonnet-4.6 + bibtex-updater",
+          "date": "2026-05-07",
+          "split": "test_public",
+          "num_entries": 831,
+          "metrics": {
+            "detection_rate": 0.965,
+            "f1_hallucination": 0.901,
+            "tier_weighted_f1": 0.937,
+            "fpr": 0.334,
+            "ece": 0.071
+          },
+          "tier-breakdown": {
+            "tier-1": {
+              "detection_rate": 0.992,
+              "f1": 0.73
+            },
+            "tier-2": {
+              "detection_rate": 0.971,
+              "f1": 0.821
+            },
+            "tier-3": {
+              "detection_rate": 0.935,
+              "f1": 0.747
+            }
+          },
+          "notes": "Claude Sonnet 4.6 with agentic access to BibTeX-Updater. Top LLM tool-augmented baseline.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_agentic_btu_sonnet_4_6 --split test_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "GPT-5.1 + BibTeX-Updater (agentic)",
+          "model": "llm",
+          "version": "openai/gpt-5.1 + bibtex-updater",
+          "date": "2026-05-07",
+          "split": "test_public",
+          "num_entries": 831,
+          "metrics": {
+            "detection_rate": 0.938,
+            "f1_hallucination": 0.885,
+            "tier_weighted_f1": 0.921,
+            "fpr": 0.345,
+            "ece": 0.054
+          },
+          "tier-breakdown": {
+            "tier-1": {
+              "detection_rate": 0.977,
+              "f1": 0.717
+            },
+            "tier-2": {
+              "detection_rate": 0.938,
+              "f1": 0.8
+            },
+            "tier-3": {
+              "detection_rate": 0.905,
+              "f1": 0.727
+            }
+          },
+          "notes": "GPT-5.1 with agentic access to BibTeX-Updater for verification.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_agentic_btu_openai --split test_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "bibtex-updater",
+          "model": "tool",
+          "version": "v2.0 + prescreening",
+          "date": "2026-05-05",
+          "split": "test_public",
+          "num_entries": 831,
+          "metrics": {
+            "detection_rate": 0.886,
+            "f1_hallucination": 0.858,
+            "tier_weighted_f1": 0.892,
+            "fpr": 0.338,
+            "ece": 0.265
+          },
+          "tier-breakdown": {
+            "tier-1": {
+              "detection_rate": 0.939,
+              "f1": 0.703
+            },
+            "tier-2": {
+              "detection_rate": 0.885,
+              "f1": 0.775
+            },
+            "tier-3": {
+              "detection_rate": 0.846,
+              "f1": 0.699
+            }
+          },
+          "notes": "BibTeX metadata verification with tool-level fixes and prescreening layer.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines bibtexupdater --split test_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "GPT-5.1 (agentic)",
+          "model": "llm",
+          "version": "openai/gpt-5.1",
+          "date": "2026-05-07",
+          "split": "test_public",
+          "num_entries": 831,
+          "metrics": {
+            "detection_rate": 0.943,
+            "f1_hallucination": 0.85,
+            "tier_weighted_f1": 0.903,
+            "fpr": 0.523,
+            "ece": 0.137
+          },
+          "tier-breakdown": {
+            "tier-1": {
+              "detection_rate": 0.985,
+              "f1": 0.631
+            },
+            "tier-2": {
+              "detection_rate": 0.942,
+              "f1": 0.736
+            },
+            "tier-3": {
+              "detection_rate": 0.911,
+              "f1": 0.651
+            }
+          },
+          "notes": "GPT-5.1 in agentic loop with web access for citation verification.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_agentic_openai --split test_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "GPT-5.1 (tool-augmented)",
+          "model": "llm",
+          "version": "openai/gpt-5.1",
+          "date": "2026-05-07",
+          "split": "test_public",
+          "num_entries": 831,
+          "metrics": {
+            "detection_rate": 0.829,
+            "f1_hallucination": 0.845,
+            "tier_weighted_f1": 0.862,
+            "fpr": 0.254,
+            "ece": 0.104
+          },
+          "tier-breakdown": {
+            "tier-1": {
+              "detection_rate": 0.962,
+              "f1": 0.765
+            },
+            "tier-2": {
+              "detection_rate": 0.79,
+              "f1": 0.756
+            },
+            "tier-3": {
+              "detection_rate": 0.781,
+              "f1": 0.706
+            }
+          },
+          "notes": "GPT-5.1 with structured tool calls (DOI lookup, search) for verification.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_tool_augmented --split test_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "Claude Opus 4.7",
+          "model": "llm",
+          "version": "anthropic/claude-opus-4.7",
+          "date": "2026-05-07",
+          "split": "test_public",
+          "num_entries": 831,
+          "metrics": {
+            "detection_rate": 0.735,
+            "f1_hallucination": 0.832,
+            "tier_weighted_f1": 0.851,
+            "fpr": 0.059,
+            "ece": 0.126
+          },
+          "tier-breakdown": {
+            "tier-1": {
+              "detection_rate": 0.621,
+              "f1": 0.71
+            },
+            "tier-2": {
+              "detection_rate": 0.782,
+              "f1": 0.844
+            },
+            "tier-3": {
+              "detection_rate": 0.756,
+              "f1": 0.814
+            }
+          },
+          "notes": "Claude Opus 4.7 via OpenRouter (zero-shot prompting).",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openrouter_claude_opus_4_7 --split test_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "Qwen 3 Max",
+          "model": "llm",
+          "version": "qwen/qwen3-max",
+          "date": "2026-05-06",
+          "split": "test_public",
+          "num_entries": 831,
+          "metrics": {
+            "detection_rate": 0.901,
+            "f1_hallucination": 0.803,
+            "tier_weighted_f1": 0.862,
+            "fpr": 0.652,
+            "ece": 0.247
+          },
+          "tier-breakdown": {
+            "tier-1": {
+              "detection_rate": 0.992,
+              "f1": 0.582
+            },
+            "tier-2": {
+              "detection_rate": 0.881,
+              "f1": 0.665
+            },
+            "tier-3": {
+              "detection_rate": 0.858,
+              "f1": 0.579
+            }
+          },
+          "notes": "Qwen 3 Max via OpenRouter.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openrouter_qwen_max --split test_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "DeepSeek R1",
+          "model": "llm",
+          "version": "deepseek/deepseek-r1",
+          "date": "2026-05-07",
+          "split": "test_public",
+          "num_entries": 831,
+          "metrics": {
+            "detection_rate": 0.781,
+            "f1_hallucination": 0.802,
+            "tier_weighted_f1": 0.82,
+            "fpr": 0.33,
+            "ece": 0.202
+          },
+          "tier-breakdown": {
+            "tier-1": {
+              "detection_rate": 0.963,
+              "f1": 0.734
+            },
+            "tier-2": {
+              "detection_rate": 0.711,
+              "f1": 0.685
+            },
+            "tier-3": {
+              "detection_rate": 0.732,
+              "f1": 0.637
+            }
+          },
+          "notes": "DeepSeek R1 via OpenRouter (reasoning model).",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openrouter_deepseek_r1 --split test_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "Qwen 3 235B",
+          "model": "llm",
+          "version": "qwen/qwen3-235b-a22b-2507",
+          "date": "2026-05-06",
+          "split": "test_public",
+          "num_entries": 831,
+          "metrics": {
+            "detection_rate": 0.888,
+            "f1_hallucination": 0.799,
+            "tier_weighted_f1": 0.859,
+            "fpr": 0.631,
+            "ece": 0.249
+          },
+          "tier-breakdown": {
+            "tier-1": {
+              "detection_rate": 0.977,
+              "f1": 0.584
+            },
+            "tier-2": {
+              "detection_rate": 0.855,
+              "f1": 0.657
+            },
+            "tier-3": {
+              "detection_rate": 0.864,
+              "f1": 0.589
+            }
+          },
+          "notes": "Qwen 3 235B via OpenRouter.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openrouter_qwen --split test_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "Mistral Large",
+          "model": "llm",
+          "version": "mistralai/mistral-large-2512",
+          "date": "2026-05-06",
+          "split": "test_public",
+          "num_entries": 831,
+          "metrics": {
+            "detection_rate": 0.658,
+            "f1_hallucination": 0.724,
+            "tier_weighted_f1": 0.732,
+            "fpr": 0.303,
+            "ece": 0.289
+          },
+          "tier-breakdown": {
+            "tier-1": {
+              "detection_rate": 0.894,
+              "f1": 0.7
+            },
+            "tier-2": {
+              "detection_rate": 0.572,
+              "f1": 0.593
+            },
+            "tier-3": {
+              "detection_rate": 0.598,
+              "f1": 0.566
+            }
+          },
+          "notes": "Mistral Large via OpenRouter.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openrouter_mistral --split test_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "Llama 4 Maverick",
+          "model": "llm",
+          "version": "meta-llama/llama-4-maverick",
+          "date": "2026-05-06",
+          "split": "test_public",
+          "num_entries": 831,
+          "metrics": {
+            "detection_rate": 0.604,
+            "f1_hallucination": 0.711,
+            "tier_weighted_f1": 0.7,
+            "fpr": 0.178,
+            "ece": 0.207
+          },
+          "tier-breakdown": {
+            "tier-1": {
+              "detection_rate": 0.894,
+              "f1": 0.784
+            },
+            "tier-2": {
+              "detection_rate": 0.479,
+              "f1": 0.567
+            },
+            "tier-3": {
+              "detection_rate": 0.556,
+              "f1": 0.599
+            }
+          },
+          "notes": "Llama 4 Maverick via OpenRouter.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openrouter_llama_4_maverick --split test_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "Gemini 2.5 Flash",
+          "model": "llm",
+          "version": "google/gemini-2.5-flash",
+          "date": "2026-05-06",
+          "split": "test_public",
+          "num_entries": 831,
+          "metrics": {
+            "detection_rate": 0.483,
+            "f1_hallucination": 0.627,
+            "tier_weighted_f1": 0.606,
+            "fpr": 0.111,
+            "ece": 0.335
+          },
+          "tier-breakdown": {
+            "tier-1": {
+              "detection_rate": 0.72,
+              "f1": 0.734
+            },
+            "tier-2": {
+              "detection_rate": 0.395,
+              "f1": 0.518
+            },
+            "tier-3": {
+              "detection_rate": 0.426,
+              "f1": 0.527
+            }
+          },
+          "notes": "Gemini 2.5 Flash via OpenRouter.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openrouter_gemini_flash --split test_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "Gemini 2.5 Pro",
+          "model": "llm",
+          "version": "google/gemini-2.5-pro",
+          "date": "2026-05-05",
+          "split": "test_public",
+          "num_entries": 831,
+          "metrics": {
+            "detection_rate": 0.437,
+            "f1_hallucination": 0.594,
+            "tier_weighted_f1": 0.582,
+            "fpr": 0.064,
+            "ece": 0.382
+          },
+          "tier-breakdown": {
+            "tier-1": {
+              "detection_rate": 0.629,
+              "f1": 0.709
+            },
+            "tier-2": {
+              "detection_rate": 0.323,
+              "f1": 0.462
+            },
+            "tier-3": {
+              "detection_rate": 0.457,
+              "f1": 0.582
+            }
+          },
+          "notes": "Gemini 2.5 Pro via OpenRouter. Lowest FPR; highly conservative.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines llm_openrouter_gemini_pro --split test_public"
+        },
+        {
+          "benchmark-id": "hallmark",
+          "skill": "DOI-only",
+          "model": "tool",
+          "version": "v1.0",
+          "date": "2026-05-07",
+          "split": "test_public",
+          "num_entries": 831,
+          "metrics": {
+            "detection_rate": 0.369,
+            "f1_hallucination": 0.483,
+            "tier_weighted_f1": 0.436,
+            "fpr": 0.303,
+            "ece": 0.148
+          },
+          "tier-breakdown": {
+            "tier-1": {
+              "detection_rate": 0.689,
+              "f1": 0.587
+            },
+            "tier-2": {
+              "detection_rate": 0.342,
+              "f1": 0.402
+            },
+            "tier-3": {
+              "detection_rate": 0.16,
+              "f1": 0.191
+            }
+          },
+          "notes": "DOI resolution baseline. Only checks whether DOI resolves.",
+          "reproduction": "uv run python scripts/run_all_baselines.py --baselines doi_only --split test_public"
         }
       ]
     }
