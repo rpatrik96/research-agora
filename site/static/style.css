@@ -356,6 +356,7 @@ header h1 {
 .badge-heuristic { background: var(--yellow-light); color: var(--yellow); }
 .badge-layered { background: var(--blue-light); color: var(--blue); }
 .badge-none { background: var(--gray-light); color: var(--gray); }
+.badge-community { background: var(--purple-light); color: var(--purple); }
 
 .badge-opus { background: var(--orange-light); color: var(--orange); }
 .badge-sonnet { background: var(--blue-light); color: var(--blue); }

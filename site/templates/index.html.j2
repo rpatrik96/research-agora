@@ -155,6 +155,9 @@
                             <div class="card-meta">
                                 <span class="badge {{ skill['verification-level']|verification_badge }}">{{ skill['verification-level'] }}</span>
                                 <span class="badge {{ skill.model|model_badge }}">{{ skill.model }}</span>
+                                {% if skill.feedback %}
+                                <span class="badge badge-community" title="Community success score (Wilson lower bound) from {{ skill.feedback.installations }} opted-in installations — see RFC-0001">community {{ skill.feedback.score }}% · n={{ skill.feedback.installations }}</span>
+                                {% endif %}
                             </div>
 
                             <div class="card-actions">

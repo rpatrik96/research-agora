@@ -1,0 +1,32 @@
+name: Skill Feedback Report
+description: Submit a reviewed skill-usage feedback report (RFC-0001). Normally filed by `/agora-feedback submit`; use this form for manual submission.
+title: "[Feedback] "
+labels: ["skill-feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This form ingests **structured feedback reports** produced by the
+        `/agora-feedback` skill (see `docs/rfcs/0001-agora-feedback-loop.md`).
+        The payload is content-free by design: skill names, counters, outcome
+        codes, and short insights you have reviewed. Do not include prompts,
+        file paths, or project data. For free-form suggestions, open a
+        regular issue instead.
+  - type: textarea
+    id: report
+    attributes:
+      label: Report payload
+      description: Paste the JSON payload exactly as `/agora-feedback submit` printed it.
+      render: json
+      placeholder: '{"schema_version": 1, "report_id": "r-...", ...}'
+    validations:
+      required: true
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Review confirmation
+      options:
+        - label: I inspected this exact payload and it contains no personal, confidential, or project data.
+          required: true
+        - label: I understand this submission is public and attributable to my GitHub account.
+          required: true
