@@ -103,6 +103,8 @@ skill library's value.
 
 ## 5. Architecture
 
+![Animated overview of the feedback loop](../../dissemination/feedback-loop.gif)
+
 ```
  user's machine                                  hub repo (GitHub)
 ┌───────────────────────────────────┐           ┌──────────────────────────────┐
@@ -510,6 +512,28 @@ renegotiation); maintainer bottleneck (weekly batching, stewards);
 schema drift (`schema_version` + backward-compat tests); client specificity
 (hooks are Claude Code-specific while the SKILL.md standard has no telemetry
 hook — worth raising upstream with AgentSkills.io).
+
+**Operational and security notes** (from the MVP security review):
+
+- **No pipeline path writes to `main`.** The aggregation workflow only
+  pushes `feedback/aggregate-*` branches and opens PRs; hard enforcement
+  requires branch protection on `main` (require PRs + status checks) — a
+  one-time maintainer setting documented in `.github/workflows-pending/`.
+- **Bot PRs do not trigger CI** (GitHub's anti-recursion rule for
+  `GITHUB_TOKEN`-created events), so the aggregation workflow runs
+  `tests/test_feedback.py` itself before opening the PR.
+- **Every identifier in a report is charset-constrained** (report id,
+  installation id, skill names, dates; insight text is control-character
+  filtered and length-capped) so attacker-chosen strings from the public
+  inbox cannot smuggle markdown, @-mentions, or terminal escapes into
+  `feedback.json` or the digest PR body — and one hostile report can never
+  crash the aggregation run (validation is exception-hardened).
+- **The digest is untrusted input to reviewing agents.** Insight text is
+  written by strangers; treat digest PRs accordingly, especially once
+  `skill-doctor` (M5) reads accumulated feedback.
+- **Scheduled workflows auto-disable after ~60 days of repo inactivity**
+  on public repos. Reports queue as open issues and the aggregator is
+  idempotent, so nothing is lost — re-enable under the Actions tab.
 
 ## 15. References
 
