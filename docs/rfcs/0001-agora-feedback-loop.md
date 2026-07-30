@@ -437,7 +437,9 @@ truth**: a scheduled exporter opens a PR syncing its aggregates into
 ## 13. Aggregation, consumption, and closing the loop
 
 **Aggregation.** `.github/workflows/aggregate-feedback.yml` (weekly cron +
-manual dispatch — the repo's first scheduled workflow) runs
+manual dispatch — the repo's first scheduled workflow; staged in
+`.github/workflows-pending/` until a maintainer installs it, because the
+authoring session's token lacked the `workflow` scope) runs
 `scripts/aggregate-feedback.py`: fetch open `skill-feedback` issues, extract
 fenced JSON, validate, dedup, cap, quarantine outliers, compute Wilson
 bounds, and open a bot PR updating `registry/feedback.json`. The PR body is

@@ -1,0 +1,51 @@
+name: Aggregate Feedback
+
+# RFC-0001 M2: weekly roll-up of skill-feedback issues into
+# registry/feedback.json via a bot PR (human merges; the PR body is the digest).
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: read
+  pull-requests: write
+
+jobs:
+  aggregate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Aggregate feedback reports
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/aggregate-feedback.py --from-github | tee digest.md
+
+      - name: Open aggregation PR if anything changed
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet registry/feedback.json; then
+            echo "No changes to registry/feedback.json — nothing to do."
+            exit 0
+          fi
+          branch="feedback/aggregate-${{ github.run_id }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add registry/feedback.json
+          git commit -m "chore(feedback): weekly aggregation of skill-feedback reports"
+          git push -u origin "$branch"
+          gh pr create \
+            --title "chore(feedback): weekly feedback aggregation" \
+            --body-file digest.md \
+            --label skill-feedback
