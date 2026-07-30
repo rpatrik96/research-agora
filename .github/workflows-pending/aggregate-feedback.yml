@@ -2,6 +2,14 @@ name: Aggregate Feedback
 
 # RFC-0001 M2: weekly roll-up of skill-feedback issues into
 # registry/feedback.json via a bot PR (human merges; the PR body is the digest).
+#
+# Guarantees:
+# - NEVER pushes to main: output lands on a feedback/aggregate-* branch and
+#   is opened as a PR that a human reviews and merges. Pair this with branch
+#   protection on main (require PRs + passing checks) for hard enforcement.
+# - Validates in-workflow: PRs created with the default GITHUB_TOKEN do not
+#   trigger other workflows (anti-recursion), so ci.yml will NOT run on the
+#   bot PR — tests/test_feedback.py therefore runs HERE, before the PR opens.
 
 on:
   schedule:
@@ -10,8 +18,12 @@ on:
 
 permissions:
   contents: write
-  issues: read
+  issues: write # label bootstrap; reading issues is included
   pull-requests: write
+
+concurrency:
+  group: aggregate-feedback
+  cancel-in-progress: false
 
 jobs:
   aggregate:
@@ -24,11 +36,25 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Ensure skill-feedback label exists
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create skill-feedback \
+            --repo "${{ github.repository }}" \
+            --description "RFC-0001 feedback report (issue) / aggregation (PR)" \
+            --color 5319e7 || true
+
       - name: Aggregate feedback reports
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python scripts/aggregate-feedback.py --from-github | tee digest.md
+
+      - name: Validate the new aggregate (bot PRs get no CI runs)
+        run: |
+          pip install pytest pyyaml
+          pytest tests/test_feedback.py -q
 
       - name: Open aggregation PR if anything changed
         env:

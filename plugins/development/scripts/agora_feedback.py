@@ -85,6 +85,15 @@ def pending_report_path() -> Path:
     return reports_dir() / "pending-report.json"
 
 
+def secure_mkdir(path: Path) -> None:
+    """Create a directory tree and keep ~/.agora private to the user."""
+    path.mkdir(parents=True, exist_ok=True)
+    try:
+        os.chmod(agora_home(), 0o700)
+    except OSError:
+        pass
+
+
 def load_config() -> dict:
     try:
         with open(config_path()) as f:
@@ -94,7 +103,7 @@ def load_config() -> dict:
 
 
 def save_config(config: dict) -> None:
-    config_path().parent.mkdir(parents=True, exist_ok=True)
+    secure_mkdir(config_path().parent)
     with open(config_path(), "w") as f:
         json.dump(config, f, indent=2)
 
@@ -201,7 +210,7 @@ def cmd_capture() -> int:
         if event is None:
             return 0
         event["ts"] = datetime.now().isoformat(timespec="seconds")
-        spool_path().parent.mkdir(parents=True, exist_ok=True)
+        secure_mkdir(spool_path().parent)
         with open(spool_path(), "a") as f:
             f.write(json.dumps(event) + "\n")
     except Exception:
@@ -355,7 +364,7 @@ def load_pending() -> dict | None:
 
 
 def save_pending(report: dict) -> None:
-    reports_dir().mkdir(parents=True, exist_ok=True)
+    secure_mkdir(reports_dir())
     with open(pending_report_path(), "w") as f:
         json.dump(report, f, indent=2)
 
@@ -490,7 +499,7 @@ def cmd_insight(args: argparse.Namespace) -> int:
 
 def archive_spool() -> None:
     if spool_path().exists():
-        archive_dir().mkdir(parents=True, exist_ok=True)
+        secure_mkdir(archive_dir())
         stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
         shutil.move(str(spool_path()), str(archive_dir() / f"events-{stamp}.jsonl"))
 
@@ -538,27 +547,28 @@ def cmd_submit(confirm: bool, allow_pii: bool) -> int:
     save_pending(report)
     body = issue_body(report)
     title = f"[Feedback] {report['report_id']} ({report['period']['from']} → {report['period']['to']})"
-    try:
-        result = subprocess.run(
-            [
-                "gh",
-                "issue",
-                "create",
-                "--repo",
-                HUB_REPO,
-                "--title",
-                title,
-                "--label",
-                ISSUE_LABEL,
-                "--body",
-                body,
-            ],
-            capture_output=True,
-            text=True,
-            timeout=60,
-        )
-    except (OSError, subprocess.SubprocessError):
-        result = None
+    base_cmd = [
+        "gh",
+        "issue",
+        "create",
+        "--repo",
+        HUB_REPO,
+        "--title",
+        title,
+        "--body",
+        body,
+    ]
+    result = None
+    # First try with the label; if that fails (e.g. label missing in the
+    # repo), retry unlabeled — the aggregator's title-prefix is not enough,
+    # but a maintainer can label it, and losing the report entirely is worse.
+    for cmd in (base_cmd + ["--label", ISSUE_LABEL], base_cmd):
+        try:
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+        except (OSError, subprocess.SubprocessError):
+            result = None
+        if result is not None and result.returncode == 0:
+            break
 
     if result is not None and result.returncode == 0:
         receipt = result.stdout.strip()

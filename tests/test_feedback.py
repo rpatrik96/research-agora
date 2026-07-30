@@ -373,3 +373,76 @@ class TestPiiLint:
             ],
         )
         assert client_mod.pii_findings(report) == []
+
+
+class TestValidationHardening:
+    """Hostile-input hardening: reports come from a public issue inbox, so a
+    malformed or adversarial report must be rejected — never crash the run."""
+
+    def test_insights_not_a_list_rejected_not_crash(self, registry_skill_names):
+        report = make_report(sorted(registry_skill_names)[0])
+        report["skills"][0]["insights"] = "surprise, a string"
+        assert aggregate_mod.validate_report(report)
+
+    def test_non_numeric_confidence_rejected(self, registry_skill_names):
+        report = make_report(
+            sorted(registry_skill_names)[0],
+            insights=[{"type": "bug", "text": "meh", "confidence": "high"}],
+        )
+        assert aggregate_mod.validate_report(report)
+
+    def test_out_of_range_confidence_rejected(self, registry_skill_names):
+        report = make_report(
+            sorted(registry_skill_names)[0],
+            insights=[{"type": "bug", "text": "meh", "confidence": 7.0}],
+        )
+        assert aggregate_mod.validate_report(report)
+
+    def test_unknown_outcome_keys_rejected(self, registry_skill_names):
+        report = make_report(sorted(registry_skill_names)[0])
+        report["skills"][0]["outcomes"]["<script>alert(1)</script>"] = 1
+        assert aggregate_mod.validate_report(report)
+
+    def test_unknown_error_codes_rejected(self, registry_skill_names):
+        report = make_report(sorted(registry_skill_names)[0])
+        report["skills"][0]["error_codes"] = {"@everyone pwned": 1}
+        assert aggregate_mod.validate_report(report)
+
+    def test_control_chars_in_insight_rejected(self, registry_skill_names):
+        report = make_report(
+            sorted(registry_skill_names)[0],
+            insights=[{"type": "bug", "text": "line1\x00\x1bline2", "confidence": 0.5}],
+        )
+        assert aggregate_mod.validate_report(report)
+
+    def test_markdown_hostile_installation_id_rejected(self, registry_skill_names):
+        report = make_report(
+            sorted(registry_skill_names)[0],
+            installation="@everyone [click](https://evil.example)",
+        )
+        assert aggregate_mod.validate_report(report)
+
+    def test_absurd_invocation_count_rejected(self, registry_skill_names):
+        report = make_report(sorted(registry_skill_names)[0])
+        report["skills"][0]["invocations"] = 10**12
+        assert aggregate_mod.validate_report(report)
+
+    def test_hostile_report_never_kills_the_run(self, tmp_path, registry_skill_names):
+        known = sorted(registry_skill_names)[0]
+        hostile = make_report(known, report_id="r-hostile", installation="h" * 32)
+        hostile["skills"][0]["insights"] = {"not": "a list"}
+        good = make_report(known, report_id="r-good", installation="g" * 32)
+        input_dir = tmp_path / "reports"
+        input_dir.mkdir()
+        (input_dir / "hostile.json").write_text(json.dumps(hostile))
+        (input_dir / "good.json").write_text(json.dumps(good))
+        (input_dir / "not-even-json.json").write_text("}{")
+        output = tmp_path / "feedback.json"
+
+        rc = aggregate_mod.main(
+            ["--input-dir", str(input_dir), "--output", str(output)]
+        )
+        assert rc == 0
+        result = json.loads(output.read_text())
+        assert result["stats"]["reports"] == 1  # only the good one survives
+        assert known in result["skills"]

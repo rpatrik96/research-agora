@@ -29,6 +29,8 @@ ISSUE_LABEL = "skill-feedback"
 
 SCHEMA_VERSION = 1
 MAX_REPORTS_PER_INSTALLATION = 8
+MAX_SKILLS_PER_REPORT = 200
+MAX_INVOCATIONS_PER_ENTRY = 100_000
 MAX_INSIGHTS_PER_SKILL = 10
 INSIGHT_TEXT_MAX = 500
 OUTLIER_SIGMA = 3.0
@@ -45,8 +47,25 @@ INSIGHT_TYPES = {
     "deprecation-signal",
     "praise",
 }
+OUTCOME_KEYS = {"success", "partial", "error", "unknown"}
+ERROR_CODES = {
+    "INVALID_INPUT",
+    "TIMEOUT",
+    "SERVICE_UNAVAILABLE",
+    "SCOPE_EXCEEDED",
+    "CONFIDENCE_LOW",
+    "PARTIAL_RESULT",
+}
 
 FENCED_JSON = re.compile(r"```json\s*\n(.*?)\n```", re.DOTALL)
+# Reports come from a public inbox: every identifier that can end up in
+# feedback.json or the digest PR body is charset-constrained here so
+# attacker-chosen strings cannot smuggle markdown/mentions/control chars.
+REPORT_ID_RE = re.compile(r"^r-[A-Za-z0-9-]{1,64}$")
+INSTALLATION_ID_RE = re.compile(r"^[A-Za-z0-9-]{8,64}$")
+SKILL_NAME_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,63}$")
+DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+CONTROL_CHARS_RE = re.compile(r"[\x00-\x1f\x7f]")
 
 
 def wilson_lower_bound(successes: float, n: float, z: float = 1.96) -> float:
@@ -67,44 +86,96 @@ def registry_skill_names() -> set:
     return {s["name"] for repo in data.get("repos", []) for s in repo.get("skills", [])}
 
 
+def _valid_count(value, upper: int = MAX_INVOCATIONS_PER_ENTRY) -> bool:
+    return (
+        isinstance(value, int) and not isinstance(value, bool) and 0 <= value <= upper
+    )
+
+
 def validate_report(report: dict) -> list[str]:
-    """Return a list of validation errors; empty list means valid."""
+    """Return a list of validation errors; empty list means valid.
+
+    Defensive by design: reports arrive from a public issue inbox, so every
+    field is type- and charset-checked before it can reach feedback.json,
+    the digest PR body, or any arithmetic.
+    """
     errors = []
+    if not isinstance(report, dict):
+        return ["report is not a JSON object"]
     if report.get("schema_version") != SCHEMA_VERSION:
         errors.append(f"unsupported schema_version: {report.get('schema_version')!r}")
-    if not isinstance(report.get("report_id"), str) or not report[
-        "report_id"
-    ].startswith("r-"):
+    report_id = report.get("report_id")
+    if not isinstance(report_id, str) or not REPORT_ID_RE.match(report_id):
         errors.append("missing or malformed report_id")
-    reporter = report.get("reporter") or {}
-    if (
-        not isinstance(reporter.get("installation_id"), str)
-        or not reporter["installation_id"]
-    ):
-        errors.append("missing reporter.installation_id")
-    if not isinstance(report.get("skills"), list) or not report.get("skills"):
+    reporter = report.get("reporter")
+    installation = (
+        reporter.get("installation_id") if isinstance(reporter, dict) else None
+    )
+    if not isinstance(installation, str) or not INSTALLATION_ID_RE.match(installation):
+        errors.append("missing or malformed reporter.installation_id")
+    created = report.get("created")
+    if not isinstance(created, str) or not DATE_RE.match(created):
+        errors.append("missing or malformed created date (expected YYYY-MM-DD)")
+    skills = report.get("skills")
+    if not isinstance(skills, list) or not skills:
         errors.append("missing or empty skills list")
         return errors
-    for entry in report["skills"]:
-        name = entry.get("skill", "<missing>")
-        if not isinstance(entry.get("skill"), str) or not entry["skill"]:
-            errors.append("skill entry without a name")
+    if len(skills) > MAX_SKILLS_PER_REPORT:
+        return [f"too many skill entries ({len(skills)} > {MAX_SKILLS_PER_REPORT})"]
+    for entry in skills:
+        if not isinstance(entry, dict):
+            errors.append("skill entry is not an object")
             continue
-        if not isinstance(entry.get("invocations"), int) or entry["invocations"] < 0:
+        name = entry.get("skill")
+        if not isinstance(name, str) or not SKILL_NAME_RE.match(name):
+            errors.append(f"missing or malformed skill name: {name!r}")
+            continue
+        if not _valid_count(entry.get("invocations")):
             errors.append(f"{name}: invalid invocations")
         outcomes = entry.get("outcomes")
-        if not isinstance(outcomes, dict) or not all(
-            isinstance(v, int) and v >= 0 for v in outcomes.values()
+        if (
+            not isinstance(outcomes, dict)
+            or not set(outcomes) <= OUTCOME_KEYS
+            or not all(_valid_count(v) for v in outcomes.values())
         ):
             errors.append(f"{name}: invalid outcomes")
-        for insight in entry.get("insights", []):
+        error_codes = entry.get("error_codes") or {}
+        if (
+            not isinstance(error_codes, dict)
+            or not set(error_codes) <= ERROR_CODES
+            or not all(_valid_count(v) for v in error_codes.values())
+        ):
+            errors.append(f"{name}: invalid error_codes")
+        insights = entry.get("insights", [])
+        if not isinstance(insights, list) or len(insights) > MAX_INSIGHTS_PER_SKILL:
+            errors.append(
+                f"{name}: insights must be a list of at most {MAX_INSIGHTS_PER_SKILL}"
+            )
+            continue
+        for insight in insights:
+            if not isinstance(insight, dict):
+                errors.append(f"{name}: insight is not an object")
+                continue
             if insight.get("type") not in INSIGHT_TYPES:
                 errors.append(f"{name}: invalid insight type {insight.get('type')!r}")
             text = insight.get("text", "")
-            if not isinstance(text, str) or not text or len(text) > INSIGHT_TEXT_MAX:
+            if (
+                not isinstance(text, str)
+                or not text
+                or len(text) > INSIGHT_TEXT_MAX
+                or CONTROL_CHARS_RE.search(text)
+            ):
                 errors.append(
-                    f"{name}: insight text missing or over {INSIGHT_TEXT_MAX} chars"
+                    f"{name}: insight text missing, over {INSIGHT_TEXT_MAX} chars, "
+                    "or contains control characters"
                 )
+            confidence = insight.get("confidence", 0.5)
+            if (
+                not isinstance(confidence, (int, float))
+                or isinstance(confidence, bool)
+                or not 0 <= confidence <= 1
+            ):
+                errors.append(f"{name}: insight confidence must be a number in [0, 1]")
     return errors
 
 
@@ -171,7 +242,10 @@ def filter_reports(reports: list[dict]) -> tuple[list[dict], dict]:
     valid = []
     seen_ids = set()
     for report in reports:
-        errors = validate_report(report)
+        try:
+            errors = validate_report(report)
+        except Exception as e:  # one hostile report must never kill the run
+            errors = [f"unvalidatable report structure: {type(e).__name__}"]
         if errors:
             log["invalid"].append(
                 {"report_id": report.get("report_id"), "errors": errors}
@@ -265,7 +339,7 @@ def aggregate(reports: list[dict], known_skills: set) -> tuple[dict, list[str]]:
                     {
                         "type": insight["type"],
                         "text": insight["text"],
-                        "confidence": insight.get("confidence", 0.5),
+                        "confidence": float(insight.get("confidence", 0.5)),
                     }
                 )
 
