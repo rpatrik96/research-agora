@@ -112,7 +112,12 @@ SKILL_GROUP_MAP = {
     "review-prompt": "writing-polish",
     "whats-new": "development",
     "audit-my-setup": "development",
+    "agora-feedback": "development",
 }
+
+# Community feedback badges render only at or above this many unique
+# installations (k-anonymity floor, RFC-0001 §11).
+FEEDBACK_MIN_INSTALLATIONS = 3
 
 # Display order for groups
 GROUP_ORDER = [
@@ -146,6 +151,15 @@ def load_categories() -> dict:
         print("Error: registry/categories.json not found.")
         sys.exit(1)
     with open(cat_path) as f:
+        return json.load(f)
+
+
+def load_feedback() -> dict:
+    """Load registry/feedback.json (RFC-0001); empty aggregate if absent."""
+    feedback_path = REGISTRY_DIR / "feedback.json"
+    if not feedback_path.exists():
+        return {"stats": {}, "skills": {}}
+    with open(feedback_path) as f:
         return json.load(f)
 
 
@@ -222,6 +236,8 @@ def main():
     registry = load_registry()
     categories = load_categories()
     groups_meta = categories.get("groups", {})
+    feedback = load_feedback()
+    feedback_skills = feedback.get("skills", {})
 
     # Collect all skills from all repos
     all_skills = []
@@ -230,6 +246,13 @@ def main():
         for skill in repo.get("skills", []):
             skill["repo_url"] = repo_url
             skill["source_url"] = f"{repo_url}/blob/main/{skill.get('path', '')}"
+            fb = feedback_skills.get(skill["name"])
+            if fb and fb.get("unique_installations", 0) >= FEEDBACK_MIN_INSTALLATIONS:
+                skill["feedback"] = {
+                    "score": round(fb.get("wilson_lb", 0.0) * 100),
+                    "installations": fb["unique_installations"],
+                    "status": fb.get("status", "active"),
+                }
             all_skills.append(skill)
 
     # Split by visibility
@@ -268,6 +291,7 @@ def main():
         "groups": len(grouped_skills),
         "plugins": len(plugins),
         "benchmarks": len(benchmarks),
+        "feedback_reports": feedback.get("stats", {}).get("reports", 0),
     }
 
     # Render index page

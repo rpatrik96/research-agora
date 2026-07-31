@@ -240,6 +240,16 @@ pip install bibtex-updater
 - **LaTeX packages:** cleveref, booktabs, amsmath
 - **Figures:** matplotlib/seaborn, colorblind-safe palettes, PDF export
 
+## Community Feedback Loop (opt-in)
+
+The Agora learns which skills earn their place from the people using them — without ever seeing your prompts, files, or paths.
+
+<p align="center">
+  <img src="dissemination/feedback-loop.gif" alt="Animated diagram of the RFC-0001 feedback loop: skill runs, hook captures counters, local spool, user review gate, GitHub issue, weekly aggregation, bot PR reviewed by a human, and skills improving" width="700">
+</p>
+
+Capture is **off by default**; `/agora-feedback enable` turns it on locally, and nothing is ever submitted until you inspect the exact payload and confirm. Aggregated scores appear as community badges on the [skills site](https://rpatrik96.github.io/research-agora), and updates to the registry only ever land through a reviewed pull request. Design and privacy details: [RFC-0001](docs/rfcs/0001-agora-feedback-loop.md) and the [privacy guide](docs/privacy-gdpr.md).
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding new skills and agents.

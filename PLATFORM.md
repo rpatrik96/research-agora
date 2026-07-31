@@ -9,7 +9,7 @@ The Research Agora is community-driven infrastructure for AI-assisted research, 
 3. **Verification** (Test-Driven Research) — Define acceptance criteria before delegating to AI
 
 Design principles:
-- **Zero-backend:** GitHub-native, no servers to maintain, $0/month hosting
+- **GitHub-canonical (zero-backend by default):** GitHub-native, no required servers, $0/month hosting. Optional self-hosted components (e.g., the feedback HTTP sink of [RFC-0001](docs/rfcs/0001-agora-feedback-loop.md)) are deployment profiles that sync their data back into this repo — the registry files here remain the single source of truth
 - **Community-driven:** Anyone can contribute skills or register third-party repos
 - **Research-focused:** Taxonomy, metadata, and benchmarks designed for academic workflows
 - **Agent-agnostic:** Skills follow the AgentSkills.io open standard (SKILL.md), compatible with Claude Code, Cursor, Gemini CLI, and GitHub Copilot
@@ -219,6 +219,7 @@ Different research tasks afford different levels of verification:
 | L5 | Judgment | Human expert assessment | Writing quality, research taste |
 
 > **Note**: Skills currently use a 4-level subset: formal, heuristic, layered, none.
+> L4 (Consensus) is operationalized by the community feedback loop — see [RFC-0001](docs/rfcs/0001-agora-feedback-loop.md), §10.
 
 ### Trust Badges
 
@@ -303,7 +304,7 @@ python scripts/generate-site.py
 
 **Phase 3: Council**
 - Elected governance council for major decisions (new categories, breaking changes, benchmark design)
-- RFC process for significant changes
+- RFC process for significant changes (bootstrapped early — see [docs/rfcs/](docs/rfcs/))
 
 ### Licensing
 
@@ -345,6 +346,11 @@ Skills are citable software. Each skill includes a suggested BibTeX entry:
 - [ ] Contributor guidelines and steward roles
 - [ ] CODEOWNERS for plugin categories
 - [ ] Community discussion forum (GitHub Discussions)
+- [x] Feedback loop design ([RFC-0001](docs/rfcs/0001-agora-feedback-loop.md))
+- [x] Opt-in usage capture + review-gated submission (`/agora-feedback`, GitHub sink)
+- [x] Feedback aggregation pipeline (`registry/feedback.json`, weekly workflow, site badges)
+- [ ] Feedback lifecycle automation (L4 consensus badge, `whats-new`/`choose-skill` integration — RFC-0001 M3)
+- [ ] Feedback HTTP sink reference implementation (RFC-0001 M4)
 
 ### Phase 3: Benchmark Infrastructure
 

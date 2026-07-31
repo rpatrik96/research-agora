@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "schema_version": 1,
+  "generated": "2026-07-30",
+  "window": {
+    "from": null,
+    "to": null
+  },
+  "stats": {
+    "reports": 0,
+    "unique_installations": 0,
+    "skills_with_feedback": 0
+  },
+  "skills": {}
+}

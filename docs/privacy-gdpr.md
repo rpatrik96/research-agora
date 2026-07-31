@@ -158,6 +158,7 @@ export DISABLE_TELEMETRY=1                              # No usage metrics sent 
 export DISABLE_ERROR_REPORTING=1                         # No error logs to Sentry
 export DISABLE_FEEDBACK_COMMAND=1                        # Prevents transcript upload via /feedback
 export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1        # Disables all non-essential network calls
+export AGORA_FEEDBACK=0                                  # Disables Research Agora's opt-in feedback capture entirely
 ```
 
 Add these patterns to `.claudeignore` in your project root to prevent Claude from reading sensitive files:
@@ -176,6 +177,22 @@ id_rsa*
 ```
 
 **Critical caveat:** `.claudeignore` is not a security boundary. See "The .env Problem" below. Use `.claudeignore` as one layer of defense, not the only one.
+
+---
+
+## Research Agora Feedback (Opt-In)
+
+The Agora has its own feedback channel (`/agora-feedback`, [RFC-0001](rfcs/0001-agora-feedback-loop.md)). It is **not** Anthropic telemetry, and the kill switches above say nothing about it — the two are unrelated channels with different data flows. How it differs:
+
+| | Anthropic telemetry | Agora feedback |
+|---|---|---|
+| Default | On (disable via `DISABLE_TELEMETRY=1`) | **Off** (enable via `/agora-feedback enable`) |
+| What it contains | Opaque usage metrics | Skill names, counters, outcome codes, insights you wrote or approved — never prompts, file contents, or paths |
+| Transmission | Automatic | **Never automatic** — you inspect the exact payload and explicitly confirm each submission |
+| Destination | Anthropic | A public GitHub issue on the Agora repo, attributable to your GitHub account like any OSS contribution |
+| Kill switch | `DISABLE_TELEMETRY=1` | `AGORA_FEEDBACK=0`; `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1` also blocks submission |
+
+Disabling Anthropic telemetry (as this guide recommends) and opting into Agora feedback are fully compatible choices: the first stops opaque automatic collection, the second is a reviewed, deliberate contribution. Captured events stay in `~/.agora/` — outside any project root, so they never enter Claude's context by accident — and `/agora-feedback purge` deletes every trace.
 
 ---
 

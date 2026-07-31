@@ -93,6 +93,12 @@ Check `~/.claude/settings.json` for:
 - `allowedTools` and `deniedTools` lists
 - Any project-level `.claudeignore` files
 
+Check `~/.agora/config.json` for the Agora feedback channel (RFC-0001):
+- Absent or `enabled: false` — feedback capture is off (the default); no privacy concern
+- `enabled: true` — capture is local-only and submission is review-gated; this
+  is a deliberate opt-in, **not** a privacy gap. Confirm the user knows about
+  `/agora-feedback purge` and the `AGORA_FEEDBACK=0` kill switch.
+
 Check for `.claudeignore` in the project root. This file controls what Claude Code can read --- missing it means all files (including potentially sensitive data) are accessible.
 
 ---
@@ -156,6 +162,12 @@ Sensitive data excluded. Telemetry setting reviewed.
 
 **3 — Complete privacy** (`.claudeignore` + telemetry disabled + tool restrictions reviewed)
 Full control over what Claude Code can access and what data leaves the machine.
+
+> **Scoring note:** an *enabled* Agora feedback channel (`/agora-feedback`)
+> does not reduce this score. It is off by default, captures locally,
+> and transmits nothing without the user reviewing the exact payload —
+> the opposite of the opaque telemetry this rubric penalizes. An
+> auto-submitting configuration (if one ever existed) would score as a gap.
 
 ---
 
