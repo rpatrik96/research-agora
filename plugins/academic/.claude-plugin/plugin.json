@@ -9,12 +9,19 @@
   "homepage": "https://github.com/rpatrik96/research-agora",
   "repository": "https://github.com/rpatrik96/research-agora",
   "license": "MIT",
-  "keywords": ["academic", "paper", "writing", "ml-research", "latex"],
+  "keywords": [
+    "academic",
+    "paper",
+    "writing",
+    "ml-research",
+    "latex"
+  ],
   "components": {
     "commands": {
       "description": "Academic writing and research skills for ML conference papers",
       "items": [
         "benchmark-scout",
+        "brainstorm",
         "choose-skill",
         "experiment-tracker",
         "five-minute-win",

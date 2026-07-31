@@ -6,6 +6,7 @@ Academic paper writing skills for ML conferences (NeurIPS, ICML, ICLR, AAAI).
 
 | Command | Description |
 |---------|-------------|
+| `/brainstorm` | Checkpoint-gated interactive brainstorming for research decisions |
 | `/paper-introduction` | Write or improve introduction sections |
 | `/paper-abstract` | Write or improve abstracts |
 | `/literature-synthesizer` | Write related work and discover relevant literature |
