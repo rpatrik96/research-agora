@@ -20,6 +20,7 @@
     "review"
   ],
   "research-phases": [
+    "ideation",
     "literature-review",
     "experiment-design",
     "implementation",
@@ -35,6 +36,11 @@
     "none"
   ],
   "groups": {
+    "ideation": {
+      "label": "Ideation & Decisions",
+      "description": "Brainstorm directions, weigh alternatives, and make research decisions with the user in the loop",
+      "icon": "lightbulb"
+    },
     "paper-drafting": {
       "label": "Paper Drafting",
       "description": "Write and structure paper sections",

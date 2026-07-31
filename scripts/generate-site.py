@@ -27,6 +27,9 @@ OUTPUT_DIR = SITE_DIR / "output"
 
 # Skill → Group mapping (centralized, not in frontmatter)
 SKILL_GROUP_MAP = {
+    # Ideation & Decisions
+    "brainstorm": "ideation",
+
     # Paper Drafting
     "paper-abstract": "paper-drafting",
     "paper-introduction": "paper-drafting",

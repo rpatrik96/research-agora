@@ -1,10 +1,10 @@
 {
   "version": "1.0.0",
-  "generated": "2026-07-30",
+  "generated": "2026-07-31",
   "stats": {
-    "total_skills": 82,
-    "public_skills": 63,
-    "commands": 41,
+    "total_skills": 83,
+    "public_skills": 64,
+    "commands": 42,
     "agents": 22,
     "micro_skills": 12,
     "orchestrators": 4,
@@ -28,6 +28,19 @@
           "task-type": "analysis",
           "research-phase": "literature-review",
           "verification-level": "none",
+          "visibility": "public"
+        },
+        {
+          "name": "brainstorm",
+          "plugin": "academic",
+          "type": "command",
+          "description": "Checkpoint-gated interactive brainstorming for research and knowledge-organization\ndecisions: framing a problem, exploring the option space, and choosing a direction\nWITH the user rather than for them. Use when asked to \"brainstorm\", \"think through\noptions\", \"explore approaches\", \"help me decide\", \"what's the best way to\nstructure/represent/organize X\", \"weigh alternatives\", \"design a study/benchmark/\ntaxonomy\", or when a task's hardest part is a decision the user must own.\nSupports optional multi-agent debate (opposing-prior proposers + a fact-checking\ndevil's advocate) between checkpoints. For software-implementation design and specs,\ndefer to superpowers:brainstorming if that plugin is installed \u2014 this skill owns\nresearch and representation decisions, not code architecture.",
+          "model": "opus",
+          "path": "plugins/academic/commands/brainstorm.md",
+          "research-domain": "general",
+          "task-type": "analysis",
+          "research-phase": "ideation",
+          "verification-level": "heuristic",
           "visibility": "public"
         },
         {
