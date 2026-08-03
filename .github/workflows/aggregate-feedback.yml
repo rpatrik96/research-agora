@@ -10,6 +10,13 @@ name: Aggregate Feedback
 # - Validates in-workflow: PRs created with the default GITHUB_TOKEN do not
 #   trigger other workflows (anti-recursion), so ci.yml will NOT run on the
 #   bot PR — tests/test_feedback.py therefore runs HERE, before the PR opens.
+#
+# Merging the bot PR: the same anti-recursion rule means the required status
+# checks never appear on it, and a ruleset with no bypass actors then blocks
+# the merge (`--admin` included). Push any commit to the aggregation branch
+# from a human account to fire CI, then merge normally; a squash merge leaves
+# no trace of it. Supplying a PAT to the `gh pr create` step would arm the
+# checks automatically, at the cost of storing a token with write scope.
 
 on:
   schedule:
