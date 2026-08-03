@@ -56,11 +56,11 @@ Verification complete: 3/3 equations passed
 ```
 ✗ eq:energy - FAILED
   Test case 1: Expected 0.0, got 0.5
-  
+
   Inputs: phi_patch=zeros(9), library_patch=zeros(9), alpha_bar_t=0.5
   Code: equations.py:45 els_energy()
   Paper: main.tex:67 \label{eq:energy}
-  
+
   Possible causes:
   - Formula mismatch: check normalization factor
   - Parameter interpretation differs
@@ -71,7 +71,7 @@ Verification complete: 3/3 equations passed
 ⚠ eq:beta-def - Label not found in LaTeX
   Decorator at: equations.py:89
   Searched: paper/*.tex
-  
+
   Did you mean: eq:beta (found in appendix.tex:234)?
 ```
 

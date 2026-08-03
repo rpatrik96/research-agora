@@ -138,18 +138,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/paper-repo
           path: paper
-          
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          
+
       - run: pip install -e ".[verify]" torch --index-url https://download.pytorch.org/whl/cpu
-      
+
       - name: List equations
         run: |
           python -c "
@@ -157,7 +157,7 @@ jobs:
           from latex_code_sync import get_registry
           for label, spec in get_registry().equations.items():
               print(f'{label}: {spec.function.__name__ if spec.function else \"N/A\"}')"
-              
+
       - name: Verify
         run: latex-code-sync verify --latex-dir=paper/ --modules=equations --strict
 ```
