@@ -233,7 +233,7 @@ def event_from_hook_payload(payload: dict) -> dict | None:
     if tool == "Skill":
         skill = tool_input.get("skill") or tool_input.get("name")
         event_type = "invocation"
-    elif tool == "Task":
+    elif tool in ("Task", "Agent"):
         skill = tool_input.get("subagent_type")
         event_type = "subagent"
     else:

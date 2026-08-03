@@ -108,7 +108,8 @@ skill library's value.
 ```
  user's machine                                  hub repo (GitHub)
 ┌───────────────────────────────────┐           ┌──────────────────────────────┐
-│ hooks (PostToolUse Skill/Task,    │           │ issues labeled skill-feedback│
+│ hooks (PostToolUse                │           │ issues labeled skill-feedback│
+│        Skill/Task/Agent,          │           │        │                     │
 │        SessionEnd)                │  submit   │        │                     │
 │   └─> spool ~/.agora/spool/*.jsonl│ ────────> │ aggregate-feedback.yml (cron)│
 │         └─> /agora-feedback       │  (GitHub  │   └─> scripts/aggregate-     │
@@ -137,7 +138,7 @@ entries, both invoking the bundled client
 
 | Event | Matcher | What it yields |
 |-------|---------|----------------|
-| `PostToolUse` | `Skill\|Task` | Skill invocations (explicit and description-triggered) via the `Skill` tool; research-agents subagent completions via the `Task` tool |
+| `PostToolUse` | `Skill\|Task\|Agent` | Skill invocations (explicit and description-triggered) via the `Skill` tool; research-agents subagent completions via the `Task` or `Agent` tool |
 | `SessionEnd` | — | Session count for the reporting period; spool flush |
 
 `Stop` is deliberately avoided — it is commonly occupied in real setups
