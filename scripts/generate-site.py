@@ -64,6 +64,7 @@ SKILL_GROUP_MAP = {
 
     # Writing Polish
     "latex-debugger": "writing-polish",
+    "latex-build": "writing-polish",
     "latex-consistency": "writing-polish",
     "latex-sync-annotate": "writing-polish",
     "latex-sync-setup": "writing-polish",
@@ -85,7 +86,6 @@ SKILL_GROUP_MAP = {
     # Development & Automation
     "commit": "development",
     "code-simplify": "development",
-    "pr-automation": "development",
     "python-cicd": "development",
     "htcondor": "development",
 

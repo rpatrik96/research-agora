@@ -134,7 +134,7 @@ After generating: explain in 3 bullets what the visualization shows and what a r
 - Does it render correctly at both 1200px and 800px?
 - Is the Okabe-Ito palette applied, or did the agent substitute a different palette?
 
-**Related skills:** `publication-figures` (formatting@research-agora), `figure-storyteller` (research-agents@research-agora)
+**Related skills:** `figure-storyteller` (research-agents@research-agora), `tikz-figures` (formatting@research-agora)
 
 ---
 
@@ -203,7 +203,7 @@ Do not refactor anything yet — produce the plan first. I will review before yo
 - Check the dependency list: install each package and confirm it exists on PyPI.
 - Review before authorizing any refactoring — the plan should make sense to you before any code changes.
 
-**Related skills:** `code-simplify` (development@research-agora), `python-docs` (development@research-agora), `artifact-packager` (research-agents@research-agora)
+**Related skills:** `code-simplify` (development@research-agora), `artifact-packager` (research-agents@research-agora)
 
 ---
 

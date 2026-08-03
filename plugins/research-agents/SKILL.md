@@ -10,28 +10,51 @@ Specialized research analysis agents for critical thinking, evidence verificatio
 
 ## Components
 
-### Agents (14)
-- `claim-auditor` - Verify all paper claims systematically
+### Agents (22)
+
+**Claims and evidence**
+- `claim-auditor` - Verify all paper claims against the L1-L6 evidence hierarchy
+- `state-generator` - Generate research-state.json from a paper
+
+**Critique and audience**
 - `devils-advocate` - Adversarial analysis of arguments
-- `evidence-checker` - Verify evidence backing claims
+- `audience-checker` - Evaluate alignment with a target reader persona
+- `reader-simulation` - Walk a first-time reader through the text
 - `perspective-synthesizer` - Synthesize multiple viewpoints
-- `audience-checker` - Evaluate audience alignment
-- `clarity-optimizer` - Improve writing readability
-- `figure-storyteller` - Assess figure narratives
-- `latex-debugger` - Debug LaTeX compilation errors
+
+**Theory**
+- `proof-auditor` - Decompose proofs and check each step
+- `proof-strategy-advisor` - Suggest proof approaches for a conjecture
+- `counterexample-searcher` - Stress-test theorems by weakening assumptions
+- `bounds-analyst` - Analyze convergence rates and complexity bounds
+- `intuition-formalizer` - Turn informal intuitions into formal statements
+- `theorem-dependency-mapper` - Build a DAG of theorem dependencies
+- `theory-connector` - Find cross-domain analogues of a result
+- `notation-consistency-checker` - Build a symbol table and check consistency
+
+**Experiments and figures**
 - `statistical-validator` - Verify statistical rigor
-- `artifact-packager` - Prepare code/data for release
-- `reviewer-response-generator` - Generate rebuttals
-- `co-author-sync` - Multi-author coordination
-- `discussion-monitor` - Track citations and discussions
-- `state-generator` - Generate research-state.json
+- `figure-storyteller` - Generate publication-quality figures
+- `artifact-packager` - Prepare code and data for release
 
-### Micro-Skills (8)
-Atomic, parallelizable operations for paper analysis.
+**Writing and dissemination**
+- `redundancy-radar` - Find semantic overlap across documents
+- `voice-drift-detector` - Detect voice inconsistency across documents
+- `content-archaeologist` - Map blog posts into book structure
+- `reviewer-response-generator` - Draft rebuttals
+- `latex-debugger` - Diagnose LaTeX compilation errors
 
-### Orchestrators (2)
+### Micro-Skills (12)
+Atomic, parallelizable operations for paper analysis: `claim-extractor`,
+`claim-classifier`, `evidence-locator`, `evidence-grader`, `assumption-surfacer`,
+`assumption-analyzer`, `citation-verifier`, `cross-referencer`, `novelty-checker`,
+`derivation-checker`, `proof-step-extractor`, `proof-step-verifier`.
+
+### Orchestrators (4)
 - `parallel-audit` - Parallel claim verification
 - `parallel-review` - Comprehensive multi-perspective review
+- `parallel-theory-audit` - Parallel verification of proofs and bounds
+- `pre-submission-audit` - Five diagnostic passes with a readiness verdict
 
 ### Helpers (3)
 - `batch-arxiv` - Batched arXiv searches

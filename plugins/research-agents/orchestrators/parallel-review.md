@@ -24,7 +24,7 @@ metadata:
 
 This orchestrator provides a thorough paper review by parallelizing:
 1. **Claim verification** (via parallel-audit)
-2. **Clarity and writing quality** (via clarity-optimizer)
+2. **Clarity and writing quality** (via editorial:writing-verify)
 3. **Figure and table assessment**
 4. **Audience alignment check**
 5. **Structural completeness**
@@ -45,7 +45,7 @@ Phase 2: Fan-Out (Parallel, ~5-8 min)
 │   ├── Spawn: parallel-audit (claims + evidence)
 │   └── Spawn: assumption-surfacer (all sections)
 ├── Presentation Review Track
-│   ├── Spawn: clarity-optimizer (per section)
+│   ├── Spawn: writing-verify (per section)
 │   └── Spawn: audience-checker (full paper)
 ├── Visual Review Track
 │   └── Spawn: figure-storyteller assessor (per figure)
@@ -150,7 +150,7 @@ SPAWN_SUBAGENT:
 
 ```
 SPAWN_SUBAGENT:
-  skill: clarity-optimizer
+  skill: editorial/writing-verify
   input:
     section_id: {section.id}
     section_text: {section.text}
@@ -317,7 +317,7 @@ def synthesize_reviews(track_results, personas):
 [From novelty-checker results]
 
 ### Presentation Quality
-[From clarity-optimizer results]
+[From writing-verify results]
 
 | Section | Clarity Score | Issues |
 |---------|---------------|--------|
@@ -388,7 +388,7 @@ def synthesize_reviews(track_results, personas):
 
 ### Calls (Subagents)
 - `parallel-audit` (orchestrator - for technical track)
-- `clarity-optimizer` (per section)
+- `writing-verify` (editorial plugin, per section)
 - `audience-checker` (once)
 - `figure-storyteller` (per figure, assess mode)
 - `cross-referencer` (once)

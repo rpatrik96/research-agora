@@ -77,7 +77,6 @@ Use this mapping to identify candidate skills. Match on task type first, then re
 | Verify paper claims match code | `/paper-verify-experiments` | "code matches paper", "check my claims", "hyperparameters", "code-paper consistency" |
 | Simplify or refactor research code | `/code-simplify` | "simplify code", "refactor", "clean up", "too complex" |
 | Write clean git commits | `/commit` | "commit message", "git commit", "what to write in commit" |
-| Automate pull request workflow | `/pr-automation` | "pull request", "PR description", "code review" |
 | Set up Python CI/CD | `/python-cicd` | "CI", "GitHub Actions", "automated testing", "pipeline" |
 | Manage HTC Condor jobs | `/htcondor` | "condor", "cluster", "job submission", "HPC" |
 
@@ -95,7 +94,6 @@ Use this mapping to identify candidate skills. Match on task type first, then re
 |------|-------|-------------------|
 | Create conference slides | `/paper-slides` | "slides", "presentation", "talk", "conference slides" |
 | Create a poster | `/paper-poster` | "poster", "conference poster", "A0", "A1" |
-| Write a Twitter thread | `/paper-twitter` | "Twitter thread", "announce paper", "social media" |
 | Generate a TikZ figure | `/tikz-figures` | "TikZ", "diagram", "figure", "LaTeX figure" |
 | Create publication-ready figures | `/figure-storyteller` | "matplotlib", "plot", "figure", "visualization", "chart" |
 | Make a science animation | `/science-gif` | "animation", "GIF", "animated figure", "method visualization" |
@@ -122,7 +120,7 @@ Use this mapping to identify candidate skills. Match on task type first, then re
 | Task | Skill | Confidence trigger |
 |------|-------|-------------------|
 | Challenge my hypothesis | `/devils-advocate` | "challenge this", "what's wrong with my idea", "steelman against" |
-| Check evidence strength | `/evidence-checker` | "is this evidence strong", "what would reviewers say about this claim" |
+| Check evidence strength | `/claim-auditor` | "is this evidence strong", "what would reviewers say about this claim" |
 | Align paper to audience | `/audience-checker` | "is this right for ICLR", "venue fit", "audience check" |
 
 ---
@@ -156,10 +154,10 @@ and DBLP. Flags hallucinated citations, title mismatches, and wrong years.
 **When to use:** If you also need to *find* new references, not just verify existing ones.
 **Run it:** `claude "/literature-synthesizer"` — it will ask what topic and what you've already found.
 
-### `/evidence-checker` (Low Confidence)
-**What it does:** Classifies each claim in your paper by evidence strength and flags unsupported assertions.
+### `/claim-auditor` (Low Confidence)
+**What it does:** Classifies each claim in your paper by evidence strength (L1-L6) and flags unsupported assertions.
 **When to use:** If your concern is whether claims are *supported*, not whether citations are *real*.
-**Run it:** `claude "/evidence-checker"` in your paper directory.
+**Run it:** `claude "/claim-auditor"` in your paper directory.
 ```
 
 ---

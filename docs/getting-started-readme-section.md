@@ -111,7 +111,7 @@ This reads your codebase and drafts a `CLAUDE.md` tailored to your project. Revi
 | Task | Skill | What it does |
 |------|-------|-------------|
 | Citation check before submission | `/paper-references` | Verifies every BibTeX entry against Semantic Scholar and CrossRef |
-| Publication-quality figures | `/publication-figures` | Reformats matplotlib figures to journal standards (colorblind-safe, vector, correct font sizes) |
+| Publication-quality figures | `figure-storyteller` | Reformats matplotlib figures to journal standards (colorblind-safe, vector, correct font sizes) |
 | Conventional commits | `/commit` | Reviews staged changes, writes a commit message, commits |
 | Paper review simulation | `/paper-review` | Generates structured critical feedback simulating a skeptical reviewer |
 | Related work synthesis | `/literature-synthesizer` | Searches for related work and drafts a synthesis paragraph |
@@ -211,7 +211,7 @@ Three habits that matter:
 | 1 | Run one skill on a real task | `/paper-references` on your bibliography |
 | 2 | Set up a `CLAUDE.md` for your project | Run `/init`, review output, commit the file |
 | 3 | Use a writing skill, verify the output | `/paper-review` on a section draft |
-| 4 | Connect one MCP server | GitHub MCP, then try `/pr-automation` |
+| 4 | Connect one MCP server | GitHub MCP, then try `/commit` |
 
 For hands-on prompt templates organized by task type, see [docs/examples/](docs/examples/). Start with the file closest to your current work.
 

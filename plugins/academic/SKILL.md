@@ -13,13 +13,11 @@ Academic paper writing skills for ML conferences (NeurIPS, ICML, ICLR, AAAI).
 | `/paper-discussion` | Write discussion and limitations sections |
 | `/paper-experiments` | Write experimental details with GitHub integration |
 | `/paper-review` | Generate critical reviews simulating reviewers |
-| `/paper-rebuttal` | Write rebuttals to reviewer comments |
+| `/review-triage` | Triage reviewer comments and plan the revision |
 | `/paper-references` | Fact-check references and citations |
 | `/paper-verify-experiments` | Verify claims against source code |
-| `/paper-title` | Brainstorm compelling titles |
 | `/paper-poster` | Create conference posters |
 | `/paper-slides` | Create presentation slides |
-| `/paper-twitter` | Create Twitter threads for paper announcements |
 | `/literature-synthesizer` | Discover and synthesize relevant literature |
 | `/experiment-tracker` | Sync experiment results to paper drafts |
 | `/benchmark-scout` | Identify benchmarks and generate experiment plans |

@@ -72,7 +72,9 @@ Fan-out/fan-in coordinators that spawn and merge subagent results.
 | Orchestrator | Purpose | Subagents Used |
 |--------------|---------|----------------|
 | `parallel-audit` | Verify all claims in parallel | evidence-grader, novelty-checker, citation-verifier, assumption-surfacer, cross-referencer |
-| `parallel-review` | Multi-perspective paper review | parallel-audit, clarity-optimizer, audience-checker, figure-storyteller |
+| `parallel-review` | Multi-perspective paper review | parallel-audit, editorial:writing-verify, audience-checker, figure-storyteller |
+| `parallel-theory-audit` | Parallel proof and bounds verification | proof-step-verifier, derivation-checker, assumption-analyzer |
+| `pre-submission-audit` | Five diagnostic passes with a readiness verdict | paper-review, claim-auditor, editorial:writing-verify, notation-consistency-checker, statistical-validator |
 
 ### Helpers (3 Utilities)
 
@@ -84,24 +86,32 @@ Efficiency utilities for common operations.
 | `prefetch-evidence` | Haiku | Pre-load table/figure content |
 | `context-compactor` | Sonnet | Compress context for token efficiency |
 
-### Agents (14 High-Level)
+### Agents (22 High-Level)
 
 | Agent | Description |
 |-------|-------------|
 | `state-generator` | Parse paper into research-state.json |
-| `claim-auditor` | Sequential claim verification (legacy) |
+| `claim-auditor` | Verify all claims against the L1-L6 evidence hierarchy |
 | `devils-advocate` | Adversarial analysis of arguments |
-| `evidence-checker` | Deep-dive evidence assessment |
-| `perspective-synthesizer` | Multi-viewpoint synthesis |
 | `audience-checker` | Target audience alignment |
-| `clarity-optimizer` | Writing quality improvements |
-| `figure-storyteller` | Figure narrative assessment |
-| `latex-debugger` | LaTeX error resolution |
+| `reader-simulation` | First-time reader walkthrough |
+| `perspective-synthesizer` | Multi-viewpoint synthesis |
+| `proof-auditor` | Step-by-step proof verification |
+| `proof-strategy-advisor` | Proof approach recommendations |
+| `counterexample-searcher` | Assumption stress-testing |
+| `bounds-analyst` | Convergence rates and complexity bounds |
+| `intuition-formalizer` | Informal intuition to formal statement |
+| `theorem-dependency-mapper` | Theorem dependency DAG |
+| `theory-connector` | Cross-domain result analogues |
+| `notation-consistency-checker` | Symbol table and notation consistency |
 | `statistical-validator` | Statistical methodology check |
+| `figure-storyteller` | Publication-quality figure generation |
 | `artifact-packager` | Reproducibility packaging |
+| `redundancy-radar` | Semantic overlap detection |
+| `voice-drift-detector` | Cross-document voice consistency |
+| `content-archaeologist` | Blog-to-book structure mapping |
 | `reviewer-response-generator` | Rebuttal drafting |
-| `co-author-sync` | Multi-author coordination |
-| `discussion-monitor` | Track reviewer discussions |
+| `latex-debugger` | LaTeX error resolution |
 
 ## Execution Modes
 

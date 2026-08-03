@@ -369,19 +369,6 @@
           "visibility": "public"
         },
         {
-          "name": "pr-automation",
-          "plugin": "development",
-          "type": "command",
-          "description": "Create GitHub pull requests from changes made during a chat session. Use when asked to \"create a PR\", \"open a pull request\", \"submit changes\", \"push and create PR\", or at the end of a coding session when changes should be submitted for review. Handles branch creation, conventional commits, and PR description generation.",
-          "model": "sonnet",
-          "path": "plugins/development/commands/pr-automation.md",
-          "research-domain": "general",
-          "task-type": "automation",
-          "research-phase": "implementation",
-          "verification-level": "layered",
-          "visibility": "public"
-        },
-        {
           "name": "python-cicd",
           "plugin": "development",
           "type": "command",
@@ -496,6 +483,19 @@
           "task-type": "verification",
           "research-phase": "paper-writing",
           "verification-level": "layered",
+          "visibility": "public"
+        },
+        {
+          "name": "latex-build",
+          "plugin": "formatting",
+          "type": "command",
+          "description": "Compile a LaTeX paper with latexmk (full bibliography and glossary passes) and prove the PDF on disk is the one just built. Use when asked to \"build the pdf\", \"recompile\", \"rebuild the paper\", \"compile the paper\", \"make the pdf\", \"why won't my paper compile\", or when \"the pdf is still the old version\". Reports the absolute path, a freshness verdict, page count, and verbatim compiler errors.",
+          "model": "haiku",
+          "path": "plugins/formatting/commands/latex-build.md",
+          "research-domain": "general",
+          "task-type": "automation",
+          "research-phase": "paper-writing",
+          "verification-level": "formal",
           "visibility": "public"
         },
         {
