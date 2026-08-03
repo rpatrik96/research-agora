@@ -84,6 +84,13 @@ jobs:
           GH_TOKEN: ${{ secrets.FEEDBACK_PR_TOKEN || secrets.GITHUB_TOKEN }}
           HAVE_PAT: ${{ secrets.FEEDBACK_PR_TOKEN != '' }}
         run: |
+          # Reported before the early exit, so a manual dispatch confirms the
+          # token wiring even on a week that aggregates to no change.
+          if [ "$HAVE_PAT" = "true" ]; then
+            echo "::notice::Using FEEDBACK_PR_TOKEN — ci.yml will run on the PR."
+          else
+            echo "::warning::FEEDBACK_PR_TOKEN is not set, so no CI runs on the PR and its required checks stay pending. Push a commit to the aggregation branch from a human account to arm them, then merge."
+          fi
           if git diff --quiet registry/feedback.json; then
             echo "No changes to registry/feedback.json — nothing to do."
             exit 0
@@ -99,8 +106,3 @@ jobs:
             --title "chore(feedback): weekly feedback aggregation" \
             --body-file digest.md \
             --label skill-feedback
-          if [ "$HAVE_PAT" = "true" ]; then
-            echo "::notice::Opened under FEEDBACK_PR_TOKEN — ci.yml runs on the PR."
-          else
-            echo "::warning::FEEDBACK_PR_TOKEN is not set, so no CI runs on this PR and its required checks stay pending. Push a commit to $branch from a human account to arm them, then merge."
-          fi
