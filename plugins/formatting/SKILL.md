@@ -7,7 +7,7 @@ Document and LaTeX formatting skills for publication-quality output.
 | Command | Description |
 |---------|-------------|
 | `/latex-consistency` | Enforce consistent LaTeX formatting for ML papers |
-| `/publication-figures` | Create publication-ready matplotlib/seaborn figures |
+| `/latex-build` | Compile with latexmk and verify the PDF is fresh |
 | `/tikz-figures` | Create TikZ/PGF figures for neural networks and diagrams |
 
 ## Installation

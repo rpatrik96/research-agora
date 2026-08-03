@@ -31,7 +31,7 @@ We need a shared registry so the best tools actually surface and evolve, not jus
 
 Problem 2: Verification.
 
-Most AI research tools can't tell you when they're wrong. They generate text that looks right. You trust it. 
+Most AI research tools can't tell you when they're wrong. They generate text that looks right. You trust it.
 The fix isn't "don't use AI." It's defining "correct" before you delegate — acceptance criteria, not vibes.
 
 ---

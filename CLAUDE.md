@@ -94,7 +94,7 @@ Claims are graded L1-L6:
 |------|---------|
 | `.claude-plugin/marketplace.json` | Marketplace metadata, lists all plugins |
 | `plugins/*/.claude-plugin/plugin.json` | Individual plugin manifests |
-| `registry/index.json` | Auto-generated skill index (81 total, 62 public skills) |
+| `registry/index.json` | Auto-generated skill index (83 total, 64 public skills) |
 | `registry/categories.json` | Taxonomy: domains, task-types, phases, verification-levels |
 | `scripts/generate-registry.py` | Generates registry/index.json from skill files |
 | `scripts/generate-site.py` | Generates static site from registry |

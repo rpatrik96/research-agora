@@ -7,7 +7,7 @@ description: |
   parameter sweeps, multi-seed experiments, and ablation studies.
 model: sonnet
 disable-model-invocation: true
-allowed-tools: Read, Write, Bash(ls *), Glob, Grep
+allowed-tools: Read, Write, Bash(ls *), Bash(condor_q*), Bash(condor_history*), Glob, Grep
 metadata:
   research-domain: general
   research-phase: implementation

@@ -86,7 +86,7 @@ Tone: Professional and collegial. No dismissiveness.
 - Does it start by partially conceding, or does it open defensively?
 - Read it as the reviewer: would you find this response convincing?
 
-**Related skills:** `paper-rebuttal` (academic@research-agora), `reviewer-response-generator` (research-agents@research-agora)
+**Related skills:** `review-triage` (academic@research-agora), `reviewer-response-generator` (research-agents@research-agora)
 
 ---
 

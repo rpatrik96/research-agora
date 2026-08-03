@@ -78,7 +78,7 @@ Output: The synthesis paragraph, followed by a list of all citations used with f
 - Are all papers in the reference list ones you actually provided, or did the agent invent new ones?
 - Any `[UNCERTAIN]` markers: investigate each before using that claim.
 
-**Related skills:** `literature-synthesizer` (academic@research-agora), `evidence-checker` (research-agents@research-agora)
+**Related skills:** `literature-synthesizer` (academic@research-agora), `claim-auditor` (research-agents@research-agora)
 
 ---
 

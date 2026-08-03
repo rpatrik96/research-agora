@@ -91,7 +91,7 @@ AI tools amplify expertise — they don't replace it. Verify everything. Build u
 **Week 1:** Run `/paper-references` on your bibliography. Check 3 entries manually.
 **Week 2:** Set up `CLAUDE.md` for your project with `/onboard`.
 **Week 3:** Try `/paper-review` on a section draft. Do you agree with the critique?
-**Week 4:** Connect GitHub MCP, try `/pr-automation`.
+**Week 4:** Connect GitHub MCP, try `/commit`.
 
 **Rule of thumb:** If you couldn't do the task without AI, the AI shouldn't do it for you yet.
 
@@ -142,7 +142,6 @@ Code quality and automation skills:
 |-------|-------------|
 | `commit` | Create conventional commits with co-authorship |
 | `code-simplify` | Remove dead code, eliminate duplication |
-| `pr-automation` | Create GitHub pull requests from changes |
 | `python-cicd` | Set up CI/CD with GitHub Actions |
 | `htcondor` | Generate HTCondor submission files for cluster jobs |
 | `latex-sync-setup` | Initialize latex-code-sync in a project |
@@ -190,7 +189,6 @@ Specialized research analysis agents:
 | `claim-auditor` | Deep verify all paper claims |
 | `perspective-synthesizer` | Synthesize multiple viewpoints |
 | `audience-checker` | Evaluate audience alignment |
-| `clarity-optimizer` | Analyze readability and reduce jargon |
 | `statistical-validator` | Verify statistical rigor |
 | `figure-storyteller` | Generate publication-quality figures |
 | `reviewer-response-generator` | Generate structured rebuttals |

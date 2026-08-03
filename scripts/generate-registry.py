@@ -209,6 +209,8 @@ def main():
     output_path = REGISTRY_DIR / "index.json"
     with open(output_path, "w") as f:
         json.dump(index, f, indent=2)
+        # Match end-of-file-fixer, or the hook rewrites this file after every run.
+        f.write("\n")
     print(f"\nWrote {output_path.relative_to(REPO_ROOT)}")
 
     names = {

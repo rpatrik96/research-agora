@@ -101,7 +101,7 @@ import matplotlib.animation as animation
 import numpy as np
 from pathlib import Path
 
-# Colorblind-safe palette (from publication-figures skill)
+# Colorblind-safe palette (shared with figure-storyteller)
 COLORS = {
     "blue": "#0072B2",
     "orange": "#E69F00",

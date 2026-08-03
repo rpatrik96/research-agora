@@ -59,7 +59,7 @@ Prefer matplotlib/seaborn for data plots (learning curves, bar charts, heatmaps)
 ## Color Palette (Colorblind-Safe)
 
 ```latex
-% Colorblind-safe colors matching publication-figures
+% Colorblind-safe colors matching figure-storyteller
 \definecolor{tikzblue}{HTML}{0072B2}
 \definecolor{tikzorange}{HTML}{E69F00}
 \definecolor{tikzgreen}{HTML}{009E73}

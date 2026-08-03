@@ -15,9 +15,12 @@ repos:
   # Run pytest tests
   - repo: local
     hooks:
+      # Mirrors the CI invocation in .github/workflows/ci.yml. The synthetic
+      # scenarios need playwright and a generated site, so running them here
+      # fails every commit on a normal dev machine; CI runs them on main only.
       - id: pytest
         name: pytest
-        entry: pytest
+        entry: pytest -m "not synthetic"
         language: system
         pass_filenames: false
         always_run: true

@@ -276,4 +276,3 @@ class TestVenueSpecificStandardsPreserved:
         assert "ablation" in claim_auditor_content.lower(), (
             "claim-auditor.md must document ablation requirements"
         )
-
