@@ -262,6 +262,59 @@ def skill_hook_payload(skill_name):
     )
 
 
+@pytest.fixture
+def direct_skill_names(tmp_path, monkeypatch):
+    manifest = tmp_path / "skill-names.json"
+    manifest.write_text(json.dumps({"names": ["devils-advocate"]}))
+    monkeypatch.setenv("AGORA_SKILL_NAMES_FILE", str(manifest))
+    monkeypatch.setattr(client_mod, "_KNOWN_SKILLS", None)
+
+
+def subagent_hook_payload(tool_name, subagent_type):
+    return {
+        "hook_event_name": "PostToolUse",
+        "session_id": "abcdef1234567890",
+        "tool_name": tool_name,
+        "tool_input": {"subagent_type": subagent_type},
+        "tool_response": {"ok": True},
+    }
+
+
+class TestHookPayloadEvents:
+    def test_agent_dispatch_produces_subagent_event(self, direct_skill_names):
+        event = client_mod.event_from_hook_payload(
+            subagent_hook_payload(
+                "Agent", "research-agents:devils-advocate"
+            )
+        )
+
+        assert event["event"] == "subagent"
+        assert event["skill"] == "devils-advocate"
+
+    def test_task_dispatch_remains_backward_compatible(self, direct_skill_names):
+        event = client_mod.event_from_hook_payload(
+            subagent_hook_payload(
+                "Task", "research-agents:devils-advocate"
+            )
+        )
+        agent_event = client_mod.event_from_hook_payload(
+            subagent_hook_payload(
+                "Agent", "research-agents:devils-advocate"
+            )
+        )
+
+        assert event == agent_event
+        assert event["event"] == "subagent"
+        assert event["skill"] == "devils-advocate"
+
+    def test_unknown_agent_subagent_type_is_rejected(self, direct_skill_names):
+        event = client_mod.event_from_hook_payload(
+            subagent_hook_payload("Agent", "other-plugin:unknown-agent")
+        )
+
+        assert event is None
+
+
 class TestCaptureClient:
     """Privacy invariants of the client (RFC-0001 §6, §8)."""
 
