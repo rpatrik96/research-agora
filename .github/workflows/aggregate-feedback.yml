@@ -7,9 +7,28 @@ name: Aggregate Feedback
 # - NEVER pushes to main: output lands on a feedback/aggregate-* branch and
 #   is opened as a PR that a human reviews and merges. Pair this with branch
 #   protection on main (require PRs + passing checks) for hard enforcement.
-# - Validates in-workflow: PRs created with the default GITHUB_TOKEN do not
-#   trigger other workflows (anti-recursion), so ci.yml will NOT run on the
-#   bot PR — tests/test_feedback.py therefore runs HERE, before the PR opens.
+# - Validates in-workflow: tests/test_feedback.py runs HERE, before the PR
+#   opens, so a bad aggregate never reaches review even when CI does run.
+#
+# Arming the required checks. Anything done with the default GITHUB_TOKEN
+# triggers no further workflows (anti-recursion), so ci.yml never runs on the
+# bot PR, the six required status checks never appear, and a ruleset without
+# bypass actors refuses the merge — `gh pr merge --admin` included. Pushing
+# the branch and opening the PR under FEEDBACK_PR_TOKEN instead makes both
+# events ordinary user activity, and CI runs as it would on any PR:
+#
+#   gh secret set FEEDBACK_PR_TOKEN --repo <owner>/<repo> --body "<token>"
+#
+# Use a fine-grained PAT scoped to this repository alone, with Contents, Pull
+# requests, and Issues set to read and write — `gh pr create --label` applies
+# the label through the issues API. Nothing else in this workflow uses it,
+# and the workflow runs only on a schedule or manual dispatch — never on a
+# fork's PR — so the token is never exposed to untrusted code.
+#
+# Without the secret the workflow still opens the PR under GITHUB_TOKEN and
+# says so in its log: push any commit to the aggregation branch from a human
+# account to fire CI, then merge normally. A squash merge leaves no trace of
+# that commit.
 
 on:
   schedule:
@@ -29,7 +48,11 @@ jobs:
   aggregate:
     runs-on: ubuntu-latest
     steps:
+      # Persist whichever token will push the branch: git and gh must agree,
+      # or the push is bot activity and the PR is not.
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.FEEDBACK_PR_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -51,15 +74,23 @@ jobs:
         run: |
           python scripts/aggregate-feedback.py --from-github | tee digest.md
 
-      - name: Validate the new aggregate (bot PRs get no CI runs)
+      - name: Validate the new aggregate before opening the PR
         run: |
           pip install pytest pyyaml
           pytest tests/test_feedback.py -q
 
       - name: Open aggregation PR if anything changed
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.FEEDBACK_PR_TOKEN || secrets.GITHUB_TOKEN }}
+          HAVE_PAT: ${{ secrets.FEEDBACK_PR_TOKEN != '' }}
         run: |
+          # Reported before the early exit, so a manual dispatch confirms the
+          # token wiring even on a week that aggregates to no change.
+          if [ "$HAVE_PAT" = "true" ]; then
+            echo "::notice::Using FEEDBACK_PR_TOKEN — ci.yml will run on the PR."
+          else
+            echo "::warning::FEEDBACK_PR_TOKEN is not set, so no CI runs on the PR and its required checks stay pending. Push a commit to the aggregation branch from a human account to arm them, then merge."
+          fi
           if git diff --quiet registry/feedback.json; then
             echo "No changes to registry/feedback.json — nothing to do."
             exit 0

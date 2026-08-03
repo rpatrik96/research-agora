@@ -211,18 +211,43 @@ class TestAggregationEndToEnd:
         assert result["skills"] == {}
 
 
-def run_client(args, tmp_home, stdin_data=None, extra_env=None):
+def run_client(args, tmp_home, stdin_data=None, extra_env=None, script=None):
     env = {**os.environ, "AGORA_HOME": str(tmp_home)}
     env.pop("AGORA_FEEDBACK", None)
     env.update(extra_env or {})
     return subprocess.run(
-        [sys.executable, str(CLIENT_SCRIPT), *args],
+        [sys.executable, str(script or CLIENT_SCRIPT), *args],
         input=stdin_data,
         capture_output=True,
         text=True,
         env=env,
         timeout=60,
     )
+
+
+def install_client_in_cache_layout(root, ship_manifest=True):
+    """Copy the client where Claude Code actually runs it from.
+
+    ~/.claude/plugins/cache/<marketplace>/<plugin>/<version>/scripts/ contains
+    plugin directories only — no marketplace root above the script — which is
+    where the original registry lookup silently found nothing.
+    """
+    scripts = (
+        root
+        / "plugins"
+        / "cache"
+        / "research-agora"
+        / "development"
+        / "1.1.0"
+        / "scripts"
+    )
+    scripts.mkdir(parents=True)
+    installed = scripts / CLIENT_SCRIPT.name
+    installed.write_text(CLIENT_SCRIPT.read_text())
+    if ship_manifest:
+        manifest = CLIENT_SCRIPT.parent / client_mod.SKILL_NAMES_FILE
+        (scripts / client_mod.SKILL_NAMES_FILE).write_text(manifest.read_text())
+    return installed
 
 
 def skill_hook_payload(skill_name):
@@ -282,6 +307,116 @@ class TestCaptureClient:
         )
         assert result.returncode == 0
         assert not (tmp_path / "spool" / "events.jsonl").exists()
+
+    def test_skill_names_manifest_matches_registry(self, registry_skill_names):
+        manifest = CLIENT_SCRIPT.parent / client_mod.SKILL_NAMES_FILE
+        assert manifest.exists(), "run scripts/generate-registry.py"
+        names = set(json.loads(manifest.read_text())["names"])
+        assert names == registry_skill_names
+
+    def test_plugin_cache_layout_filters_unknown_skills(
+        self, tmp_path, registry_skill_names
+    ):
+        """The layout that leaked: no registry resolves above the script."""
+        installed = install_client_in_cache_layout(tmp_path / "claude")
+        home = tmp_path / "agora"
+        run_client(["enable"], home, script=installed)
+
+        run_client(
+            ["capture"],
+            home,
+            stdin_data=skill_hook_payload("critical-eval"),
+            script=installed,
+        )
+        assert not (home / "spool" / "events.jsonl").exists()
+
+        skill = sorted(registry_skill_names)[0]
+        run_client(
+            ["capture"], home, stdin_data=skill_hook_payload(skill), script=installed
+        )
+        events = (home / "spool" / "events.jsonl").read_text().strip().splitlines()
+        assert [json.loads(e)["skill"] for e in events] == [skill]
+
+    def test_plugin_cache_layout_reaches_sibling_marketplace_registry(self, tmp_path):
+        claude = tmp_path / "claude"
+        installed = install_client_in_cache_layout(claude, ship_manifest=False)
+        registry = claude / "plugins" / "marketplaces" / "research-agora" / "registry"
+        registry.mkdir(parents=True)
+        (registry / "index.json").write_text(
+            json.dumps({"repos": [{"skills": [{"name": "only-known-skill"}]}]})
+        )
+        home = tmp_path / "agora"
+        run_client(["enable"], home, script=installed)
+
+        run_client(
+            ["capture"],
+            home,
+            stdin_data=skill_hook_payload("only-known-skill"),
+            script=installed,
+        )
+        events = (home / "spool" / "events.jsonl").read_text().strip().splitlines()
+        assert json.loads(events[0])["skill"] == "only-known-skill"
+
+    def test_fails_closed_without_any_skill_list(self, tmp_path, registry_skill_names):
+        """No name list means record nothing — never record everything."""
+        installed = install_client_in_cache_layout(
+            tmp_path / "claude", ship_manifest=False
+        )
+        home = tmp_path / "agora"
+        run_client(["enable"], home, script=installed)
+        run_client(
+            ["capture"],
+            home,
+            stdin_data=skill_hook_payload(sorted(registry_skill_names)[0]),
+            script=installed,
+        )
+        assert not (home / "spool" / "events.jsonl").exists()
+
+    def test_purge_unknown_skills_keeps_the_rest(self, tmp_path, registry_skill_names):
+        skill = sorted(registry_skill_names)[0]
+        run_client(["enable"], tmp_path)
+        run_client(["capture"], tmp_path, stdin_data=skill_hook_payload(skill))
+        spool = tmp_path / "spool" / "events.jsonl"
+        with open(spool, "a") as f:
+            for name in ("critical-eval", "brainstorming"):
+                f.write(
+                    json.dumps(
+                        {
+                            "event": "invocation",
+                            "session": "deadbeef",
+                            "skill": name,
+                            "outcome": "success",
+                            "ts": "2026-08-01T09:00:00",
+                        }
+                    )
+                    + "\n"
+                )
+            f.write(
+                json.dumps(
+                    {
+                        "event": "session_end",
+                        "session": "deadbeef",
+                        "ts": "2026-08-01T09:30:00",
+                    }
+                )
+                + "\n"
+            )
+
+        result = run_client(["purge", "--unknown-skills"], tmp_path)
+        assert result.returncode == 0
+        assert "critical-eval" in result.stdout and "brainstorming" in result.stdout
+        events = [json.loads(line) for line in spool.read_text().splitlines()]
+        assert [e.get("skill") for e in events] == [skill, None]
+
+    def test_purge_unknown_skills_refuses_without_a_name_list(self, tmp_path):
+        installed = install_client_in_cache_layout(
+            tmp_path / "claude", ship_manifest=False
+        )
+        home = tmp_path / "agora"
+        run_client(["enable"], home, script=installed)
+        result = run_client(["purge", "--unknown-skills"], home, script=installed)
+        assert result.returncode == 1
+        assert "refusing to purge" in result.stdout
 
     def test_capture_never_fails_on_garbage(self, tmp_path):
         run_client(["enable"], tmp_path)

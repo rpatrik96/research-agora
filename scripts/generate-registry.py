@@ -21,6 +21,10 @@ except ImportError:
 REPO_ROOT = Path(__file__).parent.parent
 PLUGINS_DIR = REPO_ROOT / "plugins"
 REGISTRY_DIR = REPO_ROOT / "registry"
+# The feedback client ships inside the development plugin, where the registry
+# is out of reach in the plugin-cache layout; it filters capture against this
+# copy of the names instead (RFC-0001 §6).
+SKILL_NAMES_PATH = PLUGINS_DIR / "development" / "scripts" / "skill-names.json"
 
 
 def parse_yaml_frontmatter(file_path: Path) -> dict:
@@ -180,7 +184,9 @@ def main():
         "generated": date.today().isoformat(),
         "stats": {
             "total_skills": len(skills),
-            "public_skills": sum(1 for s in skills if s.get("visibility", "public") == "public"),
+            "public_skills": sum(
+                1 for s in skills if s.get("visibility", "public") == "public"
+            ),
             "commands": sum(1 for s in skills if s["type"] == "command"),
             "agents": sum(1 for s in skills if s["type"] == "agent"),
             "micro_skills": sum(1 for s in skills if s["type"] == "micro-skill"),
@@ -204,6 +210,15 @@ def main():
     with open(output_path, "w") as f:
         json.dump(index, f, indent=2)
     print(f"\nWrote {output_path.relative_to(REPO_ROOT)}")
+
+    names = {
+        "generated": index["generated"],
+        "names": sorted({s["name"] for s in skills}),
+    }
+    with open(SKILL_NAMES_PATH, "w") as f:
+        json.dump(names, f, indent=2)
+        f.write("\n")
+    print(f"Wrote {SKILL_NAMES_PATH.relative_to(REPO_ROOT)}")
 
     # Summary
     print("\nRegistry summary:")
