@@ -145,6 +145,19 @@ entries, both invoking the bundled client
 compose with existing hooks. Matchers stay generic; all filtering happens
 inside the script.
 
+**The filter fails closed.** The script records a skill only when its name
+appears in the marketplace registry, so a personal command or another
+marketplace's skill never reaches a report. Resolving that name list has to
+survive every install layout: a checkout keeps `registry/index.json` above the
+script, whereas the plugin cache
+(`~/.claude/plugins/cache/<marketplace>/<plugin>/<version>/`) ships plugin
+directories only. The client therefore walks up for the registry, crosses over
+to the sibling `plugins/marketplaces/<name>/` checkout, and falls back to
+`skill-names.json`, generated beside it by `generate-registry.py`. When none of
+the three resolves it records nothing — the opposite default recorded
+everything, which is how the names of seven non-Agora skills reached a public
+issue before anyone noticed (issue #25).
+
 **Honesty about coverage.** Clients differ in how skills activate. The `Skill`
 tool covers both slash-typed and description-triggered invocations where the
 client routes skills through it; older flows that expand slash commands
