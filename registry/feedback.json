@@ -1,13 +1,13 @@
 {
   "version": "1.0.0",
   "schema_version": 1,
-  "generated": "2026-08-03",
+  "generated": "2026-08-10",
   "window": {
     "from": "2026-07-31",
     "to": "2026-07-31"
   },
   "stats": {
-    "reports": 2,
+    "reports": 1,
     "unique_installations": 1,
     "skills_with_feedback": 1
   },
