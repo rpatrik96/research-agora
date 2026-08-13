@@ -159,6 +159,19 @@ the three resolves it records nothing — the opposite default recorded
 everything, which is how the names of seven non-Agora skills reached a public
 issue before anyone noticed (issue #25).
 
+**Provenance comes from the plugin prefix.** Registry membership is tested on
+the bare name, and bare names collide: the development plugin ships `commit`,
+and a user's own `~/.claude/commands/commit.md` is invoked under exactly that
+name. Capture therefore requires the qualified form the hook payloads carry,
+`<agora-plugin>:<skill>`, and drops both foreign prefixes and unprefixed
+names, since an unqualified name attributes nothing. Plugin names resolve the
+way skill names do — `.claude-plugin/marketplace.json` in a reachable
+checkout, then `plugin-names.json` shipped beside the script, then nothing —
+and an unresolvable list again records nothing. The rule holds per invocation,
+not per session: a personal command that dispatches
+`research-agents:devils-advocate` is itself unqualified and dropped, while the
+Agora agent it dispatches is recorded.
+
 **Honesty about coverage.** Clients differ in how skills activate. The `Skill`
 tool covers both slash-typed and description-triggered invocations where the
 client routes skills through it; older flows that expand slash commands

@@ -25,6 +25,10 @@ REGISTRY_DIR = REPO_ROOT / "registry"
 # is out of reach in the plugin-cache layout; it filters capture against this
 # copy of the names instead (RFC-0001 §6).
 SKILL_NAMES_PATH = PLUGINS_DIR / "development" / "scripts" / "skill-names.json"
+# Capture attributes an invocation to the Agora by its plugin prefix, so the
+# client needs the plugin names in that layout too.
+MARKETPLACE_PATH = REPO_ROOT / ".claude-plugin" / "marketplace.json"
+PLUGIN_NAMES_PATH = PLUGINS_DIR / "development" / "scripts" / "plugin-names.json"
 
 
 def parse_yaml_frontmatter(file_path: Path) -> dict:
@@ -221,6 +225,17 @@ def main():
         json.dump(names, f, indent=2)
         f.write("\n")
     print(f"Wrote {SKILL_NAMES_PATH.relative_to(REPO_ROOT)}")
+
+    with open(MARKETPLACE_PATH) as f:
+        marketplace = json.load(f)
+    plugin_names = {
+        "generated": index["generated"],
+        "names": sorted(p["name"] for p in marketplace.get("plugins", [])),
+    }
+    with open(PLUGIN_NAMES_PATH, "w") as f:
+        json.dump(plugin_names, f, indent=2)
+        f.write("\n")
+    print(f"Wrote {PLUGIN_NAMES_PATH.relative_to(REPO_ROOT)}")
 
     # Summary
     print("\nRegistry summary:")

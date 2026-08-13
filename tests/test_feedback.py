@@ -87,6 +87,37 @@ def make_report(
     }
 
 
+def make_reports(skill: str, count: int, **kwargs):
+    """One report per distinct installation for `skill`.
+
+    Publication is gated on unique installations (RFC-0001 §11), so a test
+    that expects a skill in the aggregate has to supply enough of them.
+    """
+    return [
+        make_report(
+            skill,
+            report_id=f"r-{skill}-{i}",
+            installation=f"installation-{i:04d}",
+            **kwargs,
+        )
+        for i in range(count)
+    ]
+
+
+def run_aggregate(tmp_path, reports):
+    """Run the aggregator over `reports` and return (parsed aggregate, path)."""
+    input_dir = tmp_path / "reports"
+    input_dir.mkdir(exist_ok=True)
+    for i, report in enumerate(reports):
+        (input_dir / f"{i}.json").write_text(json.dumps(report))
+    output = tmp_path / "feedback.json"
+    assert (
+        aggregate_mod.main(["--input-dir", str(input_dir), "--output", str(output)])
+        == 0
+    )
+    return json.loads(output.read_text()), output
+
+
 class TestFeedbackJson:
     """Structure of the canonical aggregate, mirroring test_benchmarks.py."""
 
@@ -164,34 +195,23 @@ class TestAggregationEndToEnd:
         self, tmp_path, registry_skill_names
     ):
         known = sorted(registry_skill_names)[:2]
+        k = aggregate_mod.MIN_INSTALLATIONS_PUBLISH
         reports = [
-            make_report(known[0], report_id="r-a", installation="i" * 32),
-            make_report(
-                known[0], report_id="r-a", installation="i" * 32
-            ),  # duplicate id
-            make_report(
-                known[1], report_id="r-b", installation="j" * 32, success=2, error=8
+            *make_reports(known[0], k),
+            make_report(  # duplicate id
+                known[0], report_id=f"r-{known[0]}-0", installation="installation-0000"
             ),
-            make_report("no-such-skill-xyz", report_id="r-c", installation="k" * 32),
+            *make_reports(known[1], k, success=2, error=8),
+            *make_reports("no-such-skill-xyz", k),
         ]
-        input_dir = tmp_path / "reports"
-        input_dir.mkdir()
-        for i, report in enumerate(reports):
-            (input_dir / f"{i}.json").write_text(json.dumps(report))
-        output = tmp_path / "feedback.json"
+        result, _ = run_aggregate(tmp_path, reports)
 
-        rc = aggregate_mod.main(
-            ["--input-dir", str(input_dir), "--output", str(output)]
-        )
-        assert rc == 0
-
-        result = json.loads(output.read_text())
-        assert result["stats"]["reports"] == 3  # duplicate dropped
+        assert result["stats"]["reports"] == 3 * k  # duplicate dropped
         assert known[0] in result["skills"]
         assert known[1] in result["skills"]
         assert "no-such-skill-xyz" not in result["skills"]  # unknown skill dropped
-        assert result["skills"][known[0]]["report_count"] == 1
-        assert result["skills"][known[0]]["unique_installations"] == 1
+        assert result["skills"][known[0]]["report_count"] == k
+        assert result["skills"][known[0]]["unique_installations"] == k
         # 9 success / 1 error scores well above 2 success / 8 error
         assert (
             result["skills"][known[0]]["wilson_lb"]
@@ -211,6 +231,125 @@ class TestAggregationEndToEnd:
         assert result["skills"] == {}
 
 
+class TestKAnonymityFloor:
+    """Per-skill breakdowns stay unpublished below k installations (RFC-0001 §11).
+
+    The aggregate is committed to a public repository, so the threshold has to
+    hold in the data the aggregator writes rather than in the site renderer
+    alone: below three unique installations, the counters and the free-text
+    insights of a skill are one installation's usage profile, which §9.3 rules
+    out publishing.
+    """
+
+    INSIGHTS = [
+        {
+            "type": "bug",
+            "text": "sentinel insight text that must never reach the aggregate",
+            "confidence": 0.9,
+        }
+    ]
+
+    def test_threshold_is_three(self):
+        """§11 fixes k = 3; §12.2 documents the same floor for the HTTP sink."""
+        assert aggregate_mod.MIN_INSTALLATIONS_PUBLISH == 3
+
+    def test_site_renderer_shares_the_threshold(self):
+        """One source of truth: the renderer's guard must not drift from it."""
+        site_mod = _load_module(
+            "generate_site", REPO_ROOT / "scripts" / "generate-site.py"
+        )
+        assert (
+            site_mod.FEEDBACK_MIN_INSTALLATIONS
+            == aggregate_mod.MIN_INSTALLATIONS_PUBLISH
+        )
+
+    def test_one_installation_is_suppressed(self, tmp_path, registry_skill_names):
+        skill = sorted(registry_skill_names)[0]
+        result, output = run_aggregate(tmp_path, make_reports(skill, 1))
+
+        assert result["skills"] == {}
+        assert result["stats"]["skills_suppressed"] == 1
+        assert result["stats"]["reports"] == 1  # ingestion stays transparent
+        assert skill not in output.read_text()
+
+    def test_two_installations_are_suppressed(self, tmp_path, registry_skill_names):
+        skill = sorted(registry_skill_names)[0]
+        result, output = run_aggregate(tmp_path, make_reports(skill, 2))
+
+        assert result["skills"] == {}
+        assert result["stats"]["skills_suppressed"] == 1
+        assert skill not in output.read_text()
+
+    def test_three_installations_are_published(self, tmp_path, registry_skill_names):
+        skill = sorted(registry_skill_names)[0]
+        result, _ = run_aggregate(
+            tmp_path,
+            make_reports(
+                skill, aggregate_mod.MIN_INSTALLATIONS_PUBLISH, insights=self.INSIGHTS
+            ),
+        )
+
+        published = result["skills"][skill]
+        assert published["unique_installations"] == 3
+        assert published["invocations"] == 30
+        assert published["outcomes"]["success"] == 27
+        assert published["top_insights"][0]["text"] == self.INSIGHTS[0]["text"]
+        assert result["stats"]["skills_suppressed"] == 0
+
+    def test_insights_are_never_published_below_threshold(
+        self, tmp_path, registry_skill_names
+    ):
+        """Free text is the sharpest disclosure in a report; it goes first."""
+        skill = sorted(registry_skill_names)[0]
+        for installations in (1, 2):
+            run_dir = tmp_path / f"k{installations}"
+            run_dir.mkdir()
+            result, output = run_aggregate(
+                run_dir, make_reports(skill, installations, insights=self.INSIGHTS)
+            )
+
+            assert self.INSIGHTS[0]["text"] not in output.read_text()
+            assert result["skills"] == {}
+
+    def test_all_below_threshold_still_produces_schema_valid_aggregate(
+        self, tmp_path, registry_skill_names
+    ):
+        """An all-suppressed window writes an empty but well-formed aggregate,
+        so consumers keep reading the same shape."""
+        known = sorted(registry_skill_names)[:2]
+        result, _ = run_aggregate(
+            tmp_path,
+            [*make_reports(known[0], 1), *make_reports(known[1], 2)],
+        )
+
+        assert result["version"] == "1.0.0"
+        assert result["schema_version"] == 1
+        assert isinstance(result["skills"], dict) and result["skills"] == {}
+        assert set(result["window"]) == {"from", "to"}
+        assert result["stats"]["reports"] == 3
+        assert result["stats"]["skills_with_feedback"] == 0
+        assert result["stats"]["skills_suppressed"] == 2
+
+    def test_digest_counts_suppressed_skills_without_naming_them(
+        self, tmp_path, registry_skill_names, capsys
+    ):
+        """The digest becomes a public PR body, so it withholds the names too."""
+        published, suppressed = sorted(registry_skill_names)[:2]
+        run_aggregate(
+            tmp_path,
+            [
+                *make_reports(published, aggregate_mod.MIN_INSTALLATIONS_PUBLISH),
+                *make_reports(suppressed, 1, insights=self.INSIGHTS),
+            ],
+        )
+        digest = capsys.readouterr().out
+
+        assert published in digest
+        assert suppressed not in digest
+        assert self.INSIGHTS[0]["text"] not in digest
+        assert "publication floor (names withheld" in digest
+
+
 def run_client(args, tmp_home, stdin_data=None, extra_env=None, script=None):
     env = {**os.environ, "AGORA_HOME": str(tmp_home)}
     env.pop("AGORA_FEEDBACK", None)
@@ -225,13 +364,17 @@ def run_client(args, tmp_home, stdin_data=None, extra_env=None, script=None):
     )
 
 
-def install_client_in_cache_layout(root, ship_manifest=True):
+def install_client_in_cache_layout(root, ship_manifest=True, ship_plugin_manifest=None):
     """Copy the client where Claude Code actually runs it from.
 
     ~/.claude/plugins/cache/<marketplace>/<plugin>/<version>/scripts/ contains
     plugin directories only — no marketplace root above the script — which is
-    where the original registry lookup silently found nothing.
+    where the original registry lookup silently found nothing. The two shipped
+    manifests are the layout's only name sources, and each can be withheld on
+    its own to check that capture fails closed without it.
     """
+    if ship_plugin_manifest is None:
+        ship_plugin_manifest = ship_manifest
     scripts = (
         root
         / "plugins"
@@ -247,19 +390,30 @@ def install_client_in_cache_layout(root, ship_manifest=True):
     if ship_manifest:
         manifest = CLIENT_SCRIPT.parent / client_mod.SKILL_NAMES_FILE
         (scripts / client_mod.SKILL_NAMES_FILE).write_text(manifest.read_text())
+    if ship_plugin_manifest:
+        manifest = CLIENT_SCRIPT.parent / client_mod.PLUGIN_NAMES_FILE
+        (scripts / client_mod.PLUGIN_NAMES_FILE).write_text(manifest.read_text())
     return installed
 
 
-def skill_hook_payload(skill_name):
-    return json.dumps(
-        {
-            "hook_event_name": "PostToolUse",
-            "session_id": "abcdef1234567890",
-            "tool_name": "Skill",
-            "tool_input": {"skill": skill_name},
-            "tool_response": {"ok": True},
-        }
-    )
+def skill_payload(skill_name, plugin="development"):
+    """A Skill-tool PostToolUse payload, as the hook receives it.
+
+    Real invocations name the owning plugin ("development:commit"); pass
+    plugin=None for the bare form, which capture cannot attribute.
+    """
+    qualified = f"{plugin}:{skill_name}" if plugin else skill_name
+    return {
+        "hook_event_name": "PostToolUse",
+        "session_id": "abcdef1234567890",
+        "tool_name": "Skill",
+        "tool_input": {"skill": qualified},
+        "tool_response": {"ok": True},
+    }
+
+
+def skill_hook_payload(skill_name, plugin="development"):
+    return json.dumps(skill_payload(skill_name, plugin))
 
 
 @pytest.fixture
@@ -268,6 +422,32 @@ def direct_skill_names(tmp_path, monkeypatch):
     manifest.write_text(json.dumps({"names": ["devils-advocate"]}))
     monkeypatch.setenv("AGORA_SKILL_NAMES_FILE", str(manifest))
     monkeypatch.setattr(client_mod, "_KNOWN_SKILLS", None)
+    monkeypatch.setattr(client_mod, "_KNOWN_PLUGINS", None)
+
+
+@pytest.fixture
+def colliding_skill_names(tmp_path, monkeypatch):
+    """Registry names that collide with the personal and third-party skills
+    seen in real transcripts, so every rejection below is the provenance rule
+    rather than a name mismatch."""
+    manifest = tmp_path / "skill-names.json"
+    manifest.write_text(
+        json.dumps(
+            {
+                "names": [
+                    "audience-checker",
+                    "brainstorming",
+                    "commit",
+                    "devils-advocate",
+                    "obsidian-markdown",
+                    "ship",
+                ]
+            }
+        )
+    )
+    monkeypatch.setenv("AGORA_SKILL_NAMES_FILE", str(manifest))
+    monkeypatch.setattr(client_mod, "_KNOWN_SKILLS", None)
+    monkeypatch.setattr(client_mod, "_KNOWN_PLUGINS", None)
 
 
 def subagent_hook_payload(tool_name, subagent_type):
@@ -313,6 +493,83 @@ class TestHookPayloadEvents:
         )
 
         assert event is None
+
+
+class TestSkillProvenance:
+    """Attribution comes from the plugin prefix, not from the bare name.
+
+    Matching the tail alone recorded a user's own ~/.claude/commands/commit.md
+    as the development plugin's `commit`, which is how personal usage could
+    reach a public issue — the collision variant of the leak hardened in
+    issue #25. Every name below is a value observed in real hook payloads.
+    """
+
+    def test_agora_prefixed_skill_is_captured(self, colliding_skill_names):
+        event = client_mod.event_from_hook_payload(
+            skill_payload("commit", plugin="development")
+        )
+
+        assert event["event"] == "invocation"
+        assert event["skill"] == "commit"
+
+    def test_bare_colliding_name_is_not_captured(self, colliding_skill_names):
+        """`commit` and `ship` are both registry names and personal commands."""
+        for name in ("commit", "ship"):
+            assert (
+                client_mod.event_from_hook_payload(skill_payload(name, plugin=None))
+                is None
+            )
+
+    def test_foreign_prefix_is_not_captured(self, colliding_skill_names):
+        for plugin, name in (
+            ("superpowers", "brainstorming"),
+            ("obsidian", "obsidian-markdown"),
+            ("someplugin", "commit"),
+        ):
+            assert (
+                client_mod.event_from_hook_payload(skill_payload(name, plugin=plugin))
+                is None
+            )
+
+    def test_agora_prefixed_agent_dispatch_is_captured(self, colliding_skill_names):
+        for name in ("devils-advocate", "audience-checker"):
+            event = client_mod.event_from_hook_payload(
+                subagent_hook_payload("Agent", f"research-agents:{name}")
+            )
+
+            assert event["event"] == "subagent"
+            assert event["skill"] == name
+
+    def test_bare_subagent_type_is_not_captured(self, colliding_skill_names):
+        for name in ("general-purpose", "Explore", "fork"):
+            assert (
+                client_mod.event_from_hook_payload(subagent_hook_payload("Agent", name))
+                is None
+            )
+
+    def test_personal_wrapper_does_not_suppress_the_agents_it_dispatches(
+        self, colliding_skill_names
+    ):
+        """Capture decides per invocation, never per session: a personal
+        command that dispatches Agora agents is itself bare and dropped, while
+        the prefixed dispatches it makes stay attributable."""
+        assert (
+            client_mod.event_from_hook_payload(
+                skill_payload("critical-eval", plugin=None)
+            )
+            is None
+        )
+        dispatched = [
+            client_mod.event_from_hook_payload(
+                subagent_hook_payload("Agent", f"research-agents:{name}")
+            )
+            for name in ("devils-advocate", "audience-checker")
+        ]
+
+        assert [e["skill"] for e in dispatched] == [
+            "devils-advocate",
+            "audience-checker",
+        ]
 
 
 class TestCaptureClient:
@@ -367,6 +624,15 @@ class TestCaptureClient:
         names = set(json.loads(manifest.read_text())["names"])
         assert names == registry_skill_names
 
+    def test_plugin_names_manifest_matches_marketplace(self):
+        manifest = CLIENT_SCRIPT.parent / client_mod.PLUGIN_NAMES_FILE
+        assert manifest.exists(), "run scripts/generate-registry.py"
+        names = set(json.loads(manifest.read_text())["names"])
+        marketplace = json.loads(
+            (REPO_ROOT / ".claude-plugin" / "marketplace.json").read_text()
+        )
+        assert names == {p["name"] for p in marketplace["plugins"]}
+
     def test_plugin_cache_layout_filters_unknown_skills(
         self, tmp_path, registry_skill_names
     ):
@@ -393,10 +659,14 @@ class TestCaptureClient:
     def test_plugin_cache_layout_reaches_sibling_marketplace_registry(self, tmp_path):
         claude = tmp_path / "claude"
         installed = install_client_in_cache_layout(claude, ship_manifest=False)
-        registry = claude / "plugins" / "marketplaces" / "research-agora" / "registry"
-        registry.mkdir(parents=True)
-        (registry / "index.json").write_text(
+        checkout = claude / "plugins" / "marketplaces" / "research-agora"
+        (checkout / "registry").mkdir(parents=True)
+        (checkout / "registry" / "index.json").write_text(
             json.dumps({"repos": [{"skills": [{"name": "only-known-skill"}]}]})
+        )
+        (checkout / ".claude-plugin").mkdir()
+        (checkout / ".claude-plugin" / "marketplace.json").write_text(
+            json.dumps({"plugins": [{"name": "only-known-plugin"}]})
         )
         home = tmp_path / "agora"
         run_client(["enable"], home, script=installed)
@@ -404,16 +674,56 @@ class TestCaptureClient:
         run_client(
             ["capture"],
             home,
-            stdin_data=skill_hook_payload("only-known-skill"),
+            stdin_data=skill_hook_payload(
+                "only-known-skill", plugin="only-known-plugin"
+            ),
             script=installed,
         )
         events = (home / "spool" / "events.jsonl").read_text().strip().splitlines()
         assert json.loads(events[0])["skill"] == "only-known-skill"
 
+    def test_plugin_cache_layout_applies_the_provenance_rule(self, tmp_path):
+        """Prefix, bare, and foreign names resolve the same in every layout."""
+        installed = install_client_in_cache_layout(tmp_path / "claude")
+        home = tmp_path / "agora"
+        run_client(["enable"], home, script=installed)
+
+        for payload in (
+            skill_hook_payload("commit", plugin="development"),
+            skill_hook_payload("commit", plugin=None),
+            skill_hook_payload("commit", plugin="someplugin"),
+            skill_hook_payload("brainstorming", plugin="superpowers"),
+            json.dumps(
+                subagent_hook_payload("Agent", "research-agents:devils-advocate")
+            ),
+            json.dumps(subagent_hook_payload("Agent", "general-purpose")),
+        ):
+            run_client(["capture"], home, stdin_data=payload, script=installed)
+
+        events = (home / "spool" / "events.jsonl").read_text().strip().splitlines()
+        assert [json.loads(e)["skill"] for e in events] == ["commit", "devils-advocate"]
+
     def test_fails_closed_without_any_skill_list(self, tmp_path, registry_skill_names):
         """No name list means record nothing — never record everything."""
         installed = install_client_in_cache_layout(
             tmp_path / "claude", ship_manifest=False
+        )
+        home = tmp_path / "agora"
+        run_client(["enable"], home, script=installed)
+        run_client(
+            ["capture"],
+            home,
+            stdin_data=skill_hook_payload(sorted(registry_skill_names)[0]),
+            script=installed,
+        )
+        assert not (home / "spool" / "events.jsonl").exists()
+
+    def test_fails_closed_without_a_plugin_name_list(
+        self, tmp_path, registry_skill_names
+    ):
+        """Known skill names alone cannot attribute an invocation."""
+        installed = install_client_in_cache_layout(
+            tmp_path / "claude", ship_plugin_manifest=False
         )
         home = tmp_path / "agora"
         run_client(["enable"], home, script=installed)
@@ -619,11 +929,14 @@ class TestValidationHardening:
         known = sorted(registry_skill_names)[0]
         hostile = make_report(known, report_id="r-hostile", installation="h" * 32)
         hostile["skills"][0]["insights"] = {"not": "a list"}
-        good = make_report(known, report_id="r-good", installation="g" * 32)
+        # Enough installations to clear the k-anonymity floor, so the run's
+        # survival is visible in the published skills and not masked by §11.
+        good = make_reports(known, aggregate_mod.MIN_INSTALLATIONS_PUBLISH)
         input_dir = tmp_path / "reports"
         input_dir.mkdir()
         (input_dir / "hostile.json").write_text(json.dumps(hostile))
-        (input_dir / "good.json").write_text(json.dumps(good))
+        for i, report in enumerate(good):
+            (input_dir / f"good-{i}.json").write_text(json.dumps(report))
         (input_dir / "not-even-json.json").write_text("}{")
         output = tmp_path / "feedback.json"
 
@@ -632,5 +945,5 @@ class TestValidationHardening:
         )
         assert rc == 0
         result = json.loads(output.read_text())
-        assert result["stats"]["reports"] == 1  # only the good one survives
+        assert result["stats"]["reports"] == len(good)  # only the good ones survive
         assert known in result["skills"]
