@@ -1,42 +1,16 @@
 {
   "version": "1.0.0",
   "schema_version": 1,
-  "generated": "2026-08-03",
+  "generated": "2026-08-13",
   "window": {
     "from": "2026-07-31",
     "to": "2026-07-31"
   },
   "stats": {
-    "reports": 2,
+    "reports": 1,
     "unique_installations": 1,
-    "skills_with_feedback": 1
+    "skills_with_feedback": 0,
+    "skills_suppressed": 1
   },
-  "skills": {
-    "devils-advocate": {
-      "report_count": 1,
-      "unique_installations": 1,
-      "invocations": 1,
-      "outcomes": {
-        "error": 0,
-        "partial": 0,
-        "success": 1,
-        "unknown": 0
-      },
-      "error_codes": {},
-      "wilson_lb": 0.2065,
-      "status": "candidate",
-      "top_insights": [
-        {
-          "type": "praise",
-          "text": "In a two-proposer design debate, devils-advocate fact-checked every load-bearing claim against ground truth, ruled per disagreement axis instead of both-sides mush, and steelmanned a hybrid that became the shipped design. The stakes-calibration table maps well to mid-development use.",
-          "confidence": 0.9
-        },
-        {
-          "type": "improvement",
-          "text": "devils-advocate does not distinguish 'disproven' (verified false) from 'unverified' (no evidence either way) attacks; one critique presented absence of precedent as a counterargument. Suggest requiring each attack be labeled with its evidence status, as the new brainstorm skill mandates.",
-          "confidence": 0.85
-        }
-      ]
-    }
-  }
+  "skills": {}
 }

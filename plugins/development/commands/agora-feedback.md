@@ -37,7 +37,10 @@ SCRIPT="${CLAUDE_PLUGIN_ROOT}/scripts/agora_feedback.py"
    user asks for it.
 2. **Submission is a second, separate decision.** Never chain
    `submit --confirm` onto anything. The user must see the exact payload
-   first and explicitly say to send it.
+   first and explicitly say to send it. The script enforces this rather than
+   trusting the walkthrough: a bare `submit` records a token over the exact
+   payload it printed, and `submit --confirm` transmits only against a
+   matching token issued in the last 15 minutes.
 3. **Respect the kill switches.** If `AGORA_FEEDBACK=0` or
    `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1` is set, say so and stop; do
    not suggest unsetting them.
@@ -55,13 +58,15 @@ SCRIPT="${CLAUDE_PLUGIN_ROOT}/scripts/agora_feedback.py"
 | Local usage dashboard (no network) | `python3 "$SCRIPT" stats` |
 | Build a report for review | `python3 "$SCRIPT" report` |
 | Add/remove/list insights | `python3 "$SCRIPT" insight add <skill> <type> "<text>" --confidence 0.8` |
-| Show payload without sending | `python3 "$SCRIPT" submit` |
+| Show payload without sending, opening the confirmation window | `python3 "$SCRIPT" submit` |
 | Send after explicit user confirmation | `python3 "$SCRIPT" submit --confirm` |
 | Delete all local feedback data | `python3 "$SCRIPT" purge` |
 
 Insight types: `bug`, `improvement`, `docs-gap`, `missing-skill`, `overlap`,
 `deprecation-signal`, `praise`. Text is capped at 500 characters and
-PII-linted; the script blocks submission on suspected personal data.
+PII-linted; the script blocks submission on suspected personal data, and
+rejects control characters (terminal escapes, NUL) outright — `--allow-pii`
+does not override that.
 
 ## Submission walkthrough
 
@@ -75,11 +80,18 @@ When the user wants to submit feedback:
    Insights must describe the *skill*, never the user's project or data.
 3. Run `submit` (no flag). Show the user the exact payload it prints, in
    full. Do not summarize it — the point of the gate is that they see what
-   leaves the machine.
+   leaves the machine. This step also opens the 15-minute confirmation
+   window; it sends nothing.
 4. Only if the user explicitly confirms, run `submit --confirm`. Report the
    receipt (issue URL) back.
 5. If the GitHub CLI is unavailable, the script writes a manual-paste file
    and prints the issue-form URL — relay both to the user.
+
+Anything that changes the report between steps 3 and 4 — adding or removing
+an insight, re-running `report` — voids the window, because the token commits
+to the payload the user actually read. Run `submit` again, show the new
+payload, and ask again. The same holds when the window lapses: re-run
+`submit`, and let the user re-read before confirming.
 
 ## What this is not
 
@@ -100,3 +112,9 @@ When the user wants to submit feedback:
   enabled) and how to enable it.
 - PII lint block: show the flagged strings, help the user rephrase the
   insight, re-run. `--allow-pii` exists but only the user may request it.
+- Control characters: `insight add` refuses the text and `submit` blocks on
+  the payload. Retype the insight as plain text; do not try to escape it.
+- "Submission refused" on `--confirm` (no reviewed payload, a report that
+  changed, or a stale review): the consent gate did its job. Go back to
+  step 3, show the payload again, and ask the user again — never work around
+  it.

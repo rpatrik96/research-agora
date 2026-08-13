@@ -2,7 +2,8 @@
 """Aggregate skill-feedback reports into registry/feedback.json (RFC-0001).
 
 Deterministic, script-first: parse -> validate -> dedup -> cap -> quarantine
--> score (Wilson 95% lower bound) -> write. Safe to re-run (idempotent).
+-> score (Wilson 95% lower bound) -> suppress below the k-anonymity floor
+-> write. Safe to re-run (idempotent).
 
 Inputs (one of):
   --input-dir DIR    read report JSON files (*.json) from a directory
@@ -34,6 +35,11 @@ MAX_INVOCATIONS_PER_ENTRY = 100_000
 MAX_INSIGHTS_PER_SKILL = 10
 INSIGHT_TEXT_MAX = 500
 OUTLIER_SIGMA = 3.0
+# k-anonymity floor (RFC-0001 §11): a per-skill breakdown is published only at
+# or above three unique installations. This is the single source of truth for
+# the threshold; scripts/generate-site.py keeps its own copy as a rendering
+# guard, and tests/test_feedback.py asserts the two agree.
+MIN_INSTALLATIONS_PUBLISH = 3
 MIN_INSTALLATIONS_CANDIDATE = 5
 ESTABLISHED_WILSON = 0.7
 FLAGGED_WILSON = 0.5
@@ -308,6 +314,17 @@ def status_for(wilson: float, installations: int, invocations: int) -> str:
 
 
 def aggregate(reports: list[dict], known_skills: set) -> tuple[dict, list[str]]:
+    """Roll validated reports up into the canonical aggregate.
+
+    Skills below MIN_INSTALLATIONS_PUBLISH unique installations are counted but
+    not written out (RFC-0001 §11 k-anonymity). The gate lives here, in the data
+    layer, because registry/feedback.json is the canonical artifact (§4.1) and
+    is committed to a public repository: a breakdown drawn from one or two
+    installations is that installation's usage profile — invocation counts,
+    outcome and error counters, and free-text insights — which §9.3 rules out
+    publishing. Gating only the site renderer would leave the profile readable
+    in the file and in git history for anyone who clones the repo.
+    """
     unknown = []
     skills: dict[str, dict] = {}
     for report in reports:
@@ -344,8 +361,17 @@ def aggregate(reports: list[dict], known_skills: set) -> tuple[dict, list[str]]:
                 )
 
     out_skills = {}
+    suppressed = 0
     for name in sorted(skills):
         agg = skills[name]
+        if len(agg["installations"]) < MIN_INSTALLATIONS_PUBLISH:
+            # Nothing about the skill is emitted below the floor: not the
+            # name, not the counters, not the insights. The name alone would
+            # leak which skills a lone reporter used, and the aggregate stays
+            # self-consistent this way: every entry present is publishable, so
+            # a consumer that forgets the threshold cannot leak.
+            suppressed += 1
+            continue
         outcomes = agg["outcomes"]
         n = (
             outcomes.get("success", 0)
@@ -383,6 +409,7 @@ def aggregate(reports: list[dict], known_skills: set) -> tuple[dict, list[str]]:
             "reports": len(reports),
             "unique_installations": len(all_installations),
             "skills_with_feedback": len(out_skills),
+            "skills_suppressed": suppressed,
         },
         "skills": out_skills,
     }
@@ -396,6 +423,14 @@ def print_digest(result: dict, log: dict, unknown: list[str]) -> None:
         f"- Reports ingested: {stats['reports']} from {stats['unique_installations']} installation(s)"
     )
     print(f"- Skills with feedback: {stats['skills_with_feedback']}")
+    if stats.get("skills_suppressed"):
+        # Count only: the digest becomes the body of a PR on a public repo, so
+        # naming the skills here would republish exactly what the k-anonymity
+        # floor withholds from feedback.json (RFC-0001 §11).
+        print(
+            f"- Skills held below the k = {MIN_INSTALLATIONS_PUBLISH} publication "
+            f"floor (names withheld, RFC-0001 §11): {stats['skills_suppressed']}"
+        )
     print(
         f"- Invalid reports skipped: {len(log['invalid'])}; duplicates: {log['duplicates']}; "
         f"over-cap dropped: {log['capped']}"
