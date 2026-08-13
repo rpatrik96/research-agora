@@ -138,6 +138,20 @@ python templates/analyze_template.py /path/to/file.pptx --output slides --name "
 ```
 This copies the PPTX and generates `STYLE.md` and `specs.json`.
 
+## Releasing a Plugin Change
+
+Bump the plugin version in **both** `plugins/{category}/.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`, in the same commit as the behaviour change. The client resolves an installed plugin by version rather than by content, so a fix that lands without a bump reaches nobody: every existing install keeps running the cached old code indefinitely, and nothing reports an error.
+
+This has already cost a release. `9949d07` fixed capture for Claude Code's Task-to-Agent rename but left the version at 1.1.1, so the maintainer's own install kept matching `Skill|Task` and dropped every agent dispatch for ten days — the exact symptom that commit set out to cure. It surfaced only when a feedback report came back almost empty.
+
+Diagnose version skew by diffing the checkout against the installed copy:
+
+```bash
+diff -r plugins/development ~/.claude/plugins/cache/research-agora/development/<version>/
+```
+
+Differences in `scripts/` or `hooks/` mean the fix is in the repo but not on the machine. `/plugin update`, after the version bump has landed, is what closes the gap.
+
 ## Dependencies
 
 - `python-pptx` - Template analysis and Office document creation
