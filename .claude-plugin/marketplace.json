@@ -2,7 +2,7 @@
   "name": "research-agora",
   "owner": {
     "name": "Patrik Reizinger",
-    "email": "rpatrik96@gmail.com"
+    "email": "prmedia17@gmail.com"
   },
   "metadata": {
     "description": "Research Agora - A plugin marketplace for Claude Code focused on ML research, academic writing, and development automation",
@@ -22,7 +22,7 @@
       "name": "development",
       "source": "./plugins/development",
       "description": "Development automation skills for Python projects. Includes commit, PR automation, CI/CD setup, documentation, code simplification, and opt-in skill-usage feedback.",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "author": {"name": "rpatrik96"},
       "category": "development",
       "keywords": ["development", "python", "automation", "git", "ci-cd", "documentation", "feedback"]
