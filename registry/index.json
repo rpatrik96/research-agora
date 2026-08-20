@@ -56,7 +56,10 @@
           "task-type": "automation",
           "research-phase": "implementation",
           "verification-level": "none",
-          "visibility": "public"
+          "visibility": "public",
+          "tools": [
+            "onboard.py"
+          ]
         },
         {
           "name": "novelty-checker",
@@ -69,7 +72,10 @@
           "task-type": "verification",
           "research-phase": "paper-writing",
           "verification-level": "heuristic",
-          "visibility": "internal"
+          "visibility": "internal",
+          "tools": [
+            "arxiv MCP"
+          ]
         },
         {
           "name": "agora-feedback",
@@ -82,7 +88,10 @@
           "task-type": "automation",
           "research-phase": "implementation",
           "verification-level": "heuristic",
-          "visibility": "public"
+          "visibility": "public",
+          "tools": [
+            "agora_feedback.py"
+          ]
         },
         {
           "name": "audit-my-setup",
@@ -108,7 +117,13 @@
           "task-type": "analysis",
           "research-phase": "implementation",
           "verification-level": "layered",
-          "visibility": "public"
+          "visibility": "public",
+          "tools": [
+            "flake8",
+            "pylint",
+            "radon",
+            "vulture"
+          ]
         },
         {
           "name": "experiment-tracker",
@@ -121,7 +136,10 @@
           "task-type": "automation",
           "research-phase": "experiment-design",
           "verification-level": "none",
-          "visibility": "public"
+          "visibility": "public",
+          "tools": [
+            "github MCP"
+          ]
         },
         {
           "name": "figures",
@@ -134,7 +152,10 @@
           "task-type": "formatting",
           "research-phase": "paper-writing",
           "verification-level": "none",
-          "visibility": "public"
+          "visibility": "public",
+          "tools": [
+            "matplotlib"
+          ]
         },
         {
           "name": "htcondor",
@@ -147,7 +168,10 @@
           "task-type": "automation",
           "research-phase": "implementation",
           "verification-level": "none",
-          "visibility": "public"
+          "visibility": "public",
+          "tools": [
+            "HTCondor"
+          ]
         },
         {
           "name": "latex-sync",
@@ -160,7 +184,10 @@
           "task-type": "verification",
           "research-phase": "implementation",
           "verification-level": "formal",
-          "visibility": "public"
+          "visibility": "public",
+          "tools": [
+            "latex-code-sync"
+          ]
         },
         {
           "name": "latex",
@@ -173,7 +200,10 @@
           "task-type": "automation",
           "research-phase": "paper-writing",
           "verification-level": "formal",
-          "visibility": "public"
+          "visibility": "public",
+          "tools": [
+            "latexmk"
+          ]
         },
         {
           "name": "rebuttal",
@@ -186,7 +216,11 @@
           "task-type": "writing",
           "research-phase": "rebuttal",
           "verification-level": "layered",
-          "visibility": "public"
+          "visibility": "public",
+          "tools": [
+            "arxiv MCP",
+            "github MCP"
+          ]
         },
         {
           "name": "artifact-packager",
@@ -199,7 +233,10 @@
           "task-type": "verification",
           "research-phase": "implementation",
           "verification-level": "heuristic",
-          "visibility": "public"
+          "visibility": "public",
+          "tools": [
+            "github MCP"
+          ]
         },
         {
           "name": "paper-references",
@@ -212,7 +249,11 @@
           "task-type": "verification",
           "research-phase": "paper-writing",
           "verification-level": "formal",
-          "visibility": "public"
+          "visibility": "public",
+          "tools": [
+            "arxiv MCP",
+            "bibtexupdater"
+          ]
         },
         {
           "name": "paper-verify-experiments",
@@ -303,7 +344,10 @@
           "task-type": "verification",
           "research-phase": "paper-writing",
           "verification-level": "layered",
-          "visibility": "internal"
+          "visibility": "internal",
+          "tools": [
+            "parse_latex.py"
+          ]
         },
         {
           "name": "statistical-validator",
@@ -355,7 +399,10 @@
           "task-type": "verification",
           "research-phase": "paper-writing",
           "verification-level": "formal",
-          "visibility": "internal"
+          "visibility": "internal",
+          "tools": [
+            "arxiv MCP"
+          ]
         },
         {
           "name": "cross-referencer",
@@ -511,7 +558,10 @@
           "task-type": "diagnosis",
           "research-phase": "paper-writing",
           "verification-level": "heuristic",
-          "visibility": "public"
+          "visibility": "public",
+          "tools": [
+            "limpid"
+          ]
         },
         {
           "name": "writing-verify",
@@ -524,7 +574,11 @@
           "task-type": "verification",
           "research-phase": "paper-writing",
           "verification-level": "layered",
-          "visibility": "public"
+          "visibility": "public",
+          "tools": [
+            "limpid",
+            "writing_verify.py"
+          ]
         },
         {
           "name": "audience-checker",
@@ -550,7 +604,11 @@
           "task-type": "diagnosis",
           "research-phase": "paper-writing",
           "verification-level": "heuristic",
-          "visibility": "public"
+          "visibility": "public",
+          "tools": [
+            "limpid",
+            "writing_verify.py"
+          ]
         }
       ]
     }

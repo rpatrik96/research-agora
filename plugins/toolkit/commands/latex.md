@@ -500,9 +500,6 @@ pdflatex main.tex
 ### MCP INTEGRATION
 
 Use filesystem tools to read log and tex files:
-- `mcp__filesystem__read_file` - Read .log file for error parsing
-- `mcp__filesystem__read_file` - Read .tex file to find problematic code
-- `mcp__filesystem__list_directory` - Find all .log and .tex files in project
 
 **Strategy:**
 1. First read the .log file completely

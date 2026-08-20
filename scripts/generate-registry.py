@@ -8,6 +8,7 @@ extracts YAML frontmatter, and generates a machine-readable registry index.
 
 import json
 import re
+import re
 import sys
 from datetime import date
 from pathlib import Path
@@ -91,6 +92,58 @@ def collect_skill_files() -> list[Path]:
     return files
 
 
+# Tools a skill actually invokes, counted only at invocation sites: inside a
+# bash/python fence, an mcp__ call, or a named scripts/*.py delegate. A tool
+# mentioned in prose, in a routing table, or inside a config snippet the skill
+# merely recommends is not an invocation — navigator names matplotlib in a
+# routing row, and audit-my-setup carries `latexmk` inside a hooks.json example
+# it suggests you add. Neither runs anything.
+TOOL_PATTERNS = [
+    (r"bibtex-check|bibtexupdater|bibtex-updater", "bibtexupdater"),
+    (r"limpid_bridge\.py|\blimpid\b", "limpid"),
+    (r"latexmk|build_latex\.py", "latexmk"),
+    (r"latex-code-sync", "latex-code-sync"),
+    (r"\bvulture\b", "vulture"),
+    (r"\bradon\b", "radon"),
+    (r"\bpylint\b", "pylint"),
+    (r"\bflake8\b", "flake8"),
+    (r"condor_\w+", "HTCondor"),
+    (r"writing_verify\.py", "writing_verify.py"),
+    (r"parse_latex\.py", "parse_latex.py"),
+    (r"onboard\.py", "onboard.py"),
+    (r"agora_feedback\.py", "agora_feedback.py"),
+    (r"cache_manager\.py", "cache_manager.py"),
+    (r"matplotlib|seaborn", "matplotlib"),
+]
+
+_FENCE_RE = re.compile(r"```(?:bash|sh|shell|console|python)\n(.*?)```", re.S)
+_MCP_RE = re.compile(r"mcp__(\w+)__\w+")
+
+
+# Claude Code reads and globs natively, so a skill naming an mcp__filesystem__
+# tool is carrying a stale reference, not reaching a server. Never report it.
+_MCP_IGNORE = {"filesystem"}
+
+# A skill may delegate to a repo script outside a fence, as onboard.md does:
+# "Run `python3 scripts/onboard.py --detect ...` via Bash". That is an
+# invocation even though no fence surrounds it.
+_DELEGATE_RE = re.compile(r"(?:python3?\s+|\$\{CLAUDE_PLUGIN_ROOT\}/)[\w/]*?(\w+\.py)")
+
+
+def detect_tools(text: str) -> list:
+    """Return the tools a skill invokes, from invocation sites only."""
+    sites = "\n".join(_FENCE_RE.findall(text))
+    found = {name for pat, name in TOOL_PATTERNS if re.search(pat, sites)}
+    for script in _DELEGATE_RE.findall(text):
+        for pat, name in TOOL_PATTERNS:
+            if re.fullmatch(pat.replace("\\.", "."), script) or name == script:
+                found.add(name)
+    for server in _MCP_RE.findall(text):
+        if server not in _MCP_IGNORE:
+            found.add(f"{server} MCP")
+    return sorted(found)
+
+
 def build_skill_entry(file_path: Path) -> dict | None:
     """Build a registry entry from a skill file."""
     frontmatter = parse_yaml_frontmatter(file_path)
@@ -118,6 +171,10 @@ def build_skill_entry(file_path: Path) -> dict | None:
         "verification-level": metadata.get("verification-level", "none"),
         "visibility": metadata.get("visibility", "public"),
     }
+
+    tools = detect_tools(file_path.read_text())
+    if tools:
+        entry["tools"] = tools
 
     # Deprecation is optional and only appears on skills that carry it, so that
     # a live skill's entry is byte-identical to what it was before the field

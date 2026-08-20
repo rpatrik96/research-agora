@@ -304,8 +304,6 @@ scores = cross_val_score(clf, X, y, cv=outer_cv)
 ## MCP INTEGRATION
 
 Use filesystem tools to analyze experiment code:
-- `mcp__filesystem__read_file` - Read training scripts
-- `mcp__filesystem__search_files` - Find all experiment files
 
 **Search Patterns:**
 - `fit_transform` before `train_test_split` - Leakage

@@ -372,9 +372,6 @@ Use these tools for artifact preparation:
 - `mcp__github__create_issue` - Track release tasks
 
 **Filesystem Tools:**
-- `mcp__filesystem__read_file` - Scan files for security issues
-- `mcp__filesystem__list_directory` - Inventory project structure
-- `mcp__filesystem__search_files` - Find specific file types
 
 **Search Strategies:**
 - Scan all `.py` files for credential patterns
