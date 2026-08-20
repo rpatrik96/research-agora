@@ -345,14 +345,31 @@ class TestGroupDerivation:
         unbanded = [s["name"] for s in registry_skills if mod.skill_band(s) not in band_ids]
         assert not unbanded, f"Skills with no verification band: {unbanded}"
 
-    def test_bands_cover_every_verification_level(self, categories_data: dict) -> None:
-        """No level may fall through to the default band silently."""
+    def test_formal_skills_are_always_ground_truth(self, registry_skills: list) -> None:
+        """A formal check resolves against something external, by definition."""
         mod = self._site_module()
-        covered = set()
-        for _bid, _label, _blurb, levels in mod.VERIFICATION_BANDS:
-            covered |= levels
-        declared = set(categories_data["verification-levels"])
-        assert declared <= covered, f"Levels with no band: {sorted(declared - covered)}"
+        wrong = [
+            s["name"]
+            for s in registry_skills
+            if s.get("verification-level") == "formal"
+            and mod.skill_band(s) != "checks-ground-truth"
+        ]
+        assert not wrong, f"formal skills banded elsewhere: {wrong}"
+
+    def test_writing_tasks_never_claim_to_check(self, registry_skills: list) -> None:
+        """A skill that writes prose produces; it does not check.
+
+        Deriving the band from verification-level alone put `rebuttal` and
+        `intuition-formalizer` under "checks against ground truth" because they
+        are `layered` — which means mixed methods, not compares-against-a-source.
+        """
+        mod = self._site_module()
+        wrong = [
+            s["name"]
+            for s in registry_skills
+            if s.get("task-type") == "writing" and mod.skill_band(s) != "produces"
+        ]
+        assert not wrong, f"writing skills banded as checks: {wrong}"
 
 
 class TestRegistryMatchesDisk:
@@ -511,4 +528,81 @@ class TestRecommendationSurfacesAreLive:
                         dead.append(f"{rel}:{line_no} recommends /{name}")
         assert not dead, "Recommendation surfaces name retired skills:\n" + "\n".join(
             dict.fromkeys(dead)
+        )
+
+
+class TestIntentButtons:
+    """The 'What do you need?' buttons must name live groups.
+
+    They filter by matching `data-groups` against each group's `data-group`,
+    which is the plugin id. After RFC-0002 renamed the plugins the buttons still
+    named `paper-drafting`, `writing-polish` and the rest, so every one of them
+    filtered the page down to nothing — silently, because a filter matching zero
+    groups looks the same as a filter that is simply strict.
+    """
+
+    def test_intent_buttons_name_live_groups(self, registry_skills: list) -> None:
+        import re
+
+        template = (REPO_ROOT / "site" / "templates" / "index.html.j2").read_text()
+        live = {s["plugin"] for s in registry_skills} | {"all"}
+        dead = []
+        for match in re.finditer(r'data-groups="([^"]+)"', template):
+            for group in match.group(1).split(","):
+                if group.strip() and group.strip() not in live:
+                    dead.append(group.strip())
+        assert not dead, (
+            f"Intent buttons filter on groups that do not exist: {sorted(set(dead))}. "
+            f"Live groups: {sorted(live)}"
+        )
+
+    def test_every_live_group_is_reachable_from_a_button(
+        self, registry_skills: list
+    ) -> None:
+        """A plugin no button reaches is a plugin the quick filters hide."""
+        import re
+
+        template = (REPO_ROOT / "site" / "templates" / "index.html.j2").read_text()
+        named = set()
+        for match in re.finditer(r'data-groups="([^"]+)"', template):
+            named.update(g.strip() for g in match.group(1).split(","))
+        plugins = {s["plugin"] for s in registry_skills}
+        unreachable = sorted(plugins - named)
+        assert not unreachable, f"No intent button reaches: {unreachable}"
+
+
+class TestGeneratorsRun:
+    """The generators must actually execute, not merely import.
+
+    625 tests passed while `generate-site.py` crashed on a tuple unpack and
+    `FEEDBACK_MIN_INSTALLATIONS` was undefined at its only use site — the suite
+    checked the data the generators produce, never that running them succeeds.
+    """
+
+    def test_generate_site_runs(self, tmp_path) -> None:
+        import subprocess
+        import sys
+
+        proc = subprocess.run(
+            [sys.executable, "scripts/generate-site.py"],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+        )
+        assert proc.returncode == 0, (
+            f"generate-site.py failed:\n{proc.stdout[-2000:]}\n{proc.stderr[-2000:]}"
+        )
+
+    def test_generate_registry_runs(self) -> None:
+        import subprocess
+        import sys
+
+        proc = subprocess.run(
+            [sys.executable, "scripts/generate-registry.py"],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+        )
+        assert proc.returncode == 0, (
+            f"generate-registry.py failed:\n{proc.stdout[-2000:]}\n{proc.stderr[-2000:]}"
         )

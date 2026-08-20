@@ -101,12 +101,6 @@
         "temperature": 0.4,
         "reason": "Constructing counterexamples requires creative mathematical reasoning.",
         "fallback": null
-      },
-      "intuition-formalizer": {
-        "model": "opus",
-        "temperature": 0.3,
-        "reason": "Formalizing vague intuitions requires deep mathematical understanding.",
-        "fallback": null
       }
     },
     "helpers": {}

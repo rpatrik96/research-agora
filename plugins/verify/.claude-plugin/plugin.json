@@ -57,7 +57,6 @@
         "claim-auditor",
         "counterexample-searcher",
         "devils-advocate",
-        "intuition-formalizer",
         "notation-consistency-checker",
         "proof-auditor",
         "state-generator",

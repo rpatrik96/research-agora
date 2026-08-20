@@ -6,7 +6,7 @@ color: violet
 metadata:
   research-domain: general
   research-phase: paper-writing
-  task-type: analysis
+  task-type: diagnosis
   verification-level: heuristic
 ---
 
