@@ -19,16 +19,38 @@ Analyze ML experiments and papers to assess statistical validity, identify metho
 
 ## WORKFLOW
 
-1. **Identify Statistical Claims**: Extract all quantitative comparisons and performance claims
-2. **Check Sample Sizes**: Verify n per condition, number of seeds/runs, dataset splits
-3. **Validate Hypothesis Tests**: Assess p-values, test selection, multiple comparison corrections
-4. **Examine Confidence Intervals**: Check proper reporting and interpretation
-5. **Evaluate Effect Sizes**: Determine practical significance beyond statistical significance
-6. **Audit ML-Specific Practices**: Cross-validation validity, seed sensitivity, data leakage
-7. **Review Code Patterns**: Scan implementation for statistical anti-patterns
-8. **Generate Report**: Produce structured assessment with severity levels
-9. **Recommend Fixes**: Provide specific corrections with code examples
-10. **Verify Corrections**: Re-check after fixes are applied
+1. **Compute Missing Error Bars**: Read `structure.tables[].has_error_bars` from `research-state.json` and report every table where it is `false`:
+
+   ```bash
+   python3 - <<'PY'
+   import json
+   from pathlib import Path
+
+   state = json.loads(Path("research-state.json").read_text())
+   missing = [
+       {
+           "id": table["id"],
+           "label": table.get("label"),
+           "caption": table.get("caption", ""),
+           "section": table.get("section", ""),
+       }
+       for table in state["structure"]["tables"]
+       if table["has_error_bars"] is False
+   ]
+   print(json.dumps({"tables_missing_error_bars": missing}, indent=2))
+   PY
+   ```
+
+2. **Identify Statistical Claims**: Extract all quantitative comparisons and performance claims
+3. **Check Sample Sizes**: Verify n per condition, number of seeds/runs, dataset splits
+4. **Validate Hypothesis Tests**: Assess p-values, test selection, multiple comparison corrections
+5. **Examine Confidence Intervals**: Check proper reporting and interpretation
+6. **Evaluate Effect Sizes**: Determine practical significance beyond statistical significance
+7. **Audit ML-Specific Practices**: Cross-validation validity, seed sensitivity, data leakage
+8. **Review Code Patterns**: Scan implementation for statistical anti-patterns
+9. **Generate Report**: Produce structured assessment with severity levels
+10. **Recommend Fixes**: Provide specific corrections with code examples
+11. **Verify Corrections**: Re-check after fixes are applied
 
 ## STATISTICAL CHECKS BY CATEGORY
 

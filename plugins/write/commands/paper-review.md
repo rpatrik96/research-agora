@@ -18,11 +18,41 @@ Simulate a skeptical ML conference reviewer (NeurIPS, ICML, ICLR) to identify we
 
 ## Workflow
 
-1. **Read the complete paper**: Read all LaTeX files thoroughly
-2. **Assess each section**: Evaluate against reviewer criteria
-3. **Identify weaknesses**: Find technical, experimental, and presentation issues
-4. **Generate review**: Produce a realistic conference review
-5. **Prioritize fixes**: Rank issues by severity and fixability
+1. **Compute missing error bars**: Run the scripted first pass below
+2. **Read the complete paper**: Read all LaTeX files thoroughly
+3. **Assess each section**: Evaluate against reviewer criteria
+4. **Identify weaknesses**: Find technical, experimental, and presentation issues
+5. **Generate review**: Produce a realistic conference review
+6. **Prioritize fixes**: Rank issues by severity and fixability
+
+### Scripted First Pass
+
+Run from the repository root after generating `research-state.json`:
+
+```bash
+python3 - <<'PY'
+import json
+from pathlib import Path
+
+state = json.loads(Path("research-state.json").read_text())
+missing = [
+    {
+        "id": table["id"],
+        "label": table.get("label"),
+        "caption": table.get("caption", ""),
+        "section": table.get("section", ""),
+    }
+    for table in state["structure"]["tables"]
+    if table["has_error_bars"] is False
+]
+print(json.dumps({"tables_missing_error_bars": missing}, indent=2))
+PY
+```
+
+Treat each reported table as the "no error bars on stochastic results" red
+flag. The finding comes from
+`structure.tables[].has_error_bars == false`; judge whether the table contains
+stochastic results from the paper's experimental context.
 
 ## Review Output Format
 
@@ -104,7 +134,7 @@ Red flags:
 ```
 - Missing obvious baselines
 - Weak baselines only ("compared to random")
-- No error bars on stochastic results
+- No error bars on stochastic results (computed from `structure.tables[].has_error_bars == false`)
 - Cherry-picked datasets
 - Unfair hyperparameter tuning
 - Missing ablations for key claims

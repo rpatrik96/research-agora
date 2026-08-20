@@ -3,8 +3,7 @@
 These tests verify the structure, content, and consistency of the new theory agents:
 - Agents: proof-auditor, notation-consistency-checker,
   theorem-dependency-mapper, counterexample-searcher
-- Micro-skills: proof-step-extractor, proof-step-verifier,
-  assumption-analyzer
+- Micro-skills: proof-step-verifier, assumption-analyzer
 - Orchestrator: parallel-theory-audit
 
 Since agents execute in Claude's runtime, we test:
@@ -38,7 +37,6 @@ THEORY_AGENTS = [
 ]
 
 THEORY_MICRO_SKILLS = [
-    "proof-step-extractor",
     "proof-step-verifier",
     "assumption-analyzer",
 ]
@@ -140,7 +138,6 @@ class TestTheoryModelAssignment:
         "theorem-dependency-mapper": "sonnet",
         "counterexample-searcher": "opus",
         # Micro-skills
-        "proof-step-extractor": "sonnet",
         "proof-step-verifier": "opus",
         "assumption-analyzer": "sonnet",
         # Orchestrators
@@ -184,17 +181,31 @@ class TestTheoreticalEvidenceHierarchy:
         "THEOREM_ASSERTION",
     ]
 
-    def test_proof_auditor_documents_all_t_levels(self) -> None:
-        """proof-auditor must document all T1-T6 levels."""
-        content = (AGENTS_DIR / "proof-auditor.md").read_text()
-        for level in self.T_LEVELS:
-            assert level in content, f"proof-auditor missing {level}"
+    SCALES = (
+        AGENTS_DIR.parent / "config" / "EVIDENCE_SCALES.md"
+    )
 
-    def test_proof_auditor_documents_all_t_labels(self) -> None:
-        """proof-auditor must document all T-level labels."""
-        content = (AGENTS_DIR / "proof-auditor.md").read_text()
+    def test_canonical_file_documents_all_t_levels(self) -> None:
+        """The shared scales file defines T1-T6.
+
+        These used to assert against proof-auditor's own inline copy. The scale
+        lived in two files and the L-scale in four, and they had drifted — one
+        copy graded a formal proof as REPRODUCIBLE_EXPERIMENT. It is defined
+        once now, so the definition is tested once.
+        """
+        content = self.SCALES.read_text()
+        for level in self.T_LEVELS:
+            assert level in content, f"EVIDENCE_SCALES.md missing {level}"
+
+    def test_canonical_file_documents_all_t_labels(self) -> None:
+        content = self.SCALES.read_text()
         for label in self.T_LABELS:
-            assert label in content, f"proof-auditor missing label {label}"
+            assert label in content, f"EVIDENCE_SCALES.md missing label {label}"
+
+    def test_proof_auditor_points_at_the_canonical_file(self) -> None:
+        """A skill that grades proofs must reference the scale, not restate it."""
+        content = (AGENTS_DIR / "proof-auditor.md").read_text()
+        assert "EVIDENCE_SCALES.md" in content
 
     def test_orchestrator_documents_t_levels(self) -> None:
         """parallel-theory-audit must reference T1-T6 levels."""
@@ -240,9 +251,8 @@ class TestProofAuditor:
         for sev in severities:
             assert sev in content, f"Missing severity: {sev}"
 
-    def test_references_micro_skills(self, content: str) -> None:
-        """Should reference proof-step-extractor and proof-step-verifier."""
-        assert "proof-step-extractor" in content
+    def test_references_verification_worker(self, content: str) -> None:
+        """Should reference the proof-step verification worker."""
         assert "proof-step-verifier" in content
 
     def test_has_parallel_mode(self, content: str) -> None:
@@ -384,30 +394,6 @@ class TestTheoryMicroSkillContent:
         assert "Yes" in content and "parallel" in content.lower()
 
 
-class TestProofStepExtractor:
-    """Tests specific to proof-step-extractor micro-skill."""
-
-    @pytest.fixture
-    def content(self) -> str:
-        return (MICRO_SKILLS_DIR / "proof-step-extractor.md").read_text()
-
-    def test_has_justification_categories(self, content: str) -> None:
-        """Should list justification categories for proof steps."""
-        categories = ["definition", "assumption", "algebraic", "inequality"]
-        for cat in categories:
-            assert cat in content, f"Missing justification category: {cat}"
-
-    def test_has_granularity_rules(self, content: str) -> None:
-        """Should document granularity rules for decomposition."""
-        assert "Granularity" in content or "granularity" in content
-
-    def test_output_has_step_structure(self, content: str) -> None:
-        """Output schema must include step_id, action, depends_on."""
-        assert "step_id" in content
-        assert "action" in content
-        assert "depends_on" in content
-
-
 class TestProofStepVerifier:
     """Tests specific to proof-step-verifier micro-skill."""
 
@@ -503,6 +489,12 @@ class TestParallelTheoryAudit:
         """Should reference all theory micro-skills."""
         for skill in THEORY_MICRO_SKILLS:
             assert skill in content, f"Orchestrator missing reference to {skill}"
+
+    def test_inlines_proof_decomposition_worker(self, content: str) -> None:
+        """Proof decomposition should be an inline task, not a retired micro-skill."""
+        assert "task:" in content
+        assert "step_id" in content
+        assert "depends_on" in content
 
     def test_references_notation_checker(self, content: str) -> None:
         """Should invoke notation-consistency-checker."""
@@ -684,15 +676,10 @@ class TestTheoryCrossReferences:
         content = (AGENTS_DIR / "notation-consistency-checker.md").read_text()
         assert "parallel-theory-audit" in content
 
-    def test_extractor_feeds_verifier(self) -> None:
-        """proof-step-extractor should note it feeds proof-step-verifier."""
-        content = (MICRO_SKILLS_DIR / "proof-step-extractor.md").read_text()
-        assert "proof-step-verifier" in content
-
-    def test_verifier_receives_from_extractor(self) -> None:
-        """proof-step-verifier should note it receives from proof-step-extractor."""
+    def test_verifier_receives_from_inline_decomposition(self) -> None:
+        """proof-step-verifier should document its inline decomposition input."""
         content = (MICRO_SKILLS_DIR / "proof-step-verifier.md").read_text()
-        assert "proof-step-extractor" in content
+        assert "inline proof-decomposition task" in content
 
 
 # ---------------------------------------------------------------------------

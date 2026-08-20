@@ -369,13 +369,11 @@ class TestGroupDerivation:
     ) -> None:
         """A tool named in a routing row or a recommended config is not invoked.
 
-        navigator names matplotlib in a routing table; audit-my-setup carries
-        `latexmk` inside a hooks.json snippet it suggests you add; rebuttal
-        mentions matplotlib in a time estimate. None of them runs anything.
+        Navigator names matplotlib in a routing table, and rebuttal mentions
+        matplotlib in a time estimate. Neither runs it.
         """
         tools = {s["name"]: set(s.get("tools", [])) for s in registry_skills}
         assert "matplotlib" not in tools.get("navigator", set())
-        assert "latexmk" not in tools.get("audit-my-setup", set())
         assert "matplotlib" not in tools.get("rebuttal", set())
 
     def test_filesystem_mcp_is_never_reported(self, registry_skills: list) -> None:

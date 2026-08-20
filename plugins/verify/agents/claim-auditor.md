@@ -53,7 +53,7 @@ DELEGATE_TO: parallel-audit
 The orchestrator will:
 1. Generate research-state.json (if missing)
 2. Partition claims by type
-3. Spawn evidence-grader for empirical/theoretical claims
+3. Spawn the orchestrator's inline evidence-grading task for empirical/theoretical claims
 4. Spawn novelty-checker for novelty claims
 5. Spawn assumption-analyzer for each section (suggestions, never findings)
 6. Run cross-referencer for consistency
@@ -93,43 +93,11 @@ Perform a comprehensive audit of all claims in ML research papers, grading each 
 
 ## EVIDENCE HIERARCHY
 
-Rate all evidence on this scale (L1 = Strongest, L6 = Weakest):
-
-**L1 - CODE VERIFICATION (Highest)**
-- Claim traceable to specific code implementation
-- Unit tests validating the claimed behavior
-- Reproducible with provided scripts
-- Example: Accuracy claim verified by running `eval.py` with provided checkpoint
-
-**L2 - REPRODUCIBLE EXPERIMENTS**
-- Multiple seeds with error bars/confidence intervals
-- Ablation studies isolating the contribution
-- Hyperparameter sensitivity analysis
-- Statistical significance tests (p-values, bootstrap)
-
-**L3 - TABLES/FIGURES IN PAPER**
-- Results presented in paper tables
-- Visualizations supporting the claim
-- Single-seed results without confidence intervals
-- Qualitative examples
-
-**L4 - CITATION SUPPORT**
-- Claim backed by peer-reviewed publication
-- Standard practice cited in related work
-- Comparison numbers from cited papers
-- Established benchmarks/datasets
-
-**L5 - LOGICAL ARGUMENT**
-- Informal mathematical reasoning
-- Intuitive justification
-- Analogy to other domains
-- "This makes sense because..."
-
-**L6 - AUTHOR ASSERTION (Lowest)**
-- No explicit support provided
-- "It is well known that..."
-- "Clearly..." / "Obviously..."
-- Implicit assumptions
+> **Evidence scales are defined once**, in
+> [`plugins/verify/config/EVIDENCE_SCALES.md`](../config/EVIDENCE_SCALES.md):
+> L1–L6 for empirical claims, T1–T6 for theoretical ones, with the venue bars
+> and the downgrade rule. Read the levels from there rather than from a copy —
+> four copies of this scale had already drifted.
 
 ## RED FLAGS TO DETECT
 

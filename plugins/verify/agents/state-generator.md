@@ -331,7 +331,7 @@ Done! Generated state file with:
 
 Next steps:
 - Run `/parallel-audit` to verify claims in parallel
-- Run `/evidence-grader` on specific claims
+- Run `/parallel-audit` with a restricted claim set to grade specific claims
 ```
 
 ## Validation Schema

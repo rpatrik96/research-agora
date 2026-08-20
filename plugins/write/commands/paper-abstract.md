@@ -37,7 +37,14 @@ Work the abstract systematically rather than reacting to whatever stands out fir
    - **Results**: Are quantitative, specific outcomes provided?
    - **Impact/Implications**: Is broader significance or impact stated?
 
-2. **Word Count**: Compare against venue limits (AAAI: 150w, CVPR/ACL: 200w, others: flexible)
+2. **Word Count**: Run the script instead of estimating from generated text:
+
+   ```bash
+   python3 scripts/writing_verify.py <abstract-file> --json
+   ```
+
+   Read the count from the JSON key `total_words`, then compare it against the
+   venue limit (AAAI: 150w, CVPR/ACL: 200w, others: flexible).
 
 3. **Common Mistakes Scan**: Check for:
    - Vague claims ("significantly", "good results") instead of specific numbers
@@ -126,7 +133,7 @@ For an abstract with issues:
 ```markdown
 ## Abstract Diagnosis
 
-**Word count**: 187 / 150 (AAAI - exceeds limit by 37 words)
+**Word count**: [`total_words` from the script] / 150 (AAAI)
 **Structure score**: 3/5 parts present
 
 ### Structure Check
@@ -150,7 +157,7 @@ For an abstract with issues:
    - **Fix**: Replace with "achieves X% accuracy, outperforming [best baseline] by Y%"
 
 3. **[Severity: Major]** Exceeds AAAI word limit
-   - **Problem**: 187 words vs. 150 word limit
+   - **Problem**: `total_words` from the script exceeds the 150-word limit
    - **Fix**: Apply compression techniques (see Compression section)
 
 4. **[Severity: Minor]** Undefined acronym "DPO"

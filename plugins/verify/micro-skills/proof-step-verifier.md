@@ -63,7 +63,7 @@ caller stops looking.
 
 ### Purpose
 
-This skill takes a single proof step (from `proof-step-extractor`) along with its premises and verifies whether the step is logically valid. It checks algebraic correctness, inequality direction, assumption applicability, and logical soundness. This is the atomic verification unit for parallel proof auditing.
+This skill takes a single proof step from `parallel-theory-audit`'s inline proof-decomposition task, along with its premises, and verifies whether the step is logically valid. It checks algebraic correctness, inequality direction, assumption applicability, and logical soundness. This is the atomic verification unit for parallel proof auditing.
 
 ### Parallelization Properties
 
@@ -208,7 +208,7 @@ This skill takes a single proof step (from `proof-step-extractor`) along with it
 - **DO**: Check every stated justification against the actual mathematical content
 - **DO**: Flag steps that skip intermediate reasoning as "gap"
 - **DO**: Rate confidence honestly — use "low" when unsure
-- **DON'T**: Decompose steps further (that's proof-step-extractor's job)
+- **DON'T**: Decompose steps further (the orchestrator's inline task already did that)
 - **DON'T**: Attempt to fix errors (just report them)
 - **DON'T**: Access external resources
 - **DON'T**: Spend more than 20s on a single step
@@ -258,7 +258,7 @@ This skill takes a single proof step (from `proof-step-extractor`) along with it
 - `parallel-theory-audit` orchestrator
 
 #### Receives From
-- `proof-step-extractor` micro-skill (provides steps to verify)
+- `parallel-theory-audit` inline proof-decomposition task
 
 ### Worker Preamble Compliance
 
@@ -468,7 +468,7 @@ This skill verifies a single algebraic or calculus derivation -- applying an ine
 - `parallel-theory-audit` orchestrator
 
 #### Receives From
-- `proof-step-extractor` (derivation steps to check)
+- `parallel-theory-audit` inline proof-decomposition task
 
 ### Worker Preamble Compliance
 

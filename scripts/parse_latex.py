@@ -42,6 +42,7 @@ class Section:
 class Figure:
     id: str
     caption: str
+    label: Optional[str] = None
     section: str = ""
     referenced_by: list = field(default_factory=list)
 
@@ -50,6 +51,7 @@ class Figure:
 class Table:
     id: str
     caption: str
+    label: Optional[str] = None
     section: str = ""
     columns: list = field(default_factory=list)
     row_count: int = 0
@@ -247,6 +249,9 @@ class LaTeXParser:
             caption_match = re.search(r"\\caption\s*\{([^}]+)\}", fig_content)
             caption = caption_match.group(1).strip() if caption_match else ""
 
+            label_match = re.search(r"\\label\s*\{([^}]+)\}", fig_content)
+            label = label_match.group(1).strip() if label_match else None
+
             # Determine section
             pos = match.start()
             section = self._find_section_at_pos(pos)
@@ -255,6 +260,7 @@ class LaTeXParser:
                 Figure(
                     id=f"fig{self.fig_counter}",
                     caption=caption,
+                    label=label,
                     section=section,
                 )
             )
@@ -273,6 +279,9 @@ class LaTeXParser:
             # Extract caption
             caption_match = re.search(r"\\caption\s*\{([^}]+)\}", tab_content)
             caption = caption_match.group(1).strip() if caption_match else ""
+
+            label_match = re.search(r"\\label\s*\{([^}]+)\}", tab_content)
+            label = label_match.group(1).strip() if label_match else None
 
             # Check for error bars (± or \pm)
             has_error_bars = "±" in tab_content or r"\pm" in tab_content
@@ -294,6 +303,7 @@ class LaTeXParser:
                 Table(
                     id=f"tab{self.tab_counter}",
                     caption=caption,
+                    label=label,
                     section=section,
                     columns=columns,
                     row_count=max(1, row_count),
@@ -448,6 +458,27 @@ class LaTeXParser:
         for key in cited_keys - existing_keys:
             self.citations.append(Citation(key=key))
 
+    def populate_referenced_by(self) -> None:
+        """Record the sections that reference each labeled figure or table."""
+        targets = {
+            item.label: item
+            for item in [*self.figures, *self.tables]
+            if item.label is not None
+        }
+        reference_pattern = re.compile(
+            r"\\(?:ref|cref|Cref|autoref|eqref)\s*\{([^}]*)\}"
+        )
+
+        for match in reference_pattern.finditer(self.content):
+            section_id = self._find_section_at_pos(match.start())
+            if not section_id:
+                continue
+
+            for label in match.group(1).split(","):
+                target = targets.get(label.strip())
+                if target is not None and section_id not in target.referenced_by:
+                    target.referenced_by.append(section_id)
+
     def _find_section_at_pos(self, pos: int) -> str:
         """Find which section a position falls into."""
         line_num = self.content[:pos].count("\n") + 1
@@ -467,6 +498,7 @@ class LaTeXParser:
         self.parse_algorithms()
         self.parse_theorems()
         self.parse_citations()
+        self.populate_referenced_by()
 
         return {
             "metadata": {
@@ -494,6 +526,7 @@ class LaTeXParser:
                 "figures": [
                     {
                         "id": f.id,
+                        "label": f.label,
                         "caption": f.caption,
                         "section": f.section,
                         "referenced_by": f.referenced_by,
@@ -503,6 +536,7 @@ class LaTeXParser:
                 "tables": [
                     {
                         "id": t.id,
+                        "label": t.label,
                         "caption": t.caption,
                         "section": t.section,
                         "columns": t.columns,

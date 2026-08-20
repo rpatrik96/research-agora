@@ -74,8 +74,6 @@
         "assumption-analyzer",
         "citation-verifier",
         "cross-referencer",
-        "evidence-grader",
-        "proof-step-extractor",
         "proof-step-verifier"
       ]
     },

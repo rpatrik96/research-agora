@@ -113,29 +113,6 @@ class TestMicroSkillStructure:
             ), f"{skill_path.name} missing examples"
 
 
-class TestEvidenceGrader:
-    """Tests specific to evidence-grader micro-skill."""
-
-    @pytest.fixture
-    def skill_content(self) -> str:
-        """Load evidence-grader content."""
-        path = Path("plugins/verify/micro-skills/evidence-grader.md")
-        if not path.exists():
-            pytest.skip("evidence-grader not found")
-        return path.read_text()
-
-    def test_has_evidence_hierarchy(self, skill_content: str) -> None:
-        """Should document L1-L6 evidence hierarchy."""
-        for level in ["L1", "L2", "L3", "L4", "L5", "L6"]:
-            assert level in skill_content, f"Missing evidence level: {level}"
-
-    def test_has_venue_standards(self, skill_content: str) -> None:
-        """Should document venue-specific standards."""
-        venues = ["neurips", "icml", "iclr"]
-        for venue in venues:
-            assert venue.lower() in skill_content.lower(), f"Missing venue: {venue}"
-
-
 class TestNoveltyChecker:
     """Tests specific to novelty-checker micro-skill."""
 
