@@ -2,8 +2,7 @@
 
 These tests verify the structure, content, and consistency of the new theory agents:
 - Agents: proof-auditor, bounds-analyst, notation-consistency-checker,
-  theorem-dependency-mapper, proof-strategy-advisor, counterexample-searcher,
-  intuition-formalizer, theory-connector
+  theorem-dependency-mapper, counterexample-searcher, intuition-formalizer
 - Micro-skills: proof-step-extractor, proof-step-verifier,
   assumption-analyzer, derivation-checker
 - Orchestrator: parallel-theory-audit
@@ -36,10 +35,8 @@ THEORY_AGENTS = [
     "bounds-analyst",
     "notation-consistency-checker",
     "theorem-dependency-mapper",
-    "proof-strategy-advisor",
     "counterexample-searcher",
     "intuition-formalizer",
-    "theory-connector",
 ]
 
 THEORY_MICRO_SKILLS = [
@@ -145,10 +142,8 @@ class TestTheoryModelAssignment:
         "bounds-analyst": "opus",
         "notation-consistency-checker": "sonnet",
         "theorem-dependency-mapper": "sonnet",
-        "proof-strategy-advisor": "opus",
         "counterexample-searcher": "opus",
         "intuition-formalizer": "opus",
-        "theory-connector": "opus",
         # Micro-skills
         "proof-step-extractor": "sonnet",
         "proof-step-verifier": "opus",
@@ -354,34 +349,6 @@ class TestTheoremDependencyMapper:
         assert "Assumption Flow" in content or "assumption flow" in content.lower()
 
 
-class TestProofStrategyAdvisor:
-    """Tests specific to proof-strategy-advisor agent."""
-
-    @pytest.fixture
-    def content(self) -> str:
-        return (AGENTS_DIR / "proof-strategy-advisor.md").read_text()
-
-    def test_has_result_classification(self, content: str) -> None:
-        """Should classify result types."""
-        types = ["Convergence", "Generalization", "Impossibility", "Concentration"]
-        found = sum(1 for t in types if t in content)
-        assert found >= 3, "Missing most result types"
-
-    def test_has_technique_tables(self, content: str) -> None:
-        """Should have technique recommendation tables."""
-        techniques = ["Lyapunov", "Rademacher", "PAC-Bayes", "Hoeffding"]
-        found = sum(1 for t in techniques if t in content)
-        assert found >= 3, "Missing most proof techniques"
-
-    def test_has_simplification_suggestions(self, content: str) -> None:
-        """Should suggest simplification paths."""
-        assert "Simplification" in content
-
-    def test_has_key_challenge_section(self, content: str) -> None:
-        """Should identify the key technical challenge."""
-        assert "Key Technical Challenge" in content or "key challenge" in content.lower()
-
-
 class TestCounterexampleSearcher:
     """Tests specific to counterexample-searcher agent."""
 
@@ -436,37 +403,6 @@ class TestIntuitionFormalizer:
     def test_has_latex_output(self, content: str) -> None:
         """Should produce LaTeX output."""
         assert "\\begin{theorem}" in content or "LaTeX" in content
-
-
-class TestTheoryConnector:
-    """Tests specific to theory-connector agent."""
-
-    @pytest.fixture
-    def content(self) -> str:
-        return (AGENTS_DIR / "theory-connector.md").read_text()
-
-    def test_has_cross_domain_mappings(self, content: str) -> None:
-        """Should map between domains."""
-        domains = ["Optimization", "Game theory", "Learning theory", "Information theory"]
-        found = sum(1 for d in domains if d in content)
-        assert found >= 3, "Missing most cross-domain mappings"
-
-    def test_has_vocabulary_translation(self, content: str) -> None:
-        """Should provide vocabulary translations."""
-        assert "Translation" in content or "translation" in content
-
-    def test_has_generalization_paths(self, content: str) -> None:
-        """Should identify generalization paths."""
-        assert "Generalization" in content
-
-    def test_has_utility_assessment(self, content: str) -> None:
-        """Should assess connection utility."""
-        assert "Utility" in content or "utility" in content
-
-
-# ---------------------------------------------------------------------------
-# Section 6: Micro-skill content tests
-# ---------------------------------------------------------------------------
 
 
 class TestTheoryMicroSkillContent:

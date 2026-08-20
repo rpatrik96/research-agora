@@ -65,7 +65,7 @@ When the full debate runs:
 
 Forward into EVERY agent prompt: the domain constraints, the user's recorded rules, and an anti-fabrication directive ("if you claim a capability, cite where you verified it") — global rules do not reach subagents on their own.
 
-If the research-agents plugin is installed, use `devils-advocate` for step 2 and `perspective-synthesizer` when reconciling more than two proposals; otherwise run the personas inline.
+If the research-agents plugin is installed, use `devils-advocate` for step 2; otherwise run the personas inline.
 
 ## Checkpoint Mechanics
 

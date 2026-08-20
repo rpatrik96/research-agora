@@ -120,7 +120,7 @@ Assumptions:
 - Are the rubric criteria specific enough that a TA could grade consistently, or are they vague?
 - Read Q3 critically: is the "applied" scenario realistic, or does it require domain knowledge the students don't have?
 
-**Related skills:** `paper-slides` (academic@research-agora)
+**Related skills:** `register-translator` (editorial@research-agora)
 
 ---
 

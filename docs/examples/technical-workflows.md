@@ -140,7 +140,7 @@ Output: 3-bullet ROI assessment.
 - Review the diff: does the agent's change match what you asked for?
 - Is the CLAUDE.md accurate? Correct any wrong commands before committing.
 
-**Related skills:** `commit` (development@research-agora), `python-cicd` (development@research-agora)
+**Related skills:** `code-simplify` (development@research-agora), `latex-sync-verify` (development@research-agora)
 
 ---
 

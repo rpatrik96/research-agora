@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/rpatrik96/research-agora/actions/workflows/tests.yml/badge.svg)](https://github.com/rpatrik96/research-agora/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Skills](https://img.shields.io/badge/skills-59%20public-blue.svg)](https://rpatrik96.github.io/research-agora)
+[![Skills](https://img.shields.io/badge/skills-50%20public-blue.svg)](https://rpatrik96.github.io/research-agora)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 
 A community-driven skills marketplace for AI-assisted research. Browse, install, and share modular AI workflows for ML research.
@@ -54,7 +54,7 @@ No `.bib` file? No CLI? [Take the onboarding quiz](https://rpatrik96.github.io/r
 <details>
 <summary><strong>PI: Evaluate and deploy for your group</strong></summary>
 
-59 public workflows for the parts of the paper lifecycle a tool can check. The Agora verifies citations, code-paper consistency, statistics, proofs, and claims. It does not write your claims for you: no oracle exists for novelty or framing, so those stay yours. Skills encode your group's standards in a shared `CLAUDE.md` — every student and postdoc runs the same verified checks.
+50 public workflows for the parts of the paper lifecycle a tool can check. **A skill stays in the Agora only if something can check what it produced** — a script that extracts the numbers, a tool that resolves the citation. Where a tool-backed skill and a freehand one do the same job, the tool-backed one is the product. The Agora verifies citations, code-paper consistency, statistics, proofs, and claims. It does not write your claims for you: no oracle exists for novelty or framing, so those stay yours. Skills encode your group's standards in a shared `CLAUDE.md` — every student and postdoc runs the same verified checks.
 
 - **Cost:** $20/mo Pro + ~$5–80/mo API tokens depending on usage. Team plan (see [Anthropic pricing](https://www.anthropic.com/pricing)) includes a GDPR DPA.
 - **Privacy:** No patient data or unpublished results on Pro. Team plan required for institutional compliance. [Full guide →](docs/privacy-gdpr.md)
@@ -90,7 +90,7 @@ AI tools amplify expertise — they don't replace it. Verify everything. Build u
 **Week 1:** Run `/paper-references` on your bibliography. Check 3 entries manually.
 **Week 2:** Set up `CLAUDE.md` for your project with `/onboard`.
 **Week 3:** Try `/paper-review` on a section draft. Do you agree with the critique?
-**Week 4:** Connect GitHub MCP, try `/commit`.
+**Week 4:** Run `/paper-verify-experiments` against your code. Does the paper say what the repo does?
 
 **Rule of thumb:** If you couldn't do the task without AI, the AI shouldn't do it for you yet.
 
@@ -119,16 +119,12 @@ Paper writing, research, and dissemination skills:
 
 | Skill | Description |
 |-------|-------------|
-| `paper-introduction` | Write introduction sections for ML papers |
 | `paper-abstract` | Write or improve paper abstracts |
 | `literature-synthesizer` | Write related work and discover relevant literature |
 | `paper-experiments` | Document experimental setups with GitHub integration |
-| `paper-discussion` | Write discussion and limitations sections |
 | `paper-review` | Generate critical reviews simulating skeptical reviewers |
 | `paper-references` | Fact-check citations using bibtex-updater |
 | `paper-verify-experiments` | Verify claims against source code |
-| `paper-poster` | Create academic conference posters |
-| `paper-slides` | Create presentation slides from papers |
 | `experiment-tracker` | Sync experiment results to paper drafts |
 | `benchmark-scout` | Find benchmarks and generate experiment plans |
 | `openreview-submission` | Prepare OpenReview metadata: plain-text abstract, keywords, TL;DR, lay summary |
@@ -139,9 +135,7 @@ Code quality and automation skills:
 
 | Skill | Description |
 |-------|-------------|
-| `commit` | Create conventional commits with co-authorship |
 | `code-simplify` | Remove dead code, eliminate duplication |
-| `python-cicd` | Set up CI/CD with GitHub Actions |
 | `htcondor` | Generate HTCondor submission files for cluster jobs |
 | `latex-sync-setup` | Initialize latex-code-sync in a project |
 | `latex-sync-annotate` | Link functions to paper equations via decorators |
@@ -166,7 +160,6 @@ Editorial intelligence and writing analysis skills:
 | `writing-diagnosis` | Diagnose writing issues across genres |
 | `argument-autopsy` | Dissect argument structure |
 | `register-translator` | Translate between registers |
-| `editorial-brain` | Comprehensive editorial intelligence |
 
 ### research-agents@research-agora
 
@@ -176,7 +169,6 @@ Specialized research analysis agents:
 |-------|-------------|
 | `devils-advocate` | Challenge arguments and identify biases |
 | `claim-auditor` | Deep verify all paper claims |
-| `perspective-synthesizer` | Synthesize multiple viewpoints |
 | `audience-checker` | Evaluate audience alignment |
 | `statistical-validator` | Verify statistical rigor |
 | `figure-storyteller` | Generate publication-quality figures |
@@ -192,10 +184,8 @@ Specialized research analysis agents:
 | `bounds-analyst` | Analyze convergence rates and complexity bounds |
 | `notation-consistency-checker` | Build symbol table, detect notation inconsistencies |
 | `theorem-dependency-mapper` | Build theorem/lemma dependency DAG with criticality scores |
-| `proof-strategy-advisor` | Suggest proof approaches for theorems and conjectures |
 | `counterexample-searcher` | Stress-test theorems by dropping assumptions |
 | `intuition-formalizer` | Translate informal intuitions into formal theorem statements |
-| `theory-connector` | Find cross-domain theoretical connections and analogies |
 
 ## Optional: Templates
 

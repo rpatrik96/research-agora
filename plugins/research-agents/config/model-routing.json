@@ -2,7 +2,6 @@
   "$schema": "../../../schemas/model-routing.schema.json",
   "version": "1.0.0",
   "description": "Model routing configuration for research agents. Routes tasks to optimal models based on complexity and cost.",
-
   "routing_rules": {
     "micro-skills": {
       "claim-extractor": {
@@ -78,7 +77,6 @@
         "fallback": null
       }
     },
-
     "orchestrators": {
       "parallel-audit": {
         "model": "opus",
@@ -128,12 +126,6 @@
         "reason": "Hybrid script+LLM. Structured graph construction with semantic analysis.",
         "fallback": "opus"
       },
-      "proof-strategy-advisor": {
-        "model": "opus",
-        "temperature": 0.5,
-        "reason": "Creative technique suggestion requires broad knowledge. Higher temp for diversity.",
-        "fallback": null
-      },
       "counterexample-searcher": {
         "model": "opus",
         "temperature": 0.4,
@@ -145,15 +137,8 @@
         "temperature": 0.3,
         "reason": "Formalizing vague intuitions requires deep mathematical understanding.",
         "fallback": null
-      },
-      "theory-connector": {
-        "model": "opus",
-        "temperature": 0.3,
-        "reason": "Cross-domain pattern matching requires broadest knowledge base.",
-        "fallback": null
       }
     },
-
     "helpers": {
       "batch-arxiv": {
         "model": "haiku",
@@ -175,7 +160,6 @@
       }
     }
   },
-
   "execution_modes": {
     "parallel": {
       "description": "Maximum parallelization for speed. Use for large papers with many claims.",
@@ -188,13 +172,56 @@
     "pipeline": {
       "description": "Sequential stages with data passing. Use for thorough, methodical analysis.",
       "stages": [
-        {"name": "parse", "skills": ["state-generator"]},
-        {"name": "extract", "skills": ["claim-extractor"], "parallel_within_stage": true},
-        {"name": "classify", "skills": ["claim-classifier"], "parallel_within_stage": true},
-        {"name": "locate", "skills": ["evidence-locator"], "parallel_within_stage": true},
-        {"name": "grade", "skills": ["evidence-grader"], "parallel_within_stage": true},
-        {"name": "verify", "skills": ["novelty-checker", "citation-verifier"], "parallel_within_stage": true},
-        {"name": "synthesize", "skills": ["cross-referencer", "assumption-surfacer"], "parallel_within_stage": false}
+        {
+          "name": "parse",
+          "skills": [
+            "state-generator"
+          ]
+        },
+        {
+          "name": "extract",
+          "skills": [
+            "claim-extractor"
+          ],
+          "parallel_within_stage": true
+        },
+        {
+          "name": "classify",
+          "skills": [
+            "claim-classifier"
+          ],
+          "parallel_within_stage": true
+        },
+        {
+          "name": "locate",
+          "skills": [
+            "evidence-locator"
+          ],
+          "parallel_within_stage": true
+        },
+        {
+          "name": "grade",
+          "skills": [
+            "evidence-grader"
+          ],
+          "parallel_within_stage": true
+        },
+        {
+          "name": "verify",
+          "skills": [
+            "novelty-checker",
+            "citation-verifier"
+          ],
+          "parallel_within_stage": true
+        },
+        {
+          "name": "synthesize",
+          "skills": [
+            "cross-referencer",
+            "assumption-surfacer"
+          ],
+          "parallel_within_stage": false
+        }
       ],
       "checkpoint_after_each_stage": true
     },
@@ -225,7 +252,6 @@
       "extra_verification_passes": 1
     }
   },
-
   "cost_estimates": {
     "haiku": {
       "input_per_1k": 0.00025,
@@ -243,7 +269,6 @@
       "typical_task_cost": 0.15
     }
   },
-
   "mode_cost_multipliers": {
     "parallel": 1.0,
     "pipeline": 1.1,

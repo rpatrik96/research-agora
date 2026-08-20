@@ -95,14 +95,11 @@ Efficiency utilities for common operations.
 | `devils-advocate` | Adversarial analysis of arguments |
 | `audience-checker` | Target audience alignment |
 | `reader-simulation` | First-time reader walkthrough |
-| `perspective-synthesizer` | Multi-viewpoint synthesis |
 | `proof-auditor` | Step-by-step proof verification |
-| `proof-strategy-advisor` | Proof approach recommendations |
 | `counterexample-searcher` | Assumption stress-testing |
 | `bounds-analyst` | Convergence rates and complexity bounds |
 | `intuition-formalizer` | Informal intuition to formal statement |
 | `theorem-dependency-mapper` | Theorem dependency DAG |
-| `theory-connector` | Cross-domain result analogues |
 | `notation-consistency-checker` | Symbol table and notation consistency |
 | `statistical-validator` | Statistical methodology check |
 | `figure-storyteller` | Publication-quality figure generation |

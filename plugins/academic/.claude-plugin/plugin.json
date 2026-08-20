@@ -1,7 +1,7 @@
 {
   "name": "academic",
   "description": "Academic paper writing skills for ML conferences (NeurIPS, ICML, ICLR, AAAI)",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "author": {
     "name": "rpatrik96",
     "email": "prmedia17@gmail.com"
@@ -29,18 +29,13 @@
         "onboard",
         "openreview-submission",
         "paper-abstract",
-        "paper-discussion",
         "paper-experiments",
-        "paper-introduction",
-        "paper-poster",
         "paper-references",
         "paper-review",
-        "paper-slides",
         "paper-summarizer",
         "paper-verify-experiments",
         "review-prompt",
         "review-triage",
-        "science-gif",
         "whats-new"
       ]
     }

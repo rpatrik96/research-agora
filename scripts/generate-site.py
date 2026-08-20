@@ -32,8 +32,6 @@ SKILL_GROUP_MAP = {
 
     # Paper Drafting
     "paper-abstract": "paper-drafting",
-    "paper-introduction": "paper-drafting",
-    "paper-discussion": "paper-drafting",
     "paper-experiments": "paper-drafting",
     "paper-summarizer": "paper-drafting",
 
@@ -51,15 +49,12 @@ SKILL_GROUP_MAP = {
     "counterexample-searcher": "theory-tools",
     "intuition-formalizer": "theory-tools",
     "notation-consistency-checker": "theory-tools",
-    "proof-strategy-advisor": "theory-tools",
     "theorem-dependency-mapper": "theory-tools",
-    "theory-connector": "theory-tools",
 
     # Literature & Discovery
     "literature-synthesizer": "literature-discovery",
     "benchmark-scout": "literature-discovery",
     "experiment-tracker": "literature-discovery",
-    "perspective-synthesizer": "literature-discovery",
     "devils-advocate": "literature-discovery",
 
     # Writing Polish
@@ -72,9 +67,6 @@ SKILL_GROUP_MAP = {
     "audience-checker": "writing-polish",
 
     # Dissemination
-    "paper-poster": "dissemination",
-    "paper-slides": "dissemination",
-    "science-gif": "dissemination",
     "figure-storyteller": "dissemination",
 
     # Submission & Rebuttal
@@ -84,9 +76,7 @@ SKILL_GROUP_MAP = {
     "artifact-packager": "submission-rebuttal",
 
     # Development & Automation
-    "commit": "development",
     "code-simplify": "development",
-    "python-cicd": "development",
     "htcondor": "development",
 
     # Documents & Figures
@@ -94,7 +84,6 @@ SKILL_GROUP_MAP = {
 
     # Editorial Intelligence
     "argument-autopsy": "editorial",
-    "editorial-brain": "editorial",
     "register-translator": "editorial",
     "writing-diagnosis": "editorial",
     "writing-verify": "editorial",

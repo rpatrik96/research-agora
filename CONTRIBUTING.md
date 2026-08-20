@@ -39,6 +39,37 @@ research-agora/
 | `formatting` | LaTeX, figures, document styling |
 | `research-agents` | Autonomous multi-step research analysis |
 
+### The bar: a skill names the step that checks its own output
+
+This is the rule the catalog is maintained against, and it is why skills get
+retired as well as accepted.
+
+**A skill that produces citations, numbers, or claims is accepted when
+something verifies them before the model writes anything.** The pattern is
+`/paper-experiments`: scripts extract the values from the repo, and the model
+only arranges what the scripts found — *"The LLM should not guess any values -
+only use what was extracted by the scripts above."* A tool lookup counts
+(`bibtexupdater`, `limpid`, `latexmk`, an arXiv query); a script that greps the
+source counts; an instruction to be careful does not.
+
+**Skills that rephrase text the author already stands behind are accepted
+without one** — `/register-translator` converts a passage between registers and
+invents nothing.
+
+**Skills that generate claims with nothing to check them are declined**, and
+existing ones are retired on the same rule. An introduction states a paper's
+novelty, and no oracle exists for novelty, so the Agora audits introductions
+rather than writing them.
+
+**Where a tool-backed skill and a freehand one do the same job, the tool-backed
+one is the product.** If your skill overlaps one that calls a real tool, extend
+that one instead.
+
+**Retirement follows deprecation.** A skill marked `deprecated` keeps working
+for at least one minor release; the CHANGELOG names its replacement or says
+plainly that there is none; and the file stays in git history under MIT, so
+anyone who wants it can lift it.
+
 ### 2. Create the Skill File
 
 Use the scaffolding tool or create a markdown file manually in `plugins/{category}/commands/skill-name.md`:
@@ -87,7 +118,7 @@ The `metadata` block is **required** for all new skills. Valid values for each f
 
 ### 3. Naming Conventions
 
-- **File name:** `kebab-case.md` (e.g., `paper-introduction.md`)
+- **File name:** `kebab-case.md` (e.g., `paper-references.md`)
 - **Related skills:** Use common prefix (e.g., `paper-*`)
 - **Triggers:** Include 3-5 natural language phrases
 

@@ -129,7 +129,7 @@ SKILL_TABLE = {
     "b": {  # Data/experiments
         1: [
             ("/experiment-tracker", "Sync experiment results to paper tables"),
-            ("/commit", "Write clean, conventional commits"),
+            ("/paper-verify-experiments", "Check paper claims against source code"),
         ],
         2: [
             ("/paper-verify-experiments", "Check paper claims against source code"),
@@ -139,8 +139,8 @@ SKILL_TABLE = {
     },
     "c": {  # Code
         1: [
-            ("/commit", "Write clean, conventional commits"),
             ("/paper-verify-experiments", "Check paper claims against source code"),
+            ("/code-simplify", "Remove dead code and duplication"),
         ],
         2: [
             ("/paper-verify-experiments", "Check paper claims against source code"),
@@ -157,18 +157,18 @@ SKILL_TABLE = {
             ("/paper-abstract", "Diagnose an abstract you wrote"),
             ("/paper-review", "Simulate skeptical reviewer feedback"),
             ("/paper-references", "Verify citations before submission"),
-            ("/editorial-brain", "Context-aware editorial feedback"),
+            ("/writing-diagnosis", "Name the failure pattern and teach the fix"),
         ],
     },
     "e": {  # Admin
         1: [
-            ("/paper-slides", "Generate presentation slides from paper"),
-            ("/paper-poster", "Generate conference poster from paper"),
+            ("/review-triage", "Organize and prioritize reviewer comments"),
+            ("/openreview-submission", "Format submission metadata"),
         ],
         2: [
             ("/review-triage", "Organize and prioritize reviewer comments"),
-            ("/paper-slides", "Generate presentation slides"),
-            ("/openreview-submission", "Format and submit to OpenReview"),
+            ("/openreview-submission", "Format submission metadata"),
+            ("/artifact-packager", "Prepare code and data for release"),
         ],
     },
 }
@@ -220,7 +220,7 @@ FIVE_MINUTE_WINS = {
           claude "/paper-review"
 
           # Code:
-          claude "/commit"
+          claude "/paper-verify-experiments"
 
         That's it. One command, one result you can evaluate."""),
     2: dedent("""\

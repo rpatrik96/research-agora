@@ -237,7 +237,6 @@ Then with probability at least $1 - \delta$ over the training sample:
 
 ### Called By
 - User directly for formalization
-- `proof-strategy-advisor` (after formalization, suggest proof approach)
 
 ### Dependencies
 - No external API calls required

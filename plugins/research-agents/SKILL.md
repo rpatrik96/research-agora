@@ -20,16 +20,13 @@ Specialized research analysis agents for critical thinking, evidence verificatio
 - `devils-advocate` - Adversarial analysis of arguments
 - `audience-checker` - Evaluate alignment with a target reader persona
 - `reader-simulation` - Walk a first-time reader through the text
-- `perspective-synthesizer` - Synthesize multiple viewpoints
 
 **Theory**
 - `proof-auditor` - Decompose proofs and check each step
-- `proof-strategy-advisor` - Suggest proof approaches for a conjecture
 - `counterexample-searcher` - Stress-test theorems by weakening assumptions
 - `bounds-analyst` - Analyze convergence rates and complexity bounds
 - `intuition-formalizer` - Turn informal intuitions into formal statements
 - `theorem-dependency-mapper` - Build a DAG of theorem dependencies
-- `theory-connector` - Find cross-domain analogues of a result
 - `notation-consistency-checker` - Build a symbol table and check consistency
 
 **Experiments and figures**

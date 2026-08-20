@@ -592,3 +592,80 @@ class TestOrchestratorConsistency:
                         pytest.fail(
                             f"{name} has invalid JSON in block {i + 1}: {block[:100]}"
                         )
+
+
+class TestSpawnTargetsResolve:
+    """Every skill an orchestrator spawns must still exist.
+
+    The existing spawn test asserts only that the literal string `skill:`
+    appears in a spawn block, and it gates on `SPAWN_SUBAGENT`, so it never
+    runs against `pre-submission-audit.md` (SPAWN_TASK) or
+    `parallel-theory-audit.md` (SPAWN). Every dangling spawn target in the repo
+    passes it today.
+
+    That is the February 2026 defect: 8787d48 deleted `clarity-optimizer` while
+    `pre-submission-audit` still spawned it, so pass 3 of 5 silently could not
+    run until 9fba108 repaired it. A retirement should fail here, loudly,
+    rather than in someone's submission checklist.
+    """
+
+    SPAWN_MARKERS = ("SPAWN_SUBAGENT", "SPAWN_TASK", "SPAWN")
+    ORCHESTRATORS_DIR = Path("plugins/research-agents/orchestrators")
+
+    @pytest.fixture
+    def all_orchestrators(self) -> list[Path]:
+        if not self.ORCHESTRATORS_DIR.exists():
+            pytest.skip("Orchestrators directory not found")
+        return [
+            o for o in self.ORCHESTRATORS_DIR.glob("*.md") if not o.name.startswith("_")
+        ]
+
+    @pytest.fixture
+    def live_skill_names(self) -> set:
+        index = json.loads(Path("registry/index.json").read_text())
+        return {
+            s["name"] for repo in index.get("repos", []) for s in repo.get("skills", [])
+        }
+
+    def _spawn_targets(self, content: str) -> list:
+        """Extract every spawn target, in all three syntaxes the repo uses.
+
+        `parallel-audit` and `parallel-review` write `SPAWN_SUBAGENT` with a
+        `skill:` key; `pre-submission-audit` writes `SPAWN_TASK` the same way;
+        `parallel-theory-audit` writes `SPAWN: <name>` with the target on the
+        marker line and no key at all. A checker that knows only one form
+        silently passes the other two.
+        """
+        targets = []
+        for match in re.finditer(r"^\s*skill:\s*(\S+)\s*$", content, re.M):
+            targets.append(match.group(1).strip("`\"'").split("/")[-1])
+        for match in re.finditer(r"^\s*SPAWN(?:_TASK|_SUBAGENT)?:\s*(\S+)\s*$", content, re.M):
+            targets.append(match.group(1).strip("`\"'").split("/")[-1])
+        return targets
+
+    def test_every_spawn_target_is_a_live_skill(
+        self, all_orchestrators: list, live_skill_names: set
+    ) -> None:
+        dangling = []
+        for orch_path in all_orchestrators:
+            content = orch_path.read_text()
+            if not any(m in content for m in self.SPAWN_MARKERS):
+                continue
+            for target in self._spawn_targets(content):
+                if target.startswith("[") or target.startswith("{"):
+                    continue  # a template placeholder, not a name
+                if target not in live_skill_names:
+                    dangling.append(f"{orch_path.name} spawns '{target}'")
+        assert not dangling, "Orchestrators spawn retired skills: " + "; ".join(dangling)
+
+    def test_every_orchestrator_with_a_marker_declares_targets(
+        self, all_orchestrators: list
+    ) -> None:
+        """A spawn marker with no resolvable target is a silent no-op pass."""
+        empty = [
+            p.name
+            for p in all_orchestrators
+            if any(m in (c := p.read_text()) for m in self.SPAWN_MARKERS)
+            and not self._spawn_targets(c)
+        ]
+        assert not empty, f"Orchestrators with spawn markers but no skill: {empty}"

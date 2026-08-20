@@ -8,10 +8,26 @@
       "required": true,
       "ask_condition": "always",
       "options": [
-        { "key": "a", "text": "I avoid it entirely", "score": 0 },
-        { "key": "b", "text": "I can cd and ls but that's about it", "score": 1 },
-        { "key": "c", "text": "Comfortable — I use git, run scripts, install packages", "score": 2 },
-        { "key": "d", "text": "It's my primary interface", "score": 3 }
+        {
+          "key": "a",
+          "text": "I avoid it entirely",
+          "score": 0
+        },
+        {
+          "key": "b",
+          "text": "I can cd and ls but that's about it",
+          "score": 1
+        },
+        {
+          "key": "c",
+          "text": "Comfortable \u2014 I use git, run scripts, install packages",
+          "score": 2
+        },
+        {
+          "key": "d",
+          "text": "It's my primary interface",
+          "score": 3
+        }
       ]
     },
     {
@@ -21,10 +37,26 @@
       "required": true,
       "ask_condition": "always",
       "options": [
-        { "key": "a", "text": "I haven't really", "score": 0 },
-        { "key": "b", "text": "ChatGPT/Claude in the browser, mostly chat", "score": 1 },
-        { "key": "c", "text": "Regularly — browser + some IDE integration (Copilot, Cursor)", "score": 2 },
-        { "key": "d", "text": "Extensively — agentic coding, custom prompts, MCP tools, API access", "score": 3 }
+        {
+          "key": "a",
+          "text": "I haven't really",
+          "score": 0
+        },
+        {
+          "key": "b",
+          "text": "ChatGPT/Claude in the browser, mostly chat",
+          "score": 1
+        },
+        {
+          "key": "c",
+          "text": "Regularly \u2014 browser + some IDE integration (Copilot, Cursor)",
+          "score": 2
+        },
+        {
+          "key": "d",
+          "text": "Extensively \u2014 agentic coding, custom prompts, MCP tools, API access",
+          "score": 3
+        }
       ]
     },
     {
@@ -42,12 +74,30 @@
       "required": true,
       "ask_condition": "always",
       "options": [
-        { "key": "a", "text": "Literature review / finding and managing papers" },
-        { "key": "b", "text": "Data analysis or experiment pipelines" },
-        { "key": "c", "text": "Writing code for research" },
-        { "key": "d", "text": "Writing papers (drafting, editing, structuring)" },
-        { "key": "e", "text": "Admin, grant writing, email, teaching prep" },
-        { "key": "f", "text": "Something else" }
+        {
+          "key": "a",
+          "text": "Literature review / finding and managing papers"
+        },
+        {
+          "key": "b",
+          "text": "Data analysis or experiment pipelines"
+        },
+        {
+          "key": "c",
+          "text": "Writing code for research"
+        },
+        {
+          "key": "d",
+          "text": "Writing papers (drafting, editing, structuring)"
+        },
+        {
+          "key": "e",
+          "text": "Admin, grant writing, email, teaching prep"
+        },
+        {
+          "key": "f",
+          "text": "Something else"
+        }
       ]
     },
     {
@@ -81,9 +131,18 @@
       "required": false,
       "ask_condition": "cli_score >= 1",
       "options": [
-        { "key": "y", "text": "Yes" },
-        { "key": "n", "text": "No" },
-        { "key": "s", "text": "Skip" }
+        {
+          "key": "y",
+          "text": "Yes"
+        },
+        {
+          "key": "n",
+          "text": "No"
+        },
+        {
+          "key": "s",
+          "text": "Skip"
+        }
       ]
     }
   ],
@@ -110,13 +169,13 @@
       },
       {
         "tier": 3,
-        "name": "Power User — Ready to Scale",
+        "name": "Power User \u2014 Ready to Scale",
         "condition": "cli_score >= 3 AND (ai_score >= 3 OR ai_text contains 'mcp' OR ai_text contains 'agent')",
         "description": "Expert CLI user with deep AI tool experience including agentic workflows."
       },
       {
         "tier": 2,
-        "name": "Regular User — Systematic Workflows",
+        "name": "Regular User \u2014 Systematic Workflows",
         "condition": "cli_score >= 2 AND ai_score >= 2",
         "description": "Comfortable with both CLI and AI tools. Ready for systematic research workflows."
       },
@@ -135,13 +194,28 @@
         "label": "Literature review / finding and managing papers",
         "tiers": {
           "1": [
-            { "skill": "/paper-references", "description": "Verify citations against arXiv, Crossref, DBLP" },
-            { "skill": "/literature-synthesizer", "description": "Discover and synthesize related work" }
+            {
+              "skill": "/paper-references",
+              "description": "Verify citations against arXiv, Crossref, DBLP"
+            },
+            {
+              "skill": "/literature-synthesizer",
+              "description": "Discover and synthesize related work"
+            }
           ],
           "2": [
-            { "skill": "/paper-references", "description": "Verify citations against arXiv, Crossref, DBLP" },
-            { "skill": "/literature-synthesizer", "description": "Discover and synthesize related work" },
-            { "skill": "/benchmark-scout", "description": "Find relevant benchmarks and baselines" }
+            {
+              "skill": "/paper-references",
+              "description": "Verify citations against arXiv, Crossref, DBLP"
+            },
+            {
+              "skill": "/literature-synthesizer",
+              "description": "Discover and synthesize related work"
+            },
+            {
+              "skill": "/benchmark-scout",
+              "description": "Find relevant benchmarks and baselines"
+            }
           ]
         }
       },
@@ -149,13 +223,24 @@
         "label": "Data analysis or experiment pipelines",
         "tiers": {
           "1": [
-            { "skill": "/experiment-tracker", "description": "Sync experiment results to paper tables" },
-            { "skill": "/commit", "description": "Write clean, conventional commits" }
+            {
+              "skill": "/experiment-tracker",
+              "description": "Sync experiment results to paper tables"
+            }
           ],
           "2": [
-            { "skill": "/paper-verify-experiments", "description": "Check paper claims against source code" },
-            { "skill": "/experiment-tracker", "description": "Sync experiment results to paper tables" },
-            { "skill": "/benchmark-scout", "description": "Find relevant benchmarks and baselines" }
+            {
+              "skill": "/paper-verify-experiments",
+              "description": "Check paper claims against source code"
+            },
+            {
+              "skill": "/experiment-tracker",
+              "description": "Sync experiment results to paper tables"
+            },
+            {
+              "skill": "/benchmark-scout",
+              "description": "Find relevant benchmarks and baselines"
+            }
           ]
         }
       },
@@ -163,12 +248,20 @@
         "label": "Writing code for research",
         "tiers": {
           "1": [
-            { "skill": "/commit", "description": "Write clean, conventional commits" },
-            { "skill": "/paper-verify-experiments", "description": "Check paper claims against source code" }
+            {
+              "skill": "/paper-verify-experiments",
+              "description": "Check paper claims against source code"
+            }
           ],
           "2": [
-            { "skill": "/paper-verify-experiments", "description": "Check paper claims against source code" },
-            { "skill": "/experiment-tracker", "description": "Sync experiment results to paper tables" }
+            {
+              "skill": "/paper-verify-experiments",
+              "description": "Check paper claims against source code"
+            },
+            {
+              "skill": "/experiment-tracker",
+              "description": "Sync experiment results to paper tables"
+            }
           ]
         }
       },
@@ -176,64 +269,132 @@
         "label": "Writing papers (drafting, editing, structuring)",
         "tiers": {
           "1": [
-            { "skill": "/paper-abstract", "description": "Diagnose an abstract you wrote" },
-            { "skill": "/paper-review", "description": "Simulate skeptical reviewer feedback" }
+            {
+              "skill": "/paper-abstract",
+              "description": "Diagnose an abstract you wrote"
+            },
+            {
+              "skill": "/paper-review",
+              "description": "Simulate skeptical reviewer feedback"
+            }
           ],
           "2": [
-            { "skill": "/paper-abstract", "description": "Diagnose an abstract you wrote" },
-            { "skill": "/paper-review", "description": "Simulate skeptical reviewer feedback" },
-            { "skill": "/paper-references", "description": "Verify citations before submission" },
-            { "skill": "/editorial-brain", "description": "Context-aware editorial feedback" }
+            {
+              "skill": "/paper-abstract",
+              "description": "Diagnose an abstract you wrote"
+            },
+            {
+              "skill": "/paper-review",
+              "description": "Simulate skeptical reviewer feedback"
+            },
+            {
+              "skill": "/paper-references",
+              "description": "Verify citations before submission"
+            },
+            {
+              "skill": "/writing-diagnosis",
+              "description": "Name the failure pattern and teach the fix"
+            }
           ]
         }
       },
       "e": {
         "label": "Admin, grant writing, email, teaching prep",
         "tiers": {
-          "1": [
-            { "skill": "/paper-slides", "description": "Generate presentation slides from paper" },
-            { "skill": "/paper-poster", "description": "Generate conference poster from paper" }
-          ],
+          "1": [],
           "2": [
-            { "skill": "/review-triage", "description": "Organize and prioritize reviewer comments" },
-            { "skill": "/paper-slides", "description": "Generate presentation slides" },
-            { "skill": "/openreview-submission", "description": "Format and submit to OpenReview" }
+            {
+              "skill": "/review-triage",
+              "description": "Organize and prioritize reviewer comments"
+            },
+            {
+              "skill": "/openreview-submission",
+              "description": "Format and submit to OpenReview"
+            }
           ]
         }
       }
     },
     "default_skills": [
-      { "skill": "/paper-review", "description": "Simulate skeptical reviewer feedback" },
-      { "skill": "/paper-references", "description": "Verify citations before submission" },
-      { "skill": "/choose-skill", "description": "Interactive skill finder for your task" }
+      {
+        "skill": "/paper-review",
+        "description": "Simulate skeptical reviewer feedback"
+      },
+      {
+        "skill": "/paper-references",
+        "description": "Verify citations before submission"
+      },
+      {
+        "skill": "/choose-skill",
+        "description": "Interactive skill finder for your task"
+      }
     ],
     "extended_catalog": {
       "description": "Full skill catalog from reference material, organized by category. Includes skills not in the primary recommendation table.",
       "literature": [
-        { "skill": "/paper-references", "min_tier": 1, "description": "Verify citations against arXiv, Crossref, DBLP" },
-        { "skill": "/literature-synthesizer", "min_tier": 1, "description": "Discover and synthesize related work" },
-        { "skill": "/benchmark-scout", "min_tier": 2, "description": "Find relevant benchmarks and baselines" }
+        {
+          "skill": "/paper-references",
+          "min_tier": 1,
+          "description": "Verify citations against arXiv, Crossref, DBLP"
+        },
+        {
+          "skill": "/literature-synthesizer",
+          "min_tier": 1,
+          "description": "Discover and synthesize related work"
+        },
+        {
+          "skill": "/benchmark-scout",
+          "min_tier": 2,
+          "description": "Find relevant benchmarks and baselines"
+        }
       ],
       "writing": [
-        { "skill": "/paper-abstract", "min_tier": 1, "description": "Diagnose an abstract you wrote" },
-        { "skill": "/paper-review", "min_tier": 2, "description": "Simulate skeptical reviewer feedback" },
-        { "skill": "/paper-slides", "min_tier": 2, "description": "Generate presentation slides from paper" }
+        {
+          "skill": "/paper-abstract",
+          "min_tier": 1,
+          "description": "Diagnose an abstract you wrote"
+        },
+        {
+          "skill": "/paper-review",
+          "min_tier": 2,
+          "description": "Simulate skeptical reviewer feedback"
+        }
       ],
       "experiments_code": [
-        { "skill": "/paper-verify-experiments", "min_tier": 2, "description": "Check paper claims against source code" },
-        { "skill": "/experiment-tracker", "min_tier": 2, "description": "Sync experiment results to paper tables" },
-        { "skill": "/code-simplify", "min_tier": 1, "description": "Simplify and refactor research code" },
-        { "skill": "/commit", "min_tier": 1, "description": "Write clean, conventional commits" }
+        {
+          "skill": "/paper-verify-experiments",
+          "min_tier": 2,
+          "description": "Check paper claims against source code"
+        },
+        {
+          "skill": "/experiment-tracker",
+          "min_tier": 2,
+          "description": "Sync experiment results to paper tables"
+        },
+        {
+          "skill": "/code-simplify",
+          "min_tier": 1,
+          "description": "Simplify and refactor research code"
+        }
       ],
       "dissemination": [
-        { "skill": "/paper-poster", "min_tier": 1, "description": "Generate conference poster from paper" },
-        { "skill": "/paper-slides", "min_tier": 1, "description": "Generate talk slides" },
-        { "skill": "/paper-summarizer", "min_tier": 1, "description": "Create plain-language summaries" },
-        { "skill": "/science-gif", "min_tier": 2, "description": "Create animated method visualizations" }
+        {
+          "skill": "/paper-summarizer",
+          "min_tier": 1,
+          "description": "Create plain-language summaries"
+        }
       ],
       "admin": [
-        { "skill": "/review-triage", "min_tier": 2, "description": "Organize and prioritize reviewer comments" },
-        { "skill": "/openreview-submission", "min_tier": 2, "description": "Format and submit to OpenReview" }
+        {
+          "skill": "/review-triage",
+          "min_tier": 2,
+          "description": "Organize and prioritize reviewer comments"
+        },
+        {
+          "skill": "/openreview-submission",
+          "min_tier": 2,
+          "description": "Format and submit to OpenReview"
+        }
       ]
     }
   },
@@ -241,19 +402,19 @@
     "0": {
       "title": "A Structured Prompt",
       "description": "Copy-pasteable prompt for Claude.ai or ChatGPT that demonstrates structured prompting.",
-      "content": "Paste this into Claude.ai or ChatGPT — it's a structured prompt\nthat shows what the Research Agora skills do under the hood:\n\n---\nI'm writing a paper about [TOPIC] in [DOMAIN]. Diagnose my abstract:\n- Does it have all 5 parts? (context, problem, approach, results, impact)\n- Are claims specific or vague?\n- What's the weakest sentence and how would you fix it?\n\n[PASTE YOUR ABSTRACT]\n---\n\nWhen you're ready to move to the CLI, come back and run /onboard again.",
+      "content": "Paste this into Claude.ai or ChatGPT \u2014 it's a structured prompt\nthat shows what the Research Agora skills do under the hood:\n\n---\nI'm writing a paper about [TOPIC] in [DOMAIN]. Diagnose my abstract:\n- Does it have all 5 parts? (context, problem, approach, results, impact)\n- Are claims specific or vague?\n- What's the weakest sentence and how would you fix it?\n\n[PASTE YOUR ABSTRACT]\n---\n\nWhen you're ready to move to the CLI, come back and run /onboard again.",
       "followup": "This is what structured prompting looks like. The Research Agora packages hundreds of these into reusable skills. When you're ready to move to the CLI, come back and we'll set up Claude Code."
     },
     "1": {
       "title": "Run Your First Skill",
       "description": "Execute a single skill matched to the user's stated task.",
-      "content": "Run your first skill — pick one based on your task:\n\n  # Literature/references:\n  claude \"/paper-references\"\n\n  # Writing:\n  claude \"/paper-review\"\n\n  # Code:\n  claude \"/commit\"\n\nThat's it. One command, one result you can evaluate.",
+      "content": "Run your first skill \u2014 pick one based on your task:\n\n  # Literature/references:\n  claude \"/paper-references\"\n\n  # Writing:\n  claude \"/paper-review\"\n\n  # Code:\n  claude \"/paper-verify-experiments\"\n\nThat's it. One command, one result you can evaluate.",
       "task_specific_commands": {
         "a": "claude \"/paper-references\"",
         "b": "claude \"/experiment-tracker\"",
-        "c": "claude \"/commit\"",
+        "c": "claude \"/paper-verify-experiments\"",
         "d": "claude \"/paper-review\"",
-        "e": "claude \"/paper-slides\"",
+        "e": "claude \"/review-triage\"",
         "f": "claude \"/choose-skill\""
       },
       "git_setup_hint": "If the user doesn't have git set up, offer to initialize it first:\n\ncd /path/to/your/project\ngit init\ngit add -A && git commit -m \"Initial snapshot before using AI agents\"",
@@ -264,16 +425,16 @@
       "description": "Walk through a verification pipeline that can be reused before every submission.",
       "content": "Set up a verification pipeline:\n\n  # 1. Snapshot your work\n  git add -A && git commit -m \"Before verification run\"\n\n  # 2. Run citation verification\n  claude \"/paper-references\"\n\n  # 3. Check paper-code consistency\n  claude \"/paper-verify-experiments\"\n\n  # 4. Get a simulated review\n  claude \"/paper-review\"\n\nBefore your next submission, run steps 2-4.",
       "followup": "You now have a verification pipeline. Before your next submission, run steps 2-4. Treat it like running tests before a release.",
-      "zotero_note": "The Zotero MCP can connect Claude Code directly to your library. Ask me to help configure it — takes about 5 minutes."
+      "zotero_note": "The Zotero MCP can connect Claude Code directly to your library. Ask me to help configure it \u2014 takes about 5 minutes."
     },
     "3": {
       "title": "Build or Extend",
       "description": "For power users: contribute, orchestrate, or govern.",
-      "content": "You know the tools. Here's what scales:\n\n- Package one of your existing workflows as a skill and submit a PR\n- Explore research-agents: 22 agents for parallel claim verification,\n  devil's advocate analysis, audience checking\n- Use CLAUDE.md as a governance document — encode your lab's standards",
+      "content": "You know the tools. Here's what scales:\n\n- Package one of your existing workflows as a skill and submit a PR\n- Explore research-agents: 22 agents for parallel claim verification,\n  devil's advocate analysis, audience checking\n- Use CLAUDE.md as a governance document \u2014 encode your lab's standards",
       "paths": {
         "orchestration": "Point to multi-agent patterns (research-agents plugin) and show how skills compose.",
         "contribution": "Show the skill file format and suggest packaging an existing workflow as a skill.",
-        "governance": "Discuss CLAUDE.md as a governance document — encoding team standards, verification requirements, and review checklists."
+        "governance": "Discuss CLAUDE.md as a governance document \u2014 encoding team standards, verification requirements, and review checklists."
       },
       "followup": "The Agora is built by researchers for researchers. If you've built a workflow that works, package it as a skill and submit a PR. That's how this thing grows."
     }
@@ -284,39 +445,39 @@
       "steps": [
         "Try the structured prompts above for your immediate task",
         "When you're ready for more: Install Claude Code (https://docs.anthropic.com/en/docs/claude-code)",
-        "Set up git as a safety net: Follow the 2-minute setup at https://rpatrik96.github.io/research-agora/git-backup.html — it gives you an undo button for agent edits",
-        "Come back: Run /onboard again once you have Claude Code — I'll set you up with skills"
+        "Set up git as a safety net: Follow the 2-minute setup at https://rpatrik96.github.io/research-agora/git-backup.html \u2014 it gives you an undo button for agent edits",
+        "Come back: Run /onboard again once you have Claude Code \u2014 I'll set you up with skills"
       ]
     },
     "1": {
       "tier_name": "CLI-Ready, AI-Curious",
       "steps": [
         "Save your CLAUDE.md to your project root",
-        "Set up git if you haven't already — it's your undo button for agent edits (https://rpatrik96.github.io/research-agora/git-backup.html)",
-        "Try 2-3 skills this week — see which ones stick",
+        "Set up git if you haven't already \u2014 it's your undo button for agent edits (https://rpatrik96.github.io/research-agora/git-backup.html)",
+        "Try 2-3 skills this week \u2014 see which ones stick",
         "When something doesn't work: That's feedback. Adjust your CLAUDE.md or try a different skill",
         "Level up: Once you're comfortable, explore the verification workflows (/paper-references, /paper-verify-experiments)"
       ]
     },
     "2": {
-      "tier_name": "Regular User — Systematic Workflows",
+      "tier_name": "Regular User \u2014 Systematic Workflows",
       "steps": [
         "Save your CLAUDE.md and commit it to your repo",
-        "Snapshot before agent sessions: git add -A && git commit -m \"Before: [task]\" — see agent-specific git tips at https://rpatrik96.github.io/research-agora/git-backup.html#already-use-git",
+        "Snapshot before agent sessions: git add -A && git commit -m \"Before: [task]\" \u2014 see agent-specific git tips at https://rpatrik96.github.io/research-agora/git-backup.html#already-use-git",
         "Integrate verification into your pre-submission checklist",
         "Explore MCP tools: Zotero, arXiv, and GitHub MCPs extend what skills can do",
-        "Customize: Edit your CLAUDE.md as you learn what works — it's a living document",
+        "Customize: Edit your CLAUDE.md as you learn what works \u2014 it's a living document",
         "Share: If a colleague asks how you verified your citations, show them /onboard"
       ]
     },
     "3": {
-      "tier_name": "Power User — Ready to Scale",
+      "tier_name": "Power User \u2014 Ready to Scale",
       "steps": [
-        "Audit your current workflows — which ones are skill-shaped?",
+        "Audit your current workflows \u2014 which ones are skill-shaped?",
         "Package one workflow as a skill and submit it to the Agora",
         "Explore research-agents: 22 specialized agents for devil's advocate analysis, evidence checking, audience alignment",
         "Governance: Use CLAUDE.md to encode your lab's standards across projects",
-        "Benchmark: If you're working on evaluation, the Agora needs benchmark contributions — especially for citation hallucination detection"
+        "Benchmark: If you're working on evaluation, the Agora needs benchmark contributions \u2014 especially for citation hallucination detection"
       ]
     }
   }

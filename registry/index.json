@@ -2,12 +2,12 @@
   "version": "1.0.0",
   "generated": "2026-08-20",
   "stats": {
-    "total_skills": 80,
-    "public_skills": 61,
-    "deprecated_skills": 2,
-    "active_public_skills": 59,
-    "commands": 39,
-    "agents": 22,
+    "total_skills": 69,
+    "public_skills": 50,
+    "deprecated_skills": 0,
+    "active_public_skills": 50,
+    "commands": 31,
+    "agents": 19,
     "micro_skills": 12,
     "orchestrators": 4,
     "helpers": 3,
@@ -137,22 +137,6 @@
           "visibility": "public"
         },
         {
-          "name": "paper-discussion",
-          "plugin": "academic",
-          "type": "command",
-          "description": "Write or improve discussion and limitations sections for ML conference papers. Use when asked to \"write discussion\", \"add limitations\", \"discuss results\", \"write conclusion\", or \"identify weaknesses\". Generates balanced analysis of contributions, implications, and honest limitations.",
-          "model": "sonnet",
-          "path": "plugins/academic/commands/paper-discussion.md",
-          "research-domain": "general",
-          "task-type": "writing",
-          "research-phase": "paper-writing",
-          "verification-level": "none",
-          "visibility": "public",
-          "deprecated": true,
-          "superseded-by": "paper-review",
-          "deprecated-in": "1.2.0"
-        },
-        {
           "name": "paper-experiments",
           "plugin": "academic",
           "type": "command",
@@ -163,35 +147,6 @@
           "task-type": "writing",
           "research-phase": "paper-writing",
           "verification-level": "heuristic",
-          "visibility": "public"
-        },
-        {
-          "name": "paper-introduction",
-          "plugin": "academic",
-          "type": "command",
-          "description": "Write or improve introduction sections for ML conference papers. Use when asked to \"write introduction\", \"improve intro\", \"draft intro\", \"motivate the paper\", or \"write opening\". Structures motivation, problem statement, contributions, and paper outline.",
-          "model": "sonnet",
-          "path": "plugins/academic/commands/paper-introduction.md",
-          "research-domain": "general",
-          "task-type": "writing",
-          "research-phase": "paper-writing",
-          "verification-level": "none",
-          "visibility": "public",
-          "deprecated": true,
-          "superseded-by": "paper-review",
-          "deprecated-in": "1.2.0"
-        },
-        {
-          "name": "paper-poster",
-          "plugin": "academic",
-          "type": "command",
-          "description": "Create academic conference posters from research papers. Use when asked to\n\"create poster\", \"make poster\", \"turn paper into poster\", \"poster for conference\".",
-          "model": "sonnet",
-          "path": "plugins/academic/commands/paper-poster.md",
-          "research-domain": "general",
-          "task-type": "dissemination",
-          "research-phase": "dissemination",
-          "verification-level": "none",
           "visibility": "public"
         },
         {
@@ -218,19 +173,6 @@
           "task-type": "review",
           "research-phase": "paper-writing",
           "verification-level": "layered",
-          "visibility": "public"
-        },
-        {
-          "name": "paper-slides",
-          "plugin": "academic",
-          "type": "command",
-          "description": "Create presentation slides from research papers for talks and seminars. Use when asked to\n\"create slides\", \"make presentation\", \"turn paper into slides\", \"prepare talk\".",
-          "model": "sonnet",
-          "path": "plugins/academic/commands/paper-slides.md",
-          "research-domain": "general",
-          "task-type": "dissemination",
-          "research-phase": "dissemination",
-          "verification-level": "none",
           "visibility": "public"
         },
         {
@@ -286,19 +228,6 @@
           "visibility": "public"
         },
         {
-          "name": "science-gif",
-          "plugin": "academic",
-          "type": "command",
-          "description": "Create animated GIFs to communicate ML research visually for Twitter/X, GitHub READMEs, and project\nwebsites. Use when asked to \"create science gif\", \"animate results\", \"make animated figure\",\n\"gif for twitter\", \"animate method\", \"visualize algorithm\".",
-          "model": "sonnet",
-          "path": "plugins/academic/commands/science-gif.md",
-          "research-domain": "general",
-          "task-type": "dissemination",
-          "research-phase": "dissemination",
-          "verification-level": "none",
-          "visibility": "public"
-        },
-        {
           "name": "whats-new",
           "plugin": "academic",
           "type": "command",
@@ -351,19 +280,6 @@
           "visibility": "public"
         },
         {
-          "name": "commit",
-          "plugin": "development",
-          "type": "command",
-          "description": "Commit changes made during the current conversation. Use when asked to\n\"commit\", \"save changes\", \"create a commit\", or \"commit my changes\".\nGenerates conventional commit messages with co-authorship attribution.",
-          "model": "haiku",
-          "path": "plugins/development/commands/commit.md",
-          "research-domain": "general",
-          "task-type": "automation",
-          "research-phase": "implementation",
-          "verification-level": "none",
-          "visibility": "public"
-        },
-        {
           "name": "htcondor",
           "plugin": "development",
           "type": "command",
@@ -374,19 +290,6 @@
           "task-type": "automation",
           "research-phase": "implementation",
           "verification-level": "none",
-          "visibility": "public"
-        },
-        {
-          "name": "python-cicd",
-          "plugin": "development",
-          "type": "command",
-          "description": "Set up Python CI/CD with GitHub Actions, pre-commit hooks, and code quality tools. Use when asked to \"set up CI/CD\", \"add pre-commit hooks\", \"configure GitHub Actions\", \"add linting\", or \"set up testing pipeline\". Configures Black, isort, flake8, and pytest for Python 3.11.",
-          "model": "haiku",
-          "path": "plugins/development/commands/python-cicd.md",
-          "research-domain": "general",
-          "task-type": "formatting",
-          "research-phase": "implementation",
-          "verification-level": "heuristic",
           "visibility": "public"
         },
         {
@@ -439,19 +342,6 @@
           "task-type": "diagnosis",
           "research-phase": "paper-writing",
           "verification-level": "layered",
-          "visibility": "public"
-        },
-        {
-          "name": "editorial-brain",
-          "plugin": "editorial",
-          "type": "command",
-          "description": "Context-aware editorial intelligence that adapts to what you're writing. Use when asked to \"edit this\", \"review my writing\", \"editorial feedback\", \"developmental edit\", \"line edit\", \"improve clarity\", \"simplify writing\", \"check readability\", \"reduce jargon\", or \"make paper clearer\". Detects format (paper/blog/book/grant), section type, and draft phase, then routes to the appropriate editorial lens \u2014 developmental, line, or copy editing.",
-          "model": "opus",
-          "path": "plugins/editorial/commands/editorial-brain.md",
-          "research-domain": "general",
-          "task-type": "diagnosis",
-          "research-phase": "paper-writing",
-          "verification-level": "heuristic",
           "visibility": "public"
         },
         {
@@ -566,7 +456,7 @@
           "model": "opus",
           "path": "plugins/research-agents/agents/bounds-analyst.md",
           "research-domain": "general",
-          "task-type": "verification",
+          "task-type": "analysis",
           "research-phase": "paper-writing",
           "verification-level": "heuristic",
           "visibility": "public"
@@ -676,19 +566,6 @@
           "visibility": "public"
         },
         {
-          "name": "perspective-synthesizer",
-          "plugin": "research-agents",
-          "type": "agent",
-          "description": "Use this agent to synthesize different perspectives, methodologies, or research approaches into unified frameworks. Invoke for literature review synthesis, reconciling conflicting findings, bridging research communities, or resolving disagreements.",
-          "model": "sonnet",
-          "path": "plugins/research-agents/agents/perspective-synthesizer.md",
-          "research-domain": "general",
-          "task-type": "writing",
-          "research-phase": "literature-review",
-          "verification-level": "layered",
-          "visibility": "public"
-        },
-        {
           "name": "proof-auditor",
           "plugin": "research-agents",
           "type": "agent",
@@ -699,19 +576,6 @@
           "task-type": "verification",
           "research-phase": "paper-writing",
           "verification-level": "heuristic",
-          "visibility": "public"
-        },
-        {
-          "name": "proof-strategy-advisor",
-          "plugin": "research-agents",
-          "type": "agent",
-          "description": "Given a theorem to prove or conjecture to investigate, suggests proof approaches\ndrawn from a broad knowledge of techniques. Classifies result type, recommends\nstrategies, suggests intermediate lemmas, and identifies key technical challenges.\nTrigger: \"suggest proof strategy\", \"how to prove\", \"proof approach\",\n\"proof technique\", \"prove this theorem\".",
-          "model": "opus",
-          "path": "plugins/research-agents/agents/proof-strategy-advisor.md",
-          "research-domain": "general",
-          "task-type": "verification",
-          "research-phase": "paper-writing",
-          "verification-level": "layered",
           "visibility": "public"
         },
         {
@@ -786,19 +650,6 @@
           "description": "Build a DAG of theorem/lemma/proposition dependencies across the paper.\nComputes criticality scores, maps assumption flow, and detects orphan lemmas\nor circular dependencies. Trigger: \"map theorem dependencies\", \"theorem DAG\",\n\"dependency graph\", \"trace assumptions\".",
           "model": "sonnet",
           "path": "plugins/research-agents/agents/theorem-dependency-mapper.md",
-          "research-domain": "general",
-          "task-type": "analysis",
-          "research-phase": "paper-writing",
-          "verification-level": "none",
-          "visibility": "public"
-        },
-        {
-          "name": "theory-connector",
-          "plugin": "research-agents",
-          "type": "agent",
-          "description": "Identify cross-domain connections between a theoretical result and results\nfrom other subfields. Find structural analogies, vocabulary translations,\nand generalization paths. Trigger: \"connect to other fields\",\n\"cross-domain connections\", \"related theory\", \"theory bridge\",\n\"find analogous results\".",
-          "model": "opus",
-          "path": "plugins/research-agents/agents/theory-connector.md",
           "research-domain": "general",
           "task-type": "analysis",
           "research-phase": "paper-writing",

@@ -107,7 +107,7 @@ def test_tier_3_cli_d_ai_b():
         ("a", 2, "/benchmark-scout"),
         # Writing at tier 1 and 2
         ("d", 1, "/paper-abstract"),
-        ("d", 2, "/editorial-brain"),
+        ("d", 2, "/writing-diagnosis"),
     ],
 )
 def test_skill_recommendations_contain_expected(task, tier, expected_skill):

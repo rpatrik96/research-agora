@@ -26,7 +26,7 @@ metadata:
 
 This tool scores; it does not fix. It is the **verification** complement to the diagnostic
 editorial skills. Use it to measure where you stand, then use `/writing-diagnosis`,
-`/editorial-brain`, or `/argument-autopsy` for remediation.
+or `/argument-autopsy` for remediation.
 
 Sources codified: Strunk & White (omit needless words, active voice), Hemingway (short
 declarative sentences), Orwell (6 rules), Steven Pinker (curse of knowledge, concrete nouns),
@@ -186,7 +186,7 @@ Overall grade = weighted average mapped to:
    - **Metric**: {concrete number}
    - **Example**: "{problematic text excerpt}"
    - **Fix direction**: {what to change}
-   - **Remediation**: `/writing-diagnosis` or `/editorial-brain`
+   - **Remediation**: `/writing-diagnosis`
 
 2. ...
 3. ...
@@ -231,7 +231,7 @@ Overall grade = weighted average mapped to:
 ### Next Steps
 
 - **Score improvement**: Run `/writing-diagnosis` on flagged paragraphs
-- **Structural issues**: Run `/editorial-brain` in {recommended} mode
+- **Structural issues**: Run `/argument-autopsy` to map the claim-evidence structure
 - **Argument gaps**: Run `/argument-autopsy` on flagged claims
 - **Audience fit**: Run `/audience-checker` with reviewer persona
 ```
@@ -288,7 +288,6 @@ This skill is the entry point of an editorial workflow:
 ```
 writing-verify (score + identify)
     ├── /writing-diagnosis    (deep pattern analysis)
-    ├── /editorial-brain      (phase-appropriate editing)
     ├── /argument-autopsy     (claim-evidence verification)
     ├── /audience-checker     (accessibility with persona)
     └── /voice-drift-detector (cross-section consistency)

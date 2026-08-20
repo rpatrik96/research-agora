@@ -2,7 +2,6 @@
 name: writing-diagnosis
 description: Diagnose root causes of bad writing at the paragraph level. Use when asked to "diagnose this paragraph", "why does this suck", "what's wrong with this", "writing diagnosis", or "debug my writing". Identifies patterns like cognitive overload, buried ledes, idea soup, and monotonous rhythm — then teaches the fix.
 model: opus
-disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: paper-writing

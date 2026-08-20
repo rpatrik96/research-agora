@@ -359,7 +359,7 @@ def slide4(prs):
         ("\u25b8 /paper-references", "Catch hallucinated citations"),
         ("\u25b8 /proof-auditor", "Verify mathematical proofs"),
         ("\u25b8 /claim-auditor", "Audit evidence for every claim"),
-        ("\u25b8 /paper-introduction", "Draft compelling intros"),
+        ("\u25b8 /paper-review", "Audit claims before reviewers do"),
     ]
 
     y = Inches(2.3)

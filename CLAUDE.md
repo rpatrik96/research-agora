@@ -124,7 +124,7 @@ Claims are graded L1-L6:
 4. Include `metadata:` block with research-domain, task-type, research-phase, verification-level (see `registry/categories.json` for valid values)
 4. **Script-first principle**: If a skill's task (or a sub-task within it) can be accomplished via a script, CLI tool, or deterministic program, implement it that way. Reserve LLM-based approaches for tasks that genuinely require language understanding, creative writing, or nuanced judgment. Hybrid skills should run scriptable steps first, then use the LLM only for analysis or synthesis of results. Examples:
    - **Script-first**: Reference verification (`bibtexupdater`), dead code detection (`vulture`/`flake8`), LaTeX-to-plaintext conversion (regex/sed), metric extraction from configs (grep/parse), CI/CD setup (file generation), document creation (`python-docx`/`python-pptx`/`openpyxl`)
-   - **LLM-appropriate**: Writing paper sections, generating rebuttals, reviewing papers, brainstorming titles, synthesizing literature narratives, designing TikZ diagrams
+   - **LLM-appropriate**: Reviewing and auditing drafts, decoding reviewer intent, brainstorming directions, designing TikZ diagrams, translating a passage between registers. Note what is *not* here: the Agora no longer ships skills that write a paper's claims, because nothing can check them (see the retirement rule in CONTRIBUTING.md).
    - **Hybrid**: Extract data with scripts first, then have the LLM interpret/write prose from structured results
 
 ### New Agent
