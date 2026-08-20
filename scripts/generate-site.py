@@ -90,9 +90,6 @@ SKILL_GROUP_MAP = {
     "htcondor": "development",
 
     # Documents & Figures
-    "pptx-create": "documents-figures",
-    "docx-create": "documents-figures",
-    "xlsx-create": "documents-figures",
     "tikz-figures": "documents-figures",
 
     # Editorial Intelligence
@@ -258,9 +255,14 @@ def main():
                 }
             all_skills.append(skill)
 
-    # Split by visibility
-    public_skills = [s for s in all_skills if s.get("visibility", "public") == "public"]
-    internal_skills = [s for s in all_skills if s.get("visibility", "public") == "internal"]
+    # Split by visibility. A deprecated skill still works for anyone who has it
+    # installed, but the site is where people go to pick something to start
+    # with -- so it is not listed at all. The CHANGELOG's Deprecated section
+    # and /whats-new are what reach the people who already run it.
+    live_skills = [s for s in all_skills if not s.get("deprecated")]
+    public_skills = [s for s in live_skills if s.get("visibility", "public") == "public"]
+    internal_skills = [s for s in live_skills if s.get("visibility", "public") == "internal"]
+    deprecated_count = len(all_skills) - len(live_skills)
 
     # Group public skills
     grouped_skills = group_skills(public_skills, groups_meta)
@@ -288,9 +290,14 @@ def main():
 
     # Build stats for display
     public_stats = {
+        # public_skills is already deprecation-filtered here (see live_skills
+        # above); active_public_skills is the same number under the name the
+        # registry and the docs use, so the site and the badge cannot disagree.
         "public_skills": len(public_skills),
+        "active_public_skills": len(public_skills),
         "internal_skills": len(internal_skills),
         "total_skills": len(all_skills),
+        "deprecated_skills": deprecated_count,
         "groups": len(grouped_skills),
         "plugins": len(plugins),
         "benchmarks": len(benchmarks),
@@ -359,6 +366,8 @@ def main():
     print(f"Site generated at {OUTPUT_DIR.relative_to(REPO_ROOT)}/")
     print(f"  {len(public_skills)} public skills in {len(grouped_skills)} groups")
     print(f"  {len(internal_skills)} internal skills (hidden by default)")
+    if deprecated_count:
+        print(f"  {deprecated_count} deprecated skills (not listed)")
     print(f"  Open {OUTPUT_DIR / 'index.html'} to preview")
 
 

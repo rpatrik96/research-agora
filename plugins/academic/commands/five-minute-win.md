@@ -123,7 +123,7 @@ Directory scan results:
 
 **What it does:** Checks every entry in `references.bib` against Semantic Scholar, Crossref, and DBLP. Returns a table showing which citations are verified, which have mismatches (wrong title/year/authors), and which cannot be found.
 
-**Why start here:** You have 847 citations. At even a 2% hallucination rate --- conservative for AI-assisted bibliography work --- that's 17 potentially fabricated references. The NeurIPS 2025 retraction incident involved 53 papers with hallucinated citations. This check takes minutes and catches the kind of error that ends careers.
+**Why start here:** You have 847 citations. At even a 2% hallucination rate --- conservative for AI-assisted bibliography work --- that's 17 potentially fabricated references. A scan of all 4,841 papers accepted to NeurIPS 2025 found at least 100 hallucinated citations across 51 of them ([GPTZero, January 2026](https://gptzero.me/news/neurips/)). This check takes minutes and catches the kind of error that ends careers.
 
 **Run this now:**
 
@@ -165,7 +165,7 @@ Run `/paper-references` again after fixing them to confirm the clean bill of hea
 - `/paper-verify-experiments` — check whether train.py matches what main.tex claims
 - `/choose-skill` — tell me your next task in plain language, I'll find the right skill
 
-**The Agora has 80+ skills.** You don't need to know them all. Just describe what you're trying
+**The Agora has more skills than anyone reads through.** You don't need to know them all. Just describe what you're trying
 to do and run `/choose-skill`.
 ```
 

@@ -166,7 +166,7 @@ Flag when the intuition is problematic:
 
 ### Phase 5: LaTeX Output
 
-Generate publication-ready LaTeX:
+Generate a **draft** theorem statement in LaTeX. It is a candidate to be proved, not a result:
 
 ```latex
 \begin{theorem}[Generalization via Feature Compression]
@@ -225,7 +225,7 @@ Then with probability at least $1 - \delta$ over the training sample:
 ---
 
 ## LaTeX Output
-[Publication-ready LaTeX for recommended formalization]
+[Draft LaTeX for recommended formalization — unproved candidate statement]
 
 ---
 

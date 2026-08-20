@@ -1,6 +1,6 @@
 ---
 name: paper-review
-description: Generate critical reviews of ML paper drafts simulating a skeptical reviewer. Use when asked to "review my paper", "find weaknesses", "critique this draft", "what would reviewers say", or "assess my submission". Provides harsh but constructive feedback to strengthen the paper before submission.
+description: Generate critical reviews of ML paper drafts simulating a skeptical reviewer. Use when asked to "review my paper", "find weaknesses", "critique this draft", "what would reviewers say", "audit my contributions", "check my limitations section", or "assess my submission". Audits contribution claims against the evidence and limitations against the categories reviewers check, then provides harsh but constructive feedback to strengthen the paper before submission.
 model: sonnet
 disable-model-invocation: true
 metadata:
@@ -222,6 +222,35 @@ Match severity to venue expectations:
 - Typos
 - Minor notation issues
 - Additional experiments that would help
+
+## Contribution-Claim Audit
+
+Read the contribution list against what the paper actually establishes, one claim at a time. A reviewer's sharpest objection is almost always that a contribution overshoots its evidence.
+
+A contribution holds up when it is **specific** ("We prove convergence in $\mathcal{O}(1/\sqrt{T})$ iterations"), **verifiable** against something in the paper, **novel** in a way that survives comparison to prior work, and **significant** enough to address a real limitation.
+
+Flag it when it is:
+
+| Failure | Looks like | What to write |
+|---|---|---|
+| Vague | "We propose a novel method" | Ask which property is novel and where it is shown |
+| Overclaimed | "We solve the problem of X" when the paper improves on X | Name the gap between the verb and the results table |
+| Unverifiable | "Our method is more intuitive" | Ask what measurement would settle it |
+| Trivial | "We apply X to Y" | Ask what was non-obvious about the application |
+| Mismatched | A claim with no corresponding experiment or theorem | Point at the missing section |
+
+Check the framing around the contributions too. **Strawman prior work** — representing an existing approach as weaker than it is — is the failure a reviewer who authored that prior work will catch first. **Overselling** ("revolutionary", "paradigm shift") reads as a substitute for evidence and costs the paper credibility it will need later.
+
+## Limitations Audit
+
+A limitations section is judged on candour and specificity, not on length. Work the categories below and name what is missing, since reviewers penalise the omission far more than the admission.
+
+**Methodological** — assumptions (distributional, structural, independence), computational complexity and scalability, hyperparameter sensitivity, theoretical gaps in convergence or optimality, approximations made.
+**Experimental** — dataset size, diversity and representativeness, the synthetic-versus-real gap, missing baselines or ablations, narrow metrics, reproducibility under randomness and compute cost.
+**Scope** — domain and task specificity, input modality constraints, uncharacterised failure modes, unknown generalization bounds.
+**Broader impact** — misuse potential, fairness and bias, environmental cost, dual use.
+
+Two failure modes deserve their own flag. The first is the **generic disclaimer**: "more experiments needed", "has some assumptions". A real limitation names the binding assumption, the dataset, and the magnitude — "assumes i.i.d. data", not "has some assumptions" — and the section leads with the one that most constrains the result. The second is **defensive framing** ("despite these minor issues…"), which signals to a reviewer that the author knows the limitation bites.
 
 ## Review Generation Guidelines
 

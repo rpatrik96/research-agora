@@ -6,62 +6,104 @@
   },
   "metadata": {
     "description": "Research Agora - A plugin marketplace for Claude Code focused on ML research, academic writing, and development automation",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   "plugins": [
     {
       "name": "academic",
       "source": "./plugins/academic",
-      "description": "Academic paper writing skills for ML conferences (NeurIPS, ICML, ICLR, AAAI). Includes skills for introductions, abstracts, experiments, literature reviews, rebuttals, and more.",
-      "version": "1.1.0",
-      "author": {"name": "rpatrik96"},
+      "description": "Academic paper writing skills for ML conferences (NeurIPS, ICML, ICLR, AAAI). Verification, diagnosis, and literature discovery: citation checking, claim auditing against code, abstract diagnosis, reviewer simulation, and slide/poster generation.",
+      "version": "1.2.0",
+      "author": {
+        "name": "rpatrik96"
+      },
       "category": "academic",
-      "keywords": ["academic", "paper", "writing", "ml-research", "latex", "neurips", "icml", "iclr"]
+      "keywords": [
+        "academic",
+        "paper",
+        "writing",
+        "ml-research",
+        "latex",
+        "neurips",
+        "icml",
+        "iclr"
+      ]
     },
     {
       "name": "development",
       "source": "./plugins/development",
       "description": "Development automation skills for Python projects. Includes commit, PR automation, CI/CD setup, documentation, code simplification, and opt-in skill-usage feedback.",
       "version": "1.1.2",
-      "author": {"name": "rpatrik96"},
+      "author": {
+        "name": "rpatrik96"
+      },
       "category": "development",
-      "keywords": ["development", "python", "automation", "git", "ci-cd", "documentation", "feedback"]
+      "keywords": [
+        "development",
+        "python",
+        "automation",
+        "git",
+        "ci-cd",
+        "documentation",
+        "feedback"
+      ]
     },
     {
       "name": "formatting",
       "source": "./plugins/formatting",
       "description": "Document and LaTeX formatting skills for publication-quality output. Includes LaTeX consistency, publication figures, and TikZ diagrams.",
       "version": "1.0.0",
-      "author": {"name": "rpatrik96"},
+      "author": {
+        "name": "rpatrik96"
+      },
       "category": "formatting",
-      "keywords": ["formatting", "latex", "visualization", "figures", "tikz", "matplotlib"]
-    },
-    {
-      "name": "office",
-      "source": "./plugins/office",
-      "description": "Microsoft Office document creation skills. Create and edit PowerPoint, Word, and Excel files programmatically.",
-      "version": "1.0.0",
-      "author": {"name": "rpatrik96"},
-      "category": "office",
-      "keywords": ["office", "pptx", "docx", "xlsx", "presentation", "documents"]
+      "keywords": [
+        "formatting",
+        "latex",
+        "visualization",
+        "figures",
+        "tikz",
+        "matplotlib"
+      ]
     },
     {
       "name": "research-agents",
       "source": "./plugins/research-agents",
       "description": "Specialized research analysis agents for critical thinking, evidence verification, perspective synthesis, and paper quality improvement.",
-      "version": "1.0.0",
-      "author": {"name": "rpatrik96"},
+      "version": "2.1.0",
+      "author": {
+        "name": "rpatrik96"
+      },
       "category": "research",
-      "keywords": ["research", "agents", "critical-thinking", "analysis", "verification", "synthesis"]
+      "keywords": [
+        "research",
+        "agents",
+        "critical-thinking",
+        "analysis",
+        "verification",
+        "synthesis"
+      ]
     },
     {
       "name": "editorial",
       "source": "./plugins/editorial",
-      "description": "Diagnostic editorial intelligence for writing across contexts — papers, blogs, books, grants. Analyzes, diagnoses, and translates rather than generating from scratch.",
-      "version": "1.0.0",
-      "author": {"name": "rpatrik96"},
+      "description": "Diagnostic editorial intelligence for writing across contexts \u2014 papers, blogs, books, grants. Analyzes, diagnoses, and translates rather than generating from scratch.",
+      "version": "1.1.0",
+      "author": {
+        "name": "rpatrik96"
+      },
       "category": "editorial",
-      "keywords": ["editorial", "writing", "diagnosis", "editing", "voice", "argument", "register", "book", "blog"]
+      "keywords": [
+        "editorial",
+        "writing",
+        "diagnosis",
+        "editing",
+        "voice",
+        "argument",
+        "register",
+        "book",
+        "blog"
+      ]
     }
   ]
 }

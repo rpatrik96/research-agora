@@ -8,9 +8,17 @@ metadata:
   research-phase: paper-writing
   task-type: writing
   verification-level: none
+  deprecated: true
+  superseded-by: paper-review
+  deprecated-in: "1.2.0"
 ---
 
 # Discussion & Limitations Section
+
+> [!warning] Deprecated in 1.2.0 — use `/paper-review` instead
+> Output item 3 of this skill asked for "any new `\citet` or `\citep` references that need BibTeX entries", and nothing in the skill checked whether those references exist. A discussion section that invents a citation is the exact defect `/paper-references` was built to catch, so shipping the generator alongside the detector made little sense. The limitation categories and the be-specific rules that made this skill worth running now live in `/paper-review`, which audits the section you wrote.
+>
+> This skill still works and will be removed in a future release.
 
 > **LLM-required**: Writing discussion sections requires interpretive analysis and scientific reasoning. No script alternative.
 

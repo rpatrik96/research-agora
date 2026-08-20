@@ -11,7 +11,7 @@ metadata:
   research-domain: general
   research-phase: paper-writing
   task-type: verification
-  verification-level: formal
+  verification-level: heuristic
 ---
 
 # Bounds Analyst
@@ -66,7 +66,14 @@ For each bound, record:
 
 ### Phase 2: Known Rate Comparison
 
-Compare extracted bounds against established optimal rates:
+Compare extracted bounds against established optimal rates.
+
+> [!important] The tables below are recalled, not retrieved.
+> They are a starting hypothesis about which classical result applies, and nothing more. **Before any rate from these tables enters a verdict, look it up.** Retrieve the cited work via the arXiv MCP, a DOI, or the published text and confirm three things: that the theorem says what the table says, that its assumptions match the paper's setting, and that no sharper result has superseded it.
+>
+> A comparison against an unretrieved rate is not a verification, so it is reported as `UNVERIFIED — could not retrieve [reference]`, never as `OPTIMAL` or `SUBOPTIMAL`. Attaching a citation to a verdict asserts that you read the cited theorem. Do not attach one you did not read.
+
+The rate is the easy half. The assumption regime is where these comparisons actually go wrong: an O(1/T²) bound is optimal for smooth convex and unremarkable for strongly convex, so a verdict that does not name the regime it assumed is not yet a verdict.
 
 #### Convex Optimization
 
@@ -266,6 +273,7 @@ Populates `theory.bounds` in `research-state.json`:
 
 ## Limitations
 
+- **Reference tables are recalled, not retrieved**: The known-rate tables come from model memory. Every rate must be looked up before it supports a verdict, and an unretrieved comparison is reported as `UNVERIFIED` rather than as a rate judgement. This is why the agent is `verification-level: heuristic` and not `formal`.
 - **Well-studied problems only**: Most reliable for optimization, learning theory, and standard complexity classes. Less reliable for niche problem settings.
 - **Cannot prove lower bounds**: Can compare to known lower bounds but cannot derive new ones
 - **Constant analysis is heuristic**: Hidden constant assessment depends on domain knowledge

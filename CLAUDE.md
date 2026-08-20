@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Research Agora is a Claude Code plugin marketplace providing skills for ML research workflows. It bundles 6 category-based plugins: `academic`, `development`, `editorial`, `formatting`, `office`, and `research-agents`.
+Research Agora is a Claude Code plugin marketplace providing skills for ML research workflows. It bundles 5 category-based plugins: `academic`, `development`, `editorial`, `formatting`, and `research-agents`.
 
 ## Commands
 
@@ -94,7 +94,7 @@ Claims are graded L1-L6:
 |------|---------|
 | `.claude-plugin/marketplace.json` | Marketplace metadata, lists all plugins |
 | `plugins/*/.claude-plugin/plugin.json` | Individual plugin manifests |
-| `registry/index.json` | Auto-generated skill index (83 total, 64 public skills) |
+| `registry/index.json` | Auto-generated skill index; `scripts/generate-registry.py` is the only writer, and `registry/index.json` `stats` is the single source of truth for any skill count |
 | `registry/categories.json` | Taxonomy: domains, task-types, phases, verification-levels |
 | `scripts/generate-registry.py` | Generates registry/index.json from skill files |
 | `scripts/generate-site.py` | Generates static site from registry |

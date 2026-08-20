@@ -10,7 +10,7 @@ assignees: ''
 <!-- kebab-case, e.g., paper-methodology -->
 
 ## Plugin Category
-<!-- academic | development | formatting | office | research-agents -->
+<!-- academic | development | editorial | formatting | research-agents -->
 
 ## Description
 <!-- What does this skill do? When would a researcher use it? -->

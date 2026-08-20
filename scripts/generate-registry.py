@@ -128,6 +128,15 @@ def build_skill_entry(file_path: Path) -> dict | None:
         "visibility": metadata.get("visibility", "public"),
     }
 
+    # Deprecation is optional and only appears on skills that carry it, so that
+    # a live skill's entry is byte-identical to what it was before the field
+    # existed. superseded_by names what to reach for instead; a deprecated
+    # skill without one leaves the user nowhere to go.
+    if metadata.get("deprecated"):
+        entry["deprecated"] = True
+        entry["superseded-by"] = metadata.get("superseded-by", "")
+        entry["deprecated-in"] = metadata.get("deprecated-in", "")
+
     return entry
 
 
@@ -190,6 +199,15 @@ def main():
             "total_skills": len(skills),
             "public_skills": sum(
                 1 for s in skills if s.get("visibility", "public") == "public"
+            ),
+            "deprecated_skills": sum(1 for s in skills if s.get("deprecated")),
+            # What the marketplace advertises: public and not deprecated. The
+            # badge and every "<N> skills" claim in the docs use this, since a
+            # deprecated skill is not something to recommend to a new user.
+            "active_public_skills": sum(
+                1
+                for s in skills
+                if s.get("visibility", "public") == "public" and not s.get("deprecated")
             ),
             "commands": sum(1 for s in skills if s["type"] == "command"),
             "agents": sum(1 for s in skills if s["type"] == "agent"),

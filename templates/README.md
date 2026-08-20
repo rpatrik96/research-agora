@@ -13,7 +13,7 @@ research-agora/
 │   ├── add-template.sh        # Helper script
 │   └── README.md              # This file
 ├── plugins/
-│   ├── office/templates/slides/       # Slide presentation templates
+│   ├── academic/templates/slides/     # Slide presentation templates
 │   │   └── {template-name}/
 │   │       ├── template.pptx  # Original PPTX file
 │   │       ├── STYLE.md       # Extracted design specifications
@@ -32,7 +32,7 @@ research-agora/
 ```bash
 cd /path/to/research-agora/templates
 
-# For slides (outputs to plugins/office/templates/slides/)
+# For slides (outputs to plugins/academic/templates/slides/)
 python analyze_template.py /path/to/your/template.pptx --output slides --name "My Template"
 
 # For posters (outputs to plugins/academic/templates/posters/)
@@ -47,7 +47,7 @@ This will:
 
 ### Manual Method
 
-1. Create directory: `plugins/office/templates/slides/{template-name}/` (or `plugins/academic/templates/posters/`)
+1. Create directory: `plugins/academic/templates/slides/{template-name}/` (or `plugins/academic/templates/posters/`)
 2. Copy your `.pptx` file there
 3. Create `STYLE.md` with design notes (see example below)
 

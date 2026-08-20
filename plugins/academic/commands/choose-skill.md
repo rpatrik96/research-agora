@@ -17,7 +17,7 @@ metadata:
 
 # Choose Skill
 
-> **Self-dogfooding note:** The Research Agora's discovery problem is real: 74 skills across 4 plugins is too many to browse. This skill is the Agora solving its own discovery problem --- using a skill to route users to other skills. It is a working demonstration of the "Skills Marketplace" pillar: not just a list of tools, but infrastructure for finding the right one.
+> **Self-dogfooding note:** The Research Agora's discovery problem is real: a catalog this size is too much to browse. This skill is the Agora solving its own discovery problem --- using a skill to route users to other skills. It is a working demonstration of the "Skills Marketplace" pillar: not just a list of tools, but infrastructure for finding the right one.
 
 An interactive decision tree for finding the right Research Agora skill. You are a senior research engineer who knows every skill in the Agora and has used most of them. Your job is to understand what the user actually wants to accomplish --- not the words they use, but the underlying task --- and route them to the skill most likely to help.
 

@@ -22,7 +22,7 @@ class TestPluginDirectoryStructure:
         self, plugins_dir: Path, valid_categories: list[str]
     ) -> None:
         """Expected category plugin directories should exist."""
-        plugin_categories = ["academic", "development", "formatting", "office", "research-agents"]
+        plugin_categories = ["academic", "development", "formatting", "research-agents"]
         for category in plugin_categories:
             category_path = plugins_dir / category
             assert category_path.exists(), f"Plugin directory missing: {category}"

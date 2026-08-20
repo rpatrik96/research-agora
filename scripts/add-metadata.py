@@ -107,8 +107,6 @@ def infer_metadata(
         task_type = "automation"
     elif plugin == "formatting":
         task_type = "formatting"
-    elif plugin == "office":
-        task_type = "automation"
     elif plugin == "research-agents":
         task_type = "analysis"  # default for agents
 
@@ -121,8 +119,6 @@ def infer_metadata(
     phase = "paper-writing"  # default
     if plugin == "development":
         phase = "implementation"
-    elif plugin == "office":
-        phase = "dissemination"
 
     for ph, keywords in PHASE_RULES.items():
         if any(kw in text for kw in keywords):
