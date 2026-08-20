@@ -201,6 +201,14 @@ def main():
                 1 for s in skills if s.get("visibility", "public") == "public"
             ),
             "deprecated_skills": sum(1 for s in skills if s.get("deprecated")),
+            # What the marketplace advertises: public and not deprecated. The
+            # badge and every "<N> skills" claim in the docs use this, since a
+            # deprecated skill is not something to recommend to a new user.
+            "active_public_skills": sum(
+                1
+                for s in skills
+                if s.get("visibility", "public") == "public" and not s.get("deprecated")
+            ),
             "commands": sum(1 for s in skills if s["type"] == "command"),
             "agents": sum(1 for s in skills if s["type"] == "agent"),
             "micro_skills": sum(1 for s in skills if s["type"] == "micro-skill"),

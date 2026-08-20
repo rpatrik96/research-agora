@@ -401,7 +401,8 @@ class TestAdvertisedCounts:
     EXEMPT = {"CHANGELOG.md"}
 
     def _public_count(self, registry_data: dict) -> int:
-        return registry_data["stats"]["public_skills"]
+        """What the marketplace advertises: public and not deprecated."""
+        return registry_data["stats"]["active_public_skills"]
 
     def test_readme_badge_matches_registry(self, registry_data: dict) -> None:
         """The README badge must match registry stats."""
@@ -424,7 +425,7 @@ class TestAdvertisedCounts:
 
         public = self._public_count(registry_data)
         total = registry_data["stats"]["total_skills"]
-        allowed = {public, total}
+        allowed = {public, total, registry_data["stats"]["public_skills"]}
 
         tracked = subprocess.run(
             ["git", "ls-files", "*.md"],

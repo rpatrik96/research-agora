@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/rpatrik96/research-agora/actions/workflows/tests.yml/badge.svg)](https://github.com/rpatrik96/research-agora/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Skills](https://img.shields.io/badge/skills-61%20public-blue.svg)](https://rpatrik96.github.io/research-agora)
+[![Skills](https://img.shields.io/badge/skills-59%20public-blue.svg)](https://rpatrik96.github.io/research-agora)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 
 A community-driven skills marketplace for AI-assisted research. Browse, install, and share modular AI workflows for ML research.
@@ -54,7 +54,7 @@ No `.bib` file? No CLI? [Take the onboarding quiz](https://rpatrik96.github.io/r
 <details>
 <summary><strong>PI: Evaluate and deploy for your group</strong></summary>
 
-61 public workflows for the parts of the paper lifecycle a tool can check. The Agora verifies citations, code-paper consistency, statistics, proofs, and claims. It does not write your claims for you: no oracle exists for novelty or framing, so those stay yours. Skills encode your group's standards in a shared `CLAUDE.md` — every student and postdoc runs the same verified checks.
+59 public workflows for the parts of the paper lifecycle a tool can check. The Agora verifies citations, code-paper consistency, statistics, proofs, and claims. It does not write your claims for you: no oracle exists for novelty or framing, so those stay yours. Skills encode your group's standards in a shared `CLAUDE.md` — every student and postdoc runs the same verified checks.
 
 - **Cost:** $20/mo Pro + ~$5–80/mo API tokens depending on usage. Team plan (see [Anthropic pricing](https://www.anthropic.com/pricing)) includes a GDPR DPA.
 - **Privacy:** No patient data or unpublished results on Pro. Team plan required for institutional compliance. [Full guide →](docs/privacy-gdpr.md)

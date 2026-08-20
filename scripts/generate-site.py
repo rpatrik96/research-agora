@@ -255,9 +255,14 @@ def main():
                 }
             all_skills.append(skill)
 
-    # Split by visibility
-    public_skills = [s for s in all_skills if s.get("visibility", "public") == "public"]
-    internal_skills = [s for s in all_skills if s.get("visibility", "public") == "internal"]
+    # Split by visibility. A deprecated skill still works for anyone who has it
+    # installed, but the site is where people go to pick something to start
+    # with -- so it is not listed at all. The CHANGELOG's Deprecated section
+    # and /whats-new are what reach the people who already run it.
+    live_skills = [s for s in all_skills if not s.get("deprecated")]
+    public_skills = [s for s in live_skills if s.get("visibility", "public") == "public"]
+    internal_skills = [s for s in live_skills if s.get("visibility", "public") == "internal"]
+    deprecated_count = len(all_skills) - len(live_skills)
 
     # Group public skills
     grouped_skills = group_skills(public_skills, groups_meta)
@@ -356,6 +361,8 @@ def main():
     print(f"Site generated at {OUTPUT_DIR.relative_to(REPO_ROOT)}/")
     print(f"  {len(public_skills)} public skills in {len(grouped_skills)} groups")
     print(f"  {len(internal_skills)} internal skills (hidden by default)")
+    if deprecated_count:
+        print(f"  {deprecated_count} deprecated skills (not listed)")
     print(f"  Open {OUTPUT_DIR / 'index.html'} to preview")
 
 

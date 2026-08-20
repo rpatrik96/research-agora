@@ -5,6 +5,7 @@
     "total_skills": 80,
     "public_skills": 61,
     "deprecated_skills": 2,
+    "active_public_skills": 59,
     "commands": 39,
     "agents": 22,
     "micro_skills": 12,
