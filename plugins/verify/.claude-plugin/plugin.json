@@ -20,7 +20,7 @@
   ],
   "features": {
     "parallel_execution": {
-      "description": "Fan-out/fan-in pattern for 2-3x speedup on large papers",
+      "description": "Fan-out/fan-in: wall-clock bounded by the slowest worker rather than the sum, at higher token cost",
       "enabled": true
     },
     "research_state": {
@@ -76,7 +76,6 @@
         "assumption-analyzer",
         "citation-verifier",
         "cross-referencer",
-        "derivation-checker",
         "evidence-grader",
         "proof-step-extractor",
         "proof-step-verifier"

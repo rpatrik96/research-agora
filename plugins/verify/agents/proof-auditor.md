@@ -38,7 +38,7 @@ This agent is the theoretical analogue of `claim-auditor`. Where claim-auditor c
 ```
 If: Paper has >3 proofs OR user requests "parallel proof audit"
 Then: Delegate to parallel-theory-audit orchestrator
-Benefits: 2-3x faster, uses proof-step-extractor + proof-step-verifier micro-skills
+Trade: lower wall-clock at higher token cost. Uses proof-step-extractor + proof-step-verifier micro-skills.
 ```
 
 ### Sequential Mode (Fallback)

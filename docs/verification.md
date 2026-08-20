@@ -204,7 +204,7 @@ Severity: critical (inconsistent) / warning (underpowered or ambiguous) / info (
    ```
    /claim-auditor
    ```
-   For a full paper, use parallel mode for a 2–3x speedup when prompted.
+   For a full paper, use parallel mode when prompted: it lowers wall-clock by running claims concurrently, at higher token cost.
 
 2. Provide the paper content. The agent will extract claims, locate cited evidence, and classify each.
 

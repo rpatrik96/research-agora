@@ -1,5 +1,43 @@
 # Changelog
 
+## [2.0.1] - 2026-08-20
+
+Follow-ups to the 2.0.0 restructure, and the three things RFC-0002 deferred.
+
+### Fixed
+
+- **Orchestrators spawned pre-rename plugin prefixes.** `pre-submission-audit`
+  went on requesting `academic/paper-review` and `research-agents/claim-auditor`
+  after both plugins were gone. The spawn guard stripped the prefix before
+  resolving, so it passed — `test_every_qualified_spawn_names_the_right_plugin`
+  now checks the prefix names the plugin that actually owns the skill.
+- **`assumption-analyzer` presented recalled hierarchies as findings.** Its
+  provenance rule lived only in `parallel-theory-audit`'s fan-in, so direct
+  invocation had no gate. The rule is in the skill file now.
+
+### Removed
+
+- **`parallel-review`** — nothing invoked it. It appeared only in catalogs, the
+  routing config and "called by" prose. Its one distinct pass,
+  `audience-checker`, moves into `pre-submission-audit`.
+- **`derivation-checker`** — merged into `proof-step-verifier` as its
+  `computation` level. The two asked the same question at different levels and
+  their error enums had already drifted (`invalid_exchange` against
+  `invalid_limit_exchange`, `algebraic_error` against `algebraic_manipulation`),
+  which is what two vocabularies for one thing does.
+
+### Changed
+
+- **Every speedup claim is gone.** "2-3x", a phase-by-phase table of minutes,
+  "18 min → 8-9 min", "1.5-1.7x" — none was ever measured. Publishing unverified
+  performance numbers is the defect this marketplace exists to catch. What
+  replaces them is what actually holds: fan-out bounds wall-clock by the slowest
+  worker rather than the sum; setup and merge stay sequential and set the floor;
+  every worker is a separate model call, so it trades token cost for latency
+  rather than saving both. Concurrency caps are real and stay.
+
+**Catalog: 45 skills, 35 public.**
+
 ## [2.0.0] - 2026-08-20
 
 Catalog reorganised. See [RFC-0002](docs/rfcs/0002-catalog-taxonomy.md) for the

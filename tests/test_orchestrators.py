@@ -41,14 +41,6 @@ class TestOrchestratorStructure:
             pytest.skip("parallel-audit orchestrator not found")
         return path
 
-    @pytest.fixture
-    def parallel_review(self) -> Path:
-        """Get the parallel-review orchestrator."""
-        path = self.ORCHESTRATORS_DIR / "parallel-review.md"
-        if not path.exists():
-            pytest.skip("parallel-review orchestrator not found")
-        return path
-
     def parse_frontmatter(self, content: str) -> dict | None:
         """Extract YAML frontmatter from markdown."""
         match = re.match(r"^---\n(.*?)\n---", content, re.DOTALL)
@@ -464,60 +456,6 @@ class TestParallelAuditOrchestrator:
         assert "Speedup" in orchestrator_content or "speedup" in orchestrator_content.lower()
 
 
-class TestParallelReviewOrchestrator:
-    """Tests specific to parallel-review orchestrator."""
-
-    @pytest.fixture
-    def orchestrator_content(self) -> str:
-        """Load parallel-review content."""
-        path = Path("plugins/verify/orchestrators/parallel-review.md")
-        if not path.exists():
-            pytest.skip("parallel-review orchestrator not found")
-        return path.read_text()
-
-    def test_documents_reviewer_personas(self, orchestrator_content: str) -> None:
-        """Should document reviewer personas."""
-        assert "Reviewer Personas" in orchestrator_content
-        personas = ["expert", "skeptic", "newcomer", "practitioner"]
-        for persona in personas:
-            assert (
-                persona.lower() in orchestrator_content.lower()
-            ), f"Missing persona: {persona}"
-
-    def test_documents_review_tracks(self, orchestrator_content: str) -> None:
-        """Should document different review tracks."""
-        tracks = ["Technical", "Presentation", "Visual", "Novelty", "Consistency"]
-        for track in tracks:
-            assert (
-                track in orchestrator_content
-            ), f"Missing review track: {track}"
-
-    def test_documents_feedback_prioritization(self, orchestrator_content: str) -> None:
-        """Should document feedback prioritization."""
-        assert "Priority" in orchestrator_content or "priorit" in orchestrator_content.lower()
-        priorities = ["Critical", "Major", "Minor"]
-        for priority in priorities:
-            assert (
-                priority in orchestrator_content
-            ), f"Missing priority level: {priority}"
-
-    def test_documents_review_synthesis(self, orchestrator_content: str) -> None:
-        """Should document how reviews are synthesized."""
-        assert "Synthesis" in orchestrator_content or "synthesize" in orchestrator_content.lower()
-
-    def test_documents_revision_checklist(self, orchestrator_content: str) -> None:
-        """Should document revision checklist generation."""
-        assert "Revision Checklist" in orchestrator_content or "checklist" in orchestrator_content.lower()
-
-    def test_calls_parallel_audit(self, orchestrator_content: str) -> None:
-        """Should document that it calls parallel-audit orchestrator."""
-        assert "parallel-audit" in orchestrator_content
-
-    def test_documents_comparison_with_sequential(self, orchestrator_content: str) -> None:
-        """Should document comparison with sequential review."""
-        assert "Sequential" in orchestrator_content or "sequential" in orchestrator_content.lower()
-
-
 class TestOrchestratorConsistency:
     """Tests for consistency across all orchestrators."""
 
@@ -642,6 +580,39 @@ class TestSpawnTargetsResolve:
         for match in re.finditer(r"^\s*SPAWN(?:_TASK|_SUBAGENT)?:\s*(\S+)\s*$", content, re.M):
             targets.append(match.group(1).strip("`\"'").split("/")[-1])
         return targets
+
+    @pytest.fixture
+    def skill_owner(self) -> dict:
+        index = json.loads(Path("registry/index.json").read_text())
+        return {
+            s["name"]: s["plugin"]
+            for repo in index.get("repos", [])
+            for s in repo.get("skills", [])
+        }
+
+    def test_every_qualified_spawn_names_the_right_plugin(
+        self, all_orchestrators: list, skill_owner: dict
+    ) -> None:
+        """A `plugin/skill` target must name the plugin that owns the skill.
+
+        The unqualified check below strips the prefix before resolving, so a
+        target left pointing at a plugin that no longer exists still passes it —
+        which is exactly what RFC-0002 produced: pre-submission-audit went on
+        spawning `academic/paper-review` and `research-agents/claim-auditor`
+        after both plugins were gone.
+        """
+        wrong = []
+        for orch_path in all_orchestrators:
+            for match in re.finditer(
+                r"^\s*skill:\s*([a-z-]+)/([a-z-]+)\s*$", orch_path.read_text(), re.M
+            ):
+                named, skill = match.group(1), match.group(2)
+                owner = skill_owner.get(skill)
+                if owner and named != owner:
+                    wrong.append(
+                        f"{orch_path.name}: spawns {named}/{skill}, but {skill} is in {owner}"
+                    )
+        assert not wrong, "Spawn targets name the wrong plugin:\n" + "\n".join(wrong)
 
     def test_every_spawn_target_is_a_live_skill(
         self, all_orchestrators: list, live_skill_names: set
