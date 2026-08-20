@@ -67,9 +67,13 @@
     <section class="intent-section container">
         <p class="intent-label">What do you need?</p>
         <div class="intent-buttons">
-            <button class="intent-btn" data-groups="paper-drafting,writing-polish,literature-discovery">I'm writing a paper</button>
-            <button class="intent-btn" data-groups="quality-verification,theory-tools">Verify my paper</button>
-            <button class="intent-btn" data-groups="dissemination,documents-figures,submission-rebuttal">Present &amp; share</button>
+            {# data-groups must name live plugin ids: groups derive from plugin
+               membership (RFC-0002), so a stale id here silently filters to
+               nothing. tests/test_registry.py::TestIntentButtons checks them. #}
+            <button class="intent-btn" data-groups="discover">Find prior work</button>
+            <button class="intent-btn" data-groups="write">Write &amp; diagnose</button>
+            <button class="intent-btn" data-groups="verify">Verify my paper</button>
+            <button class="intent-btn" data-groups="toolkit">Build &amp; submit</button>
             <button class="intent-btn intent-btn-all active" data-groups="all">Browse all</button>
         </div>
     </section>

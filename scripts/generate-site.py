@@ -29,49 +29,10 @@ OUTPUT_DIR = SITE_DIR / "output"
 # skill→group table any more, so a retired skill cannot leave a mapping entry
 # behind — the failure that left 34 dangling references after the February 2026
 # consolidation and that test_no_orphan_group_map_entries had to guard against.
-def skill_group(skill: dict) -> str:
-    """A skill's browse group is its plugin."""
-    return skill["plugin"]
-
-
-# Within a group, skills sort into bands by what they can actually check.
-# The band is the teaching layer: a visitor learns what the verification levels
-# mean by seeing which skills sit under which heading.
-VERIFICATION_BANDS = [
-    (
-        "checks-ground-truth",
-        "Checks against ground truth",
-        "Runs a tool or script and compares against something outside itself.",
-        {"formal", "layered"},
-    ),
-    (
-        "checks-rubric",
-        "Checks against a rubric",
-        "Applies a stated standard. No external oracle — you are the oracle.",
-        {"heuristic"},
-    ),
-    (
-        "produces",
-        "Produces something for you to check",
-        "Generates an artifact or a candidate. Verifying it is your job.",
-        {"none"},
-    ),
-]
-
-
-def skill_band(skill: dict) -> str:
-    """Return the band id for a skill, from its verification level."""
-    level = skill.get("verification-level", "none")
-    for band_id, _label, _blurb, levels in VERIFICATION_BANDS:
-        if level in levels:
-            return band_id
-    return "produces"
-
 # Community feedback badges render only at or above this many unique
 # installations (k-anonymity floor, RFC-0001 §11).
 FEEDBACK_MIN_INSTALLATIONS = 3
 
-# Display order for groups
 # The four plugins, in the order a researcher meets them.
 GROUP_ORDER = [
     "discover",
@@ -79,6 +40,72 @@ GROUP_ORDER = [
     "verify",
     "toolkit",
 ]
+
+
+def skill_group(skill: dict) -> str:
+    """A skill's browse group is its plugin."""
+    return skill["plugin"]
+
+
+# Within a group, skills sort into bands by what they do to your work. The band
+# is the teaching layer: a visitor learns what the verification levels mean by
+# seeing which skills sit under which heading.
+#
+# The band comes from task-type AND verification-level together. Deriving it
+# from verification-level alone put `intuition-formalizer` under "checks against
+# ground truth" because it is `layered` — but `layered` means "mixed methods",
+# not "compares against something external", and that skill generates a
+# candidate theorem for you to prove.
+VERIFICATION_BANDS = [
+    (
+        "checks-ground-truth",
+        "Checks against ground truth",
+        "Runs a tool or script and compares against something outside itself.",
+    ),
+    (
+        "checks-rubric",
+        "Checks your work against a standard",
+        "Reads what you wrote and judges it. No external oracle — you are the oracle.",
+    ),
+    (
+        "produces",
+        "Produces something for you to check",
+        "Makes an artifact or a candidate. Verifying it is your job.",
+    ),
+]
+
+# Skills whose band is not derivable from their metadata, with the reason.
+# Keep this short: a long list means the rule is wrong, not the skills.
+BAND_OVERRIDES = {
+    # Discovery, but every entry it returns is confirmed to exist against arXiv
+    # and then put through paper-references before it is handed over.
+    "literature-synthesizer": "checks-ground-truth",
+    # Reads the real config off disk and reports what is actually there.
+    "audit-my-setup": "checks-rubric",
+}
+
+
+def skill_band(skill: dict) -> str:
+    """Return the band id for a skill, from what it does to your work."""
+    name = skill.get("name", "")
+    if name in BAND_OVERRIDES:
+        return BAND_OVERRIDES[name]
+
+    task = skill.get("task-type", "")
+    level = skill.get("verification-level", "none")
+
+    # A formal level means the check resolves against something external.
+    if level == "formal":
+        return "checks-ground-truth"
+    # A verification task with mixed methods still compares against a source.
+    if task == "verification" and level == "layered":
+        return "checks-ground-truth"
+    # Diagnosis and review read your work and judge it; so does any
+    # verification task that only applies a rubric.
+    if task in ("diagnosis", "review") or (task == "verification" and level == "heuristic"):
+        return "checks-rubric"
+    # Everything else makes something you then have to check yourself.
+    return "produces"
 
 
 def load_registry() -> dict:
@@ -168,7 +195,7 @@ def group_skills(skills: list, groups_meta: dict) -> OrderedDict:
                 "blurb": blurb,
                 "skills": [s for s in group["skills"] if skill_band(s) == bid],
             }
-            for bid, label, blurb, _levels in VERIFICATION_BANDS
+            for bid, label, blurb in VERIFICATION_BANDS
         ]
         group["bands"] = [b for b in group["bands"] if b["skills"]]
 

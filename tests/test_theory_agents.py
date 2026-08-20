@@ -2,7 +2,7 @@
 
 These tests verify the structure, content, and consistency of the new theory agents:
 - Agents: proof-auditor, bounds-analyst, notation-consistency-checker,
-  theorem-dependency-mapper, counterexample-searcher, intuition-formalizer
+  theorem-dependency-mapper, counterexample-searcher
 - Micro-skills: proof-step-extractor, proof-step-verifier,
   assumption-analyzer
 - Orchestrator: parallel-theory-audit
@@ -36,7 +36,6 @@ THEORY_AGENTS = [
     "notation-consistency-checker",
     "theorem-dependency-mapper",
     "counterexample-searcher",
-    "intuition-formalizer",
 ]
 
 THEORY_MICRO_SKILLS = [
@@ -142,7 +141,6 @@ class TestTheoryModelAssignment:
         "notation-consistency-checker": "sonnet",
         "theorem-dependency-mapper": "sonnet",
         "counterexample-searcher": "opus",
-        "intuition-formalizer": "opus",
         # Micro-skills
         "proof-step-extractor": "sonnet",
         "proof-step-verifier": "opus",
@@ -373,34 +371,6 @@ class TestCounterexampleSearcher:
         """Should suggest computational experiments."""
         assert "Computational" in content or "computational" in content
         assert "python" in content.lower() or "experiment" in content.lower()
-
-
-class TestIntuitionFormalizer:
-    """Tests specific to intuition-formalizer agent."""
-
-    @pytest.fixture
-    def content(self) -> str:
-        return (AGENTS_DIR / "intuition-formalizer.md").read_text()
-
-    def test_has_multi_level_formalization(self, content: str) -> None:
-        """Should offer multiple formalization levels."""
-        assert "Level 1" in content or "STRONG" in content
-        assert "Level 2" in content or "MODERATE" in content
-        assert "Level 3" in content or "WEAK" in content
-
-    def test_has_condition_mapping(self, content: str) -> None:
-        """Should map informal conditions to formal ones."""
-        informal = ["smooth enough", "well-behaved", "not too complex"]
-        found = sum(1 for i in informal if i in content)
-        assert found >= 2, "Missing informal-to-formal mappings"
-
-    def test_has_pitfall_warnings(self, content: str) -> None:
-        """Should warn about formalization pitfalls."""
-        assert "Pitfall" in content or "pitfall" in content
-
-    def test_has_latex_output(self, content: str) -> None:
-        """Should produce LaTeX output."""
-        assert "\\begin{theorem}" in content or "LaTeX" in content
 
 
 class TestTheoryMicroSkillContent:

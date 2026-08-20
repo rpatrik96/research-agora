@@ -1,5 +1,39 @@
 # Changelog
 
+## [2.0.2] - 2026-08-20
+
+### Fixed
+
+- **Bands were derived from `verification-level` alone**, which put
+  `intuition-formalizer`, `rebuttal`, `paper-experiments` and `code-simplify`
+  under "checks against ground truth" — because they are `layered`, and
+  `layered` means *mixed methods*, not *compares against something external*.
+  The band now comes from `task-type` and `verification-level` together: a
+  writing task produces, a diagnosis or review checks against a standard, and
+  only a formal level (or a verification task with mixed methods) claims ground
+  truth. `devils-advocate` becomes `task-type: review` and
+  `voice-drift-detector` becomes `diagnosis`, which is what they each do.
+- **The "What do you need?" buttons filtered to nothing.** They matched on
+  `paper-drafting`, `writing-polish`, `quality-verification` and the other group
+  ids RFC-0002 deleted, so every button hid the whole catalog — silently, since a
+  filter matching zero groups looks the same as one that is merely strict. They
+  name the four live plugins now, and `TestIntentButtons` checks both that every
+  id is live and that no plugin is unreachable.
+- **`scripts/generate-site.py` crashed while 625 tests passed.** The suite
+  checked the data the generators produce and never that running them succeeds;
+  `TestGeneratorsRun` executes both.
+
+### Removed
+
+- **`intuition-formalizer`** — it emits a candidate theorem statement with a
+  self-declared `**Provability**: Hard` rating that nothing computes, which is
+  the fabricated-precision defect this release retired `redundancy-radar` over.
+  A candidate theorem is a claim, and `CONTRIBUTING.md` declines skills that
+  generate claims with nothing to check them. Multi-strength formalization is
+  something a model offers unaided from one line.
+
+**Catalog: 44 skills, 34 public.**
+
 ## [2.0.1] - 2026-08-20
 
 Follow-ups to the 2.0.0 restructure, and the three things RFC-0002 deferred.

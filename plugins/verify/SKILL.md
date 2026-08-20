@@ -12,7 +12,6 @@ Runs a tool or script and compares against something outside itself.
 
 | Skill | Description |
 |-------|-------------|
-| `/intuition-formalizer` | Translate informal mathematical intuitions into formal theorem statements with explicit quantifiers, conditions, and conclusions. Offers multiple formalizations at different strength levels. Trigger: "formalize intuition", "make this precise", "formal version", "state theorem formally", "formalize this claim" |
 | `/paper-references` | Fact-check references in ML paper drafts |
 | `/paper-verify-experiments` | Verify experimental claims in ML papers against source code repositories |
 | `/pre-submission-audit` | Comprehensive pre-submission paper audit combining reviewer simulation, claim verification, clarity analysis, notation checking, and statistical validation |
