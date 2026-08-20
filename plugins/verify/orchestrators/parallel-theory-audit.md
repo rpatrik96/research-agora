@@ -30,12 +30,12 @@ This orchestrator parallelizes theoretical verification by:
 4. Verifying steps, assumptions, and bounds in parallel
 5. Merging results into a unified theory audit report
 
-Expected speedup: **2-3x** for papers with >3 proofs.
+Fan-out bounds wall-clock by the slowest worker rather than the sum. No speedup figure has been measured.
 
 ## Orchestration Pattern
 
 ```
-Phase 1: Setup (Sequential, ~2-3 min)
+Phase 1: Setup (Sequential)
 ├── Check for existing research-state.json
 ├── If missing: invoke state-generator (with theory parsing)
 ├── Load research state, verify theory section populated
@@ -43,7 +43,7 @@ Phase 1: Setup (Sequential, ~2-3 min)
 ├── Compute criticality scores for verification priority
 └── Plan subagent allocation based on proof count and complexity
 
-Phase 2: Fan-Out Stage 1 (Parallel, ~2-3 min)
+Phase 2: Fan-Out Stage 1 (Parallel)
 ├── Proof Decomposition
 │   └── For each proof: spawn proof-step-extractor
 ├── Assumption Analysis
@@ -53,13 +53,13 @@ Phase 2: Fan-Out Stage 1 (Parallel, ~2-3 min)
 └── Bounds Extraction
     └── Spawn bounds-analyst (all bounds)
 
-Phase 3: Fan-Out Stage 2 (Parallel, ~3-5 min, depends on Phase 2)
+Phase 3: Fan-Out Stage 2 (Parallel, depends on Phase 2)
 ├── Step Verification
 │   └── For each extracted step: spawn proof-step-verifier
 └── Derivation Checking
-    └── For each derivation step: spawn derivation-checker
+    └── For each derivation step: spawn proof-step-verifier (level: computation)
 
-Phase 4: Fan-In (Sequential, ~2 min)
+Phase 4: Fan-In (Sequential)
 ├── Collect all subagent results
 ├── Merge proof step verdicts into per-proof assessments
 ├── Cross-reference with dependency graph (criticality weighting)
@@ -120,11 +120,15 @@ Invoke `theorem-dependency-mapper` to build the DAG:
 
 ### 1.3 Subagent Planning
 
-| Paper Size | Proofs | Estimated Time | Max Concurrent |
-|-----------|--------|---------------|----------------|
-| Small | 1-3 | 5-8 min | 5 |
-| Medium | 4-8 | 8-12 min | 8 |
-| Large | 9+ | 12-20 min | 10 |
+| Paper Size | Proofs | Max Concurrent |
+|-----------|--------|----------------|
+| Small | 1-3 | 5 |
+| Medium | 4-8 | 8 |
+| Large | 9+ | 10 |
+
+The concurrency cap is a real constraint and is enforced. Duration is not
+predicted here — it depends on proof length and model latency, and no
+measurement exists to base an estimate on.
 
 ## Phase 2: Fan-Out Stage 1
 
@@ -203,7 +207,7 @@ SPAWN: proof-step-verifier
 For steps classified as algebraic/inequality/gradient computations:
 
 ```
-SPAWN: derivation-checker
+SPAWN: proof-step-verifier
   input:
     derivation_id: [step ID]
     from_expression: [starting expression]
@@ -224,7 +228,7 @@ Not every subagent in this fan-out verifies. `assumption-analyzer` and `bounds-a
 
 | Source | Provenance | How it may appear in the report |
 |---|---|---|
-| `proof-step-verifier`, `derivation-checker`, `cross-referencer` | checked against the paper's own text | as a finding |
+| `proof-step-verifier`, `cross-referencer` | checked against the paper's own text | as a finding |
 | `notation-consistency-checker` | extracted by regex from the source | as a finding |
 | `bounds-analyst` | recalled, unless it retrieved the cited work | as a finding only where it retrieved; otherwise `UNVERIFIED` |
 | `assumption-analyzer` | recalled | as a suggestion, never as a finding |
@@ -398,7 +402,7 @@ Weight issues by theorem criticality from dependency graph:
 | proof-step-extractor | [N] | [N] | [N] | [Xs] |
 | proof-step-verifier | [N] | [N] | [N] | [Xs] |
 | assumption-analyzer | [N] | [N] | [N] | [Xs] |
-| derivation-checker | [N] | [N] | [N] | [Xs] |
+
 | notation-consistency-checker | 1 | [0/1] | [0/1] | [Xs] |
 | bounds-analyst | 1 | [0/1] | [0/1] | [Xs] |
 | theorem-dependency-mapper | 1 | [0/1] | [0/1] | [Xs] |
@@ -406,15 +410,10 @@ Weight issues by theorem criticality from dependency graph:
 
 ## Performance Expectations
 
-| Mode | Setup | Analysis | Merge | Total | Speedup |
-|------|-------|----------|-------|-------|---------|
-| Sequential (proof-auditor) | 1 min | 15 min (5 proofs × 3 min) | 1 min | ~17 min | 1x |
-| Parallel (this orchestrator) | 3 min | 5-7 min (parallel extraction + verification) | 2 min | ~10-12 min | 1.5-1.7x |
-
-Speedup is more modest than empirical parallel-audit because:
-- Phase 3 depends on Phase 2 (two-stage fan-out)
-- Proof verification is more compute-intensive per step
-- Notation and bounds checking are single-agent tasks
+Two-stage fan-out limits how much concurrency helps here: Phase 3 cannot start
+until Phase 2 finishes, so the two stages add rather than overlap. Setup and
+merge stay sequential on top of that. No figure is published, because none was
+measured.
 
 ## Integration
 
@@ -428,7 +427,7 @@ Speedup is more modest than empirical parallel-audit because:
 - `proof-step-extractor` (N instances)
 - `proof-step-verifier` (K instances)
 - `assumption-analyzer` (M instances)
-- `derivation-checker` (J instances)
+
 - `notation-consistency-checker` (1 instance)
 - `bounds-analyst` (1 instance)
 

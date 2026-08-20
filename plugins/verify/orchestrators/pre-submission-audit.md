@@ -75,7 +75,7 @@ All 5 passes run in PARALLEL using the Task tool with concurrent agents. No pass
 
 ## Workflow
 
-### Phase 1: Setup — Paper Ingestion (Sequential, ~1 min)
+### Phase 1: Setup — Paper Ingestion (Sequential)
 
 ```
 1. Locate all LaTeX source files in paper_path
@@ -84,43 +84,49 @@ All 5 passes run in PARALLEL using the Task tool with concurrent agents. No pass
 4. Prepare shared context: full paper text available to all passes
 ```
 
-### Phase 2: Fan-Out — Parallel Diagnostic Passes (Parallel, ~5-8 min)
+### Phase 2: Fan-Out — Parallel Diagnostic Passes (Parallel)
 
 Launch all 5 passes simultaneously using the Task tool (fan-out). Each pass receives the full paper text and venue target.
 
 ```
 SPAWN_TASK: paper-review
   description: "Run paper-review on [paper_path] targeting [venue]. Simulate a skeptical reviewer. Return the full review with recommendation score, strengths, weaknesses, and prioritized fixes."
-  skill: academic/paper-review
+  skill: write/paper-review
   input: Full paper text, venue target
   timeout: 300s
 
 SPAWN_TASK: claim-auditor
   description: "Run claim-auditor on [paper_path] targeting [venue]. Extract all claims, classify by type, grade evidence level (L1-L6), and flag unsupported claims. Return the claim audit report."
-  skill: research-agents/claim-auditor
+  skill: verify/claim-auditor
   input: Full paper text, venue target, code path (if available)
   timeout: 300s
 
 SPAWN_TASK: writing-verify
   description: "Run writing-verify on [paper_path]. Compute readability metrics, flag passive voice, undefined jargon, long sentences, and unclear antecedents. Return the clarity analysis report with score."
-  skill: editorial/writing-verify
+  skill: write/writing-verify
   input: Full paper text
   timeout: 180s
 
 SPAWN_TASK: notation-consistency-checker
   description: "Run notation-consistency-checker on [paper_path]. Build a symbol table, detect overloaded symbols, undefined notation, and convention violations. Return the notation consistency report."
-  skill: research-agents/notation-consistency-checker
+  skill: verify/notation-consistency-checker
   input: Full paper text (LaTeX source)
   timeout: 180s
 
 SPAWN_TASK: statistical-validator
   description: "Run statistical-validator on [paper_path]. Check for missing error bars, significance tests, data leakage, single-seed results, and other statistical issues. Return the statistical validation report."
-  skill: research-agents/statistical-validator
+  skill: verify/statistical-validator
   input: Full paper text, experiment code (if available)
+  timeout: 180s
+
+SPAWN_TASK: audience-checker
+  description: "Run audience-checker on [paper_path] against the venue's reviewer persona. Flag jargon that assumes knowledge the reader will not have, unclear value proposition, and narrative gaps. Return the audience alignment report."
+  skill: write/audience-checker
+  input: Full paper text, target venue
   timeout: 180s
 ```
 
-### Phase 3: Fan-In — Result Collection (Sequential, ~30s)
+### Phase 3: Fan-In — Result Collection (Sequential)
 
 ```
 1. Collect results from all 5 Task completions (fan-in)
@@ -129,7 +135,7 @@ SPAWN_TASK: statistical-validator
 4. Update orchestrator state with collected pass results
 ```
 
-### Phase 4: Synthesis (Sequential, ~2 min)
+### Phase 4: Synthesis (Sequential)
 
 ```
 1. Cross-reference findings across passes (e.g., claim-auditor flags unsupported claim + reviewer also flags it = higher severity)
@@ -255,13 +261,15 @@ The verdict logic and action item severity adapt to these thresholds.
 
 ## Performance Expectations
 
-| Phase | Duration | Notes |
-|-------|----------|-------|
-| Paper ingestion | ~1 min | Depends on paper length |
-| Parallel passes | ~5-8 min | Bounded by slowest pass (usually paper-review or claim-auditor) |
-| Result collection | ~30s | Waiting for stragglers |
-| Synthesis | ~2 min | Cross-referencing and report generation |
-| **Total** | **~8-12 min** | vs ~25-35 min running all 5 sequentially |
+**No timing here has been measured.** Earlier revisions published a phase-by-phase
+table of minutes; nothing produced those numbers.
+
+What holds structurally: the passes run concurrently, so wall-clock is bounded by
+the **slowest pass**, not their sum — and setup and synthesis stay sequential, so
+they set the floor. Every pass is a separate model call, so this trades token
+cost for latency rather than saving both.
+
+Time your own run if you need a figure.
 
 ## Integration Notes
 

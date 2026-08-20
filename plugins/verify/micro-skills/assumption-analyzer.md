@@ -20,6 +20,21 @@ metadata:
 
 > **One-line description**: Deep analysis of a single mathematical assumption — standardness, implications, weaker alternatives, and practical testability.
 
+> [!important] Everything this skill returns is recalled, not retrieved.
+> The convexity, smoothness and noise hierarchies below come from model memory.
+> This skill makes **no external call** — it does not read the paper's proof, it
+> does not look up whether a named condition is standard in the literature, and
+> it cannot check that a proposed weaker alternative actually suffices.
+>
+> **Its output is a suggestion, never a finding.** Report it as
+> `SUGGESTED — unverified` and never as a property of the paper. It must not
+> contribute to a verdict, a criticality score, or a T1–T6 level; a reader has
+> to check the alternative before it is worth anything.
+>
+> `parallel-theory-audit` enforces this at fan-in. `parallel-audit` and direct
+> invocation do not, which is why the rule lives here rather than only in the
+> orchestrator.
+
 ## Purpose
 
 This skill performs deep analysis of a single mathematical assumption. It determines whether the assumption is standard in the field, what it rules out, what weaker alternatives exist, and whether it can be verified in practice. This supports both proof verification (are assumptions reasonable?) and paper strengthening (can we weaken assumptions?).

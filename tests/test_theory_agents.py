@@ -4,7 +4,7 @@ These tests verify the structure, content, and consistency of the new theory age
 - Agents: proof-auditor, bounds-analyst, notation-consistency-checker,
   theorem-dependency-mapper, counterexample-searcher, intuition-formalizer
 - Micro-skills: proof-step-extractor, proof-step-verifier,
-  assumption-analyzer, derivation-checker
+  assumption-analyzer
 - Orchestrator: parallel-theory-audit
 
 Since agents execute in Claude's runtime, we test:
@@ -43,7 +43,6 @@ THEORY_MICRO_SKILLS = [
     "proof-step-extractor",
     "proof-step-verifier",
     "assumption-analyzer",
-    "derivation-checker",
 ]
 
 THEORY_ORCHESTRATORS = [
@@ -148,7 +147,6 @@ class TestTheoryModelAssignment:
         "proof-step-extractor": "sonnet",
         "proof-step-verifier": "opus",
         "assumption-analyzer": "sonnet",
-        "derivation-checker": "opus",
         # Orchestrators
         "parallel-theory-audit": "opus",
     }
@@ -511,12 +509,17 @@ class TestAssumptionAnalyzer:
         assert found >= 2, "Missing most assumption hierarchies"
 
 
-class TestDerivationChecker:
-    """Tests specific to derivation-checker micro-skill."""
+class TestDerivationChecking:
+    """The computation level of proof-step-verifier.
+
+    Was its own micro-skill (derivation-checker) until RFC-0002 merged the two,
+    after their error enums had already drifted apart for the same defects. The
+    content these assert on now lives under `## Level: computation`.
+    """
 
     @pytest.fixture
     def content(self) -> str:
-        return (MICRO_SKILLS_DIR / "derivation-checker.md").read_text()
+        return (MICRO_SKILLS_DIR / "proof-step-verifier.md").read_text()
 
     def test_has_operation_types(self, content: str) -> None:
         """Should list operation types."""

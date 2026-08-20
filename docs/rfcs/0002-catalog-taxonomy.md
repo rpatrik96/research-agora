@@ -78,8 +78,40 @@ The band is the teaching layer: a visitor learns what `formal` and `layered` mea
 - A band goes empty or holds one skill, which is the signal that started this RFC.
 - The internal micro-skill layer is redesigned. Eight remain, consumed only by orchestrators; whether they survive as separate files is deferred here, not settled.
 
-## Deliberately deferred
+## Deferred at the time, settled since
 
-- **The micro-skill layer's fate.** Eight internal micro-skills and three orchestrators are placed inside `verify` unchanged. Collapsing them into their parent agents is a live option and a separate change, because it requires redesigning `parallel-audit` rather than moving files.
-- **`parallel-review`'s continued existence.** It duplicates `pre-submission-audit`'s fan-out and lost its figure pass when `figure-storyteller` turned out to define no `assess` mode.
-- **The orchestration layer's speedup claims** ("2-3x", "18 min → 8-9 min") remain asserted and unmeasured.
+All three were taken up the same day; recorded here so the RFC does not read as
+open work.
+
+- **The micro-skill layer stays, minus one.** Every remaining micro-skill is a
+  live worker of `parallel-audit` or `parallel-theory-audit`, so collapsing the
+  layer would mean redesigning both orchestrators for no gain. Two were genuine
+  near-duplicates: `proof-step-verifier` and `derivation-checker` asked the same
+  question at different levels and their error enums had already drifted —
+  `invalid_exchange` against `invalid_limit_exchange`, `algebraic_error` against
+  `algebraic_manipulation`, for the same defects. They are one skill with a
+  `level: logic | computation` flag and one shared vocabulary. Seven remain.
+- **`assumption-analyzer` carries its own provenance gate now.** The rule that
+  its output is a suggestion and never a finding existed only in
+  `parallel-theory-audit`'s fan-in, so direct invocation — and `parallel-audit`,
+  once it was repointed there — presented recalled hierarchies as findings about
+  the paper. The gate is in the skill file, where every caller meets it.
+- **`parallel-review` is retired.** Nothing invoked it: it appeared only in
+  catalogs, the routing config and "called by" prose, the same profile as the
+  three helpers this release removed. Its one distinct pass, `audience-checker`,
+  moves into `pre-submission-audit`, which now runs six.
+- **The speedup claims are gone rather than measured.** "2-3x", a phase table of
+  minutes, "18 min → 8-9 min", "1.5-1.7x" — none had a measurement behind it.
+  Publishing unverified performance numbers is the defect this marketplace
+  exists to catch, so the numbers are replaced by what actually holds: fan-out
+  bounds wall-clock by the slowest worker rather than the sum, setup and merge
+  stay sequential and set the floor, and every worker is a separate model call,
+  so it trades token cost for latency rather than saving both. Concurrency caps
+  are real constraints and stay. Anyone wanting a figure is told to time their
+  own runs.
+
+## Still deferred
+
+Nothing from this RFC. The `_TEMPLATE.md` scaffolding in `micro-skills/` and
+`orchestrators/` is retained deliberately — it documents the worker and
+orchestrator contracts for contributors.

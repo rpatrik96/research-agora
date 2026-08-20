@@ -45,12 +45,6 @@
         "temperature": 0.2,
         "reason": "Requires broad knowledge of standard assumptions. Balanced capability/cost.",
         "fallback": "opus"
-      },
-      "derivation-checker": {
-        "model": "opus",
-        "temperature": 0.1,
-        "reason": "Algebraic verification requires careful step-by-step checking. High stakes.",
-        "fallback": null
       }
     },
     "orchestrators": {

@@ -28,12 +28,12 @@ This orchestrator parallelizes claim verification by:
 3. Spawning specialized micro-skills for each claim
 4. Merging results into a unified audit report
 
-Expected speedup: **2-3x** for papers with >10 claims.
+Fan-out bounds wall-clock by the slowest worker rather than the sum. No speedup figure is published; see Performance Expectations.
 
 ## Orchestration Pattern
 
 ```
-Phase 1: Setup (Sequential, ~2 min)
+Phase 1: Setup (Sequential)
 ├── Check for existing research-state.json
 ├── If missing: invoke state-generator
 ├── Load research state
@@ -41,7 +41,7 @@ Phase 1: Setup (Sequential, ~2 min)
 ├── Pre-fetch evidence content
 └── Plan subagent allocation
 
-Phase 2: Fan-Out (Parallel, ~3-5 min)
+Phase 2: Fan-Out (Parallel)
 ├── Empirical Claims Group
 │   └── For each claim: spawn evidence-grader
 ├── Theoretical Claims Group
@@ -55,7 +55,7 @@ Phase 2: Fan-Out (Parallel, ~3-5 min)
 └── Assumption Surfacing
     └── For each section: spawn assumption-analyzer
 
-Phase 3: Fan-In (Sequential, ~2 min)
+Phase 3: Fan-In (Sequential)
 ├── Collect all subagent results
 ├── Merge into unified claim registry
 ├── Run cross-referencer for consistency
@@ -393,16 +393,25 @@ FALLBACK: sequential-audit
   Note: Results will be slower but equivalent
 ```
 
-## Performance Expectations
+## What fan-out actually buys
 
-| Phase | Sequential | Parallel | Speedup |
-|-------|------------|----------|---------|
-| Setup | 2 min | 2 min | 1x |
-| Analysis (20 claims) | 15 min | 4-5 min | 3x |
-| Merge & Report | 1 min | 2 min | 0.5x |
-| **Total** | **18 min** | **8-9 min** | **2x** |
+**No speedup figure here has been measured.** Earlier revisions of this file
+published a table of minutes and a "2-3x" multiplier; nothing produced them, and
+an unverified performance claim in a marketplace built on verification is the
+defect it exists to catch.
 
-*Note: Actual times depend on claim complexity and arXiv API latency.*
+What is structurally true, and all that is claimed:
+
+- Fan-out makes wall-clock a function of the **slowest single worker**, not the
+  sum of all of them. With `N` independent items and a concurrency cap of `C`,
+  the analysis phase takes roughly `ceil(N/C)` worker-durations rather than `N`.
+- Setup and merge stay sequential, so they bound how much fan-out can help. On a
+  paper with few claims the coordination cost can exceed the saving.
+- Every worker is a separate model call, so **fan-out spends more tokens than
+  sequential**, not fewer. It trades cost for latency.
+
+If you want a number for your own papers, time a sequential run against a
+parallel one on the same source and record both. Do not quote one from here.
 
 ## Integration Notes
 

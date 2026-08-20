@@ -2,7 +2,7 @@
 name: claim-auditor
 description: |
   Deep verify ALL paper claims with systematic evidence hierarchy.
-  NOW SUPPORTS PARALLEL MODE via parallel-audit orchestrator for 2-3x speedup.
+  Supports parallel mode via the parallel-audit orchestrator.
   Activates when asked to "audit claims", "verify claims", "check paper claims",
   "claim verification", "evidence check", "verify evidence", or "quick evidence scan".
   Includes Quick Mode for rapid brainstorming checks.
@@ -27,7 +27,7 @@ This agent supports two execution modes:
 ```
 If: Paper has >10 claims OR user requests "fast audit" OR "parallel audit"
 Then: Delegate to parallel-audit orchestrator
-Benefits: 2-3x faster, uses specialized micro-skills, better caching
+Trade: lower wall-clock (bounded by the slowest worker, not the sum) at higher token cost. Uses specialized micro-skills and shared caching.
 ```
 
 ### Sequential Mode (Fallback)
@@ -303,7 +303,7 @@ When checking claims during fast iteration or brainstorming sessions, use this l
 
 **Quick Mode Principles:**
 - Single claim focus, not full paper audit
-- Faster assessment (2-3 minutes vs 15-30 minutes)
+- Assesses one claim rather than the whole paper, so it returns sooner
 - Verdict-driven (proceed/caution/stop)
 - Immediate actionable fix provided
 - Use during ideation before claims are written into drafts
