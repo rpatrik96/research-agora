@@ -311,6 +311,25 @@ class TestSkillGroupMapping:
         unmapped = [s["name"] for s in public_skills if s["name"] not in mod.SKILL_GROUP_MAP]
         assert len(unmapped) == 0, f"Public skills without group mapping: {unmapped}"
 
+    def test_no_orphan_group_map_entries(self, registry_skills: list) -> None:
+        """Every SKILL_GROUP_MAP key must still name a live skill.
+
+        The reverse of test_all_public_skills_are_mapped, and the one that was
+        missing: a retired skill's mapping entry survived silently, which is how
+        the February 2026 consolidation (8787d48) left 34 dangling references
+        behind. Retirement should fail here rather than in someone's install.
+        """
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(
+            "generate_site", REPO_ROOT / "scripts" / "generate-site.py"
+        )
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+
+        live = {s["name"] for s in registry_skills}
+        orphans = sorted(set(mod.SKILL_GROUP_MAP) - live)
+        assert not orphans, f"SKILL_GROUP_MAP references retired skills: {orphans}"
+
     def test_no_internal_skills_mapped(self, registry_skills: list) -> None:
         """Internal skills should not appear in the group mapping."""
         import importlib.util
@@ -368,3 +387,78 @@ class TestRegistryMatchesDisk:
             if rel_path not in registry_paths:
                 missing.append(rel_path)
         assert len(missing) == 0, f"Agents on disk but not in registry: {missing}"
+
+
+class TestAdvertisedCounts:
+    """The advertised skill count drifted to four different numbers across nine
+    files (61 / 74 / 80+ / 83) before anyone noticed, because every one of them
+    was hand-typed. registry/index.json stats is the only source of truth, and
+    these tests fail when a public claim stops matching it.
+    """
+
+    # CHANGELOG records what was true at each release, so its counts are history
+    # and must not be rewritten to match today.
+    EXEMPT = {"CHANGELOG.md"}
+
+    def _public_count(self, registry_data: dict) -> int:
+        return registry_data["stats"]["public_skills"]
+
+    def test_readme_badge_matches_registry(self, registry_data: dict) -> None:
+        """The README badge must match registry stats."""
+        import re
+
+        readme = (REPO_ROOT / "README.md").read_text()
+        m = re.search(r"badge/skills-(\d+)", readme)
+        assert m, "README skills badge not found"
+        assert int(m.group(1)) == self._public_count(registry_data), (
+            f"README badge says {m.group(1)} public skills; "
+            f"registry says {self._public_count(registry_data)}"
+        )
+
+    def test_no_stale_skill_counts_in_tracked_markdown(
+        self, registry_data: dict
+    ) -> None:
+        """Any '<N> [public] skills' claim in tracked docs must match the registry."""
+        import re
+        import subprocess
+
+        public = self._public_count(registry_data)
+        total = registry_data["stats"]["total_skills"]
+        allowed = {public, total}
+
+        tracked = subprocess.run(
+            ["git", "ls-files", "*.md"],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout.split()
+
+        pattern = re.compile(r"\b(\d{2,3})\+?\s+(?:public\s+)?(?:AI\s+)?skills\b")
+        stale = []
+        for rel in tracked:
+            if rel in self.EXEMPT:
+                continue
+            for line_no, line in enumerate(
+                (REPO_ROOT / rel).read_text().splitlines(), 1
+            ):
+                for found in pattern.findall(line):
+                    if int(found) not in allowed:
+                        stale.append(f"{rel}:{line_no} claims {found} skills")
+
+        assert not stale, (
+            f"Stale skill counts (registry: {public} public / {total} total):\n"
+            + "\n".join(stale)
+        )
+
+    def test_plugin_count_matches_marketplace(self, registry_data: dict) -> None:
+        """registry plugin count must match the marketplace manifest."""
+        import json
+
+        manifest = json.loads(
+            (REPO_ROOT / ".claude-plugin" / "marketplace.json").read_text()
+        )
+        assert len(manifest["plugins"]) == registry_data["stats"]["plugins"], (
+            f"marketplace.json lists {len(manifest['plugins'])} plugins; "
+            f"registry says {registry_data['stats']['plugins']}"
+        )

@@ -4,6 +4,7 @@
   "stats": {
     "total_skills": 80,
     "public_skills": 61,
+    "deprecated_skills": 2,
     "commands": 39,
     "agents": 22,
     "micro_skills": 12,
@@ -86,11 +87,11 @@
           "name": "literature-synthesizer",
           "plugin": "academic",
           "type": "command",
-          "description": "Write related work sections and discover relevant literature for ML papers. Use when asked to\n\"write related work\", \"find related work\", \"literature review\", \"survey the field\",\n\"find papers on [topic]\", \"build bibliography\", \"survey prior work\", \"position the paper\",\nor \"what papers should I cite\". Supports both guided mode (provide papers to include) and\nautonomous mode (multi-query arXiv searches with paper approval workflow).",
+          "description": "Discover relevant literature for ML papers and build a verified bibliography. Use when asked to\n\"find related work\", \"literature review\", \"survey the field\", \"find papers on [topic]\",\n\"build bibliography\", \"survey prior work\", or \"what papers should I cite\". Runs multi-query\narXiv searches, deduplicates programmatically, and puts every paper through an approval gate\nbefore it reaches your .bib. It finds and verifies papers; it does not write the prose.",
           "model": "sonnet",
           "path": "plugins/academic/commands/literature-synthesizer.md",
           "research-domain": "general",
-          "task-type": "writing",
+          "task-type": "analysis",
           "research-phase": "literature-review",
           "verification-level": "layered",
           "visibility": "public"
@@ -125,13 +126,13 @@
           "name": "paper-abstract",
           "plugin": "academic",
           "type": "command",
-          "description": "Write, improve, or diagnose abstracts for ML conference papers. Use when asked to\n\"write abstract\", \"improve abstract\", \"draft abstract\", \"summarize paper\",\n\"abstract for submission\", \"audit my abstract\", \"diagnose abstract\",\n\"check my abstract\", or \"abstract feedback\". Structures context, problem,\napproach, results, and impact.",
+          "description": "Diagnose abstracts for ML conference papers against structure, venue word\nlimits, specificity, and claim support. Use when asked to \"audit my abstract\",\n\"diagnose abstract\", \"check my abstract\", \"review my abstract\", \"is my\nabstract too long\", or \"abstract feedback\". Scores the five-part structure,\nflags vague or unsupported claims, and returns prioritized fixes. It does not\nwrite abstracts.",
           "model": "sonnet",
           "path": "plugins/academic/commands/paper-abstract.md",
           "research-domain": "general",
-          "task-type": "writing",
+          "task-type": "diagnosis",
           "research-phase": "paper-writing",
-          "verification-level": "none",
+          "verification-level": "heuristic",
           "visibility": "public"
         },
         {
@@ -145,7 +146,10 @@
           "task-type": "writing",
           "research-phase": "paper-writing",
           "verification-level": "none",
-          "visibility": "public"
+          "visibility": "public",
+          "deprecated": true,
+          "superseded-by": "paper-review",
+          "deprecated-in": "1.2.0"
         },
         {
           "name": "paper-experiments",
@@ -171,7 +175,10 @@
           "task-type": "writing",
           "research-phase": "paper-writing",
           "verification-level": "none",
-          "visibility": "public"
+          "visibility": "public",
+          "deprecated": true,
+          "superseded-by": "paper-review",
+          "deprecated-in": "1.2.0"
         },
         {
           "name": "paper-poster",
@@ -203,7 +210,7 @@
           "name": "paper-review",
           "plugin": "academic",
           "type": "command",
-          "description": "Generate critical reviews of ML paper drafts simulating a skeptical reviewer. Use when asked to \"review my paper\", \"find weaknesses\", \"critique this draft\", \"what would reviewers say\", or \"assess my submission\". Provides harsh but constructive feedback to strengthen the paper before submission.",
+          "description": "Generate critical reviews of ML paper drafts simulating a skeptical reviewer. Use when asked to \"review my paper\", \"find weaknesses\", \"critique this draft\", \"what would reviewers say\", \"audit my contributions\", \"check my limitations section\", or \"assess my submission\". Audits contribution claims against the evidence and limitations against the categories reviewers check, then provides harsh but constructive feedback to strengthen the paper before submission.",
           "model": "sonnet",
           "path": "plugins/academic/commands/paper-review.md",
           "research-domain": "general",

@@ -176,12 +176,11 @@
         "label": "Writing papers (drafting, editing, structuring)",
         "tiers": {
           "1": [
-            { "skill": "/paper-abstract", "description": "Write or diagnose abstracts" },
-            { "skill": "/paper-introduction", "description": "Structure and draft introductions" },
+            { "skill": "/paper-abstract", "description": "Diagnose an abstract you wrote" },
             { "skill": "/paper-review", "description": "Simulate skeptical reviewer feedback" }
           ],
           "2": [
-            { "skill": "/paper-abstract", "description": "Write or diagnose abstracts" },
+            { "skill": "/paper-abstract", "description": "Diagnose an abstract you wrote" },
             { "skill": "/paper-review", "description": "Simulate skeptical reviewer feedback" },
             { "skill": "/paper-references", "description": "Verify citations before submission" },
             { "skill": "/editorial-brain", "description": "Context-aware editorial feedback" }
@@ -216,9 +215,7 @@
         { "skill": "/benchmark-scout", "min_tier": 2, "description": "Find relevant benchmarks and baselines" }
       ],
       "writing": [
-        { "skill": "/paper-abstract", "min_tier": 1, "description": "Write or diagnose abstracts" },
-        { "skill": "/paper-introduction", "min_tier": 1, "description": "Structure and draft introductions" },
-        { "skill": "/paper-discussion", "min_tier": 1, "description": "Write discussion sections" },
+        { "skill": "/paper-abstract", "min_tier": 1, "description": "Diagnose an abstract you wrote" },
         { "skill": "/paper-review", "min_tier": 2, "description": "Simulate skeptical reviewer feedback" },
         { "skill": "/paper-slides", "min_tier": 2, "description": "Generate presentation slides from paper" }
       ],

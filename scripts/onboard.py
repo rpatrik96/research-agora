@@ -118,11 +118,11 @@ SKILL_TABLE = {
     "a": {  # Literature
         1: [
             ("/paper-references", "Verify citations against arXiv, Crossref, DBLP"),
-            ("/literature-synthesizer", "Discover and synthesize related work"),
+            ("/literature-synthesizer", "Discover literature and build a verified bibliography"),
         ],
         2: [
             ("/paper-references", "Verify citations against arXiv, Crossref, DBLP"),
-            ("/literature-synthesizer", "Discover and synthesize related work"),
+            ("/literature-synthesizer", "Discover literature and build a verified bibliography"),
             ("/benchmark-scout", "Find relevant benchmarks and baselines"),
         ],
     },
@@ -149,12 +149,12 @@ SKILL_TABLE = {
     },
     "d": {  # Writing
         1: [
-            ("/paper-abstract", "Write or diagnose abstracts"),
-            ("/paper-introduction", "Structure and draft introductions"),
+            ("/paper-abstract", "Diagnose an abstract you wrote"),
             ("/paper-review", "Simulate skeptical reviewer feedback"),
+            ("/argument-autopsy", "Map the paper's claim-evidence structure"),
         ],
         2: [
-            ("/paper-abstract", "Write or diagnose abstracts"),
+            ("/paper-abstract", "Diagnose an abstract you wrote"),
             ("/paper-review", "Simulate skeptical reviewer feedback"),
             ("/paper-references", "Verify citations before submission"),
             ("/editorial-brain", "Context-aware editorial feedback"),

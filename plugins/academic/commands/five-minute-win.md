@@ -165,7 +165,7 @@ Run `/paper-references` again after fixing them to confirm the clean bill of hea
 - `/paper-verify-experiments` — check whether train.py matches what main.tex claims
 - `/choose-skill` — tell me your next task in plain language, I'll find the right skill
 
-**The Agora has 80+ skills.** You don't need to know them all. Just describe what you're trying
+**The Agora has more skills than anyone reads through.** You don't need to know them all. Just describe what you're trying
 to do and run `/choose-skill`.
 ```
 

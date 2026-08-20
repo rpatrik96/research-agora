@@ -1,25 +1,27 @@
 ---
 name: literature-synthesizer
 description: |
-  Write related work sections and discover relevant literature for ML papers. Use when asked to
-  "write related work", "find related work", "literature review", "survey the field",
-  "find papers on [topic]", "build bibliography", "survey prior work", "position the paper",
-  or "what papers should I cite". Supports both guided mode (provide papers to include) and
-  autonomous mode (multi-query arXiv searches with paper approval workflow).
+  Discover relevant literature for ML papers and build a verified bibliography. Use when asked to
+  "find related work", "literature review", "survey the field", "find papers on [topic]",
+  "build bibliography", "survey prior work", or "what papers should I cite". Runs multi-query
+  arXiv searches, deduplicates programmatically, and puts every paper through an approval gate
+  before it reaches your .bib. It finds and verifies papers; it does not write the prose.
 model: sonnet
 disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: literature-review
-  task-type: writing
+  task-type: analysis
   verification-level: layered
 ---
 
-# Literature Synthesizer Agent
+# Literature Discovery
 
-Autonomous multi-query literature discovery with paper approval workflow. Supports both guided mode (provide specific papers to include) and autonomous mode (multi-query arXiv search with paper approval).
+Multi-query literature discovery with a paper approval gate and a verified bibliography at the end. Supports guided mode (you name the papers) and autonomous mode (the skill searches and you approve).
 
-> **Hybrid**: Paper discovery uses MCP tools (arXiv API) as structured searches - always execute these first. Deduplication is done programmatically. LLM is used for query generation, relevance ranking, and narrative synthesis.
+> **Hybrid**: Paper discovery uses MCP tools (arXiv API) as structured searches - always execute these first. Deduplication is done programmatically. LLM is used for query generation and relevance ranking only.
+
+**This skill does not write your related work section.** Positioning a paper against its field is an argument about what matters and why, and it is the argument reviewers read most closely — so the prose stays yours. What the skill gives you is the part a search engine does better than memory: real papers, deduplicated, each one confirmed to exist, with BibTeX that resolves. Run `/paper-review` on the section once you have written it.
 
 ## Workflow
 
@@ -28,7 +30,7 @@ Autonomous multi-query literature discovery with paper approval workflow. Suppor
 3. **Script: Deduplicate** - Remove duplicates by arXiv ID programmatically
 4. **LLM: Rank and organize** - Assess relevance, organize by theme
 5. **Present for approval**: Show top 30-50 papers organized by theme
-6. **LLM: Synthesize** - Generate related work narrative with BibTeX from approved papers
+6. **Generate BibTeX** - Emit entries for the approved papers, then verify every one via `paper-references` before handing them over
 
 ## Before Starting
 
@@ -132,53 +134,6 @@ Please review and indicate which papers to include:
 - Papers to definitely exclude?
 ```
 
-## Related Work Synthesis
-
-After receiving approval, generate the related work section:
-
-### Structure Options
-
-**Option A: By Theme (Recommended for methods papers)**
-
-```latex
-\section{Related Work}
-\label{sec:related}
-
-\paragraph{Self-Supervised Learning.}
-Learning representations without labels has a long history~\citep{hinton2006reducing}.
-Recent advances in contrastive learning~\citep{chen2020simclr,he2020moco} have
-achieved remarkable success. Our work builds on these foundations but addresses
-the specific challenge of [your contribution].
-
-\paragraph{[Theme 2].}
-[2-3 sentences with citations...]
-
-\paragraph{[Theme 3].}
-[2-3 sentences with citations...]
-```
-
-**Option B: By Approach (for comparative studies)**
-
-```latex
-\section{Related Work}
-
-\paragraph{Contrastive Methods.}
-Methods based on contrastive learning include SimCLR~\citep{chen2020simclr},
-MoCo~\citep{he2020moco}, and BYOL~\citep{grill2020byol}. While effective,
-these require [limitation]. Our approach differs by [contribution].
-
-\paragraph{Generative Methods.}
-An alternative line uses generative models~\citep{...}. However, [comparison].
-```
-
-### Writing Guidelines
-
-1. **Start broad, narrow progressively**: General area -> specific problem -> your work
-2. **End each paragraph with differentiation**: "Unlike [prior], our method [advantage]"
-3. **Be fair**: Acknowledge strengths of prior work before noting limitations
-4. **Balance citations**: Mix seminal works (5+ years old) with recent (last 2 years)
-5. **Target density**: 15-30 citations, 2-4 per paragraph
-
 ## BibTeX Generation
 
 Generate entries for all approved papers:
@@ -246,19 +201,17 @@ for paper in all_results:
 1. **Search Summary**: Queries run, result counts, filtering stats
 2. **Paper Catalog**: All discovered papers organized by theme
 3. **Approval Checklist**: Interactive list for user selection
-4. **Related Work LaTeX**: Publication-ready section
-5. **BibTeX Entries**: Complete bibliography entries
-6. **Coverage Analysis**: Topics well-covered vs. gaps
+4. **BibTeX Entries**: Complete bibliography entries, each verified via `paper-references`
+5. **Coverage Analysis**: Topics well-covered vs. gaps
 
 ## Verification Checklist
 
 Before finalizing:
 
 - [ ] All approved papers have BibTeX entries
-- [ ] Each paragraph ends with differentiation statement
 - [ ] Mix of seminal and recent works
-- [ ] No self-citations without acknowledgment
 - [ ] Citation style matches venue requirements
+- [ ] **`paper-references` run over the generated entries, and every entry resolves**
 - [ ] All arXiv IDs verified as valid
 - [ ] No hallucinated paper titles or authors
 
@@ -274,5 +227,5 @@ Before finalizing:
 
 ## Skill Dependencies
 
-This skill can invoke:
-- `paper-references` - For BibTeX verification and updating
+This skill **must** invoke before returning:
+- `paper-references` - Verifies every generated entry against arXiv, Crossref, DBLP and Semantic Scholar. A bibliography this skill has not put through that check is not a deliverable, because "the search returned it" is not the same claim as "the paper exists as cited".

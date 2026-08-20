@@ -130,17 +130,20 @@
                     </summary>
                     <div class="group-grid">
                         {% for skill in group_data.skills %}
-                        <article class="skill-card"
+                        <article class="skill-card{% if skill.get('deprecated') %} is-deprecated{% endif %}"
                             data-plugin="{{ skill.plugin }}"
                             data-task-type="{{ skill['task-type'] }}"
                             data-verification="{{ skill['verification-level'] }}"
                             data-visibility="{{ skill.get('visibility', 'public') }}"
                             data-name="{{ skill.name }}"
+                            data-deprecated="{{ '1' if skill.get('deprecated') else '0' }}"
+                            data-superseded-note="{% if skill.get('superseded-by') %}Deprecated — use /{{ skill['superseded-by'] }} instead.{% endif %}"
                             data-description="{{ skill.description }}">
 
                             <div class="card-header">
                                 <h3>{{ skill.name }}</h3>
                                 <span class="badge badge-plugin">{{ skill.plugin }}</span>
+                                {% if skill.get('deprecated') %}<span class="badge badge-deprecated" title="Deprecated{% if skill.get('deprecated-in') %} in {{ skill['deprecated-in'] }}{% endif %}{% if skill.get('superseded-by') %} — use /{{ skill['superseded-by'] }} instead{% endif %}">deprecated</span>{% endif %}
                             </div>
 
                             <div class="card-description">
@@ -176,17 +179,20 @@
                     <p class="internal-desc">These are building blocks used internally by other skills. Most users won't need to invoke them directly.</p>
                     <div class="group-grid">
                         {% for skill in internal_skills %}
-                        <article class="skill-card skill-card-internal"
+                        <article class="skill-card skill-card-internal{% if skill.get('deprecated') %} is-deprecated{% endif %}"
                             data-plugin="{{ skill.plugin }}"
                             data-task-type="{{ skill['task-type'] }}"
                             data-verification="{{ skill['verification-level'] }}"
                             data-visibility="internal"
                             data-name="{{ skill.name }}"
+                            data-deprecated="{{ '1' if skill.get('deprecated') else '0' }}"
+                            data-superseded-note="{% if skill.get('superseded-by') %}Deprecated — use /{{ skill['superseded-by'] }} instead.{% endif %}"
                             data-description="{{ skill.description }}">
 
                             <div class="card-header">
                                 <h3>{{ skill.name }}</h3>
                                 <span class="badge badge-type">{{ skill.type }}</span>
+                                {% if skill.get('deprecated') %}<span class="badge badge-deprecated">deprecated</span>{% endif %}
                             </div>
 
                             <div class="card-description">

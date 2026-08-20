@@ -1,7 +1,7 @@
 {
   "name": "research-agents",
   "description": "Specialized research analysis agents for critical thinking, evidence verification, synthesis, and parallel paper analysis",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "author": {
     "name": "rpatrik96",
     "email": "prmedia17@gmail.com"
@@ -96,11 +96,25 @@
     },
     "evidence_hierarchy": {
       "description": "L1-L6 evidence grading with venue-specific standards",
-      "levels": ["CODE_VERIFIED", "REPRODUCIBLE_EXPERIMENT", "PAPER_EVIDENCE", "CITATION_SUPPORT", "LOGICAL_ARGUMENT", "ASSERTION"]
+      "levels": [
+        "CODE_VERIFIED",
+        "REPRODUCIBLE_EXPERIMENT",
+        "PAPER_EVIDENCE",
+        "CITATION_SUPPORT",
+        "LOGICAL_ARGUMENT",
+        "ASSERTION"
+      ]
     },
     "theoretical_evidence_hierarchy": {
       "description": "T1-T6 theoretical proof grading for mathematical papers",
-      "levels": ["FORMALLY_VERIFIED", "COMPLETE_PROOF", "PROOF_WITH_GAPS", "PROOF_SKETCH", "INFORMAL_ARGUMENT", "THEOREM_ASSERTION"]
+      "levels": [
+        "FORMALLY_VERIFIED",
+        "COMPLETE_PROOF",
+        "PROOF_WITH_GAPS",
+        "PROOF_SKETCH",
+        "INFORMAL_ARGUMENT",
+        "THEOREM_ASSERTION"
+      ]
     }
   }
 }

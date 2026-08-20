@@ -357,6 +357,20 @@ header h1 {
 .badge-layered { background: var(--blue-light); color: var(--blue); }
 .badge-none { background: var(--gray-light); color: var(--gray); }
 .badge-community { background: var(--purple-light); color: var(--purple); }
+.badge-deprecated { background: var(--red-light); color: var(--red); font-weight: 600; }
+
+/* A deprecated skill still works, so it stays legible and stays findable --
+   it is dimmed to say "do not start here", not hidden to pretend it is gone. */
+.skill-card.is-deprecated { opacity: 0.62; }
+.skill-card.is-deprecated:hover,
+.skill-card.is-deprecated:focus-within { opacity: 1; }
+.skill-card.is-deprecated .card-description::after {
+    content: attr(data-superseded-note);
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.85em;
+    color: var(--red);
+}
 
 .badge-opus { background: var(--orange-light); color: var(--orange); }
 .badge-sonnet { background: var(--blue-light); color: var(--blue); }

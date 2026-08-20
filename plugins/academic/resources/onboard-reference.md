@@ -103,9 +103,8 @@ Select 3-5 skills from this mapping based on the user's primary task and tier:
 **Writing:**
 | Skill | Tier | Description |
 |-------|------|-------------|
-| `/paper-abstract` | 1+ | Write or diagnose abstracts |
-| `/paper-introduction` | 1+ | Structure and draft introductions |
-| `/paper-discussion` | 1+ | Write discussion sections |
+| `/paper-abstract` | 1+ | Diagnose an abstract you wrote |
+| `/argument-autopsy` | 1+ | Map the paper's claim-evidence structure |
 | `/paper-review` | 2+ | Simulate skeptical reviewer feedback |
 | `/paper-slides` | 2+ | Generate presentation slides from paper |
 

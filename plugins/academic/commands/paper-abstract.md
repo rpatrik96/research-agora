@@ -1,44 +1,32 @@
 ---
 name: paper-abstract
 description: |
-  Write, improve, or diagnose abstracts for ML conference papers. Use when asked to
-  "write abstract", "improve abstract", "draft abstract", "summarize paper",
-  "abstract for submission", "audit my abstract", "diagnose abstract",
-  "check my abstract", or "abstract feedback". Structures context, problem,
-  approach, results, and impact.
+  Diagnose abstracts for ML conference papers against structure, venue word
+  limits, specificity, and claim support. Use when asked to "audit my abstract",
+  "diagnose abstract", "check my abstract", "review my abstract", "is my
+  abstract too long", or "abstract feedback". Scores the five-part structure,
+  flags vague or unsupported claims, and returns prioritized fixes. It does not
+  write abstracts.
 model: sonnet
 disable-model-invocation: true
 metadata:
   research-domain: general
   research-phase: paper-writing
-  task-type: writing
-  verification-level: none
+  task-type: diagnosis
+  verification-level: heuristic
 ---
 
-# Abstract Writing
+# Abstract Diagnosis
 
-> **LLM-required**: Writing abstracts requires creative language composition and understanding of paper content. No script alternative.
+> **LLM-required**: Diagnosing an abstract requires reading it against the paper it summarizes. No script alternative.
 
-Generate compelling abstracts for ML conference papers (NeurIPS, ICML, ICLR, AAAI) that capture the essence of the work and attract readers.
+Audit an existing abstract for an ML conference paper (NeurIPS, ICML, ICLR, AAAI) and return what to fix, ranked. **This skill diagnoses; it does not write.** The abstract is where a paper stakes its claims, and a claim you did not write is a claim you have not checked — so the author writes, and this skill tells them where it breaks.
 
-## Mode Selection
+Ask for the abstract and the target venue. If the paper draft is available, read it too: half the useful findings come from claims the abstract makes that the paper does not support.
 
-**If the user provides an existing abstract**, activate **Diagnostic Mode** (see below).
+## Workflow
 
-**If the user asks to write/generate an abstract**, use the **Generation Workflow** (below).
-
-## Generation Workflow
-
-1. **Read the paper**: Understand contributions, methods, and key results
-2. **Identify the core message**: What is the single most important takeaway?
-3. **Extract key results**: Find specific, quantitative claims
-4. **Draft the abstract**: Follow the 5-part structure
-5. **Compress and refine**: Ensure every word earns its place
-6. **Verify claims**: Check that all statements are supported in the paper
-
-## Diagnostic Mode
-
-When the user provides an existing abstract for review, analyze it systematically:
+Work the abstract systematically rather than reacting to whatever stands out first.
 
 ### Diagnostic Checklist
 
@@ -192,14 +180,6 @@ For an abstract with issues:
 ❌ **Major rewrite needed** - Add problem statement, quantify all results, compress to meet word limit
 ```
 
-## Before Writing
-
-Read these sections to understand the paper:
-- Introduction - Problem statement and contributions
-- Methods - Core approach and key innovations
-- Experiments - Main results and comparisons
-- Conclusion - Takeaways and impact
-
 ## Abstract Structure (5-Part Model)
 
 The abstract should flow through these components in ~150-300 words:
@@ -286,104 +266,6 @@ We propose using CLIP embeddings with LoRA fine-tuning and DPO alignment.
 We propose using vision-language embeddings with parameter-efficient fine-tuning.
 ```
 
-## Strong Opening Patterns
-
-```latex
-% Problem urgency
-Despite advances in [area], [challenge] remains a fundamental obstacle.
-
-% Practical importance
-As [systems] are increasingly deployed in [context], [property] becomes critical.
-
-% Gap identification
-While [existing approaches] excel at [X], they fail to [Y].
-
-% Surprising observation
-We discover that [counterintuitive finding], which enables [new approach].
-
-% Direct statement
-We present [method], a [description] for [task].
-```
-
-## Result Presentation Patterns
-
-```latex
-% Comparative improvement
-[Method] outperforms [best baseline] by [X%] on [benchmark] while
-reducing [cost] by [Y%].
-
-% State-of-the-art claim
-Experiments demonstrate state-of-the-art results on [benchmark],
-achieving [specific result].
-
-% Multiple benchmarks
-Across [N] benchmarks, [method] consistently achieves [outcome],
-with improvements of [range].
-
-% Efficiency gain
-[Method] achieves comparable performance to [baseline] while
-requiring [fraction] of the [computation/data/parameters].
-
-% Novel capability
-Unlike prior methods, [approach] enables [new capability] without
-requiring [removed limitation].
-```
-
-## Abstract Templates
-
-### Template 1: Method Paper
-
-```latex
-\begin{abstract}
-[Problem area] is crucial for [application], yet existing methods
-[limitation]. We propose [Method], a [description] that [key property].
-Our key insight is [observation], which allows us to [capability].
-[Method] consists of [brief technical description]. Experiments on
-[benchmarks] show that [Method] achieves [result], outperforming
-[baselines] by [margin]. We further demonstrate [secondary finding]
-through [analysis type]. Code is available at [url].
-\end{abstract}
-```
-
-### Template 2: Analysis/Understanding Paper
-
-```latex
-\begin{abstract}
-Understanding [phenomenon] is essential for [reason]. In this work,
-we provide a [comprehensive/systematic] analysis of [subject]. We
-discover that [key finding 1], and show that [key finding 2].
-Our analysis reveals [insight], suggesting that [implication].
-We validate our findings on [benchmarks/settings], demonstrating
-[practical consequence]. These insights [impact statement].
-\end{abstract}
-```
-
-### Template 3: Theory Paper
-
-```latex
-\begin{abstract}
-We study [problem] in [setting]. Prior work [limitation of existing
-theory]. We prove that [main result], providing the first [type of
-guarantee] for [setting]. Our proof introduces [technique], which
-may be of independent interest. We complement our theory with
-experiments showing [empirical finding]. Our results imply [practical
-implication].
-\end{abstract}
-```
-
-### Template 4: Application Paper
-
-```latex
-\begin{abstract}
-[Application domain] presents unique challenges including [challenge 1]
-and [challenge 2]. We introduce [System/Method], a [description] for
-[task]. [System] combines [components] to enable [capability].
-On [benchmark/real-world data], [System] achieves [result],
-representing [improvement] over [prior solutions]. We deploy [System]
-in [real-world context], demonstrating [practical impact].
-\end{abstract}
-```
-
 ## Common Mistakes to Avoid
 
 1. **Too vague**: "We achieve good results" → Give specific numbers
@@ -440,41 +322,4 @@ We propose [method].
 X is important. However, current methods fail at Y.
 % After:
 While X is important, current methods fail at Y.
-```
-
-## Output Format
-
-When asked to write or improve an abstract, provide:
-
-### 1. The Abstract
-
-```latex
-\begin{abstract}
-[Complete abstract text]
-\end{abstract}
-```
-
-### 2. Word Count
-
-```
-Word count: [N] words
-```
-
-### 3. Verification Notes (if improving)
-
-```markdown
-## Changes Made
-- [Change 1]: [Reason]
-- [Change 2]: [Reason]
-
-## Claims to Verify
-- "[Claim]" - check [section] for support
-```
-
-### 4. Alternative Openings (optional)
-
-```markdown
-## Alternative Openings
-1. [Different hook approach]
-2. [Different hook approach]
 ```

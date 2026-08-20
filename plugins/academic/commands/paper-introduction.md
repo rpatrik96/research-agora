@@ -8,9 +8,17 @@ metadata:
   research-phase: paper-writing
   task-type: writing
   verification-level: none
+  deprecated: true
+  superseded-by: paper-review
+  deprecated-in: "1.2.0"
 ---
 
 # Introduction Section
+
+> [!warning] Deprecated in 1.2.0 — use `/paper-review` instead
+> An introduction is where a paper frames its novelty and states its contributions. `docs/concepts.md` puts both in the Protect column — the judgment a researcher keeps — and `docs/verification.md` records that novelty has no automated oracle, so nothing here could check what it wrote. The contribution and overclaiming rubrics that made this skill worth running now live in `/paper-review`, which audits an introduction you wrote rather than writing one for you.
+>
+> This skill still works and will be removed in a future release.
 
 > **LLM-required**: Writing introductions requires narrative composition and contextual understanding. No script alternative.
 

@@ -17,7 +17,7 @@
 
 1. - [ ] Rewrite bio: `Building AI research infrastructure · Research Agora: 61 open-source skills for ML research · citation verification · adversarial review · proof auditing · ICLR 2026`
 2. - [ ] Change link in bio to `rpatrik96.github.io/research-agora`
-3. - [ ] Upload banner image (see `dissemination/assets/twitter-banner.png`) — 1500x500, dark background, "61 AI skills for ML research" + site URL
+3. - [ ] Upload banner image (see `dissemination/assets/twitter-banner.png`) — 1500x500, dark background, "AI skills for ML research" + site URL
 4. - [ ] Subscribe to X Premium if not already (6x median impression multiplier)
 5. - [ ] Pin launch thread (Post 1) immediately after posting
 6. - [ ] Move URL out of Post 1 body (keep only in bio + Post 6) to avoid 30-50% reach penalty
@@ -51,7 +51,7 @@ Three posts, no links in post body (LinkedIn suppresses reach on external links)
 
 1. **Week -2** — Citation hallucination problem post. Describe the failure mode concretely (LLM confidently cites a paper that doesn't exist; reviewer trusts it). End with a question to drive comments. No links.
 2. **Week -1** — Evidence hierarchy post. Personal voice: "I spent six months thinking about how to grade AI claims in research. Here's the framework I landed on." Walk through L1-L6 briefly. No links.
-3. **3 days before** — Teaser post: "61 skills. 6 plugins. One install command. More soon." Short, no links.
+3. **3 days before** — Teaser post: "Five plugins. One install command. Verification, not generation. More soon." Short, no links.
 
 See `dissemination/social-copy.md` for full drafts.
 
