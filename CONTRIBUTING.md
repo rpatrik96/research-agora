@@ -72,7 +72,7 @@ anyone who wants it can lift it.
 
 ### 2. Create the Skill File
 
-Use the scaffolding tool or create a markdown file manually in `plugins/{category}/commands/skill-name.md`:
+Use the scaffolding tool or create a markdown file manually in `plugins/{plugin}/commands/skill-name.md`:
 
 ```bash
 # Scaffolding tool (recommended)
@@ -135,7 +135,7 @@ Agents are specialized subagents for complex multi-step tasks.
 
 ### 1. Create the Agent File
 
-Create a markdown file in `plugins/research-agents/agents/agent-name.md`:
+Create a markdown file in `plugins/verify/agents/agent-name.md`:
 
 ```yaml
 ---

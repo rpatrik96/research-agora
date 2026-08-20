@@ -42,7 +42,6 @@
                     <p class="subtitle">AI skills for researchers, by researchers.</p>
                     <div class="stats">
                         <span class="stat"><strong>{{ stats.active_public_skills }}</strong> skills</span>
-                        <span class="stat"><strong>{{ stats.groups }}</strong> workflows</span>
                         <span class="stat"><strong>{{ stats.plugins }}</strong> plugins</span>
                         <span class="stat"><strong>{{ stats.benchmarks }}</strong> benchmarks</span>
                     </div>
@@ -128,8 +127,13 @@
                         <span class="group-count">{{ group_data.skills|length }}</span>
                         <p class="group-desc">{{ group_data.description }}</p>
                     </summary>
+                    {% for band in group_data.bands %}
+                    <div class="band" data-band="{{ band.id }}">
+                        <h3 class="band-label">{{ band.label }}</h3>
+                        <p class="band-blurb">{{ band.blurb }}</p>
+                    </div>
                     <div class="group-grid">
-                        {% for skill in group_data.skills %}
+                        {% for skill in band.skills %}
                         <article class="skill-card"
                             data-plugin="{{ skill.plugin }}"
                             data-task-type="{{ skill['task-type'] }}"
@@ -167,6 +171,7 @@
                         </article>
                         {% endfor %}
                     </div>
+                    {% endfor %}
                 </details>
                 {% endfor %}
 

@@ -1,0 +1,36 @@
+{
+  "name": "discover",
+  "version": "1.0.0",
+  "description": "Find out what exists and decide what to do: arXiv literature discovery with a verified bibliography, benchmark and baseline scouting, checkpoint-gated brainstorming, and a navigator that routes you to the right skill.",
+  "author": {
+    "name": "rpatrik96",
+    "email": "prmedia17@gmail.com"
+  },
+  "homepage": "https://github.com/rpatrik96/research-agora",
+  "repository": "https://github.com/rpatrik96/research-agora",
+  "license": "MIT",
+  "keywords": [
+    "literature",
+    "arxiv",
+    "bibliography",
+    "benchmarks",
+    "brainstorming",
+    "discovery"
+  ],
+  "components": {
+    "commands": {
+      "items": [
+        "benchmark-scout",
+        "brainstorm",
+        "literature-synthesizer",
+        "navigator",
+        "onboard"
+      ]
+    },
+    "micro-skills": {
+      "items": [
+        "novelty-checker"
+      ]
+    }
+  }
+}

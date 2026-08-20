@@ -25,95 +25,59 @@ TEMPLATE_DIR = SITE_DIR / "templates"
 STATIC_DIR = SITE_DIR / "static"
 OUTPUT_DIR = SITE_DIR / "output"
 
-# Skill → Group mapping (centralized, not in frontmatter)
-SKILL_GROUP_MAP = {
-    # Ideation & Decisions
-    "brainstorm": "ideation",
+# Groups derive from plugin membership (RFC-0002). There is no hand-maintained
+# skill→group table any more, so a retired skill cannot leave a mapping entry
+# behind — the failure that left 34 dangling references after the February 2026
+# consolidation and that test_no_orphan_group_map_entries had to guard against.
+def skill_group(skill: dict) -> str:
+    """A skill's browse group is its plugin."""
+    return skill["plugin"]
 
-    # Paper Drafting
-    "paper-abstract": "paper-drafting",
-    "paper-experiments": "paper-drafting",
 
-    # Quality & Verification
-    "paper-review": "quality-verification",
-    "paper-references": "quality-verification",
-    "paper-verify-experiments": "quality-verification",
-    "claim-auditor": "quality-verification",
-    "statistical-validator": "quality-verification",
-    "pre-submission-audit": "quality-verification",
+# Within a group, skills sort into bands by what they can actually check.
+# The band is the teaching layer: a visitor learns what the verification levels
+# mean by seeing which skills sit under which heading.
+VERIFICATION_BANDS = [
+    (
+        "checks-ground-truth",
+        "Checks against ground truth",
+        "Runs a tool or script and compares against something outside itself.",
+        {"formal", "layered"},
+    ),
+    (
+        "checks-rubric",
+        "Checks against a rubric",
+        "Applies a stated standard. No external oracle — you are the oracle.",
+        {"heuristic"},
+    ),
+    (
+        "produces",
+        "Produces something for you to check",
+        "Generates an artifact or a candidate. Verifying it is your job.",
+        {"none"},
+    ),
+]
 
-    # Theory Tools
-    "proof-auditor": "theory-tools",
-    "bounds-analyst": "theory-tools",
-    "counterexample-searcher": "theory-tools",
-    "intuition-formalizer": "theory-tools",
-    "notation-consistency-checker": "theory-tools",
-    "theorem-dependency-mapper": "theory-tools",
 
-    # Literature & Discovery
-    "literature-synthesizer": "literature-discovery",
-    "benchmark-scout": "literature-discovery",
-    "experiment-tracker": "literature-discovery",
-    "devils-advocate": "literature-discovery",
-
-    # Writing Polish
-    "latex-debugger": "writing-polish",
-    "latex-build": "writing-polish",
-    "latex-consistency": "writing-polish",
-    "latex-sync-annotate": "writing-polish",
-    "latex-sync-setup": "writing-polish",
-    "latex-sync-verify": "writing-polish",
-    "audience-checker": "writing-polish",
-
-    # Dissemination
-    "figure-storyteller": "dissemination",
-
-    # Submission & Rebuttal
-    "review-triage": "submission-rebuttal",
-    "reviewer-response-generator": "submission-rebuttal",
-    "openreview-submission": "submission-rebuttal",
-    "artifact-packager": "submission-rebuttal",
-
-    # Development & Automation
-    "code-simplify": "development",
-    "htcondor": "development",
-
-    # Documents & Figures
-    "tikz-figures": "documents-figures",
-
-    # Editorial Intelligence
-    "argument-autopsy": "editorial",
-    "writing-diagnosis": "editorial",
-    "writing-verify": "editorial",
-
-    # Research Agents (public)
-    "voice-drift-detector": "writing-polish",
-
-    # Onboarding & Navigation
-    "onboard": "development",
-    "choose-skill": "development",
-    "five-minute-win": "development",
-    "whats-new": "development",
-    "audit-my-setup": "development",
-    "agora-feedback": "development",
-}
+def skill_band(skill: dict) -> str:
+    """Return the band id for a skill, from its verification level."""
+    level = skill.get("verification-level", "none")
+    for band_id, _label, _blurb, levels in VERIFICATION_BANDS:
+        if level in levels:
+            return band_id
+    return "produces"
 
 # Community feedback badges render only at or above this many unique
 # installations (k-anonymity floor, RFC-0001 §11).
 FEEDBACK_MIN_INSTALLATIONS = 3
 
 # Display order for groups
+# The four plugins, in the order a researcher meets them.
 GROUP_ORDER = [
-    "paper-drafting",
-    "quality-verification",
-    "theory-tools",
-    "literature-discovery",
-    "writing-polish",
-    "editorial",
-    "dissemination",
-    "submission-rebuttal",
-    "development",
-    "documents-figures",
+    "discover",
+    "write",
+    "verify",
+    "toolkit",
 ]
 
 
@@ -183,14 +147,30 @@ def group_skills(skills: list, groups_meta: dict) -> OrderedDict:
             "skills": [],
         }
 
-    # Assign skills to groups
+    # Assign skills to groups by plugin, then band them within the group.
     ungrouped = []
     for skill in skills:
-        group_id = SKILL_GROUP_MAP.get(skill["name"])
-        if group_id and group_id in grouped:
+        group_id = skill_group(skill)
+        if group_id in grouped:
             grouped[group_id]["skills"].append(skill)
         else:
             ungrouped.append(skill)
+
+    band_order = {b[0]: i for i, b in enumerate(VERIFICATION_BANDS)}
+    for group in grouped.values():
+        group["skills"].sort(
+            key=lambda s: (band_order.get(skill_band(s), 99), s["name"])
+        )
+        group["bands"] = [
+            {
+                "id": bid,
+                "label": label,
+                "blurb": blurb,
+                "skills": [s for s in group["skills"] if skill_band(s) == bid],
+            }
+            for bid, label, blurb, _levels in VERIFICATION_BANDS
+        ]
+        group["bands"] = [b for b in group["bands"] if b["skills"]]
 
     # Remove empty groups
     grouped = OrderedDict(

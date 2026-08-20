@@ -1,0 +1,94 @@
+{
+  "name": "verify",
+  "version": "1.0.0",
+  "description": "Check what the draft claims: citation verification via bibtexupdater, paper-versus-code consistency, statistical rigor, proof auditing, notation consistency, and parallel audit orchestration. Every skill here checks something against a source outside itself.",
+  "author": {
+    "name": "rpatrik96",
+    "email": "prmedia17@gmail.com"
+  },
+  "homepage": "https://github.com/rpatrik96/research-agora",
+  "repository": "https://github.com/rpatrik96/research-agora",
+  "license": "MIT",
+  "keywords": [
+    "verification",
+    "citations",
+    "claims",
+    "proofs",
+    "statistics",
+    "reproducibility",
+    "agents"
+  ],
+  "features": {
+    "parallel_execution": {
+      "description": "Fan-out/fan-in pattern for 2-3x speedup on large papers",
+      "enabled": true
+    },
+    "research_state": {
+      "description": "Structured JSON intermediate representation for caching",
+      "schema": "schemas/research-state.schema.json"
+    },
+    "evidence_hierarchy": {
+      "description": "L1-L6 evidence grading with venue-specific standards",
+      "levels": [
+        "CODE_VERIFIED",
+        "REPRODUCIBLE_EXPERIMENT",
+        "PAPER_EVIDENCE",
+        "CITATION_SUPPORT",
+        "LOGICAL_ARGUMENT",
+        "ASSERTION"
+      ]
+    },
+    "theoretical_evidence_hierarchy": {
+      "description": "T1-T6 theoretical proof grading for mathematical papers",
+      "levels": [
+        "FORMALLY_VERIFIED",
+        "COMPLETE_PROOF",
+        "PROOF_WITH_GAPS",
+        "PROOF_SKETCH",
+        "INFORMAL_ARGUMENT",
+        "THEOREM_ASSERTION"
+      ]
+    }
+  },
+  "components": {
+    "agents": {
+      "items": [
+        "bounds-analyst",
+        "claim-auditor",
+        "counterexample-searcher",
+        "devils-advocate",
+        "intuition-formalizer",
+        "notation-consistency-checker",
+        "proof-auditor",
+        "state-generator",
+        "statistical-validator",
+        "theorem-dependency-mapper"
+      ]
+    },
+    "commands": {
+      "items": [
+        "paper-references",
+        "paper-verify-experiments"
+      ]
+    },
+    "micro-skills": {
+      "items": [
+        "assumption-analyzer",
+        "citation-verifier",
+        "cross-referencer",
+        "derivation-checker",
+        "evidence-grader",
+        "proof-step-extractor",
+        "proof-step-verifier"
+      ]
+    },
+    "orchestrators": {
+      "items": [
+        "parallel-audit",
+        "parallel-review",
+        "parallel-theory-audit",
+        "pre-submission-audit"
+      ]
+    }
+  }
+}

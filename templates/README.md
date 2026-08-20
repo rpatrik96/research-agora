@@ -32,10 +32,10 @@ research-agora/
 ```bash
 cd /path/to/research-agora/templates
 
-# For slides (outputs to plugins/academic/templates/slides/)
+# For slides (outputs to plugins/write/templates/slides/)
 python analyze_template.py /path/to/your/template.pptx --output slides --name "My Template"
 
-# For posters (outputs to plugins/academic/templates/posters/)
+# For posters (outputs to plugins/write/templates/posters/)
 python analyze_template.py /path/to/your/poster.pptx --output posters --name "Conference Poster"
 ```
 
@@ -47,7 +47,7 @@ This will:
 
 ### Manual Method
 
-1. Create directory: `plugins/academic/templates/slides/{template-name}/` (or `plugins/academic/templates/posters/`)
+1. Create directory: `plugins/write/templates/slides/{template-name}/` (or `plugins/write/templates/posters/`)
 2. Copy your `.pptx` file there
 3. Create `STYLE.md` with design notes (see example below)
 

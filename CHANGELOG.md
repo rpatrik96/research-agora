@@ -1,5 +1,67 @@
 # Changelog
 
+## [2.0.0] - 2026-08-20
+
+Catalog reorganised. See [RFC-0002](docs/rfcs/0002-catalog-taxonomy.md) for the
+decision, the options rejected, and what was deferred.
+
+### Changed — this breaks every install command
+
+The five plugins (`academic`, `development`, `editorial`, `formatting`,
+`research-agents`) are replaced by **four named for the phase of work they
+serve**:
+
+```
+/plugin install verify@research-agora     # check what the draft claims
+/plugin install write@research-agora      # produce and diagnose the draft
+/plugin install discover@research-agora   # find what exists, decide what to do
+/plugin install toolkit@research-agora    # the machinery around the paper
+```
+
+The old names described artifact classes rather than anything a researcher
+navigates by: six LaTeX skills sat across two plugins, `academic` had become a
+junk drawer of fifteen, and `research-agents` held over half the catalog.
+Agent dispatch prefixes change with them — `research-agents:devils-advocate`
+is now `verify:devils-advocate`.
+
+**Site groups now derive from plugin membership** instead of a hand-maintained
+`SKILL_GROUP_MAP`, so a retired skill can no longer leave a mapping entry
+behind — the exact surface that left 34 dangling references after the February
+2026 consolidation. Within each group, skills sort into bands by what they can
+check: *checks against ground truth*, *checks against a rubric*, *produces
+something for you to check*. The band is where a visitor learns what the
+verification levels mean.
+
+### Changed — merges
+
+Five groups of skills collapse into one each. Nothing is lost; the modes are
+the old skills.
+
+- **`latex`** ← `latex-build`, `latex-consistency`, `latex-debugger`. One
+  source, three lenses, and **build** already wrote the log **debug** reads.
+- **`latex-sync`** ← `latex-sync-setup`, `latex-sync-annotate`,
+  `latex-sync-verify`. Three steps of one workflow against one CLI.
+- **`figures`** ← `tikz-figures`, `figure-storyteller`. Both carried the Wong
+  colorblind-safe palette and the conference column widths verbatim, with
+  `tikz-figures` holding the comment `% Colorblind-safe colors matching
+  figure-storyteller` — a cross-file sync maintained by hand. The table is
+  stated once now.
+- **`rebuttal`** ← `review-triage`, `reviewer-response-generator`. They already
+  declared themselves "Step 1 of a 2-step pipeline" and shipped separately, so
+  the output of one had to be pasted into the other.
+- **`navigator`** ← `choose-skill`, `five-minute-win`, `whats-new`. The
+  catalog's discovery problem was answered by three separate things to
+  discover.
+
+### Removed
+
+- **`openreview-submission`** — its distinctive content is a five-row
+  form-field table whose limits are printed on the form you are filling in.
+  The table moves into `/paper-abstract`, which already carries per-venue word
+  limits.
+
+**Catalog: 47 skills, 35 public** — discover 5, write 8, verify 12, toolkit 10.
+
 ## [1.2.0] - 2026-08-20
 
 ### The rule this release applies

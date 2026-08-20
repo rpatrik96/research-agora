@@ -22,7 +22,7 @@ import yaml
 class TestOrchestratorStructure:
     """Tests for orchestrator file structure and metadata."""
 
-    ORCHESTRATORS_DIR = Path("plugins/research-agents/orchestrators")
+    ORCHESTRATORS_DIR = Path("plugins/verify/orchestrators")
 
     @pytest.fixture
     def all_orchestrators(self) -> list[Path]:
@@ -94,7 +94,7 @@ class TestOrchestratorStructure:
 class TestOrchestratorPhases:
     """Tests for orchestrator phase documentation."""
 
-    ORCHESTRATORS_DIR = Path("plugins/research-agents/orchestrators")
+    ORCHESTRATORS_DIR = Path("plugins/verify/orchestrators")
 
     @pytest.fixture
     def all_orchestrators(self) -> list[Path]:
@@ -156,7 +156,7 @@ class TestOrchestratorPhases:
 class TestOrchestratorInputOutputSchemas:
     """Tests for input/output schema documentation."""
 
-    ORCHESTRATORS_DIR = Path("plugins/research-agents/orchestrators")
+    ORCHESTRATORS_DIR = Path("plugins/verify/orchestrators")
 
     @pytest.fixture
     def all_orchestrators(self) -> list[Path]:
@@ -230,7 +230,7 @@ class TestOrchestratorInputOutputSchemas:
 class TestOrchestratorErrorHandling:
     """Tests for error handling documentation."""
 
-    ORCHESTRATORS_DIR = Path("plugins/research-agents/orchestrators")
+    ORCHESTRATORS_DIR = Path("plugins/verify/orchestrators")
 
     @pytest.fixture
     def all_orchestrators(self) -> list[Path]:
@@ -290,7 +290,7 @@ class TestOrchestratorErrorHandling:
 class TestOrchestratorSubagentSpawning:
     """Tests for subagent spawning and worker preamble documentation."""
 
-    ORCHESTRATORS_DIR = Path("plugins/research-agents/orchestrators")
+    ORCHESTRATORS_DIR = Path("plugins/verify/orchestrators")
 
     @pytest.fixture
     def all_orchestrators(self) -> list[Path]:
@@ -368,7 +368,7 @@ class TestOrchestratorSubagentSpawning:
 class TestOrchestratorIntegration:
     """Tests for orchestrator integration documentation."""
 
-    ORCHESTRATORS_DIR = Path("plugins/research-agents/orchestrators")
+    ORCHESTRATORS_DIR = Path("plugins/verify/orchestrators")
 
     @pytest.fixture
     def all_orchestrators(self) -> list[Path]:
@@ -418,7 +418,7 @@ class TestParallelAuditOrchestrator:
     @pytest.fixture
     def orchestrator_content(self) -> str:
         """Load parallel-audit content."""
-        path = Path("plugins/research-agents/orchestrators/parallel-audit.md")
+        path = Path("plugins/verify/orchestrators/parallel-audit.md")
         if not path.exists():
             pytest.skip("parallel-audit orchestrator not found")
         return path.read_text()
@@ -470,7 +470,7 @@ class TestParallelReviewOrchestrator:
     @pytest.fixture
     def orchestrator_content(self) -> str:
         """Load parallel-review content."""
-        path = Path("plugins/research-agents/orchestrators/parallel-review.md")
+        path = Path("plugins/verify/orchestrators/parallel-review.md")
         if not path.exists():
             pytest.skip("parallel-review orchestrator not found")
         return path.read_text()
@@ -521,7 +521,7 @@ class TestParallelReviewOrchestrator:
 class TestOrchestratorConsistency:
     """Tests for consistency across all orchestrators."""
 
-    ORCHESTRATORS_DIR = Path("plugins/research-agents/orchestrators")
+    ORCHESTRATORS_DIR = Path("plugins/verify/orchestrators")
 
     @pytest.fixture
     def all_orchestrators_content(self) -> dict[str, str]:
@@ -610,7 +610,7 @@ class TestSpawnTargetsResolve:
     """
 
     SPAWN_MARKERS = ("SPAWN_SUBAGENT", "SPAWN_TASK", "SPAWN")
-    ORCHESTRATORS_DIR = Path("plugins/research-agents/orchestrators")
+    ORCHESTRATORS_DIR = Path("plugins/verify/orchestrators")
 
     @pytest.fixture
     def all_orchestrators(self) -> list[Path]:

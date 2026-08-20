@@ -227,7 +227,7 @@ def validate_metadata() -> Tuple[bool, List[str]]:
     skill_files = []
     for plugin_dir in (REPO_ROOT / "plugins").glob("*/commands/*.md"):
         skill_files.append(plugin_dir)
-    for agent_file in (REPO_ROOT / "plugins/research-agents/agents").glob("*.md"):
+    for agent_file in (REPO_ROOT / "plugins/verify/agents").glob("*.md"):
         skill_files.append(agent_file)
 
     # Validate each skill
@@ -367,7 +367,7 @@ def main():
         print("  1. Commit changes: git add . && git commit -m 'feat: convert to native marketplace'")
         print("  2. Push to GitHub: git push")
         print("  3. Add marketplace: /plugin marketplace add rpatrik96/claude-skills")
-        print("  4. Install plugins: /plugin install academic@research-agora")
+        print("  4. Install plugins: ")
         sys.exit(0)
     else:
         print(f"✗ Found {len(total_errors)} errors")

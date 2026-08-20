@@ -1,0 +1,38 @@
+{
+  "name": "write",
+  "version": "1.0.0",
+  "description": "Produce and diagnose the draft: abstract diagnosis against venue limits, experiment sections built from values a script extracted, skeptical reviewer simulation, argument mapping, and prose scoring via limpid. It diagnoses what you wrote; it does not write your claims.",
+  "author": {
+    "name": "rpatrik96",
+    "email": "prmedia17@gmail.com"
+  },
+  "homepage": "https://github.com/rpatrik96/research-agora",
+  "repository": "https://github.com/rpatrik96/research-agora",
+  "license": "MIT",
+  "keywords": [
+    "writing",
+    "editorial",
+    "abstract",
+    "review",
+    "clarity",
+    "limpid"
+  ],
+  "components": {
+    "agents": {
+      "items": [
+        "audience-checker",
+        "voice-drift-detector"
+      ]
+    },
+    "commands": {
+      "items": [
+        "argument-autopsy",
+        "paper-abstract",
+        "paper-experiments",
+        "paper-review",
+        "writing-diagnosis",
+        "writing-verify"
+      ]
+    }
+  }
+}

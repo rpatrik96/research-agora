@@ -143,7 +143,7 @@ The existing Claude Code plugin system already supports:
 ```bash
 /plugin marketplace add rpatrik96/research-agora
 /plugin list --marketplace research-agora
-/plugin install paper-references@research-agora
+/plugin install verify@research-agora
 ```
 
 ### Taxonomy
@@ -248,7 +248,7 @@ The `claim-auditor` agent implements a 6-level evidence hierarchy:
 ```
 1. Fork research-agora
 2. Create skill:  python scripts/create-skill.py --name my-skill --category academic
-3. Write skill:   plugins/academic/commands/my-skill.md
+3. Write skill:   plugins/write/commands/my-skill.md
 4. Add metadata:  Include metadata block in frontmatter
 5. Test:          pytest tests/
 6. PR:            Open PR to research-agora/main
@@ -297,8 +297,8 @@ python scripts/generate-site.py
 
 **Phase 2: Category Stewards**
 - Trusted contributors become CODEOWNERS for specific plugin categories
-- `plugins/academic/` → academic steward
-- `plugins/research-agents/` → agents steward
+- `plugins/write/` → writing steward
+- `plugins/verify/` → verification steward
 - Stewards review PRs in their domain, maintainer handles cross-cutting concerns
 
 **Phase 3: Council**
@@ -331,7 +331,7 @@ Skills are citable software. Each skill includes a suggested BibTeX entry:
 
 ### Phase 1: Static Site + Registry Index (Current)
 
-- [x] Skills marketplace with 56 skills across 5 plugins
+- [x] Skills marketplace with 47 skills across 4 plugins
 - [x] Test suite with 50+ tests validating structure and metadata
 - [ ] Registry index (`registry/index.json`) generated from skill files
 - [ ] Research metadata on all skills (domain, task-type, phase, verification-level)
@@ -348,7 +348,7 @@ Skills are citable software. Each skill includes a suggested BibTeX entry:
 - [x] Feedback loop design ([RFC-0001](docs/rfcs/0001-agora-feedback-loop.md))
 - [x] Opt-in usage capture + review-gated submission (`/agora-feedback`, GitHub sink)
 - [x] Feedback aggregation pipeline (`registry/feedback.json`, weekly workflow, site badges)
-- [ ] Feedback lifecycle automation (L4 consensus badge, `whats-new`/`choose-skill` integration — RFC-0001 M3)
+- [ ] Feedback lifecycle automation (L4 consensus badge, `navigator`/`navigator` integration — RFC-0001 M3)
 - [ ] Feedback HTTP sink reference implementation (RFC-0001 M4)
 
 ### Phase 3: Benchmark Infrastructure

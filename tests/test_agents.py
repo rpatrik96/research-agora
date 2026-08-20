@@ -150,27 +150,27 @@ class TestAgentMarketplaceConsistency:
     def test_research_agents_plugin_exists(
         self, agent_plugins: list[dict[str, Any]]
     ) -> None:
-        """research-agents plugin should exist in marketplace."""
-        assert len(agent_plugins) == 1, "Expected exactly one research-agents plugin"
-        assert agent_plugins[0].get("name") == "research-agents"
+        """verify plugin should exist in marketplace."""
+        assert len(agent_plugins) == 1, "Expected exactly one verify plugin"
+        assert agent_plugins[0].get("name") == "verify"
 
     def test_research_agents_has_research_category(
         self, agent_plugins: list[dict[str, Any]]
     ) -> None:
-        """research-agents plugin should have 'research' category."""
+        """verify plugin should have 'research' category."""
         for plugin in agent_plugins:
             category = plugin.get("category", "")
-            assert category == "research", (
-                f"research-agents plugin has category '{category}'. "
+            assert category == "verify", (
+                f"verify plugin has category '{category}'. "
                 f"Expected 'research'."
             )
 
     def test_research_agents_has_agents_keyword(
         self, agent_plugins: list[dict[str, Any]]
     ) -> None:
-        """research-agents plugin should have 'agents' in keywords."""
+        """verify plugin should have 'agents' in keywords."""
         for plugin in agent_plugins:
             keywords = plugin.get("keywords", [])
             assert "agents" in keywords, (
-                "research-agents plugin should have 'agents' keyword"
+                "verify plugin should have 'agents' keyword"
             )

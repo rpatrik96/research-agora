@@ -59,7 +59,7 @@ Flag any part of the specification that is underspecified — a good experiment 
 - Is the stopping criterion a single condition, not an "or"?
 - Review the flagged ambiguities before launching. Resolve each one.
 
-**Related skills:** `benchmark-scout` (academic@research-agora), `experiment-tracker` (academic@research-agora)
+**Related skills:** `benchmark-scout` (discover@research-agora), `experiment-tracker` (toolkit@research-agora)
 
 ---
 
@@ -99,7 +99,7 @@ For the suggested additions: do not invent DOIs. If uncertain, write [DOI: verif
 - Are the one-sentence summaries of your existing papers accurate? Spot-check 2–3 against the actual abstracts.
 - Any `[DOI: verify manually]` markers: look these up before citing.
 
-**Related skills:** `literature-synthesizer` (academic@research-agora), `paper-references` (academic@research-agora)
+**Related skills:** `literature-synthesizer` (discover@research-agora), `paper-references` (verify@research-agora)
 
 ---
 
@@ -134,7 +134,7 @@ After generating: explain in 3 bullets what the visualization shows and what a r
 - Does it render correctly at both 1200px and 800px?
 - Is the Okabe-Ito palette applied, or did the agent substitute a different palette?
 
-**Related skills:** `figure-storyteller` (research-agents@research-agora), `tikz-figures` (formatting@research-agora)
+**Related skills:** `figures` (toolkit@research-agora), `figures` (toolkit@research-agora)
 
 ---
 
@@ -203,7 +203,7 @@ Do not refactor anything yet — produce the plan first. I will review before yo
 - Check the dependency list: install each package and confirm it exists on PyPI.
 - Review before authorizing any refactoring — the plan should make sense to you before any code changes.
 
-**Related skills:** `code-simplify` (development@research-agora), `artifact-packager` (research-agents@research-agora)
+**Related skills:** `code-simplify` (toolkit@research-agora), `artifact-packager` (toolkit@research-agora)
 
 ---
 

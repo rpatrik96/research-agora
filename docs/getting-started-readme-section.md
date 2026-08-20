@@ -10,10 +10,10 @@ One command adds the full Research Agora skill library to Claude Code:
 
 ```bash
 /plugin marketplace add rpatrik96/research-agora
-/plugin install academic@research-agora
-/plugin install development@research-agora
-/plugin install formatting@research-agora
-/plugin install research-agents@research-agora
+/plugin install verify@research-agora
+/plugin install write@research-agora
+/plugin install discover@research-agora
+/plugin install toolkit@research-agora
 ```
 
 **Prerequisites:** Claude Code installed (`npm install -g @anthropic-ai/claude-code`) and a Claude Pro subscription or API key. First-time setup takes 5–10 minutes. See [docs/quickstart.md](docs/quickstart.md) for the full walkthrough.
@@ -93,10 +93,10 @@ npm install -g @anthropic-ai/claude-code
 **Add Research Agora:**
 ```bash
 /plugin marketplace add rpatrik96/research-agora
-/plugin install academic@research-agora
-/plugin install development@research-agora
-/plugin install formatting@research-agora
-/plugin install research-agents@research-agora
+/plugin install verify@research-agora
+/plugin install write@research-agora
+/plugin install discover@research-agora
+/plugin install toolkit@research-agora
 ```
 
 **Initialize your project:**
@@ -111,7 +111,7 @@ This reads your codebase and drafts a `CLAUDE.md` tailored to your project. Revi
 | Task | Skill | What it does |
 |------|-------|-------------|
 | Citation check before submission | `/paper-references` | Verifies every BibTeX entry against Semantic Scholar and CrossRef |
-| Publication-quality figures | `figure-storyteller` | Reformats matplotlib figures to journal standards (colorblind-safe, vector, correct font sizes) |
+| Publication-quality figures | `figures` | Reformats matplotlib figures to journal standards (colorblind-safe, vector, correct font sizes) |
 | Conventional commits | `/commit` | Reviews staged changes, writes a commit message, commits |
 | Paper review simulation | `/paper-review` | Generates structured critical feedback simulating a skeptical reviewer |
 | Related work synthesis | `/literature-synthesizer` | Searches for related work and drafts a synthesis paragraph |

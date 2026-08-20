@@ -1,0 +1,41 @@
+{
+  "name": "toolkit",
+  "version": "1.0.0",
+  "description": "The machinery around the paper: LaTeX build/debug/lint, equation-to-code sync, publication figures in TikZ or matplotlib, rebuttal triage and response, experiment tracking, cluster submission, and artifact packaging.",
+  "author": {
+    "name": "rpatrik96",
+    "email": "prmedia17@gmail.com"
+  },
+  "homepage": "https://github.com/rpatrik96/research-agora",
+  "repository": "https://github.com/rpatrik96/research-agora",
+  "license": "MIT",
+  "keywords": [
+    "latex",
+    "figures",
+    "tikz",
+    "rebuttal",
+    "htcondor",
+    "experiments",
+    "packaging"
+  ],
+  "components": {
+    "agents": {
+      "items": [
+        "artifact-packager"
+      ]
+    },
+    "commands": {
+      "items": [
+        "agora-feedback",
+        "audit-my-setup",
+        "code-simplify",
+        "experiment-tracker",
+        "figures",
+        "htcondor",
+        "latex",
+        "latex-sync",
+        "rebuttal"
+      ]
+    }
+  }
+}

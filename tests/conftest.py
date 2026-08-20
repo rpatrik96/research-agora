@@ -50,7 +50,7 @@ def plugins_dir(repo_root: Path) -> Path:
 @pytest.fixture(scope="session")
 def agents_dir(repo_root: Path) -> Path:
     """Return the research-agents agents directory path."""
-    return repo_root / "plugins" / "research-agents" / "agents"
+    return repo_root / "plugins" / "verify" / "agents"
 
 
 @pytest.fixture(scope="session")
@@ -80,7 +80,7 @@ def all_plugin_dirs(plugins_dir: Path) -> list[Path]:
 
 @pytest.fixture(scope="session")
 def all_agent_files(agents_dir: Path) -> list[Path]:
-    """Return all agent .md files from plugins/research-agents/agents/."""
+    """Return all agent .md files from plugins/verify/agents/."""
     if not agents_dir.exists():
         return []
     return sorted([
@@ -98,13 +98,13 @@ def marketplace_plugins(marketplace_data: dict[str, Any]) -> list[dict[str, Any]
 @pytest.fixture(scope="session")
 def command_plugins(marketplace_plugins: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """Return plugins that contain commands (not research-agents)."""
-    return [p for p in marketplace_plugins if p.get("name") != "research-agents"]
+    return [p for p in marketplace_plugins if p.get("name") != "verify"]
 
 
 @pytest.fixture(scope="session")
 def agent_plugins(marketplace_plugins: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Return only the research-agents plugin."""
-    return [p for p in marketplace_plugins if p.get("name") == "research-agents"]
+    """Return only the verify plugin."""
+    return [p for p in marketplace_plugins if p.get("name") == "verify"]
 
 
 def parse_yaml_frontmatter(file_path: Path) -> Optional[dict[str, Any]]:
@@ -128,7 +128,7 @@ def parse_yaml_frontmatter(file_path: Path) -> Optional[dict[str, Any]]:
 @pytest.fixture(scope="session")
 def valid_categories() -> list[str]:
     """Return the list of valid plugin categories."""
-    return ["academic", "development", "editorial", "formatting", "research"]
+    return ["discover", "write", "verify", "toolkit"]
 
 
 @pytest.fixture(scope="session")

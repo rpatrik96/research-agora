@@ -342,7 +342,7 @@ class TestIntegration:
         return (
             Path(__file__).parent.parent
             / "plugins"
-            / "research-agents"
+            / "verify"
             / "config"
             / "model-routing.json"
         )

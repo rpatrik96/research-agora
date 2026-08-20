@@ -16,7 +16,7 @@ import pytest
 REPO_ROOT = Path(__file__).parent.parent
 REGISTRY_DIR = REPO_ROOT / "registry"
 AGGREGATE_SCRIPT = REPO_ROOT / "scripts" / "aggregate-feedback.py"
-CLIENT_SCRIPT = REPO_ROOT / "plugins" / "development" / "scripts" / "agora_feedback.py"
+CLIENT_SCRIPT = REPO_ROOT / "plugins" / "toolkit" / "scripts" / "agora_feedback.py"
 
 
 def _load_module(name: str, path: Path):
@@ -396,10 +396,10 @@ def install_client_in_cache_layout(root, ship_manifest=True, ship_plugin_manifes
     return installed
 
 
-def skill_payload(skill_name, plugin="development"):
+def skill_payload(skill_name, plugin="toolkit"):
     """A Skill-tool PostToolUse payload, as the hook receives it.
 
-    Real invocations name the owning plugin ("development:commit"); pass
+    Real invocations name the owning plugin ("toolkit:code-simplify"); pass
     plugin=None for the bare form, which capture cannot attribute.
     """
     qualified = f"{plugin}:{skill_name}" if plugin else skill_name
@@ -412,7 +412,7 @@ def skill_payload(skill_name, plugin="development"):
     }
 
 
-def skill_hook_payload(skill_name, plugin="development"):
+def skill_hook_payload(skill_name, plugin="toolkit"):
     return json.dumps(skill_payload(skill_name, plugin))
 
 
@@ -464,7 +464,7 @@ class TestHookPayloadEvents:
     def test_agent_dispatch_produces_subagent_event(self, direct_skill_names):
         event = client_mod.event_from_hook_payload(
             subagent_hook_payload(
-                "Agent", "research-agents:devils-advocate"
+                "Agent", "verify:devils-advocate"
             )
         )
 
@@ -474,12 +474,12 @@ class TestHookPayloadEvents:
     def test_task_dispatch_remains_backward_compatible(self, direct_skill_names):
         event = client_mod.event_from_hook_payload(
             subagent_hook_payload(
-                "Task", "research-agents:devils-advocate"
+                "Task", "verify:devils-advocate"
             )
         )
         agent_event = client_mod.event_from_hook_payload(
             subagent_hook_payload(
-                "Agent", "research-agents:devils-advocate"
+                "Agent", "verify:devils-advocate"
             )
         )
 
@@ -499,14 +499,14 @@ class TestSkillProvenance:
     """Attribution comes from the plugin prefix, not from the bare name.
 
     Matching the tail alone recorded a user's own ~/.claude/commands/commit.md
-    as the development plugin's `commit`, which is how personal usage could
+    as the toolkit plugin's `code-simplify`, which is how personal usage could
     reach a public issue — the collision variant of the leak hardened in
     issue #25. Every name below is a value observed in real hook payloads.
     """
 
     def test_agora_prefixed_skill_is_captured(self, colliding_skill_names):
         event = client_mod.event_from_hook_payload(
-            skill_payload("commit", plugin="development")
+            skill_payload("commit", plugin="toolkit")
         )
 
         assert event["event"] == "invocation"
@@ -534,7 +534,7 @@ class TestSkillProvenance:
     def test_agora_prefixed_agent_dispatch_is_captured(self, colliding_skill_names):
         for name in ("devils-advocate", "audience-checker"):
             event = client_mod.event_from_hook_payload(
-                subagent_hook_payload("Agent", f"research-agents:{name}")
+                subagent_hook_payload("Agent", f"verify:{name}")
             )
 
             assert event["event"] == "subagent"
@@ -561,7 +561,7 @@ class TestSkillProvenance:
         )
         dispatched = [
             client_mod.event_from_hook_payload(
-                subagent_hook_payload("Agent", f"research-agents:{name}")
+                subagent_hook_payload("Agent", f"verify:{name}")
             )
             for name in ("devils-advocate", "audience-checker")
         ]
@@ -689,12 +689,12 @@ class TestCaptureClient:
         run_client(["enable"], home, script=installed)
 
         for payload in (
-            skill_hook_payload("code-simplify", plugin="development"),
+            skill_hook_payload("code-simplify", plugin="toolkit"),
             skill_hook_payload("code-simplify", plugin=None),
             skill_hook_payload("code-simplify", plugin="someplugin"),
             skill_hook_payload("brainstorming", plugin="superpowers"),
             json.dumps(
-                subagent_hook_payload("Agent", "research-agents:devils-advocate")
+                subagent_hook_payload("Agent", "verify:devils-advocate")
             ),
             json.dumps(subagent_hook_payload("Agent", "general-purpose")),
         ):
