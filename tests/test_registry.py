@@ -583,6 +583,11 @@ class TestGeneratorsRun:
         import subprocess
         import sys
 
+        # The site generator needs jinja2, which only the deploy job installs.
+        # Skip where it is absent rather than fail: this test exists to catch
+        # our own breakage, not a missing optional dependency.
+        pytest.importorskip("jinja2")
+
         proc = subprocess.run(
             [sys.executable, "scripts/generate-site.py"],
             cwd=REPO_ROOT,
