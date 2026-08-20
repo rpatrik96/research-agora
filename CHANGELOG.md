@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.1.0] - 2026-08-20
+
+### Removed
+
+- **`literature-synthesizer`** — its discovery is arXiv-only. Dedicated
+  literature-search MCP servers such as Lacuna and Undermind index far more
+  than arXiv, and its BibTeX verification half is already covered by
+  `/paper-references`.
+- **`benchmark-scout`** — its baseline tables stop at 2022, and a model already
+  knows those numbers. Its arXiv search adds nothing that a dedicated literature
+  MCP does not do better.
+- **`bounds-analyst`** — its known-optimal-rate tables are recalled from model
+  memory, never retrieved. It was downgraded from `formal` to `heuristic`, then
+  moved from task-type `verification` to `analysis`, and finally gated so its
+  output could not reach a verdict. A skill that needs three successive
+  restrictions to be safe is not carrying its weight.
+
+**Catalog: 41 skills, 31 public.**
+
 ## [2.0.2] - 2026-08-20
 
 ### Fixed

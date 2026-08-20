@@ -1181,18 +1181,14 @@ function classifyTier(ans) {
 // ──────────────────────────────────────────────────────────────
 const SKILL_TABLE = {
     a: {
-        1: [['/paper-references',       'Verify citations against arXiv, Crossref, DBLP'],
-            ['/literature-synthesizer', 'Discover and synthesize related work']],
-        2: [['/paper-references',       'Verify citations against arXiv, Crossref, DBLP'],
-            ['/literature-synthesizer', 'Discover and synthesize related work'],
-            ['/benchmark-scout',        'Find relevant benchmarks and baselines']]
+        1: [['/paper-references',       'Verify citations against arXiv, Crossref, DBLP']],
+        2: [['/paper-references',       'Verify citations against arXiv, Crossref, DBLP']]
     },
     b: {
         1: [['/experiment-tracker',       'Sync experiment results to paper tables'],
             ['/paper-verify-experiments', 'Check paper claims against source code']],
         2: [['/paper-verify-experiments', 'Check paper claims against source code'],
-            ['/experiment-tracker',       'Sync experiment results to paper tables'],
-            ['/benchmark-scout',          'Find relevant benchmarks and baselines']]
+            ['/experiment-tracker',       'Sync experiment results to paper tables']]
     },
     c: {
         1: [['/paper-verify-experiments', 'Check paper claims against source code'],

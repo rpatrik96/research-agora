@@ -7,6 +7,7 @@ and outputs a static site to site/output/.
 """
 
 import json
+import re
 import shutil
 import sys
 from collections import OrderedDict
@@ -47,65 +48,43 @@ def skill_group(skill: dict) -> str:
     return skill["plugin"]
 
 
-# Within a group, skills sort into bands by what they do to your work. The band
-# is the teaching layer: a visitor learns what the verification levels mean by
-# seeing which skills sit under which heading.
-#
-# The band comes from task-type AND verification-level together. Deriving it
-# from verification-level alone put `intuition-formalizer` under "checks against
-# ground truth" because it is `layered` — but `layered` means "mixed methods",
-# not "compares against something external", and that skill generates a
-# candidate theorem for you to prove.
+# Within a group, skills sort into bands by what they actually run — taken from
+# the `tools` the registry detected at invocation sites, not from self-declared
+# metadata. Deriving this from `verification-level` put `intuition-formalizer`
+# under "checks against ground truth" because it was `layered`; the band now
+# answers a question with a checkable answer: does this skill invoke anything?
 VERIFICATION_BANDS = [
     (
-        "checks-ground-truth",
-        "Checks against ground truth",
-        "Runs a tool or script and compares against something outside itself.",
+        "runs-a-tool",
+        "Runs a tool and checks against its output",
+        "Invokes a real program and compares against what it returns.",
     ),
     (
-        "checks-rubric",
-        "Checks your work against a standard",
-        "Reads what you wrote and judges it. No external oracle — you are the oracle.",
+        "reads-sources",
+        "Reads your files and reports",
+        "Extracts from your own source with a script. No external tool.",
     ),
     (
-        "produces",
-        "Produces something for you to check",
-        "Makes an artifact or a candidate. Verifying it is your job.",
+        "judges",
+        "Reads your work and judges it",
+        "Applies a stated standard. Nothing is executed — you are the oracle.",
     ),
 ]
 
-# Skills whose band is not derivable from their metadata, with the reason.
-# Keep this short: a long list means the rule is wrong, not the skills.
-BAND_OVERRIDES = {
-    # Discovery, but every entry it returns is confirmed to exist against arXiv
-    # and then put through paper-references before it is handed over.
-    "literature-synthesizer": "checks-ground-truth",
-    # Reads the real config off disk and reports what is actually there.
-    "audit-my-setup": "checks-rubric",
-}
+_SCRIPT_FENCE = re.compile(r"```(?:bash|sh|shell|console|python)\n(.*?)```", re.S)
+_SCRIPT_CMD = re.compile(r"\b(grep|rg|awk|sed|find|jq)\b")
 
 
 def skill_band(skill: dict) -> str:
-    """Return the band id for a skill, from what it does to your work."""
-    name = skill.get("name", "")
-    if name in BAND_OVERRIDES:
-        return BAND_OVERRIDES[name]
-
-    task = skill.get("task-type", "")
-    level = skill.get("verification-level", "none")
-
-    # A formal level means the check resolves against something external.
-    if level == "formal":
-        return "checks-ground-truth"
-    # A verification task with mixed methods still compares against a source.
-    if task == "verification" and level == "layered":
-        return "checks-ground-truth"
-    # Diagnosis and review read your work and judge it; so does any
-    # verification task that only applies a rubric.
-    if task in ("diagnosis", "review") or (task == "verification" and level == "heuristic"):
-        return "checks-rubric"
-    # Everything else makes something you then have to check yourself.
-    return "produces"
+    """Return the band id from what the skill invokes."""
+    if skill.get("tools"):
+        return "runs-a-tool"
+    path = REPO_ROOT / skill.get("path", "")
+    if path.exists():
+        body = path.read_text()
+        if any(_SCRIPT_CMD.search(b) for b in _SCRIPT_FENCE.findall(body)):
+            return "reads-sources"
+    return "judges"
 
 
 def load_registry() -> dict:

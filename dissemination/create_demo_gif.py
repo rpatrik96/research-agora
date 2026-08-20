@@ -62,7 +62,7 @@ SCENE_2 = {
         },
         {"text": "", "color": TEXT, "size": 10},
         {"text": "  ✓ Installed academic skills:", "color": GREEN, "size": 10},
-        {"text": "    paper-review, paper-abstract, literature-synthesizer,", "color": TEXT, "size": 9},
+        {"text": "    paper-review, paper-abstract, argument-autopsy,", "color": TEXT, "size": 9},
         {"text": "    citation-verification, paper-references, rebuttal, ...", "color": TEXT, "size": 9},
     ],
 }

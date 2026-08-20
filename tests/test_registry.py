@@ -304,11 +304,13 @@ class TestGroupsTaxonomy:
 
 
 class TestGroupDerivation:
-    """Groups derive from plugin membership; there is no mapping table.
+    """Groups derive from plugin membership; bands derive from what runs.
 
-    RFC-0002 replaced the hand-maintained SKILL_GROUP_MAP with derivation. The
-    table was the surface that let the February 2026 consolidation leave 34
-    dangling references behind, because a retired skill's entry survived it.
+    RFC-0002 replaced SKILL_GROUP_MAP with derivation. The band then came from
+    self-declared metadata, which misdescribed skills — `intuition-formalizer`
+    landed under "checks against ground truth" because it was `layered`. Bands
+    now come from the `tools` the registry detects at invocation sites, which is
+    a question with a checkable answer.
     """
 
     @staticmethod
@@ -323,53 +325,67 @@ class TestGroupDerivation:
         return mod
 
     def test_no_hand_maintained_group_map(self) -> None:
-        """The mapping table must stay gone."""
         mod = self._site_module()
-        assert not hasattr(mod, "SKILL_GROUP_MAP"), (
-            "SKILL_GROUP_MAP is back; groups must derive from plugin membership"
-        )
+        assert not hasattr(mod, "SKILL_GROUP_MAP")
+
+    def test_no_band_overrides(self) -> None:
+        """If the evidence rule needs an override, the rule is wrong."""
+        mod = self._site_module()
+        assert not getattr(mod, "BAND_OVERRIDES", None)
 
     def test_every_public_skill_lands_in_a_group(self, registry_skills: list) -> None:
         mod = self._site_module()
         public = [s for s in registry_skills if s.get("visibility", "public") == "public"]
-        unplaced = [
-            s["name"] for s in public if mod.skill_group(s) not in mod.GROUP_ORDER
-        ]
+        unplaced = [s["name"] for s in public if mod.skill_group(s) not in mod.GROUP_ORDER]
         assert not unplaced, f"Public skills outside GROUP_ORDER: {unplaced}"
 
-    def test_every_skill_lands_in_a_verification_band(
+    def test_every_skill_lands_in_a_band(self, registry_skills: list) -> None:
+        mod = self._site_module()
+        ids = {b[0] for b in mod.VERIFICATION_BANDS}
+        unbanded = [s["name"] for s in registry_skills if mod.skill_band(s) not in ids]
+        assert not unbanded, f"Skills with no band: {unbanded}"
+
+    def test_tool_backed_skills_are_always_in_the_tool_band(
         self, registry_skills: list
     ) -> None:
         mod = self._site_module()
-        band_ids = {b[0] for b in mod.VERIFICATION_BANDS}
-        unbanded = [s["name"] for s in registry_skills if mod.skill_band(s) not in band_ids]
-        assert not unbanded, f"Skills with no verification band: {unbanded}"
-
-    def test_formal_skills_are_always_ground_truth(self, registry_skills: list) -> None:
-        """A formal check resolves against something external, by definition."""
-        mod = self._site_module()
         wrong = [
             s["name"]
             for s in registry_skills
-            if s.get("verification-level") == "formal"
-            and mod.skill_band(s) != "checks-ground-truth"
+            if s.get("tools") and mod.skill_band(s) != "runs-a-tool"
         ]
-        assert not wrong, f"formal skills banded elsewhere: {wrong}"
+        assert not wrong, f"Skills with tools banded elsewhere: {wrong}"
 
-    def test_writing_tasks_never_claim_to_check(self, registry_skills: list) -> None:
-        """A skill that writes prose produces; it does not check.
+    def test_known_tools_are_detected(self, registry_skills: list) -> None:
+        """The headline tool claims must hold."""
+        tools = {s["name"]: set(s.get("tools", [])) for s in registry_skills}
+        assert "bibtexupdater" in tools.get("paper-references", set())
+        assert "latexmk" in tools.get("latex", set())
+        assert "limpid" in tools.get("writing-verify", set())
+        assert "latex-code-sync" in tools.get("latex-sync", set())
 
-        Deriving the band from verification-level alone put `rebuttal` and
-        `intuition-formalizer` under "checks against ground truth" because they
-        are `layered` — which means mixed methods, not compares-against-a-source.
+    def test_prose_mentions_are_not_counted_as_tools(
+        self, registry_skills: list
+    ) -> None:
+        """A tool named in a routing row or a recommended config is not invoked.
+
+        navigator names matplotlib in a routing table; audit-my-setup carries
+        `latexmk` inside a hooks.json snippet it suggests you add; rebuttal
+        mentions matplotlib in a time estimate. None of them runs anything.
         """
-        mod = self._site_module()
+        tools = {s["name"]: set(s.get("tools", [])) for s in registry_skills}
+        assert "matplotlib" not in tools.get("navigator", set())
+        assert "latexmk" not in tools.get("audit-my-setup", set())
+        assert "matplotlib" not in tools.get("rebuttal", set())
+
+    def test_filesystem_mcp_is_never_reported(self, registry_skills: list) -> None:
+        """Claude Code reads and globs natively; naming that MCP is stale."""
         wrong = [
             s["name"]
             for s in registry_skills
-            if s.get("task-type") == "writing" and mod.skill_band(s) != "produces"
+            if any("filesystem" in t for t in s.get("tools", []))
         ]
-        assert not wrong, f"writing skills banded as checks: {wrong}"
+        assert not wrong, f"Skills reporting filesystem MCP: {wrong}"
 
 
 class TestRegistryMatchesDisk:
@@ -453,8 +469,11 @@ class TestAdvertisedCounts:
         for rel in tracked:
             if rel in self.EXEMPT or rel.startswith(self.EXEMPT_PREFIXES):
                 continue
+            path = REPO_ROOT / rel
+            if not path.exists():
+                continue
             for line_no, line in enumerate(
-                (REPO_ROOT / rel).read_text().splitlines(), 1
+                path.read_text().splitlines(), 1
             ):
                 for found in pattern.findall(line):
                     if int(found) not in allowed:

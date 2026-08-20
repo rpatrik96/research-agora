@@ -58,10 +58,10 @@ TASK_TYPE_RULES = {
 
 PHASE_RULES = {
     "literature-review": [
-        "literature", "synthesiz", "related work", "benchmark-scout",
+        "literature", "synthesiz", "related work",
     ],
     "experiment-design": [
-        "experiment-tracker", "experiment design", "benchmark-scout",
+        "experiment-tracker", "experiment design",
     ],
     "implementation": [
         "code", "commit", "pr-", "cicd", "htcondor", "simplify",

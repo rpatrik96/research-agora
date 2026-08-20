@@ -2,7 +2,7 @@
 name: parallel-theory-audit
 description: |
   Orchestrates parallel theoretical verification across a paper's proofs,
-  assumptions, bounds, and notation. The theory analogue of parallel-audit.
+  assumptions, and notation. The theory analogue of parallel-audit.
   Trigger: "parallel theory audit", "audit proofs", "theory verification",
   "verify all proofs".
 model: opus
@@ -19,7 +19,7 @@ metadata:
 
 > **LLM-required**: Orchestrating parallel theory verification requires coordinating multiple analysis agents. No script alternative.
 
-> **One-line description**: Coordinates parallel verification of all proofs, bounds, assumptions, and notation in a theoretical paper.
+> **One-line description**: Coordinates parallel verification of all proofs, assumptions, and notation in a theoretical paper.
 
 ## Purpose
 
@@ -27,7 +27,7 @@ This orchestrator parallelizes theoretical verification by:
 1. Extending research state with theory section (theorems, proofs, assumptions)
 2. Building a theorem dependency graph
 3. Extracting proof steps in parallel
-4. Verifying steps, assumptions, and bounds in parallel
+4. Verifying steps and analyzing assumptions and notation in parallel
 5. Merging results into a unified theory audit report
 
 Fan-out bounds wall-clock by the slowest worker rather than the sum. No speedup figure has been measured.
@@ -48,10 +48,8 @@ Phase 2: Fan-Out Stage 1 (Parallel)
 │   └── For each proof: spawn proof-step-extractor
 ├── Assumption Analysis
 │   └── For each assumption: spawn assumption-analyzer
-├── Notation Checking
-│   └── Spawn notation-consistency-checker (full paper)
-└── Bounds Extraction
-    └── Spawn bounds-analyst (all bounds)
+└── Notation Checking
+    └── Spawn notation-consistency-checker (full paper)
 
 Phase 3: Fan-Out Stage 2 (Parallel, depends on Phase 2)
 ├── Step Verification
@@ -88,7 +86,6 @@ Phase 4: Fan-In (Sequential)
       "type": "object",
       "properties": {
         "skip_notation_check": {"type": "boolean", "default": false},
-        "skip_bounds_analysis": {"type": "boolean", "default": false},
         "max_proofs": {"type": "integer", "default": 20},
         "force_regenerate_state": {"type": "boolean", "default": false}
       }
@@ -172,18 +169,6 @@ SPAWN: notation-consistency-checker
   on_error: skip notation check, note in report
 ```
 
-### Bounds Analysis
-
-```
-SPAWN: bounds-analyst
-  input:
-    paper_text: [full paper text]
-    theorems: [theorem list from state]
-    venue_target: [target venue]
-  timeout: 90s
-  on_error: skip bounds analysis, note in report
-```
-
 ## Phase 3: Fan-Out Stage 2
 
 Depends on Phase 2 completion (needs extracted proof steps).
@@ -222,7 +207,7 @@ SPAWN: proof-step-verifier
 
 ### 4.0 Provenance Gate (run before aggregating anything)
 
-Not every subagent in this fan-out verifies. `assumption-analyzer` and `bounds-analyst` generate from recalled knowledge: `assumption-analyzer` proposes weaker and stronger alternatives from memorized hierarchies and makes no external call, and `bounds-analyst` compares against rate tables it recalls rather than retrieves. Their output is a hypothesis about the paper, not a finding about it.
+Not every subagent in this fan-out verifies. `assumption-analyzer` proposes weaker and stronger alternatives from memorized hierarchies and makes no external call. Its output is a hypothesis about the paper, not a finding about it.
 
 **Tag every incoming result with its provenance before it enters the merged report:**
 
@@ -230,10 +215,9 @@ Not every subagent in this fan-out verifies. `assumption-analyzer` and `bounds-a
 |---|---|---|
 | `proof-step-verifier`, `cross-referencer` | checked against the paper's own text | as a finding |
 | `notation-consistency-checker` | extracted by regex from the source | as a finding |
-| `bounds-analyst` | recalled, unless it retrieved the cited work | as a finding only where it retrieved; otherwise `UNVERIFIED` |
 | `assumption-analyzer` | recalled | as a suggestion, never as a finding |
 
-An unretrieved rate comparison and a recalled assumption hierarchy are carried into the output as `UNVERIFIED — <what would settle it>`. **They never contribute to the criticality score in 4.2 or the T1–T6 level in 4.3**, because a level assignment is a claim about the paper's proofs and a recalled comparison is not evidence about this paper.
+A recalled assumption hierarchy is carried into the output as `UNVERIFIED — <what would settle it>`. **It never contributes to the criticality score in 4.2 or the T1–T6 level in 4.3**, because a level assignment is a claim about the paper's proofs and a recalled hierarchy is not evidence about this paper.
 
 This orchestrator is `verification-level: heuristic` for exactly this reason: it coordinates a mix of checkers and generators, and a report that flattens the two would launder recall into verification.
 
@@ -277,7 +261,6 @@ Weight issues by theorem criticality from dependency graph:
 | Single proof extraction fails | Mark proof as "extraction_failed", continue others |
 | Single step verification fails | Mark step as "verification_failed", continue |
 | Notation checker fails | Skip notation, note in report |
-| Bounds analyst fails | Skip bounds, note in report |
 | >50% subagents fail | Abort parallel mode, suggest sequential `proof-auditor` |
 | Dependency mapper fails | Continue without criticality scoring |
 
@@ -298,7 +281,6 @@ Weight issues by theorem criticality from dependency graph:
 **Paper**: [Title]
 **Proofs audited**: [N]
 **Assumptions analyzed**: [N]
-**Bounds checked**: [N]
 **Audit Date**: [Date]
 **Mode**: parallel-theory-audit
 
@@ -313,7 +295,6 @@ Weight issues by theorem criticality from dependency graph:
 | Proofs at T3 (gaps) | [N] |
 | Proofs at T4-T6 (incomplete/missing) | [N] |
 | Assumptions analyzed | [N] |
-| Bounds verified | [N] |
 | Notation issues | [N] |
 | Critical issues | [N] |
 
@@ -350,15 +331,6 @@ Weight issues by theorem criticality from dependency graph:
 | A1: L-smoothness | Yes | Common | Yes | Low |
 | A2: Bounded variance | Yes | Common | Partial | Low |
 | A3: Custom condition | No | Novel | No | High |
-
----
-
-## Bounds Analysis
-
-| Bound | Expression | Known Optimal | Verdict |
-|-------|-----------|---------------|---------|
-| B1 | O(1/T²) | Ω(1/T²) | OPTIMAL |
-| B2 | O(d²/ε²) | Ω(d/ε²) | SUBOPTIMAL |
 
 ---
 
@@ -402,9 +374,7 @@ Weight issues by theorem criticality from dependency graph:
 | proof-step-extractor | [N] | [N] | [N] | [Xs] |
 | proof-step-verifier | [N] | [N] | [N] | [Xs] |
 | assumption-analyzer | [N] | [N] | [N] | [Xs] |
-
 | notation-consistency-checker | 1 | [0/1] | [0/1] | [Xs] |
-| bounds-analyst | 1 | [0/1] | [0/1] | [Xs] |
 | theorem-dependency-mapper | 1 | [0/1] | [0/1] | [Xs] |
 ```
 
@@ -427,9 +397,7 @@ measured.
 - `proof-step-extractor` (N instances)
 - `proof-step-verifier` (K instances)
 - `assumption-analyzer` (M instances)
-
 - `notation-consistency-checker` (1 instance)
-- `bounds-analyst` (1 instance)
 
 ### Updates
 - Writes audit results to `research-state.json` theory section

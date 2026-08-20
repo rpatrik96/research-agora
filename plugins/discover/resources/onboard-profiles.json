@@ -197,24 +197,12 @@
             {
               "skill": "/paper-references",
               "description": "Verify citations against arXiv, Crossref, DBLP"
-            },
-            {
-              "skill": "/literature-synthesizer",
-              "description": "Discover and synthesize related work"
             }
           ],
           "2": [
             {
               "skill": "/paper-references",
               "description": "Verify citations against arXiv, Crossref, DBLP"
-            },
-            {
-              "skill": "/literature-synthesizer",
-              "description": "Discover and synthesize related work"
-            },
-            {
-              "skill": "/benchmark-scout",
-              "description": "Find relevant benchmarks and baselines"
             }
           ]
         }
@@ -236,10 +224,6 @@
             {
               "skill": "/experiment-tracker",
               "description": "Sync experiment results to paper tables"
-            },
-            {
-              "skill": "/benchmark-scout",
-              "description": "Find relevant benchmarks and baselines"
             }
           ]
         }
@@ -336,16 +320,6 @@
           "skill": "/paper-references",
           "min_tier": 1,
           "description": "Verify citations against arXiv, Crossref, DBLP"
-        },
-        {
-          "skill": "/literature-synthesizer",
-          "min_tier": 1,
-          "description": "Discover and synthesize related work"
-        },
-        {
-          "skill": "/benchmark-scout",
-          "min_tier": 2,
-          "description": "Find relevant benchmarks and baselines"
         }
       ],
       "writing": [

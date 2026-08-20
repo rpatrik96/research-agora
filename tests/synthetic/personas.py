@@ -90,14 +90,14 @@ PERSONAS: dict[str, Persona] = {
         background=(
             "Has been using Research Agora for 3 months. Familiar with paper-writing "
             "skills. Now wants to explore verification and theory tools for a new "
-            "paper that makes formal claims about convergence bounds."
+            "paper that makes formal claims about convergence."
         ),
         goal=(
-            "Find skills related to proof verification, bounds analysis, and claim "
-            "auditing. Use the intent filters and search to narrow down options."
+            "Find skills related to proof verification, theorem dependencies, and "
+            "claim auditing. Use the intent filters and search to narrow down options."
         ),
         expected_pages=["index.html", "benchmarks.html"],
-        search_terms=["proof", "bounds", "claim", "theorem"],
+        search_terms=["proof", "theorem", "claim", "notation"],
         success_criteria=[
             "Used intent button 'Verify my paper'",
             "Found theory-tools or quality-verification group",

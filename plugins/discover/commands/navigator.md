@@ -79,15 +79,12 @@ Use this mapping to identify candidate skills. Match on task type first, then re
 | Audit an introduction you wrote | `/paper-review` | "intro", "introduction", "contributions", "am I overclaiming" |
 | Audit a limitations section | `/paper-review` | "discussion", "conclusion", "limitations", "what will reviewers hit" |
 | Edit for clarity, concision, flow | `/writing-diagnosis` | "editing", "proofreading", "improve prose", "wordsmithing" |
-| Write a literature review section | `/literature-synthesizer` | "related work", "position the paper", "literature review section" |
 
 #### Literature & References
 
 | Task | Skill | Confidence trigger |
 |------|-------|-------------------|
 | Verify citations are real | `/paper-references` | "check citations", "hallucinated references", "verify bibliography", "bib file" |
-| Find and synthesize related work | `/literature-synthesizer` | "related work", "find papers", "literature review", "what else exists" |
-| Scout benchmarks and baselines | `/benchmark-scout` | "benchmarks", "baselines", "SOTA", "what should I compare against" |
 
 #### Code & Experiments
 
@@ -160,11 +157,6 @@ and DBLP. Flags hallucinated citations, title mismatches, and wrong years.
 
 ## Also Relevant
 
-### `/literature-synthesizer` (Medium Confidence)
-**What it does:** Discovers related work, clusters it thematically, and drafts a related work section.
-**When to use:** If you also need to *find* new references, not just verify existing ones.
-**Run it:** `claude "/literature-synthesizer"` — it will ask what topic and what you've already found.
-
 ### `/claim-auditor` (Low Confidence)
 **What it does:** Classifies each claim in your paper by evidence strength (L1-L6) and flags unsupported assertions.
 **When to use:** If your concern is whether claims are *supported*, not whether citations are *real*.
@@ -182,7 +174,7 @@ After presenting recommendations, give the user one concrete next step:
 If the user's task involves multiple steps (e.g., "find papers AND verify them AND write related work"), sequence the skills:
 
 > **Sequence for your task:**
-> 1. `/literature-synthesizer` — discover and organize relevant papers
+> 1. Retrieve and organize relevant papers with a dedicated literature-search MCP server
 > 2. Add the new references to your `.bib` file
 > 3. `/paper-references` — verify all citations (including the new ones)
 > 4. `/paper-review` — get reviewer feedback on the resulting related work section

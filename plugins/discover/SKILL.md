@@ -1,18 +1,10 @@
 # Discover
 
-Find out what exists and decide what to do. Literature discovery with a verified bibliography, benchmark scouting, checkpoint-gated ideation, and the router that points you at the right skill.
+Decide what to do. Checkpoint-gated ideation, personalized onboarding, and the router that points you at the right skill.
 
 ```bash
 /plugin install discover@research-agora
 ```
-
-## Checks against ground truth
-
-Runs a tool or script and compares against something outside itself.
-
-| Skill | Description |
-|-------|-------------|
-| `/literature-synthesizer` | Discover relevant literature for ML papers and build a verified bibliography |
 
 ## Checks against a rubric
 
@@ -28,7 +20,6 @@ Generates an artifact or a candidate. Verifying it is your job.
 
 | Skill | Description |
 |-------|-------------|
-| `/benchmark-scout` | Identify relevant benchmarks and generate experiment plans for ML papers |
 | `/navigator` | Find the right skill, or find out what changed |
 | `/onboard` | Personalized Research Agora setup via scripts/onboard.py |
 

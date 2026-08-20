@@ -114,7 +114,6 @@ This reads your codebase and drafts a `CLAUDE.md` tailored to your project. Revi
 | Publication-quality figures | `figures` | Reformats matplotlib figures to journal standards (colorblind-safe, vector, correct font sizes) |
 | Conventional commits | `/commit` | Reviews staged changes, writes a commit message, commits |
 | Paper review simulation | `/paper-review` | Generates structured critical feedback simulating a skeptical reviewer |
-| Related work synthesis | `/literature-synthesizer` | Searches for related work and drafts a synthesis paragraph |
 
 ### Running a skill
 

@@ -162,6 +162,7 @@
                             </div>
 
                             <div class="card-meta">
+                                {% for tool in skill.get('tools', []) %}<span class="badge badge-tool" title="This skill invokes {{ tool }}">{{ tool }}</span>{% endfor %}
                                 <span class="badge {{ skill['verification-level']|verification_badge }}">{{ skill['verification-level'] }}</span>
                                 <span class="badge {{ skill.model|model_badge }}">{{ skill.model }}</span>
                                 {% if skill.feedback %}
@@ -210,6 +211,7 @@
                             </div>
 
                             <div class="card-meta">
+                                {% for tool in skill.get('tools', []) %}<span class="badge badge-tool" title="This skill invokes {{ tool }}">{{ tool }}</span>{% endfor %}
                                 <span class="badge {{ skill['verification-level']|verification_badge }}">{{ skill['verification-level'] }}</span>
                                 <span class="badge {{ skill.model|model_badge }}">{{ skill.model }}</span>
                             </div>

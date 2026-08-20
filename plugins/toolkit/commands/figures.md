@@ -943,9 +943,6 @@ When delivering a figure, provide:
 
 Use filesystem tools to manage figure files:
 
-- `mcp__filesystem__read_file` - Read data files (CSV, JSON) for plotting
-- `mcp__filesystem__write_file` - Save generated figure code
-- `mcp__filesystem__list_directory` - Check existing figures directory
 
 **Workflow:**
 1. Read data files from the project

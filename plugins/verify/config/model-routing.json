@@ -78,12 +78,6 @@
         "reason": "Deep mathematical reasoning for proof verification. Highest capability needed.",
         "fallback": null
       },
-      "bounds-analyst": {
-        "model": "opus",
-        "temperature": 0.2,
-        "reason": "Comparing bounds to known optima requires broad theoretical knowledge.",
-        "fallback": "sonnet"
-      },
       "notation-consistency-checker": {
         "model": "sonnet",
         "temperature": 0.1,
