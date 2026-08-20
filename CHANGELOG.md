@@ -61,6 +61,15 @@ Both still work and will be removed in a future release.
   The published figures had drifted to 61, 74, 80+ and 83 across nine files.
 
 ### Added
+- **`scripts/limpid_bridge.py`** — an optional bridge to the
+  [limpid](https://github.com/rpatrik96/limpid) CLI. Where limpid is installed
+  (`$LIMPID_CLI` or on `PATH`), `/writing-verify` uses it instead of
+  `writing_verify.py`: same dimensions, but line-anchored findings and voice
+  guards that stop it penalising scope-hedging, paired em-dashes, and long
+  sentences that resolve. `/writing-diagnosis` uses its findings as evidence for
+  the seven mechanically-detectable patterns. limpid is **not** a dependency —
+  it is not on npm, and every failure path falls back to `writing_verify.py`
+  with no change in behaviour.
 - `deprecated`, `superseded-by` and `deprecated-in` skill metadata, propagated
   to the registry and rendered on the site. `/whats-new` reads the
   `### Deprecated` and `### Removed` sections above.
