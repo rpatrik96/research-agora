@@ -12,7 +12,7 @@ tool-backed one is the product.
 
 The rule now lives in `README.md` and `CONTRIBUTING.md`, and it governs what
 gets accepted as well as what gets retired. This release is that rule applied
-to the existing catalog in one pass: **80 skills → 69, 59 public → 50.**
+to the existing catalog in one pass: **80 skills → 63, 59 public → 44.**
 There is no second wave planned.
 
 ### Removed
@@ -49,6 +49,29 @@ There is no second wave planned.
   existing linter config.**
 - `/commit` — standard `git add`/`git commit` with a message table.
   **Claude writes commits without it.**
+
+**Obsolete — the model does this unaided now**
+
+These were designed when a skill file was how you got structured, careful
+output. That is no longer where the leverage is: a current model given the
+same one-line request produces the same result, so the file only adds a
+template and a maintenance cost.
+
+- `/paper-summarizer` — "summarize this paper: contribution, method, results,
+  limitations" is the most default task there is. Its one arXiv MCP mention was
+  a retrieval suggestion, never an invocation.
+- `/review-prompt` — critiquing an underspecified prompt is default behavior,
+  and the underlying problem shrinks with every model release.
+- `/register-translator` — "rewrite this section as a blog post, keep every
+  number" needs no skill file.
+- `reader-simulation`, `audience-checker`'s overlap partner — "read this as a
+  second-year PhD student and tell me where you get lost" gets the same
+  walk-through without inventing comprehension percentages.
+- `redundancy-radar` — asked for "[N]% semantic overlap" it has no way to
+  compute, which invites fabricated precision. "Where am I repeating myself?"
+  answers it honestly.
+- `content-archaeologist` — its >70% / 40-70% / <40% similarity bands are
+  unmeasurable; clustering posts into chapters is a one-line request.
 
 **Duplicated by a tool-backed skill**
 

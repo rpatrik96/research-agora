@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/rpatrik96/research-agora/actions/workflows/tests.yml/badge.svg)](https://github.com/rpatrik96/research-agora/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Skills](https://img.shields.io/badge/skills-50%20public-blue.svg)](https://rpatrik96.github.io/research-agora)
+[![Skills](https://img.shields.io/badge/skills-44%20public-blue.svg)](https://rpatrik96.github.io/research-agora)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 
 A community-driven skills marketplace for AI-assisted research. Browse, install, and share modular AI workflows for ML research.
@@ -54,7 +54,7 @@ No `.bib` file? No CLI? [Take the onboarding quiz](https://rpatrik96.github.io/r
 <details>
 <summary><strong>PI: Evaluate and deploy for your group</strong></summary>
 
-50 public workflows for the parts of the paper lifecycle a tool can check. **A skill stays in the Agora only if something can check what it produced** — a script that extracts the numbers, a tool that resolves the citation. Where a tool-backed skill and a freehand one do the same job, the tool-backed one is the product. The Agora verifies citations, code-paper consistency, statistics, proofs, and claims. It does not write your claims for you: no oracle exists for novelty or framing, so those stay yours. Skills encode your group's standards in a shared `CLAUDE.md` — every student and postdoc runs the same verified checks.
+44 public workflows for the parts of the paper lifecycle a tool can check. **A skill stays in the Agora only if something can check what it produced** — a script that extracts the numbers, a tool that resolves the citation. Where a tool-backed skill and a freehand one do the same job, the tool-backed one is the product. The Agora verifies citations, code-paper consistency, statistics, proofs, and claims. It does not write your claims for you: no oracle exists for novelty or framing, so those stay yours. Skills encode your group's standards in a shared `CLAUDE.md` — every student and postdoc runs the same verified checks.
 
 - **Cost:** $20/mo Pro + ~$5–80/mo API tokens depending on usage. Team plan (see [Anthropic pricing](https://www.anthropic.com/pricing)) includes a GDPR DPA.
 - **Privacy:** No patient data or unpublished results on Pro. Team plan required for institutional compliance. [Full guide →](docs/privacy-gdpr.md)
@@ -159,7 +159,6 @@ Editorial intelligence and writing analysis skills:
 | `writing-verify` | Quantitative writing quality scoring (A-F grade) |
 | `writing-diagnosis` | Diagnose writing issues across genres |
 | `argument-autopsy` | Dissect argument structure |
-| `register-translator` | Translate between registers |
 
 ### research-agents@research-agora
 
@@ -176,10 +175,7 @@ Specialized research analysis agents:
 | `latex-debugger` | Parse logs and diagnose compilation errors |
 | `artifact-packager` | Prepare code/data for public release |
 | `state-generator` | Generate research-state.json for parallel analysis pipelines |
-| `content-archaeologist` | Map blog posts into book structure |
 | `voice-drift-detector` | Detect voice inconsistency across documents |
-| `redundancy-radar` | Find semantic overlap across documents |
-| `reader-simulation` | Simulate first-time reader experience |
 | `proof-auditor` | Decompose and verify proofs step-by-step (T1-T6 hierarchy) |
 | `bounds-analyst` | Analyze convergence rates and complexity bounds |
 | `notation-consistency-checker` | Build symbol table, detect notation inconsistencies |

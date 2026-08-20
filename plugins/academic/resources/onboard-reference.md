@@ -117,7 +117,6 @@ Select 3-5 skills from this mapping based on the user's primary task and tier:
 **Dissemination:**
 | Skill | Tier | Description |
 |-------|------|-------------|
-| `/paper-summarizer` | 1+ | Create plain-language summaries |
 
 **Admin / teaching:**
 | Skill | Tier | Description |

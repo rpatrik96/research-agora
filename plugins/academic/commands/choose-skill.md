@@ -59,7 +59,6 @@ Use this mapping to identify candidate skills. Match on task type first, then re
 | Audit a limitations section | `/paper-review` | "discussion", "conclusion", "limitations", "what will reviewers hit" |
 | Edit for clarity, concision, flow | `/writing-diagnosis` | "editing", "proofreading", "improve prose", "wordsmithing" |
 | Write a literature review section | `/literature-synthesizer` | "related work", "position the paper", "literature review section" |
-| Write a rebuttal response | `/review-prompt` | "rebuttal", "reviewer response", "camera-ready" |
 
 ### Literature & References
 
@@ -68,7 +67,6 @@ Use this mapping to identify candidate skills. Match on task type first, then re
 | Verify citations are real | `/paper-references` | "check citations", "hallucinated references", "verify bibliography", "bib file" |
 | Find and synthesize related work | `/literature-synthesizer` | "related work", "find papers", "literature review", "what else exists" |
 | Scout benchmarks and baselines | `/benchmark-scout` | "benchmarks", "baselines", "SOTA", "what should I compare against" |
-| Summarize a specific paper | `/paper-summarizer` | "summarize this paper", "explain this to me", "TLDR" |
 
 ### Code & Experiments
 
@@ -106,7 +104,6 @@ Use this mapping to identify candidate skills. Match on task type first, then re
 | Task | Skill | Confidence trigger |
 |------|-------|-------------------|
 | Get started with the Agora | `/onboard` | "get started", "new here", "set up", "configure" |
-| Improve a prompt | `/review-prompt` | "prompt", "why isn't this working", "better prompt" |
 | Find the fastest win right now | `/five-minute-win` | "quick start", "what should I do first", "fastest result" |
 | Audit Agora configuration | `/audit-my-setup` | "configuration", "health check", "am I set up right" |
 

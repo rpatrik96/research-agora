@@ -41,10 +41,7 @@
         "theorem-dependency-mapper",
         "counterexample-searcher",
         "intuition-formalizer",
-        "content-archaeologist",
-        "voice-drift-detector",
-        "redundancy-radar",
-        "reader-simulation"
+        "voice-drift-detector"
       ]
     },
     "micro-skills": {

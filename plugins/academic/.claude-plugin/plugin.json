@@ -32,9 +32,7 @@
         "paper-experiments",
         "paper-references",
         "paper-review",
-        "paper-summarizer",
         "paper-verify-experiments",
-        "review-prompt",
         "review-triage",
         "whats-new"
       ]

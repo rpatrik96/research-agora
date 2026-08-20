@@ -377,13 +377,7 @@
           "description": "Simplify and refactor research code"
         }
       ],
-      "dissemination": [
-        {
-          "skill": "/paper-summarizer",
-          "min_tier": 1,
-          "description": "Create plain-language summaries"
-        }
-      ],
+      "dissemination": [],
       "admin": [
         {
           "skill": "/review-triage",

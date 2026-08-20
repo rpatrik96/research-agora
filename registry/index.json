@@ -2,12 +2,12 @@
   "version": "1.0.0",
   "generated": "2026-08-20",
   "stats": {
-    "total_skills": 69,
-    "public_skills": 50,
+    "total_skills": 63,
+    "public_skills": 44,
     "deprecated_skills": 0,
-    "active_public_skills": 50,
-    "commands": 31,
-    "agents": 19,
+    "active_public_skills": 44,
+    "commands": 28,
+    "agents": 16,
     "micro_skills": 12,
     "orchestrators": 4,
     "helpers": 3,
@@ -176,19 +176,6 @@
           "visibility": "public"
         },
         {
-          "name": "paper-summarizer",
-          "plugin": "academic",
-          "type": "command",
-          "description": "Summarize research papers for rapid triage and comprehension. Use when asked to \"summarize this paper\", \"paper summary\", \"what does this paper do\", \"triage papers\", or \"TLDR this paper\". Takes an arXiv ID or paper text and produces structured summaries at configurable depth.",
-          "model": "sonnet",
-          "path": "plugins/academic/commands/paper-summarizer.md",
-          "research-domain": "general",
-          "task-type": "analysis",
-          "research-phase": "literature-review",
-          "verification-level": "heuristic",
-          "visibility": "public"
-        },
-        {
           "name": "paper-verify-experiments",
           "plugin": "academic",
           "type": "command",
@@ -199,19 +186,6 @@
           "task-type": "verification",
           "research-phase": "implementation",
           "verification-level": "formal",
-          "visibility": "public"
-        },
-        {
-          "name": "review-prompt",
-          "plugin": "academic",
-          "type": "command",
-          "description": "Critiques a prompt using the RIOT framework and teaches one transferable lesson.\nUse when asked to \"review my prompt\", \"improve this prompt\", \"why isn't my prompt working\",\n\"score my prompt\", \"make this prompt better\", \"diagnose my prompt\", \"fix my prompt\",\nor \"what's wrong with this prompt\".\nUser pastes a prompt; skill scores each RIOT component, identifies the failure mode,\nand generates an improved version with minimal changes.",
-          "model": "sonnet",
-          "path": "plugins/academic/commands/review-prompt.md",
-          "research-domain": "general",
-          "task-type": "diagnosis",
-          "research-phase": "paper-writing",
-          "verification-level": "heuristic",
           "visibility": "public"
         },
         {
@@ -345,19 +319,6 @@
           "visibility": "public"
         },
         {
-          "name": "register-translator",
-          "plugin": "editorial",
-          "type": "command",
-          "description": "Translate writing between registers \u2014 paper to blog, blog to book chapter, academic to conversational. Use when asked to \"convert this for blog\", \"make this more conversational\", \"translate register\", \"paper to blog\", \"blog to book\", or \"adapt for audience\". Performs structural transformation, not just tone adjustment.",
-          "model": "opus",
-          "path": "plugins/editorial/commands/register-translator.md",
-          "research-domain": "general",
-          "task-type": "writing",
-          "research-phase": "paper-writing",
-          "verification-level": "heuristic",
-          "visibility": "public"
-        },
-        {
           "name": "writing-diagnosis",
           "plugin": "editorial",
           "type": "command",
@@ -475,19 +436,6 @@
           "visibility": "public"
         },
         {
-          "name": "content-archaeologist",
-          "plugin": "research-agents",
-          "type": "agent",
-          "description": "Use this agent to map blog posts or essays into book structure. Activates when asked to \"audit my content\", \"blog to book\", \"cluster my posts\", \"content audit\", or \"find themes across posts\". Performs thematic clustering, gap analysis, and generates book conversion strategies from dispersed content.",
-          "model": "opus",
-          "path": "plugins/research-agents/agents/content-archaeologist.md",
-          "research-domain": "general",
-          "task-type": "analysis",
-          "research-phase": "paper-writing",
-          "verification-level": "heuristic",
-          "visibility": "public"
-        },
-        {
           "name": "counterexample-searcher",
           "plugin": "research-agents",
           "type": "agent",
@@ -574,32 +522,6 @@
           "path": "plugins/research-agents/agents/proof-auditor.md",
           "research-domain": "general",
           "task-type": "verification",
-          "research-phase": "paper-writing",
-          "verification-level": "heuristic",
-          "visibility": "public"
-        },
-        {
-          "name": "reader-simulation",
-          "plugin": "research-agents",
-          "type": "agent",
-          "description": "Use this agent to simulate a first-time reader walking through your text. Activates when asked to \"simulate reader\", \"where will readers get confused\", \"reader experience\", \"comprehension check\", or \"reader perspective\". Flags assumed knowledge, jargon cliffs, logical jumps, and points where readers will zone out.",
-          "model": "opus",
-          "path": "plugins/research-agents/agents/reader-simulation.md",
-          "research-domain": "general",
-          "task-type": "analysis",
-          "research-phase": "paper-writing",
-          "verification-level": "heuristic",
-          "visibility": "public"
-        },
-        {
-          "name": "redundancy-radar",
-          "plugin": "research-agents",
-          "type": "agent",
-          "description": "Use this agent to find semantic overlap and redundancy across documents. Activates when asked to \"find redundancies\", \"am I repeating myself\", \"duplicate content\", \"overlap detection\", or \"merge candidates\". Clusters similar content and suggests merge strategies.",
-          "model": "sonnet",
-          "path": "plugins/research-agents/agents/redundancy-radar.md",
-          "research-domain": "general",
-          "task-type": "analysis",
           "research-phase": "paper-writing",
           "verification-level": "heuristic",
           "visibility": "public"

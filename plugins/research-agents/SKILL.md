@@ -19,7 +19,6 @@ Specialized research analysis agents for critical thinking, evidence verificatio
 **Critique and audience**
 - `devils-advocate` - Adversarial analysis of arguments
 - `audience-checker` - Evaluate alignment with a target reader persona
-- `reader-simulation` - Walk a first-time reader through the text
 
 **Theory**
 - `proof-auditor` - Decompose proofs and check each step
@@ -35,9 +34,7 @@ Specialized research analysis agents for critical thinking, evidence verificatio
 - `artifact-packager` - Prepare code and data for release
 
 **Writing and dissemination**
-- `redundancy-radar` - Find semantic overlap across documents
 - `voice-drift-detector` - Detect voice inconsistency across documents
-- `content-archaeologist` - Map blog posts into book structure
 - `reviewer-response-generator` - Draft rebuttals
 - `latex-debugger` - Diagnose LaTeX compilation errors
 

@@ -94,7 +94,6 @@ Efficiency utilities for common operations.
 | `claim-auditor` | Verify all claims against the L1-L6 evidence hierarchy |
 | `devils-advocate` | Adversarial analysis of arguments |
 | `audience-checker` | Target audience alignment |
-| `reader-simulation` | First-time reader walkthrough |
 | `proof-auditor` | Step-by-step proof verification |
 | `counterexample-searcher` | Assumption stress-testing |
 | `bounds-analyst` | Convergence rates and complexity bounds |
@@ -104,9 +103,7 @@ Efficiency utilities for common operations.
 | `statistical-validator` | Statistical methodology check |
 | `figure-storyteller` | Publication-quality figure generation |
 | `artifact-packager` | Reproducibility packaging |
-| `redundancy-radar` | Semantic overlap detection |
 | `voice-drift-detector` | Cross-document voice consistency |
-| `content-archaeologist` | Blog-to-book structure mapping |
 | `reviewer-response-generator` | Rebuttal drafting |
 | `latex-debugger` | LaTeX error resolution |
 

@@ -331,7 +331,7 @@ Skills are citable software. Each skill includes a suggested BibTeX entry:
 
 ### Phase 1: Static Site + Registry Index (Current)
 
-- [x] Skills marketplace with 69 skills across 5 plugins
+- [x] Skills marketplace with 63 skills across 5 plugins
 - [x] Test suite with 50+ tests validating structure and metadata
 - [ ] Registry index (`registry/index.json`) generated from skill files
 - [ ] Research metadata on all skills (domain, task-type, phase, verification-level)

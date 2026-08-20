@@ -53,8 +53,8 @@ only use what was extracted by the scripts above."* A tool lookup counts
 source counts; an instruction to be careful does not.
 
 **Skills that rephrase text the author already stands behind are accepted
-without one** — `/register-translator` converts a passage between registers and
-invents nothing.
+without one** — `/paper-abstract` diagnoses an abstract you wrote against venue
+limits and structure, and writes nothing.
 
 **Skills that generate claims with nothing to check them are declined**, and
 existing ones are retired on the same rule. An introduction states a paper's

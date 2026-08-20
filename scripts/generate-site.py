@@ -33,7 +33,6 @@ SKILL_GROUP_MAP = {
     # Paper Drafting
     "paper-abstract": "paper-drafting",
     "paper-experiments": "paper-drafting",
-    "paper-summarizer": "paper-drafting",
 
     # Quality & Verification
     "paper-review": "quality-verification",
@@ -84,21 +83,16 @@ SKILL_GROUP_MAP = {
 
     # Editorial Intelligence
     "argument-autopsy": "editorial",
-    "register-translator": "editorial",
     "writing-diagnosis": "editorial",
     "writing-verify": "editorial",
 
     # Research Agents (public)
-    "content-archaeologist": "literature-discovery",
-    "reader-simulation": "quality-verification",
-    "redundancy-radar": "writing-polish",
     "voice-drift-detector": "writing-polish",
 
     # Onboarding & Navigation
     "onboard": "development",
     "choose-skill": "development",
     "five-minute-win": "development",
-    "review-prompt": "writing-polish",
     "whats-new": "development",
     "audit-my-setup": "development",
     "agora-feedback": "development",
