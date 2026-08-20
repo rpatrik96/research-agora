@@ -459,3 +459,56 @@ class TestAdvertisedCounts:
             f"marketplace.json lists {len(manifest['plugins'])} plugins; "
             f"registry says {registry_data['stats']['plugins']}"
         )
+
+
+class TestRecommendationSurfacesAreLive:
+    """No surface may recommend a skill that does not exist.
+
+    Four hand-maintained tables recommend skills to users: scripts/onboard.py,
+    the two onboard resources, and the standalone browser quiz. Each has drifted
+    at least once — the 1.2.0 cut left `/openreview-submission` in three of them
+    and `/choose-skill` in the fourth, so a new user's first recommendation was
+    a command that no longer resolved. The registry is the catalog; these check
+    against it.
+    """
+
+    SURFACES = [
+        "scripts/onboard.py",
+        "plugins/discover/resources/onboard-profiles.json",
+        "plugins/discover/resources/onboard-reference.md",
+        "site/static/onboard.html",
+        "plugins/discover/commands/navigator.md",
+    ]
+
+    # Slash commands that belong to Claude Code or the user, not the catalog.
+    NOT_OURS = {"plugin", "clear", "model", "compact", "init", "help", "onboard"}
+
+    # Documentation shows what a contributed skill would look like. These are
+    # illustrations, not recommendations.
+    PLACEHOLDER = ("skill-name", "new-skill", "improved-skill", "affected-skill",
+                   "your-skill", "example-skill")
+
+    def test_every_recommended_skill_exists(self, registry_skills: list) -> None:
+        import re
+
+        live = {s["name"] for s in registry_skills} | self.NOT_OURS
+        dead = []
+        for rel in self.SURFACES:
+            path = REPO_ROOT / rel
+            if not path.exists():
+                continue
+            in_fence = False
+            for line_no, line in enumerate(path.read_text().splitlines(), 1):
+                if line.lstrip().startswith("```"):
+                    in_fence = not in_fence
+                    continue
+                if in_fence:
+                    continue
+                for name in re.findall(r'["\'`/]/([a-z][a-z0-9-]{2,})["\'`\s,\]|]', line):
+                    if any(ph in name for ph in self.PLACEHOLDER):
+                        continue
+                    if name not in live:
+                        dead.append(f"{rel}:{line_no} recommends /{name}")
+        assert not dead, "Recommendation surfaces name retired skills:\n" + "\n".join(
+            dict.fromkeys(dead)
+        )

@@ -116,9 +116,7 @@ Use this mapping to identify candidate skills. Match on task type first, then re
 
 | Task | Skill | Confidence trigger |
 |------|-------|-------------------|
-| Triage reviewer comments | `/rebuttal` | "organize reviews", "reviewer comments", "rebuttal planning", "prioritize feedback" |
-| Submit to OpenReview | `/openreview-submission` | "OpenReview", "submission", "upload paper" |
-| Prepare OpenReview metadata | `/openreview-submission` | "OpenReview", "submission metadata", "keywords", "TL;DR" |
+| Triage reviews and write the response | `/rebuttal` | "organize reviews", "reviewer comments", "rebuttal planning", "prioritize feedback" |
 
 #### Setup & Navigation
 
