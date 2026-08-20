@@ -23,7 +23,6 @@ Applies a stated standard. You are the oracle.
 
 | Skill | Description |
 |-------|-------------|
-| `/bounds-analyst` | Analyze convergence rates, complexity bounds, and approximation guarantees. The theoretical analogue of statistical-validator. Compares to known optimal rates and checks dimensional consistency. Trigger: "analyze bounds", "check convergence rate", "verify complexity", "bounds analysis" |
 | `/claim-auditor` | Deep verify ALL paper claims with systematic evidence hierarchy. NOW SUPPORTS PARALLEL MODE via parallel-audit orchestrator for 2-3x speedup. Activates when asked to "audit claims", "verify claims", "check paper claims", "claim verification", "evidence check", "verify evidence", or "quick evidence scan". Includes Quick Mode for rapid brainstorming checks |
 | `/devils-advocate` | Use this agent to challenge arguments, identify logical fallacies, and expose cognitive biases. Supports iterative refinement through constructive adversarial thinking. Invoke during brainstorming, hypothesis formation, or before committing to claims |
 | `/notation-consistency-checker` | Build a symbol table and check notation consistency throughout a paper. Detects overloaded symbols, undefined notation, and convention violations. Hybrid: script-based regex extraction + LLM semantic analysis. Trigger: "check notation", "notation consistency", "symbol table", "find notation issues", "verify notation" |

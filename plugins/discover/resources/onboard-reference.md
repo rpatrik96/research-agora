@@ -97,8 +97,6 @@ Select 3-5 skills from this mapping based on the user's primary task and tier:
 | Skill | Tier | Description |
 |-------|------|-------------|
 | `/paper-references` | 1+ | Verify citations against arXiv, Crossref, DBLP |
-| `/literature-synthesizer` | 1+ | Discover and synthesize related work |
-| `/benchmark-scout` | 2+ | Find relevant benchmarks and baselines |
 
 **Writing:**
 | Skill | Tier | Description |

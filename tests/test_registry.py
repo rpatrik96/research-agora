@@ -453,8 +453,11 @@ class TestAdvertisedCounts:
         for rel in tracked:
             if rel in self.EXEMPT or rel.startswith(self.EXEMPT_PREFIXES):
                 continue
+            path = REPO_ROOT / rel
+            if not path.exists():
+                continue
             for line_no, line in enumerate(
-                (REPO_ROOT / rel).read_text().splitlines(), 1
+                path.read_text().splitlines(), 1
             ):
                 for found in pattern.findall(line):
                     if int(found) not in allowed:

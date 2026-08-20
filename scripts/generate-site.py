@@ -77,9 +77,6 @@ VERIFICATION_BANDS = [
 # Skills whose band is not derivable from their metadata, with the reason.
 # Keep this short: a long list means the rule is wrong, not the skills.
 BAND_OVERRIDES = {
-    # Discovery, but every entry it returns is confirmed to exist against arXiv
-    # and then put through paper-references before it is handed over.
-    "literature-synthesizer": "checks-ground-truth",
     # Reads the real config off disk and reports what is actually there.
     "audit-my-setup": "checks-rubric",
 }

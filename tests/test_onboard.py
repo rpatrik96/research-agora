@@ -104,7 +104,7 @@ def test_tier_3_cli_d_ai_b():
     [
         # Literature at tier 1 and 2
         ("a", 1, "/paper-references"),
-        ("a", 2, "/benchmark-scout"),
+        ("a", 2, "/paper-references"),
         # Writing at tier 1 and 2
         ("d", 1, "/paper-abstract"),
         ("d", 2, "/writing-diagnosis"),

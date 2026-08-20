@@ -59,7 +59,7 @@ Flag any part of the specification that is underspecified — a good experiment 
 - Is the stopping criterion a single condition, not an "or"?
 - Review the flagged ambiguities before launching. Resolve each one.
 
-**Related skills:** `benchmark-scout` (discover@research-agora), `experiment-tracker` (toolkit@research-agora)
+**Related skill:** `experiment-tracker` (toolkit@research-agora)
 
 ---
 
@@ -99,7 +99,7 @@ For the suggested additions: do not invent DOIs. If uncertain, write [DOI: verif
 - Are the one-sentence summaries of your existing papers accurate? Spot-check 2–3 against the actual abstracts.
 - Any `[DOI: verify manually]` markers: look these up before citing.
 
-**Related skills:** `literature-synthesizer` (discover@research-agora), `paper-references` (verify@research-agora)
+**Related skill:** `paper-references` (verify@research-agora)
 
 ---
 

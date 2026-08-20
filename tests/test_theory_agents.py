@@ -1,7 +1,7 @@
 """Tests for theoretical research agents.
 
 These tests verify the structure, content, and consistency of the new theory agents:
-- Agents: proof-auditor, bounds-analyst, notation-consistency-checker,
+- Agents: proof-auditor, notation-consistency-checker,
   theorem-dependency-mapper, counterexample-searcher
 - Micro-skills: proof-step-extractor, proof-step-verifier,
   assumption-analyzer
@@ -32,7 +32,6 @@ MODEL_ROUTING = REPO_ROOT / "plugins" / "verify" / "config" / "model-routing.jso
 
 THEORY_AGENTS = [
     "proof-auditor",
-    "bounds-analyst",
     "notation-consistency-checker",
     "theorem-dependency-mapper",
     "counterexample-searcher",
@@ -137,7 +136,6 @@ class TestTheoryModelAssignment:
     EXPECTED_MODELS = {
         # Agents
         "proof-auditor": "opus",
-        "bounds-analyst": "opus",
         "notation-consistency-checker": "sonnet",
         "theorem-dependency-mapper": "sonnet",
         "counterexample-searcher": "opus",
@@ -250,33 +248,6 @@ class TestProofAuditor:
     def test_has_parallel_mode(self, content: str) -> None:
         """Should document parallel mode delegation."""
         assert "parallel-theory-audit" in content
-
-
-class TestBoundsAnalyst:
-    """Tests specific to bounds-analyst agent."""
-
-    @pytest.fixture
-    def content(self) -> str:
-        return (AGENTS_DIR / "bounds-analyst.md").read_text()
-
-    def test_has_known_rate_tables(self, content: str) -> None:
-        """Should have tables of known optimal rates."""
-        assert "Convex Optimization" in content
-        assert "Learning Theory" in content
-
-    def test_has_dimensional_analysis(self, content: str) -> None:
-        """Should document dimensional consistency checking."""
-        assert "Dimensional" in content or "dimensional" in content
-
-    def test_has_hidden_constant_analysis(self, content: str) -> None:
-        """Should analyze hidden constants in O-notation."""
-        assert "Hidden Constant" in content or "hidden constant" in content.lower()
-
-    def test_documents_common_red_flags(self, content: str) -> None:
-        """Should document red flags for bounds."""
-        red_flags = ["Missing dimension", "Exponential in d", "Wrong limit"]
-        found = sum(1 for rf in red_flags if rf in content)
-        assert found >= 2, "Missing most bound red flags"
 
 
 class TestNotationConsistencyChecker:
@@ -537,10 +508,6 @@ class TestParallelTheoryAudit:
         """Should invoke notation-consistency-checker."""
         assert "notation-consistency-checker" in content
 
-    def test_references_bounds_analyst(self, content: str) -> None:
-        """Should invoke bounds-analyst."""
-        assert "bounds-analyst" in content
-
     def test_references_dependency_mapper(self, content: str) -> None:
         """Should invoke theorem-dependency-mapper."""
         assert "theorem-dependency-mapper" in content
@@ -716,11 +683,6 @@ class TestTheoryCrossReferences:
         """notation-consistency-checker should reference parallel-theory-audit."""
         content = (AGENTS_DIR / "notation-consistency-checker.md").read_text()
         assert "parallel-theory-audit" in content
-
-    def test_bounds_analyst_references_state(self) -> None:
-        """bounds-analyst should reference research-state.json."""
-        content = (AGENTS_DIR / "bounds-analyst.md").read_text()
-        assert "research-state" in content
 
     def test_extractor_feeds_verifier(self) -> None:
         """proof-step-extractor should note it feeds proof-step-verifier."""

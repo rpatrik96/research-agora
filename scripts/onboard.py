@@ -118,12 +118,9 @@ SKILL_TABLE = {
     "a": {  # Literature
         1: [
             ("/paper-references", "Verify citations against arXiv, Crossref, DBLP"),
-            ("/literature-synthesizer", "Discover literature and build a verified bibliography"),
         ],
         2: [
             ("/paper-references", "Verify citations against arXiv, Crossref, DBLP"),
-            ("/literature-synthesizer", "Discover literature and build a verified bibliography"),
-            ("/benchmark-scout", "Find relevant benchmarks and baselines"),
         ],
     },
     "b": {  # Data/experiments
@@ -134,7 +131,6 @@ SKILL_TABLE = {
         2: [
             ("/paper-verify-experiments", "Check paper claims against source code"),
             ("/experiment-tracker", "Sync experiment results to paper tables"),
-            ("/benchmark-scout", "Find relevant benchmarks and baselines"),
         ],
     },
     "c": {  # Code

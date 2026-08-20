@@ -1,7 +1,7 @@
 """Scenario: Experienced user discovers verification and theory tools.
 
 Dr. Chen is a postdoc who already uses basic skills and wants to find
-proof verification and bounds analysis tools using search and intent filters.
+proof verification and theorem-analysis tools using search and intent filters.
 
 Tests: search input, intent buttons, checkbox filters, group collapse,
 description expand.

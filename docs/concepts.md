@@ -55,7 +55,6 @@ Reusable prompt templates invoked with a slash command. A skill encodes a comple
 |-------|-------------|
 | `/commit` | Reviews changes, writes a conventional commit message, commits |
 | `/paper-review` | Reads a paper and generates structured review feedback |
-| `/literature-synthesizer` | Searches for related work given a research question |
 | `/paper-references` | Checks that all citations in a BibTeX file resolve to real papers |
 
 **Context engineering**
