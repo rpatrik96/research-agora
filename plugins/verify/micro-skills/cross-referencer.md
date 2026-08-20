@@ -34,6 +34,38 @@ This skill identifies inconsistencies between different parts of a paper. Common
 | **Typical runtime** | 10-30s |
 | **Can run in parallel** | No (needs full context) |
 
+## Scripted First Pass
+
+Run from the repository root after generating `research-state.json`:
+
+```bash
+python3 - <<'PY'
+import json
+from pathlib import Path
+
+state = json.loads(Path("research-state.json").read_text())
+unreferenced = [
+    {"kind": kind, **item}
+    for kind in ("figures", "tables")
+    for item in state["structure"][kind]
+    if item["referenced_by"] == []
+]
+print(
+    json.dumps(
+        {
+            "orphan_evidence": unreferenced,
+            "unfulfilled_forward_references": unreferenced,
+        },
+        indent=2,
+    )
+)
+PY
+```
+
+Use this output for orphan-evidence and unfulfilled-forward-reference findings.
+The model still decides semantic questions, including whether two reported
+numbers differ only by rounding or constitute an error.
+
 ## Input Specification
 
 ```json

@@ -27,7 +27,6 @@
     "commands": {
       "items": [
         "agora-feedback",
-        "audit-my-setup",
         "code-simplify",
         "experiment-tracker",
         "figures",

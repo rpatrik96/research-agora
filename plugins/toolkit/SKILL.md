@@ -25,7 +25,6 @@ Applies a stated standard. You are the oracle.
 |-------|-------------|
 | `/agora-feedback` | Opt-in, review-gated usage feedback for Research Agora skills (RFC-0001) |
 | `/artifact-packager` | Use this agent to prepare ML code/data/models for public release with comprehensive checklists. Activates when asked to "package artifacts", "prepare release", "reproducibility checklist", "code release", or "prepare camera ready" |
-| `/audit-my-setup` | Health check for the user's Research Agora configuration. Reads CLAUDE.md files, checks installed plugins, MCP servers, hooks, and privacy settings |
 
 ## Produces something for you to check
 

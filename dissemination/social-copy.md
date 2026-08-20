@@ -1,6 +1,6 @@
 # Social Copy — Research Agora Launch
 
-**Context**: Research Agora — 31 public AI skills across 4 plugins for ML research.
+**Context**: Research Agora — 30 public AI skills across 4 plugins for ML research.
 Site: rpatrik96.github.io/research-agora | GitHub: github.com/rpatrik96/research-agora
 Position paper: "Skills, Benchmarks, and Verification Are What AI-Assisted Research Needs" @ P-AGI Workshop, ICLR 2026.
 
@@ -11,13 +11,13 @@ Position paper: "Skills, Benchmarks, and Verification Are What AI-Assisted Resea
 ### Bio Options
 
 **Option A** (tool-builder + breadth):
-> Building AI research infrastructure. Research Agora: 61 open-source skills for paper writing, citation verification & adversarial review. PhD @UniTuebingen @ELLIS_network @MPI_IS.
+> Building AI research infrastructure. Research Agora: 38 open-source skills for paper writing, citation verification & adversarial review. PhD @UniTuebingen @ELLIS_network @MPI_IS.
 
 **Option B** (credential-first):
 > PhD researcher @UniTuebingen / @ELLIS_network / @MPI_IS. Built Research Agora — a verified AI skills marketplace for ML research. rpatrik96.github.io/research-agora
 
 **Option C** (problem-first):
-> AI-assisted research needs verification, not just generation. Building Research Agora: 31 public skills, 2 benchmarks, MIT license. P-AGI@ICLR 2026. @UniTuebingen @ELLIS_network.
+> AI-assisted research needs verification, not just generation. Building Research Agora: 30 public skills, 2 benchmarks, MIT license. P-AGI@ICLR 2026. @UniTuebingen @ELLIS_network.
 
 ---
 
@@ -54,7 +54,7 @@ Position paper: "Skills, Benchmarks, and Verification Are What AI-Assisted Resea
 > PhD Researcher @ University of Tübingen / ELLIS / MPI-IS | Building Research Agora: verified AI skills for ML research | P-AGI Workshop @ ICLR 2026
 
 **Option B** (problem-solution):
-> Building AI research infrastructure that verifies its own outputs | Research Agora: 61 open-source skills, 2 benchmarks | PhD @ Tübingen / ELLIS / MPI-IS | ICLR 2026
+> Building AI research infrastructure that verifies its own outputs | Research Agora: 38 open-source skills, 2 benchmarks | PhD @ Tübingen / ELLIS / MPI-IS | ICLR 2026
 
 **Option C** (credential-led):
 > PhD Researcher @ University of Tübingen / ELLIS / MPI-IS | Author, "Skills, Benchmarks, and Verification Are What AI-Assisted Research Needs" — P-AGI @ ICLR 2026
@@ -69,7 +69,7 @@ ML researchers now use AI tools daily, but the workflows are ad hoc, unverified,
 
 Paragraph 2 — The solution:
 
-Research Agora is an open-source AI skills marketplace built for ML researchers. It ships 31 public skills across 4 plugins: citation management (hallucination detection via CrossRef / DBLP / Semantic Scholar / arXiv), adversarial review (skeptical reviewer simulation, claim auditing, proof verification), editorial diagnosis (readability scoring, argument mapping, register translation), formatting (LaTeX build and diagnostics, slide and poster generation), and a research-agents layer of 22 autonomous agents coordinated by orchestrators. It does not draft your paper's claims for you — there is no oracle for novelty, so that judgment stays with the author. Every verification skill ships paired with a benchmark — CiteBench and HALLMARK — so you can measure what the skill actually catches before trusting it.
+Research Agora is an open-source AI skills marketplace built for ML researchers. It ships 30 public skills across 4 plugins: citation management (hallucination detection via CrossRef / DBLP / Semantic Scholar / arXiv), adversarial review (skeptical reviewer simulation, claim auditing, proof verification), editorial diagnosis (readability scoring, argument mapping, register translation), formatting (LaTeX build and diagnostics, slide and poster generation), and a research-agents layer of 22 autonomous agents coordinated by orchestrators. It does not draft your paper's claims for you — there is no oracle for novelty, so that judgment stays with the author. Every verification skill ships paired with a benchmark — CiteBench and HALLMARK — so you can measure what the skill actually catches before trusting it.
 
 Paragraph 3 — The invitation:
 
@@ -124,7 +124,7 @@ I'll share the full framework next week.
 
 Something I've been building for the past several months is almost ready.
 
-31 public skills. 2 benchmarks. A position paper at ICLR 2026.
+30 public skills. 2 benchmarks. A position paper at ICLR 2026.
 
 All open source.
 
@@ -140,7 +140,7 @@ Most researchers use AI to write. Almost none use it with any form of verificati
 
 That gap is the problem Research Agora was built to close.
 
-Research Agora is an open-source AI skills marketplace: 31 public skills across 4 plugins, designed specifically for ML research workflows. Not a chatbot. Not a prompt collection. A structured plugin system that installs in one command and runs inside the tools you already use.
+Research Agora is an open-source AI skills marketplace: 30 public skills across 4 plugins, designed specifically for ML research workflows. Not a chatbot. Not a prompt collection. A structured plugin system that installs in one command and runs inside the tools you already use.
 
 Highlights:
 

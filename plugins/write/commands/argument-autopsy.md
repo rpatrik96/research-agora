@@ -26,39 +26,68 @@ The autopsy reads and analyzes. It never rewrites the paper.
 
 ## Workflow
 
-1. **Read the full paper or section**: Read without judgment. Understand the intended argument before dissecting it.
-2. **Extract all claims**: Both explicit ("We show that X") and implicit (claims embedded in framing or word choice). Number them C1, C2, ...
-3. **Extract all evidence**: Data, citations, proofs, logical arguments, experimental results. Number them E1, E2, ...
-4. **Map claim-evidence dependencies**: Which evidence supports which claim? Which claims depend on other claims?
-5. **Grade evidence quality**: Assign L1-L6 levels to each piece of evidence.
-6. **Identify gaps**: Missing links, orphans, circular dependencies, scope mismatches.
-7. **Render the DAG**: Produce a structured visualization of the argument skeleton.
-8. **Diagnose and recommend**: Prioritized list of fixes with estimated effort.
+1. **Load research state**: Generate or read `research-state.json` before analyzing prose.
+2. **Read the full paper or section**: Read without judgment. Understand the intended argument before dissecting it.
+3. **Extract all claims**: Both explicit ("We show that X") and implicit (claims embedded in framing or word choice). Number them C1, C2, ...
+4. **Build the evidence inventory**: Run the scripted pass below over `structure.figures + structure.tables + structure.theorems + citations`; read only to map that inventory to claims.
+5. **Map claim-evidence dependencies**: Which evidence supports which claim? Which claims depend on other claims? Save the claim dependencies as `claim-graph.json`.
+6. **Grade evidence quality**: Assign L1-L6 levels to each piece of evidence.
+7. **Identify gaps**: Run the cycle check below, then identify missing links, orphans, and scope mismatches.
+8. **Render the DAG**: Produce a structured visualization of the argument skeleton.
+9. **Diagnose and recommend**: Prioritized list of fixes with estimated effort.
 
-## Evidence Grading (L1-L6 Hierarchy)
+## Scripted Passes
 
-Every piece of evidence gets graded on a six-level scale. Higher levels are stronger.
+Build the evidence inventory from parsed state:
 
-| Level | Name | Description | Example |
-|-------|------|-------------|---------|
-| **L1** | CODE_VERIFIED | Reproducible with provided code | "Run `train.py` to reproduce Table 1" |
-| **L2** | REPRODUCIBLE_EXPERIMENT | Experimental result with full details | "Table 2 shows accuracy across 5 seeds" |
-| **L3** | PAPER_EVIDENCE | Tables, figures, or proofs in the paper | "Figure 3 shows the ablation" |
-| **L4** | CITATION_SUPPORT | Supported by cited prior work | "As shown by Smith et al. (2023)" |
-| **L5** | LOGICAL_ARGUMENT | Supported by reasoning alone | "Since X implies Y, we expect Z" |
-| **L6** | ASSERTION | No evidence provided | "Our method is more efficient" |
+```bash
+python3 - research-state.json <<'PY'
+import json
+import sys
+from pathlib import Path
 
-### When L6 Assertions Are Acceptable
+state = json.loads(Path(sys.argv[1]).read_text())
+sources = [
+    *(('figure', item) for item in state['structure']['figures']),
+    *(('table', item) for item in state['structure']['tables']),
+    *(('theorem', item) for item in state['structure']['theorems']),
+    *(('citation', item) for item in state['citations']),
+]
+inventory = [
+    {"evidence_id": f"E{index}", "type": kind, "source": item}
+    for index, (kind, item) in enumerate(sources, start=1)
+]
+print(json.dumps({"evidence_inventory": inventory}, indent=2))
+PY
+```
 
-Not every claim needs L1 evidence. The standard depends on the claim's role:
+Write `claim-graph.json` as a mapping from each claim ID to the claim IDs it
+depends on, then run an actual cycle check:
 
-- **Motivation/context**: L5-L6 acceptable. "Deep learning models are increasingly deployed in safety-critical settings" doesn't need a citation in most papers.
-- **Future work**: L6 acceptable. These are speculative by nature.
-- **Core method claims**: L1-L3 required. "Our method achieves state-of-the-art" must have experimental evidence.
-- **Theoretical claims**: L3 required (proof in paper) or L4 (proof in cited work).
-- **Comparative claims**: L2-L3 required. "We outperform X" needs a direct comparison.
+```bash
+python3 - claim-graph.json <<'PY'
+import json
+import sys
+from graphlib import CycleError, TopologicalSorter
+from pathlib import Path
 
-Flag L6 assertions on core claims. Leave L6 assertions in motivation alone.
+graph = json.loads(Path(sys.argv[1]).read_text())
+try:
+    order = list(TopologicalSorter(graph).static_order())
+except CycleError as error:
+    print(json.dumps({"has_cycle": True, "cycle": list(error.args[1])}, indent=2))
+else:
+    print(json.dumps({"has_cycle": False, "topological_order": order}, indent=2))
+PY
+```
+
+## Evidence Grading
+
+> **Evidence scales are defined once**, in
+> [`plugins/verify/config/EVIDENCE_SCALES.md`](../../verify/config/EVIDENCE_SCALES.md):
+> L1–L6 for empirical claims, T1–T6 for theoretical ones, with the venue bars
+> and the downgrade rule. Read the levels from there rather than from a copy —
+> four copies of this scale had already drifted.
 
 ## Gap Types
 

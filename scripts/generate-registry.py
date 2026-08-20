@@ -8,7 +8,6 @@ extracts YAML frontmatter, and generates a machine-readable registry index.
 
 import json
 import re
-import re
 import sys
 from datetime import date
 from pathlib import Path
@@ -96,8 +95,7 @@ def collect_skill_files() -> list[Path]:
 # bash/python fence, an mcp__ call, or a named scripts/*.py delegate. A tool
 # mentioned in prose, in a routing table, or inside a config snippet the skill
 # merely recommends is not an invocation — navigator names matplotlib in a
-# routing row, and audit-my-setup carries `latexmk` inside a hooks.json example
-# it suggests you add. Neither runs anything.
+# routing row without running it.
 TOOL_PATTERNS = [
     (r"bibtex-check|bibtexupdater|bibtex-updater", "bibtexupdater"),
     (r"limpid_bridge\.py|\blimpid\b", "limpid"),

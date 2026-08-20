@@ -130,7 +130,8 @@ With script metrics as context, evaluate dimensions scripts cannot measure:
 - Note missing context that experts forget is non-obvious.
 
 **Claim-Evidence Alignment**:
-Using the L1-L6 evidence hierarchy (CODE_VERIFIED, REPRODUCIBLE_EXPERIMENT, PAPER_EVIDENCE,
+Using the L1–L6 evidence hierarchy defined in
+[`plugins/verify/config/EVIDENCE_SCALES.md`](../../verify/config/EVIDENCE_SCALES.md) (CODE_VERIFIED, REPRODUCIBLE_EXPERIMENT, PAPER_EVIDENCE,
 CITATION_SUPPORT, LOGICAL_ARGUMENT, ASSERTION):
 - Flag L6 assertions in core-claims sections (methods, results).
 - L6 is acceptable in motivation and future work.

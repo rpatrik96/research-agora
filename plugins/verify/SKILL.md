@@ -47,11 +47,9 @@ Building blocks other skills call. You will not normally invoke these directly.
 | `citation-verifier` | micro-skill |
 | `cross-referencer` | micro-skill |
 | `derivation-checker` | micro-skill |
-| `evidence-grader` | micro-skill |
 | `parallel-audit` | orchestrator |
 | `parallel-review` | orchestrator |
 | `parallel-theory-audit` | orchestrator |
-| `proof-step-extractor` | micro-skill |
 | `proof-step-verifier` | micro-skill |
 | `state-generator` | agent |
 

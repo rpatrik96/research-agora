@@ -1,5 +1,38 @@
 # Changelog
 
+## [2.2.0] - 2026-08-20
+
+### Removed
+
+- **`audit-my-setup`** — its paste-ready fixes point at
+  `~/.claude/claude_desktop_config.json` and `~/.claude/hooks.json`; Claude Code
+  reads configuration from neither path.
+- **`evidence-grader`** — it was a third copy of the L1–L6 scale while
+  declaring `External calls: None`. The orchestrator now carries the scoped
+  grading task, and the scale itself lives in one canonical file.
+- **`proof-step-extractor`** — it was a JSON schema for “break this proof into
+  steps.” The theory orchestrator now gives that instruction directly to each
+  proof-decomposition worker.
+
+### Changed
+
+- **`statistical-validator`** computes missing-error-bar findings from
+  `structure.tables[].has_error_bars` in `research-state.json`.
+- **`paper-review`** uses the same parsed field for its stochastic-results red
+  flag.
+- **`cross-referencer`** computes orphan evidence and unfulfilled forward
+  references from empty `referenced_by` lists on parsed figures and tables.
+- **`argument-autopsy`** builds its evidence inventory from parsed figures,
+  tables, theorems, and citations, then detects circular claim dependencies
+  with `graphlib.TopologicalSorter`.
+- **`paper-abstract`** reads `total_words` from
+  `scripts/writing_verify.py <file> --json` instead of asking a model to count.
+- **Evidence scales are defined once**, in
+  `plugins/verify/config/EVIDENCE_SCALES.md`; every grading instruction points
+  to that definition.
+
+**Catalog: 38 skills, 30 public.**
+
 ## [2.1.0] - 2026-08-20
 
 ### Removed

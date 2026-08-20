@@ -38,7 +38,7 @@ This agent is the theoretical analogue of `claim-auditor`. Where claim-auditor c
 ```
 If: Paper has >3 proofs OR user requests "parallel proof audit"
 Then: Delegate to parallel-theory-audit orchestrator
-Trade: lower wall-clock at higher token cost. Uses proof-step-extractor + proof-step-verifier micro-skills.
+Trade: lower wall-clock at higher token cost. Uses inline proof decomposition plus proof-step-verifier workers.
 ```
 
 ### Sequential Mode (Fallback)
@@ -54,12 +54,11 @@ Rate all proofs on this scale:
 
 | Level | Label | Description |
 |-------|-------|-------------|
-| **T1** | FORMALLY_VERIFIED | Proof checked by Lean/Coq/Isabelle |
-| **T2** | COMPLETE_PROOF | Full proof with all steps justified |
-| **T3** | PROOF_WITH_GAPS | Proof present but with unjustified leaps |
-| **T4** | PROOF_SKETCH | High-level strategy only, key steps omitted |
-| **T5** | INFORMAL_ARGUMENT | Intuitive reasoning without formal proof |
-| **T6** | THEOREM_ASSERTION | Stated without proof or argument |
+> **Evidence scales are defined once**, in
+> [`plugins/verify/config/EVIDENCE_SCALES.md`](../config/EVIDENCE_SCALES.md):
+> L1–L6 for empirical claims, T1–T6 for theoretical ones, with the venue bars
+> and the downgrade rule. Read the levels from there rather than from a copy —
+> four copies of this scale had already drifted.
 
 ## Workflow
 
@@ -280,7 +279,7 @@ Populates `theory.theorems` in `research-state.json` with audit results:
 - User directly for proof verification
 
 ### Calls
-- `proof-step-extractor` micro-skill (parallel mode)
+- `parallel-theory-audit` inline proof-decomposition task (parallel mode)
 - `proof-step-verifier` micro-skill (parallel mode)
 - `theorem-dependency-mapper` (for context)
 

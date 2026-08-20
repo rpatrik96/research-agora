@@ -305,10 +305,10 @@ class TestOrchestratorSubagentSpawning:
                 or "subagent" in content
             ), f"{orch_path.name} missing subagent spawning documentation"
 
-    def test_subagent_spawning_specifies_skill(
+    def test_subagent_spawning_specifies_skill_or_task(
         self, all_orchestrators: list[Path]
     ) -> None:
-        """Subagent spawning should specify which skill to invoke."""
+        """Subagent spawning should name a reusable skill or define an inline task."""
         for orch_path in all_orchestrators:
             content = orch_path.read_text()
 
@@ -319,8 +319,8 @@ class TestOrchestratorSubagentSpawning:
                 )
                 for block in spawn_blocks:
                     assert (
-                        "skill:" in block
-                    ), f"{orch_path.name} SPAWN_SUBAGENT missing skill specification"
+                        "skill:" in block or "task:" in block
+                    ), f"{orch_path.name} SPAWN_SUBAGENT missing skill or task specification"
 
     def test_subagent_spawning_specifies_input(
         self, all_orchestrators: list[Path]
@@ -434,6 +434,11 @@ class TestParallelAuditOrchestrator:
                 claim_type in orchestrator_content.lower()
             ), f"Missing claim type: {claim_type}"
 
+    def test_inlines_evidence_grading_worker(self, orchestrator_content: str) -> None:
+        """Evidence grading should be an inline task, not a retired micro-skill."""
+        assert "task:" in orchestrator_content
+        assert "EVIDENCE_SCALES.md" in orchestrator_content
+
     def test_documents_result_merging(self, orchestrator_content: str) -> None:
         """Should document how results are merged."""
         assert "Result Merging" in orchestrator_content or "merge" in orchestrator_content.lower()
@@ -484,9 +489,9 @@ class TestOrchestratorConsistency:
                     r"SPAWN_SUBAGENT:.*?(?=SPAWN_SUBAGENT:|```|$)", content, re.DOTALL
                 )
                 for block in spawn_blocks:
-                    # All should have skill and input at minimum
+                    # All should have a reusable skill or inline task, plus input.
                     assert (
-                        "skill:" in block and "input:" in block
+                        ("skill:" in block or "task:" in block) and "input:" in block
                     ), f"{name} has inconsistent SPAWN_SUBAGENT format"
 
     def test_all_orchestrators_have_one_line_description(

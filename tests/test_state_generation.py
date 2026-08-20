@@ -220,6 +220,102 @@ We presented a novel approach.
         assert methodology["level"] == 1
         assert model_arch["level"] == 2
 
+    @pytest.mark.parametrize("command", ["ref", "cref", "Cref", "autoref", "eqref"])
+    def test_figure_reference_records_referencing_section(self, command: str) -> None:
+        """Each supported reference command should link a figure to its section."""
+        from scripts.parse_latex import LaTeXParser
+
+        content = rf"""
+\section{{Introduction}}
+See \{command}{{fig:overview}}.
+\begin{{figure}}
+\caption{{Overview}}
+\label{{fig:overview}}
+\end{{figure}}
+"""
+
+        figures = LaTeXParser(content, "paper.tex").parse_all()["structure"]["figures"]
+
+        assert figures[0]["label"] == "fig:overview"
+        assert figures[0]["referenced_by"] == ["sec1"]
+
+    def test_duplicate_figure_references_in_one_section_are_deduplicated(self) -> None:
+        """Repeated references in one section should record that section once."""
+        from scripts.parse_latex import LaTeXParser
+
+        content = r"""
+\section{Introduction}
+See \ref{fig:overview}, then compare with \ref{fig:overview} again.
+\begin{figure}\caption{Overview}\label{fig:overview}\end{figure}
+"""
+
+        figure = LaTeXParser(content, "paper.tex").parse_all()["structure"]["figures"][0]
+
+        assert figure["referenced_by"] == ["sec1"]
+
+    def test_cref_list_records_references_for_each_table(self) -> None:
+        """A comma-separated cref should link every named table."""
+        from scripts.parse_latex import LaTeXParser
+
+        content = r"""
+\section{Results}
+Compare \cref{tab:a, tab:b}.
+\begin{table}\caption{A}\label{tab:a}\end{table}
+\begin{table}\caption{B}\label{tab:b}\end{table}
+"""
+
+        tables = LaTeXParser(content, "paper.tex").parse_all()["structure"]["tables"]
+
+        assert [(table["label"], table["referenced_by"]) for table in tables] == [
+            ("tab:a", ["sec1"]),
+            ("tab:b", ["sec1"]),
+        ]
+
+    def test_unreferenced_figure_keeps_empty_referenced_by(self) -> None:
+        """An unreferenced figure should remain identifiable as an orphan."""
+        from scripts.parse_latex import LaTeXParser
+
+        content = r"""
+\section{Results}
+\begin{figure}\caption{Orphan}\label{fig:orphan}\end{figure}
+"""
+
+        figure = LaTeXParser(content, "paper.tex").parse_all()["structure"]["figures"][0]
+
+        assert figure["referenced_by"] == []
+
+    def test_reference_to_unknown_label_is_ignored(self) -> None:
+        """An unknown reference should not crash or attach to another float."""
+        from scripts.parse_latex import LaTeXParser
+
+        content = r"""
+\section{Results}
+See \ref{fig:known} and \ref{fig:missing}.
+\begin{figure}\caption{Known}\label{fig:known}\end{figure}
+"""
+
+        figures = LaTeXParser(content, "paper.tex").parse_all()["structure"]["figures"]
+
+        assert [(figure["label"], figure["referenced_by"]) for figure in figures] == [
+            ("fig:known", ["sec1"])
+        ]
+
+    def test_referencing_sections_preserve_document_order(self) -> None:
+        """References should retain first-seen section order across the document."""
+        from scripts.parse_latex import LaTeXParser
+
+        content = r"""
+\section{Introduction}
+See \ref{fig:overview}.
+\section{Results}
+See \ref{fig:overview} twice: \ref{fig:overview}.
+\begin{figure}\caption{Overview}\label{fig:overview}\end{figure}
+"""
+
+        figure = LaTeXParser(content, "paper.tex").parse_all()["structure"]["figures"][0]
+
+        assert figure["referenced_by"] == ["sec1", "sec2"]
+
 
 class TestResearchStateSchema:
     """Tests for research state schema validation."""

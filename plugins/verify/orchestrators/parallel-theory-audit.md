@@ -45,7 +45,7 @@ Phase 1: Setup (Sequential)
 
 Phase 2: Fan-Out Stage 1 (Parallel)
 ├── Proof Decomposition
-│   └── For each proof: spawn proof-step-extractor
+│   └── For each proof: spawn an inline proof-decomposition task
 ├── Assumption Analysis
 │   └── For each assumption: spawn assumption-analyzer
 └── Notation Checking
@@ -134,7 +134,8 @@ measurement exists to base an estimate on.
 For each proof in research state:
 
 ```
-SPAWN: proof-step-extractor
+SPAWN:
+  task: Decompose the supplied proof into one mathematical operation per step, including trivial steps; do not verify steps or invent justifications, mark unexplained transitions unjustified, and cap the result at 50 steps while flagging overflow. For each step record step_id, action, justification and detail, depends_on edges, assumptions consumed, LaTeX, and complexity, then return proof_id, steps, total_steps, assumptions_used, and gap_count for proof-step-verifier.
   input:
     proof_id: [proof ID]
     theorem_statement: [statement being proved]
@@ -175,7 +176,7 @@ Depends on Phase 2 completion (needs extracted proof steps).
 
 ### Step Verification
 
-For each step extracted by `proof-step-extractor`:
+For each extracted step:
 
 ```
 SPAWN: proof-step-verifier
@@ -371,7 +372,7 @@ Weight issues by theorem criticality from dependency graph:
 
 | Agent | Count | Succeeded | Failed | Total Time |
 |-------|-------|-----------|--------|------------|
-| proof-step-extractor | [N] | [N] | [N] | [Xs] |
+| inline proof-decomposition task | [N] | [N] | [N] | [Xs] |
 | proof-step-verifier | [N] | [N] | [N] | [Xs] |
 | assumption-analyzer | [N] | [N] | [N] | [Xs] |
 | notation-consistency-checker | 1 | [0/1] | [0/1] | [Xs] |
@@ -394,7 +395,7 @@ measured.
 ### Calls
 - `state-generator` (with theory parsing)
 - `theorem-dependency-mapper`
-- `proof-step-extractor` (N instances)
+- Inline proof-decomposition task (N instances)
 - `proof-step-verifier` (K instances)
 - `assumption-analyzer` (M instances)
 - `notation-consistency-checker` (1 instance)

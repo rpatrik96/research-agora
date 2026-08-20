@@ -319,7 +319,7 @@ async def phase_fanout(setup: SetupResult) -> list[SubagentResult]:
     tasks = []
 
     for claim in setup.partitions["empirical"]:
-        tasks.append(spawn_subagent("evidence-grader", {
+        tasks.append(spawn_subagent("inline-evidence-grading-task", {
             "claim": claim,
             "evidence": get_evidence_for_claim(setup.state, claim["id"]),
             "venue_target": setup.venue_target

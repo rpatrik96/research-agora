@@ -4,12 +4,6 @@
   "description": "Model routing configuration for research agents. Routes tasks to optimal models based on complexity and cost.",
   "routing_rules": {
     "micro-skills": {
-      "evidence-grader": {
-        "model": "sonnet",
-        "temperature": 0.2,
-        "reason": "Quality judgment required. Must assess sufficiency of evidence.",
-        "fallback": "opus"
-      },
       "novelty-checker": {
         "model": "sonnet",
         "temperature": 0.2,
@@ -27,12 +21,6 @@
         "temperature": 0.2,
         "reason": "Holistic consistency check across entire paper. Highest stakes.",
         "fallback": null
-      },
-      "proof-step-extractor": {
-        "model": "sonnet",
-        "temperature": 0.1,
-        "reason": "Structured decomposition of proofs into steps. Balanced capability/cost.",
-        "fallback": "opus"
       },
       "proof-step-verifier": {
         "model": "opus",
@@ -134,9 +122,7 @@
         },
         {
           "name": "grade",
-          "skills": [
-            "evidence-grader"
-          ],
+          "skills": [],
           "parallel_within_stage": true
         },
         {
@@ -162,7 +148,6 @@
       "max_concurrent_subagents": 3,
       "timeout_per_task_seconds": 180,
       "model_overrides": {
-        "evidence-grader": "haiku",
         "novelty-checker": "haiku",
         "parallel-audit": "sonnet"
       },
@@ -173,7 +158,6 @@
       "max_concurrent_subagents": 3,
       "timeout_per_task_seconds": 300,
       "model_overrides": {
-        "evidence-grader": "opus",
         "novelty-checker": "opus"
       },
       "extra_verification_passes": 1
