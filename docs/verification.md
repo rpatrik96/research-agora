@@ -6,7 +6,7 @@ This is the P0 guide for using Research Agora's verification capabilities. It co
 
 ## 1. Why Verification Matters
 
-At NeurIPS 2025, 53 accepted papers were found to contain fabricated citations — references that looked plausible but pointed to publications that do not exist. The AI that generated them expressed no uncertainty. It was confidently wrong.
+A scan of all 4,841 papers accepted to NeurIPS 2025 found at least 100 hallucinated citations across 51 of them — references that looked plausible but pointed to publications that do not exist ([GPTZero, January 2026](https://gptzero.me/news/neurips/)). Every one of those papers cleared at least three reviewers. The AI that generated the references expressed no uncertainty. It was confidently wrong.
 
 This is the core asymmetry: AI systems produce fluent, authoritative-sounding outputs across a jagged frontier of actual competence. They excel at some tasks and fail unpredictably at similar ones, with no reliable signal about which is which. Citations either exist or they do not. Code either implements what the paper claims or it does not. Numbers either match or they diverge. For these correctness tasks, verification is mechanical and automatable — and the cost of skipping it is silent error embedded in the scientific record.
 

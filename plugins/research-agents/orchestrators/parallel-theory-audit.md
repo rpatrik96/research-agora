@@ -216,6 +216,23 @@ SPAWN: derivation-checker
 
 ## Phase 4: Fan-In
 
+### 4.0 Provenance Gate (run before aggregating anything)
+
+Not every subagent in this fan-out verifies. `assumption-analyzer` and `bounds-analyst` generate from recalled knowledge: `assumption-analyzer` proposes weaker and stronger alternatives from memorized hierarchies and makes no external call, and `bounds-analyst` compares against rate tables it recalls rather than retrieves. Their output is a hypothesis about the paper, not a finding about it.
+
+**Tag every incoming result with its provenance before it enters the merged report:**
+
+| Source | Provenance | How it may appear in the report |
+|---|---|---|
+| `proof-step-verifier`, `derivation-checker`, `cross-referencer` | checked against the paper's own text | as a finding |
+| `notation-consistency-checker` | extracted by regex from the source | as a finding |
+| `bounds-analyst` | recalled, unless it retrieved the cited work | as a finding only where it retrieved; otherwise `UNVERIFIED` |
+| `assumption-analyzer` | recalled | as a suggestion, never as a finding |
+
+An unretrieved rate comparison and a recalled assumption hierarchy are carried into the output as `UNVERIFIED — <what would settle it>`. **They never contribute to the criticality score in 4.2 or the T1–T6 level in 4.3**, because a level assignment is a claim about the paper's proofs and a recalled comparison is not evidence about this paper.
+
+This orchestrator is `verification-level: heuristic` for exactly this reason: it coordinates a mix of checkers and generators, and a report that flattens the two would launder recall into verification.
+
 ### 4.1 Per-Proof Assessment
 
 For each proof, aggregate step verdicts:

@@ -22,7 +22,7 @@
 5. - [ ] Pin launch thread (Post 1) immediately after posting
 6. - [ ] Move URL out of Post 1 body (keep only in bio + Post 6) to avoid 30-50% reach penalty
 7. - [ ] Warm-up engagement 48-72h before launch: reply substantively to 5-8 ML researchers (5k-50k followers) discussing peer review or AI tools
-8. - [ ] Verify the "53 papers" NeurIPS claim — cite source or soften to "dozens"
+8. - [x] Verify the "53 papers" NeurIPS claim — corrected to 51 papers / 100 hallucinated citations, sourced to GPTZero (Jan 2026) in `docs/verification.md` and `five-minute-win.md`
 
 ### Twitter/X — Launch Day
 

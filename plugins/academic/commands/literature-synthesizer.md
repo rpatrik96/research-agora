@@ -193,11 +193,12 @@ Generate entries for all approved papers:
   organization={PMLR}
 }
 
-@article{he2020moco,
+@inproceedings{he2020moco,
   title={Momentum Contrast for Unsupervised Visual Representation Learning},
   author={He, Kaiming and Fan, Haoqi and Wu, Yuxin and Xie, Saining and Girshick, Ross},
-  journal={arXiv preprint arXiv:1911.05722},
-  year={2019}
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={9729--9738},
+  year={2020}
 }
 ```
 
@@ -238,7 +239,6 @@ for paper in all_results:
 # - Keyword match score
 # - Citation count (if available)
 # - Recency bonus for last 2 years
-# - Author reputation
 ```
 
 ## Output Deliverables
