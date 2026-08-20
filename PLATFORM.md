@@ -42,7 +42,6 @@ research-agora/              # Hub
 │   ├── academic/
 │   ├── development/
 │   ├── formatting/
-│   ├── office/
 │   └── research-agents/
 ├── site/                    # Static site templates
 └── scripts/                 # Generators and validators

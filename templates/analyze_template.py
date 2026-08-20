@@ -345,12 +345,12 @@ def main():
 
     # Determine output directory
     # Templates are stored in plugin directories:
-    # - slides -> plugins/office/templates/slides/
+    # - slides -> plugins/academic/templates/slides/
     # - posters -> plugins/academic/templates/posters/
     script_dir = Path(__file__).parent.parent  # Go up from templates/ to repo root
     template_slug = template_name.lower().replace(" ", "-")
     if args.output == "slides":
-        output_dir = script_dir / "plugins" / "office" / "templates" / "slides" / template_slug
+        output_dir = script_dir / "plugins" / "academic" / "templates" / "slides" / template_slug
     else:  # posters
         output_dir = script_dir / "plugins" / "academic" / "templates" / "posters" / template_slug
     output_dir.mkdir(parents=True, exist_ok=True)

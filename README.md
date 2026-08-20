@@ -30,7 +30,6 @@ In a Claude Code session, run:
 /plugin install academic@research-agora
 /plugin install development@research-agora
 /plugin install formatting@research-agora
-/plugin install office@research-agora
 /plugin install editorial@research-agora
 /plugin install research-agents@research-agora
 ```
@@ -157,16 +156,6 @@ Document and code formatting skills:
 | `latex-consistency` | Enforce consistent LaTeX formatting |
 | `tikz-figures` | Create TikZ/PGF diagrams for ML papers |
 
-### office@research-agora
-
-Microsoft Office document creation:
-
-| Skill | Description |
-|-------|-------------|
-| `pptx-create` | Create PowerPoint presentations |
-| `docx-create` | Create Word documents |
-| `xlsx-create` | Create Excel spreadsheets |
-
 ### editorial@research-agora
 
 Editorial intelligence and writing analysis skills:
@@ -214,7 +203,7 @@ Some skills use presentation templates. After cloning, install them to your loca
 
 ```bash
 mkdir -p ~/.claude/skills/templates
-cp -r plugins/office/templates/slides ~/.claude/skills/templates/
+cp -r plugins/academic/templates/slides ~/.claude/skills/templates/
 cp -r plugins/academic/templates/posters ~/.claude/skills/templates/
 ```
 

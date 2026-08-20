@@ -128,7 +128,7 @@ def parse_yaml_frontmatter(file_path: Path) -> Optional[dict[str, Any]]:
 @pytest.fixture(scope="session")
 def valid_categories() -> list[str]:
     """Return the list of valid plugin categories."""
-    return ["academic", "development", "editorial", "formatting", "office", "research"]
+    return ["academic", "development", "editorial", "formatting", "research"]
 
 
 @pytest.fixture(scope="session")

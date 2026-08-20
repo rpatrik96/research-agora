@@ -1,15 +1,15 @@
 {
   "version": "1.0.0",
-  "generated": "2026-08-03",
+  "generated": "2026-08-20",
   "stats": {
-    "total_skills": 83,
-    "public_skills": 64,
-    "commands": 42,
+    "total_skills": 80,
+    "public_skills": 61,
+    "commands": 39,
     "agents": 22,
     "micro_skills": 12,
     "orchestrators": 4,
     "helpers": 3,
-    "plugins": 6
+    "plugins": 5
   },
   "repos": [
     {
@@ -525,45 +525,6 @@
           "visibility": "public"
         },
         {
-          "name": "docx-create",
-          "plugin": "office",
-          "type": "command",
-          "description": "Create and edit Word documents using python-docx",
-          "model": "haiku",
-          "path": "plugins/office/commands/docx-create.md",
-          "research-domain": "general",
-          "task-type": "automation",
-          "research-phase": "dissemination",
-          "verification-level": "none",
-          "visibility": "public"
-        },
-        {
-          "name": "pptx-create",
-          "plugin": "office",
-          "type": "command",
-          "description": "Create and edit PowerPoint presentations using python-pptx",
-          "model": "haiku",
-          "path": "plugins/office/commands/pptx-create.md",
-          "research-domain": "general",
-          "task-type": "dissemination",
-          "research-phase": "dissemination",
-          "verification-level": "none",
-          "visibility": "public"
-        },
-        {
-          "name": "xlsx-create",
-          "plugin": "office",
-          "type": "command",
-          "description": "Create and edit Excel spreadsheets using openpyxl",
-          "model": "haiku",
-          "path": "plugins/office/commands/xlsx-create.md",
-          "research-domain": "general",
-          "task-type": "automation",
-          "research-phase": "dissemination",
-          "verification-level": "none",
-          "visibility": "public"
-        },
-        {
           "name": "artifact-packager",
           "plugin": "research-agents",
           "type": "agent",
@@ -599,7 +560,7 @@
           "research-domain": "general",
           "task-type": "verification",
           "research-phase": "paper-writing",
-          "verification-level": "formal",
+          "verification-level": "heuristic",
           "visibility": "public"
         },
         {
@@ -775,7 +736,7 @@
           "name": "reviewer-response-generator",
           "plugin": "research-agents",
           "type": "agent",
-          "description": "Unified rebuttal writing agent with Quick Mode (template-driven) and Deep Mode (evidence-backed with code/data proof). Activates when asked to \"write rebuttal\", \"respond to reviewers\", \"reviewer response\", \"address reviewer comments\", \"draft rebuttal\", or \"rebuttal draft\". Step 2 of the rebuttal pipeline (review-triage \u2192 reviewer-response-generator). Deep Mode searches GitHub for baselines and arXiv for supporting citations.",
+          "description": "Evidence-backed rebuttal writing agent. Every quantitative claim is sourced from your own results, your code, or the literature before it enters the response. Activates when asked to \"write rebuttal\", \"respond to reviewers\", \"reviewer response\", \"address reviewer comments\", \"draft rebuttal\", or \"rebuttal draft\". Step 2 of the rebuttal pipeline (review-triage \u2192 reviewer-response-generator). Searches GitHub for baselines and arXiv for supporting citations.",
           "model": "sonnet",
           "path": "plugins/research-agents/agents/reviewer-response-generator.md",
           "research-domain": "general",

@@ -21,14 +21,13 @@ import yaml
 
 # Repository root
 REPO_ROOT = Path(__file__).parent.parent
-SKILLS_CATEGORIES = ["academic", "development", "formatting", "office"]
+SKILLS_CATEGORIES = ["academic", "development", "editorial", "formatting"]
 
 # Category mappings for plugin metadata
 CATEGORY_MAP = {
     "academic": "productivity",
     "development": "developer-tools",
     "formatting": "productivity",
-    "office": "productivity",
 }
 
 # Keyword mappings
@@ -36,7 +35,6 @@ KEYWORD_MAP = {
     "academic": ["academic", "writing", "ml-research", "paper"],
     "development": ["python", "development", "automation"],
     "formatting": ["formatting", "latex", "visualization"],
-    "office": ["office", "documents", "presentation"],
 }
 
 

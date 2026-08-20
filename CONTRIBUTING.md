@@ -12,14 +12,10 @@ research-agora/
 │   ├── academic/             # Paper writing & research skills
 │   │   ├── .claude-plugin/plugin.json
 │   │   ├── commands/         # Skill definitions
-│   │   └── templates/posters/
+│   │   └── templates/{posters,slides}/
 │   ├── development/          # Code quality & automation skills
 │   ├── editorial/            # Diagnostic editorial intelligence skills
 │   ├── formatting/           # Document formatting skills
-│   ├── office/               # Office document creation skills
-│   │   ├── .claude-plugin/plugin.json
-│   │   ├── commands/
-│   │   └── templates/slides/
 │   └── research-agents/      # Specialized research agents
 │       ├── .claude-plugin/plugin.json
 │       └── agents/
@@ -41,7 +37,6 @@ research-agora/
 | `development` | Code quality, CI/CD, git workflows |
 | `editorial` | Diagnostic editorial intelligence — analyzes, diagnoses, and translates writing across contexts |
 | `formatting` | LaTeX, figures, document styling |
-| `office` | Word, PowerPoint, Excel creation |
 | `research-agents` | Autonomous multi-step research analysis |
 
 ### 2. Create the Skill File

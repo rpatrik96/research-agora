@@ -90,9 +90,6 @@ SKILL_GROUP_MAP = {
     "htcondor": "development",
 
     # Documents & Figures
-    "pptx-create": "documents-figures",
-    "docx-create": "documents-figures",
-    "xlsx-create": "documents-figures",
     "tikz-figures": "documents-figures",
 
     # Editorial Intelligence

@@ -17,7 +17,7 @@ REPO_ROOT = Path(__file__).parent.parent
 PLUGINS_DIR = REPO_ROOT / "plugins"
 REGISTRY_DIR = REPO_ROOT / "registry"
 
-VALID_CATEGORIES = ["academic", "development", "formatting", "office", "research-agents"]
+VALID_CATEGORIES = ["academic", "development", "editorial", "formatting", "research-agents"]
 VALID_KINDS = ["command", "agent", "micro-skill", "orchestrator", "helper"]
 
 

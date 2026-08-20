@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Research Agora is a Claude Code plugin marketplace providing skills for ML research workflows. It bundles 6 category-based plugins: `academic`, `development`, `editorial`, `formatting`, `office`, and `research-agents`.
+Research Agora is a Claude Code plugin marketplace providing skills for ML research workflows. It bundles 5 category-based plugins: `academic`, `development`, `editorial`, `formatting`, and `research-agents`.
 
 ## Commands
 

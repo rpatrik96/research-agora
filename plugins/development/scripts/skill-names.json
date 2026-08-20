@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-03",
+  "generated": "2026-08-20",
   "names": [
     "agora-feedback",
     "argument-autopsy",
@@ -25,7 +25,6 @@
     "cross-referencer",
     "derivation-checker",
     "devils-advocate",
-    "docx-create",
     "editorial-brain",
     "evidence-grader",
     "evidence-locator",
@@ -59,7 +58,6 @@
     "parallel-review",
     "parallel-theory-audit",
     "perspective-synthesizer",
-    "pptx-create",
     "pre-submission-audit",
     "prefetch-evidence",
     "proof-auditor",
@@ -82,7 +80,6 @@
     "voice-drift-detector",
     "whats-new",
     "writing-diagnosis",
-    "writing-verify",
-    "xlsx-create"
+    "writing-verify"
   ]
 }
