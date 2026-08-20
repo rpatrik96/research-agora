@@ -35,6 +35,26 @@ Analyze each document along these nine dimensions:
 
 ## WORKFLOW
 
+0. **Measure, don't estimate.** Four of the nine dimensions below are computed,
+   not judged. Run the scorer over the reference material and over each target
+   document, then diff the numbers:
+
+   ```bash
+   python3 scripts/writing_verify.py "$REFERENCE" --json --format auto
+   python3 scripts/writing_verify.py "$TARGET" --json --format auto
+   ```
+
+   That returns `passive_voice_pct`, `hedge_density`, `sentence_length_cv`,
+   `monotony_score`, `filler_density` and `flesch_kincaid_grade` for both. Where
+   limpid is installed, `python3 scripts/limpid_bridge.py "$FILE" --register
+   blog` gives the same dimensions with line-anchored findings.
+
+   Report those as measurements. The remaining dimensions — person, stance,
+   metaphor density, humour, register — are read, and should be reported as
+   readings. **Never state a numeric drift for a dimension you did not
+   compute**: "formality rose from 4/10 to 8/10" is a fabricated precision
+   unless a script produced both numbers.
+
 1. **Read reference documents**: These establish the baseline voice fingerprint. If no explicit reference is provided, use the first document or the majority style as baseline.
 2. **Compute baseline fingerprint**: Measure all nine dimensions on the reference material.
 3. **Read target document(s)**: The documents to check for drift.

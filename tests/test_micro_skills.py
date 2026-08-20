@@ -113,38 +113,6 @@ class TestMicroSkillStructure:
             ), f"{skill_path.name} missing examples"
 
 
-class TestClaimExtractor:
-    """Tests specific to claim-extractor micro-skill."""
-
-    @pytest.fixture
-    def skill_content(self) -> str:
-        """Load claim-extractor content."""
-        path = Path("plugins/research-agents/micro-skills/claim-extractor.md")
-        if not path.exists():
-            pytest.skip("claim-extractor not found")
-        return path.read_text()
-
-    def test_has_extraction_patterns(self, skill_content: str) -> None:
-        """Should document claim extraction patterns."""
-        assert "Explicit" in skill_content
-        assert "Implicit" in skill_content
-        assert "We show" in skill_content or "show that" in skill_content
-
-    def test_has_claim_types(self, skill_content: str) -> None:
-        """Should list all claim types."""
-        claim_types = [
-            "empirical",
-            "theoretical",
-            "methodological",
-            "comparative",
-            "novelty",
-        ]
-        for claim_type in claim_types:
-            assert (
-                claim_type in skill_content.lower()
-            ), f"Missing claim type: {claim_type}"
-
-
 class TestEvidenceGrader:
     """Tests specific to evidence-grader micro-skill."""
 

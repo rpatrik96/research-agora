@@ -47,13 +47,9 @@
     "micro-skills": {
       "description": "Atomic, parallelizable operations for paper analysis",
       "items": [
-        "claim-extractor",
-        "claim-classifier",
-        "evidence-locator",
         "evidence-grader",
         "novelty-checker",
         "citation-verifier",
-        "assumption-surfacer",
         "cross-referencer",
         "proof-step-extractor",
         "proof-step-verifier",
@@ -72,11 +68,7 @@
     },
     "helpers": {
       "description": "Utility skills for efficiency",
-      "items": [
-        "batch-arxiv",
-        "prefetch-evidence",
-        "context-compactor"
-      ]
+      "items": []
     }
   },
   "features": {

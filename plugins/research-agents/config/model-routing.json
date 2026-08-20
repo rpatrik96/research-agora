@@ -4,24 +4,6 @@
   "description": "Model routing configuration for research agents. Routes tasks to optimal models based on complexity and cost.",
   "routing_rules": {
     "micro-skills": {
-      "claim-extractor": {
-        "model": "haiku",
-        "temperature": 0.1,
-        "reason": "Pattern matching against known claim indicators. No judgment needed.",
-        "fallback": "sonnet"
-      },
-      "claim-classifier": {
-        "model": "haiku",
-        "temperature": 0.1,
-        "reason": "Categorization from fixed taxonomy (empirical, theoretical, etc.).",
-        "fallback": "sonnet"
-      },
-      "evidence-locator": {
-        "model": "haiku",
-        "temperature": 0.1,
-        "reason": "Reference resolution and cross-referencing. Mechanical lookup.",
-        "fallback": "sonnet"
-      },
       "evidence-grader": {
         "model": "sonnet",
         "temperature": 0.2,
@@ -39,12 +21,6 @@
         "temperature": 0.1,
         "reason": "Factual lookup and verification. Deterministic.",
         "fallback": "sonnet"
-      },
-      "assumption-surfacer": {
-        "model": "sonnet",
-        "temperature": 0.3,
-        "reason": "Implicit reasoning required. Must identify unstated premises.",
-        "fallback": "opus"
       },
       "cross-referencer": {
         "model": "opus",
@@ -139,26 +115,7 @@
         "fallback": null
       }
     },
-    "helpers": {
-      "batch-arxiv": {
-        "model": "haiku",
-        "temperature": 0.1,
-        "reason": "Query construction and result parsing. Mechanical.",
-        "fallback": "sonnet"
-      },
-      "prefetch-evidence": {
-        "model": "haiku",
-        "temperature": 0.1,
-        "reason": "Content extraction. No judgment needed.",
-        "fallback": "sonnet"
-      },
-      "context-compactor": {
-        "model": "sonnet",
-        "temperature": 0.2,
-        "reason": "Summarization requires understanding of importance.",
-        "fallback": "opus"
-      }
-    }
+    "helpers": {}
   },
   "execution_modes": {
     "parallel": {
@@ -180,23 +137,17 @@
         },
         {
           "name": "extract",
-          "skills": [
-            "claim-extractor"
-          ],
+          "skills": [],
           "parallel_within_stage": true
         },
         {
           "name": "classify",
-          "skills": [
-            "claim-classifier"
-          ],
+          "skills": [],
           "parallel_within_stage": true
         },
         {
           "name": "locate",
-          "skills": [
-            "evidence-locator"
-          ],
+          "skills": [],
           "parallel_within_stage": true
         },
         {
@@ -217,8 +168,7 @@
         {
           "name": "synthesize",
           "skills": [
-            "cross-referencer",
-            "assumption-surfacer"
+            "cross-referencer"
           ],
           "parallel_within_stage": false
         }
@@ -232,9 +182,7 @@
       "model_overrides": {
         "evidence-grader": "haiku",
         "novelty-checker": "haiku",
-        "assumption-surfacer": "haiku",
-        "parallel-audit": "sonnet",
-        "context-compactor": "haiku"
+        "parallel-audit": "sonnet"
       },
       "skip_optional_checks": true
     },
@@ -243,9 +191,6 @@
       "max_concurrent_subagents": 3,
       "timeout_per_task_seconds": 300,
       "model_overrides": {
-        "claim-extractor": "sonnet",
-        "claim-classifier": "sonnet",
-        "evidence-locator": "sonnet",
         "evidence-grader": "opus",
         "novelty-checker": "opus"
       },

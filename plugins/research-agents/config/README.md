@@ -20,11 +20,6 @@ The `model-routing.json` file controls which Claude model handles each skill:
 │                                                                  │
 │  HAIKU (Fast, Cheap)         SONNET (Balanced)      OPUS (Deep) │
 │  ────────────────────       ─────────────────      ──────────── │
-│  • claim-extractor          • evidence-grader      • cross-ref  │
-│  • claim-classifier         • novelty-checker      • orchestrat │
-│  • evidence-locator         • assumption-surfacer  • thorough   │
-│  • citation-verifier        • context-compactor      reviews    │
-│  • batch-arxiv              • state-generator                   │
 │                                                                  │
 │  Pattern matching           Judgment required       Synthesis    │
 │  Fixed taxonomies           Nuanced comparison      Coordination │
@@ -95,7 +90,6 @@ orchestrator → executor → "hmm, complex" → spawns architect → spawns res
 
 With the protocol:
 ```
-orchestrator → [claim-extractor, evidence-grader, novelty-checker] (all leaf nodes)
             ↓
        merge results
 ```

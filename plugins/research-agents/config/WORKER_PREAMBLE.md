@@ -60,7 +60,7 @@ Add this section to every micro-skill markdown file after the frontmatter:
 
 ```markdown
 ---
-name: claim-extractor
+name: evidence-grader
 model: haiku
 ---
 
@@ -122,13 +122,13 @@ This creates:
 
 With the protocol:
 ```
-orchestrator → [claim-extractor, evidence-grader, novelty-checker] → merge results
+orchestrator → [evidence-grader, novelty-checker, citation-verifier] → merge results
                └── each is a LEAF, returns directly to orchestrator
 ```
 
 ### Why no clarification?
 
-Research micro-skills receive pre-processed, scoped input. If a claim-extractor receives section text, it should extract claims—not ask "what kind of claims?" The orchestrator already made that decision.
+Research micro-skills receive pre-processed, scoped input. If an evidence-grader receives a table, it should grade it—not ask "which claim is this for?" The orchestrator already made that decision.
 
 Clarification questions:
 1. Break the parallel execution model (waiting for human input)

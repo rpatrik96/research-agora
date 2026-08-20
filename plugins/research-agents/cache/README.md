@@ -149,15 +149,12 @@ cache.clear_all()
 
 ## Integration Points
 
-### batch-arxiv Integration
 
-The batch-arxiv skill uses cache for:
 - Query result caching (24h TTL)
 - Paper metadata caching (7d TTL)
 - Rate limit compliance via cached responses
 
 ```python
-# In batch-arxiv workflow
 cache = CacheManager()
 
 # Check cache first

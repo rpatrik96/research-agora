@@ -39,8 +39,6 @@ Specialized research analysis agents for critical thinking, evidence verificatio
 - `latex-debugger` - Diagnose LaTeX compilation errors
 
 ### Micro-Skills (12)
-Atomic, parallelizable operations for paper analysis: `claim-extractor`,
-`claim-classifier`, `evidence-locator`, `evidence-grader`, `assumption-surfacer`,
 `assumption-analyzer`, `citation-verifier`, `cross-referencer`, `novelty-checker`,
 `derivation-checker`, `proof-step-extractor`, `proof-step-verifier`.
 
@@ -51,9 +49,6 @@ Atomic, parallelizable operations for paper analysis: `claim-extractor`,
 - `pre-submission-audit` - Five diagnostic passes with a readiness verdict
 
 ### Helpers (3)
-- `batch-arxiv` - Batched arXiv searches
-- `prefetch-evidence` - Pre-fetch evidence
-- `context-compactor` - Compress context for efficiency
 
 ## Installation
 

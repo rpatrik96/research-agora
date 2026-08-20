@@ -2,15 +2,15 @@
   "version": "1.0.0",
   "generated": "2026-08-20",
   "stats": {
-    "total_skills": 63,
+    "total_skills": 56,
     "public_skills": 44,
     "deprecated_skills": 0,
     "active_public_skills": 44,
     "commands": 28,
     "agents": 16,
-    "micro_skills": 12,
+    "micro_skills": 8,
     "orchestrators": 4,
-    "helpers": 3,
+    "helpers": 0,
     "plugins": 5
   },
   "repos": [
@@ -605,19 +605,6 @@
           "visibility": "internal"
         },
         {
-          "name": "assumption-surfacer",
-          "plugin": "research-agents",
-          "type": "micro-skill",
-          "description": "Surface implicit and explicit assumptions from a paper section. Identifies\nunstated assumptions that affect claim validity. Trigger: \"find assumptions\",\n\"surface implicit assumptions\", \"check assumptions\".",
-          "model": "haiku",
-          "path": "plugins/research-agents/micro-skills/assumption-surfacer.md",
-          "research-domain": "general",
-          "task-type": "verification",
-          "research-phase": "paper-writing",
-          "verification-level": "heuristic",
-          "visibility": "internal"
-        },
-        {
           "name": "citation-verifier",
           "plugin": "research-agents",
           "type": "micro-skill",
@@ -628,32 +615,6 @@
           "task-type": "verification",
           "research-phase": "paper-writing",
           "verification-level": "formal",
-          "visibility": "internal"
-        },
-        {
-          "name": "claim-classifier",
-          "plugin": "research-agents",
-          "type": "micro-skill",
-          "description": "Classify a single claim by type and importance. Takes claim text and context,\nreturns classification with confidence. Trigger: \"classify claim\".",
-          "model": "haiku",
-          "path": "plugins/research-agents/micro-skills/claim-classifier.md",
-          "research-domain": "general",
-          "task-type": "analysis",
-          "research-phase": "paper-writing",
-          "verification-level": "layered",
-          "visibility": "internal"
-        },
-        {
-          "name": "claim-extractor",
-          "plugin": "research-agents",
-          "type": "micro-skill",
-          "description": "Extract all claims from a single paper section. Operates on section text only,\nno cross-references needed. Trigger: \"extract claims from section\".",
-          "model": "haiku",
-          "path": "plugins/research-agents/micro-skills/claim-extractor.md",
-          "research-domain": "general",
-          "task-type": "analysis",
-          "research-phase": "paper-writing",
-          "verification-level": "layered",
           "visibility": "internal"
         },
         {
@@ -689,19 +650,6 @@
           "description": "Grade evidence strength for a single claim. Takes claim + evidence references,\nreturns strength level (L1-L6) and venue compliance. Trigger: \"grade evidence for claim\".",
           "model": "sonnet",
           "path": "plugins/research-agents/micro-skills/evidence-grader.md",
-          "research-domain": "general",
-          "task-type": "analysis",
-          "research-phase": "paper-writing",
-          "verification-level": "layered",
-          "visibility": "internal"
-        },
-        {
-          "name": "evidence-locator",
-          "plugin": "research-agents",
-          "type": "micro-skill",
-          "description": "Find evidence (tables, figures, equations, citations) that support a claim.\nSearches within paper structure for matching references.\nTrigger: \"locate evidence for claim\", \"find supporting evidence\".",
-          "model": "haiku",
-          "path": "plugins/research-agents/micro-skills/evidence-locator.md",
           "research-domain": "general",
           "task-type": "analysis",
           "research-phase": "paper-writing",
@@ -798,45 +746,6 @@
           "research-phase": "submission",
           "verification-level": "layered",
           "visibility": "public"
-        },
-        {
-          "name": "batch-arxiv",
-          "plugin": "research-agents",
-          "type": "helper",
-          "description": "Execute multiple arXiv searches efficiently. Collects queries, deduplicates,\nexecutes with rate limiting, and caches results. Trigger: \"batch arxiv search\".",
-          "model": "haiku",
-          "path": "plugins/research-agents/helpers/batch-arxiv.md",
-          "research-domain": "general",
-          "task-type": "analysis",
-          "research-phase": "paper-writing",
-          "verification-level": "none",
-          "visibility": "internal"
-        },
-        {
-          "name": "context-compactor",
-          "plugin": "research-agents",
-          "type": "helper",
-          "description": "Generate minimal context summaries for subagent delegation. Creates\nfocused context packages that preserve essential information while\nreducing token count. Trigger: \"compact context\", \"generate subagent context\".",
-          "model": "sonnet",
-          "path": "plugins/research-agents/helpers/context-compactor.md",
-          "research-domain": "general",
-          "task-type": "formatting",
-          "research-phase": "submission",
-          "verification-level": "heuristic",
-          "visibility": "internal"
-        },
-        {
-          "name": "prefetch-evidence",
-          "plugin": "research-agents",
-          "type": "helper",
-          "description": "Pre-fetch all evidence references from a paper before parallel analysis.\nLoads tables, figures, equations into memory for fast subagent access.\nTrigger: \"prefetch evidence\", \"load paper evidence\".",
-          "model": "haiku",
-          "path": "plugins/research-agents/helpers/prefetch-evidence.md",
-          "research-domain": "general",
-          "task-type": "analysis",
-          "research-phase": "paper-writing",
-          "verification-level": "layered",
-          "visibility": "internal"
         }
       ]
     }

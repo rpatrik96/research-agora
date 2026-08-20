@@ -56,13 +56,9 @@ Stateless, parallelizable operations that process scoped input and return struct
 
 | Skill | Model | Purpose |
 |-------|-------|---------|
-| `claim-extractor` | Haiku | Extract claims from a single section |
-| `claim-classifier` | Haiku | Categorize claims (empirical, theoretical, etc.) |
-| `evidence-locator` | Haiku | Find tables/figures/equations supporting claims |
 | `evidence-grader` | Sonnet | Assess evidence quality (L1-L6 scale) |
 | `novelty-checker` | Sonnet | Verify novelty claims against arXiv |
 | `citation-verifier` | Haiku | Validate citation accuracy |
-| `assumption-surfacer` | Sonnet | Identify implicit assumptions |
 | `cross-referencer` | Opus | Check consistency across paper |
 
 ### Orchestrators (2 Parallel Coordinators)
@@ -71,7 +67,7 @@ Fan-out/fan-in coordinators that spawn and merge subagent results.
 
 | Orchestrator | Purpose | Subagents Used |
 |--------------|---------|----------------|
-| `parallel-audit` | Verify all claims in parallel | evidence-grader, novelty-checker, citation-verifier, assumption-surfacer, cross-referencer |
+| `parallel-audit` | Verify all claims in parallel | evidence-grader, novelty-checker, citation-verifier, assumption-analyzer, cross-referencer |
 | `parallel-review` | Multi-perspective paper review | parallel-audit, editorial:writing-verify, audience-checker, figure-storyteller |
 | `parallel-theory-audit` | Parallel proof and bounds verification | proof-step-verifier, derivation-checker, assumption-analyzer |
 | `pre-submission-audit` | Five diagnostic passes with a readiness verdict | paper-review, claim-auditor, editorial:writing-verify, notation-consistency-checker, statistical-validator |
@@ -82,9 +78,6 @@ Efficiency utilities for common operations.
 
 | Helper | Model | Purpose |
 |--------|-------|---------|
-| `batch-arxiv` | Haiku | Batch arXiv queries for related work |
-| `prefetch-evidence` | Haiku | Pre-load table/figure content |
-| `context-compactor` | Sonnet | Compress context for token efficiency |
 
 ### Agents (22 High-Level)
 
@@ -134,7 +127,7 @@ Located at `config/model-routing.json`:
 {
   "routing_rules": {
     "micro-skills": {
-      "claim-extractor": {"model": "haiku", "temperature": 0.1},
+      "evidence-grader": {"model": "haiku", "temperature": 0.1},
       "evidence-grader": {"model": "sonnet", "temperature": 0.2},
       "cross-referencer": {"model": "opus", "temperature": 0.2}
     }

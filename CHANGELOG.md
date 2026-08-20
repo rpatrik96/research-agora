@@ -12,7 +12,7 @@ tool-backed one is the product.
 
 The rule now lives in `README.md` and `CONTRIBUTING.md`, and it governs what
 gets accepted as well as what gets retired. This release is that rule applied
-to the existing catalog in one pass: **80 skills → 63, 59 public → 44.**
+to the existing catalog in one pass: **83 skills → 56, 64 public → 44.**
 There is no second wave planned.
 
 ### Removed
@@ -73,6 +73,19 @@ template and a maintenance cost.
 - `content-archaeologist` — its >70% / 40-70% / <40% similarity bands are
   unmeasurable; clustering posts into chapters is a one-line request.
 
+**Internal layers that nothing invoked**
+
+- `helpers/prefetch-evidence`, `helpers/batch-arxiv`, `helpers/context-compactor`
+  — all three described machinery in prose that `scripts/parse_latex.py` and
+  `scripts/cache_manager.py` already implement, and no orchestrator spawned any
+  of them. They were inventory, not machinery. The `helpers` layer is now empty.
+- `micro-skills/claim-extractor`, `claim-classifier`, `evidence-locator` —
+  extraction and single-label classification a model does in one turn.
+- `micro-skills/assumption-surfacer` — a coarser duplicate of
+  `assumption-analyzer`. `parallel-audit` now spawns `assumption-analyzer` for
+  that pass, and carries the provenance note that its output is a suggestion
+  rather than a finding.
+
 **Duplicated by a tool-backed skill**
 
 - `/editorial-brain` — asked the model to eyeball clarity metrics that
@@ -100,6 +113,21 @@ were marked deprecated earlier in this release and are removed above; their
 replacement path is unchanged.
 
 ### Changed
+
+- **`state-generator` runs `scripts/parse_latex.py` instead of describing it.**
+  The script already emitted `research-state.json` with sections, figures,
+  tables, equations, theorem environments and citations; the agent narrated the
+  same extraction in prose and never called it. Phase 2b now covers only what
+  the parser does not do — assumption environments, asymptotic bounds, and
+  detached proof-to-theorem linking.
+- **`voice-drift-detector` measures the dimensions it can measure.** Four of its
+  nine come from `scripts/writing_verify.py` (or limpid) as numbers; the rest
+  are reported as readings. It previously stated drifts like "formality rose
+  from 4/10 to 8/10" with nothing computing either figure.
+- **`parallel-review` dropped its figure-assessment pass.** It spawned
+  `figure-storyteller` with `mode: "assess"`, and `figure-storyteller` defines
+  no assess mode — it is a creation skill throughout, so the pass either made
+  figures during a review or did nothing.
 
 - **`/paper-abstract` is diagnosis-only.** It audits an abstract you wrote
   against the five-part structure, venue word limits, specificity, and claim
