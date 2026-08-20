@@ -52,21 +52,25 @@ def skill_group(skill: dict) -> str:
 # the `tools` the registry detected at invocation sites, not from self-declared
 # metadata. Deriving this from `verification-level` put `intuition-formalizer`
 # under "checks against ground truth" because it was `layered`; the band now
-# answers a question with a checkable answer: does this skill invoke anything?
+# answers a question with a checkable answer: does this skill invoke a program?
+# It says nothing about whether that program's output is checked — that claim
+# belongs to the per-skill verification badge, and `onboard` is the case that
+# separates them: it runs a script and verifies nothing.
 VERIFICATION_BANDS = [
     (
         "runs-a-tool",
-        "Runs a tool and checks against its output",
-        "Invokes a real program and compares against what it returns.",
+        "Runs a tool",
+        "Invokes a real program. Running one is not the same as checking its "
+        "output — see each card's verification badge.",
     ),
     (
         "reads-sources",
-        "Reads your files and reports",
-        "Extracts from your own source with a script. No external tool.",
+        "Reads your files",
+        "Extracts from your own sources with a script. No external tool.",
     ),
     (
         "judges",
-        "Reads your work and judges it",
+        "Judges your work",
         "Applies a stated standard. Nothing is executed — you are the oracle.",
     ),
 ]
@@ -126,6 +130,23 @@ def verification_badge_class(level: str) -> str:
     }.get(level, "badge-none")
 
 
+def verification_tooltip(level: str) -> str:
+    """Return explanatory text for a verification level badge."""
+    not_verified = (
+        "Not verified — the output is yours to check. The skill may still run a "
+        "program."
+    )
+    return {
+        "formal": "Formal — checked automatically against ground truth (DOI "
+        "resolution, unit tests, tool output).",
+        "heuristic": "Heuristic — rule-based check (compilation, counts, grep). "
+        "Catches classes of error, not correctness.",
+        "layered": "Layered — automated checks plus a review step you have to "
+        "complete.",
+        "none": not_verified,
+    }.get(level, not_verified)
+
+
 def model_badge_class(model: str) -> str:
     """Return CSS class for model badge."""
     return {
@@ -171,10 +192,10 @@ def group_skills(skills: list, groups_meta: dict) -> OrderedDict:
             {
                 "id": bid,
                 "label": label,
-                "blurb": blurb,
+                "tooltip": tooltip,
                 "skills": [s for s in group["skills"] if skill_band(s) == bid],
             }
-            for bid, label, blurb in VERIFICATION_BANDS
+            for bid, label, tooltip in VERIFICATION_BANDS
         ]
         group["bands"] = [b for b in group["bands"] if b["skills"]]
 
@@ -247,6 +268,7 @@ def main():
         autoescape=True,
     )
     env.filters["verification_badge"] = verification_badge_class
+    env.filters["verification_tooltip"] = verification_tooltip
     env.filters["model_badge"] = model_badge_class
 
     # Load benchmarks early so count is available for stats
