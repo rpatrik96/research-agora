@@ -1,6 +1,6 @@
 """Hardening regression tests for the RFC-0001 feedback client.
 
-One test per audited defect in plugins/development/scripts/agora_feedback.py:
+One test per audited defect in plugins/toolkit/scripts/agora_feedback.py:
 
 - finding 2: the URL PII pattern missed compound credential parameter names
   (``?access_token=``, ``?api_key=``, ``?client_secret=``, ``?auth_token=``).

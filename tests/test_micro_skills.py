@@ -19,7 +19,7 @@ import yaml
 class TestMicroSkillStructure:
     """Tests for micro-skill file structure and metadata."""
 
-    MICRO_SKILLS_DIR = Path("plugins/research-agents/micro-skills")
+    MICRO_SKILLS_DIR = Path("plugins/verify/micro-skills")
 
     @pytest.fixture
     def all_micro_skills(self) -> list[Path]:
@@ -119,7 +119,7 @@ class TestEvidenceGrader:
     @pytest.fixture
     def skill_content(self) -> str:
         """Load evidence-grader content."""
-        path = Path("plugins/research-agents/micro-skills/evidence-grader.md")
+        path = Path("plugins/verify/micro-skills/evidence-grader.md")
         if not path.exists():
             pytest.skip("evidence-grader not found")
         return path.read_text()
@@ -142,7 +142,7 @@ class TestNoveltyChecker:
     @pytest.fixture
     def skill_content(self) -> str:
         """Load novelty-checker content."""
-        path = Path("plugins/research-agents/micro-skills/novelty-checker.md")
+        path = Path("plugins/discover/micro-skills/novelty-checker.md")
         if not path.exists():
             pytest.skip("novelty-checker not found")
         return path.read_text()
@@ -164,7 +164,7 @@ class TestCrossReferencer:
     @pytest.fixture
     def skill_content(self) -> str:
         """Load cross-referencer content."""
-        path = Path("plugins/research-agents/micro-skills/cross-referencer.md")
+        path = Path("plugins/verify/micro-skills/cross-referencer.md")
         if not path.exists():
             pytest.skip("cross-referencer not found")
         return path.read_text()
@@ -186,7 +186,7 @@ class TestCrossReferencer:
 class TestMicroSkillConsistency:
     """Tests for consistency across all micro-skills."""
 
-    MICRO_SKILLS_DIR = Path("plugins/research-agents/micro-skills")
+    MICRO_SKILLS_DIR = Path("plugins/verify/micro-skills")
 
     @pytest.fixture
     def all_skills_content(self) -> dict[str, str]:

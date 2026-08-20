@@ -24,11 +24,11 @@ REGISTRY_DIR = REPO_ROOT / "registry"
 # The feedback client ships inside the development plugin, where the registry
 # is out of reach in the plugin-cache layout; it filters capture against this
 # copy of the names instead (RFC-0001 §6).
-SKILL_NAMES_PATH = PLUGINS_DIR / "development" / "scripts" / "skill-names.json"
+SKILL_NAMES_PATH = PLUGINS_DIR / "toolkit" / "scripts" / "skill-names.json"
 # Capture attributes an invocation to the Agora by its plugin prefix, so the
 # client needs the plugin names in that layout too.
 MARKETPLACE_PATH = REPO_ROOT / ".claude-plugin" / "marketplace.json"
-PLUGIN_NAMES_PATH = PLUGINS_DIR / "development" / "scripts" / "plugin-names.json"
+PLUGIN_NAMES_PATH = PLUGINS_DIR / "toolkit" / "scripts" / "plugin-names.json"
 
 
 def parse_yaml_frontmatter(file_path: Path) -> dict:
@@ -65,34 +65,25 @@ def determine_plugin(file_path: Path) -> str:
 
 
 def collect_skill_files() -> list[Path]:
-    """Collect all skill/agent .md files from the plugins directory."""
-    files = []
+    """Collect every skill file from every plugin.
 
-    # Command files from plugins/*/commands/*.md
+    Skill type comes from the containing directory, so each plugin may hold any
+    of commands/, agents/, micro-skills/ and orchestrators/. This used to
+    special-case a single `research-agents` plugin as the only home for agents;
+    RFC-0002 split the catalog by research phase instead, so verification agents
+    live in `verify` and figure tooling in `toolkit`, and the collector cannot
+    assume where a type lives.
+    """
+    files = []
+    subdirs = ["commands", "agents", "micro-skills", "orchestrators", "helpers"]
+
     for plugin_dir in sorted(PLUGINS_DIR.iterdir()):
         if not plugin_dir.is_dir() or plugin_dir.name.startswith("."):
             continue
-        if plugin_dir.name == "research-agents":
-            continue  # Handle separately
-        commands_dir = plugin_dir / "commands"
-        if commands_dir.exists():
-            for f in sorted(commands_dir.iterdir()):
-                if f.suffix == ".md" and not f.name.startswith((".", "_")):
-                    files.append(f)
-        # Also check sub-plugins like latex-code-sync
-        for sub_dir in sorted(plugin_dir.iterdir()):
-            if sub_dir.is_dir() and not sub_dir.name.startswith("."):
-                sub_commands = sub_dir / "commands"
-                if sub_commands.exists():
-                    for f in sorted(sub_commands.iterdir()):
-                        if f.suffix == ".md" and not f.name.startswith((".", "_")):
-                            files.append(f)
-
-    # Research agents: agents, micro-skills, orchestrators, helpers
-    ra_dir = PLUGINS_DIR / "research-agents"
-    for subdir_name in ["agents", "micro-skills", "orchestrators", "helpers"]:
-        subdir = ra_dir / subdir_name
-        if subdir.exists():
+        for subdir_name in subdirs:
+            subdir = plugin_dir / subdir_name
+            if not subdir.exists():
+                continue
             for f in sorted(subdir.iterdir()):
                 if f.suffix == ".md" and not f.name.startswith((".", "_")):
                     files.append(f)

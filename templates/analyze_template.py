@@ -345,8 +345,8 @@ def main():
 
     # Determine output directory
     # Templates are stored in plugin directories:
-    # - slides -> plugins/academic/templates/slides/
-    # - posters -> plugins/academic/templates/posters/
+    # - slides -> plugins/write/templates/slides/
+    # - posters -> plugins/write/templates/posters/
     script_dir = Path(__file__).parent.parent  # Go up from templates/ to repo root
     template_slug = template_name.lower().replace(" ", "-")
     if args.output == "slides":

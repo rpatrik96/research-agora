@@ -23,7 +23,7 @@ Not all verification is equally tractable. Match the method to the task.
 | Level | Method | When to Use | Example | Research Agora Skill |
 |-------|--------|-------------|---------|----------------------|
 | **Formal** | Automated check against ground truth | Citations, numerical claims, code correctness | DOI resolution, unit tests, `bibtexupdater` output | `/paper-references`, `/paper-verify-experiments`, `/statistical-validator` |
-| **Automated** | Heuristic or rule-based check | Formatting, consistency, completeness | LaTeX compilation, reference count, grep for claimed values | `/latex-consistency`, grep scripts in `/paper-verify-experiments` |
+| **Automated** | Heuristic or rule-based check | Formatting, consistency, completeness | LaTeX compilation, reference count, grep for claimed values | `/latex`, grep scripts in `/paper-verify-experiments` |
 | **Manual review** | Human expert reads output critically | Writing quality, argument structure, novelty claims | Read generated text; check that framing matches your intent | `/paper-review`, `/claim-auditor` (as input to your judgment) |
 | **Trust** | Accept without checking | Never for research outputs | — | — |
 
@@ -44,7 +44,7 @@ Each recipe follows a fixed format: what it checks, what you need, exact steps, 
 **Prerequisites:**
 - A `.bib` file (e.g., `references.bib`)
 - `bibtex-updater` installed: `pip install bibtex-updater`
-- Plugin: `academic@research-agora` (for `/paper-references`)
+- Plugin: `verify@research-agora` (for `/paper-references`)
 
 **Steps:**
 
@@ -96,7 +96,7 @@ Output: table with columns: cite_key | status (verified/mismatch/not_found/upgra
 **Prerequisites:**
 - Paper `.tex` files in a directory (e.g., `paper/`)
 - Code repository accessible locally (e.g., `src/` or a cloned repo path)
-- Plugin: `academic@research-agora` (for `/paper-verify-experiments`)
+- Plugin: `verify@research-agora` (for `/paper-verify-experiments`)
 
 **Steps:**
 
@@ -151,7 +151,7 @@ Output: table sorted by severity (critical mismatches first).
 
 **Prerequisites:**
 - Paper `.tex` or `.pdf` with statistical results reported
-- Plugin: `research-agents@research-agora` (for `/statistical-validator` agent)
+- Plugin: `verify@research-agora` (for `/statistical-validator` agent)
 
 **Steps:**
 
@@ -196,7 +196,7 @@ Severity: critical (inconsistent) / warning (underpowered or ambiguous) / info (
 
 **Prerequisites:**
 - Paper `.tex` files
-- Plugin: `research-agents@research-agora` (for `/claim-auditor` agent)
+- Plugin: `verify@research-agora` (for `/claim-auditor` agent)
 
 **Steps:**
 
@@ -345,9 +345,9 @@ Then you evaluate which one is scientifically sound. That judgment is not delega
 
 ## See Also
 
-- [`/paper-references`](../plugins/academic/commands/paper-references.md) — full skill documentation
-- [`/paper-verify-experiments`](../plugins/academic/commands/paper-verify-experiments.md) — full skill documentation
-- [`/statistical-validator`](../plugins/research-agents/agents/statistical-validator.md) — agent documentation
-- [`/claim-auditor`](../plugins/research-agents/agents/claim-auditor.md) — agent documentation, including parallel mode
+- [`/paper-references`](../plugins/verify/commands/paper-references.md) — full skill documentation
+- [`/paper-verify-experiments`](../plugins/verify/commands/paper-verify-experiments.md) — full skill documentation
+- [`/statistical-validator`](../plugins/verify/agents/statistical-validator.md) — agent documentation
+- [`/claim-auditor`](../plugins/verify/agents/claim-auditor.md) — agent documentation, including parallel mode
 - [Evidence Hierarchy](../CLAUDE.md#evidence-hierarchy) — L1–L6 claim grading used internally by research-agents
 - [Position paper](https://openreview.net/forum?id=svFHXBd2wq) — full argument for Test-Driven Research and the Research Agora

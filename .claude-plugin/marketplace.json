@@ -5,104 +5,82 @@
     "email": "prmedia17@gmail.com"
   },
   "metadata": {
-    "description": "Research Agora - A plugin marketplace for Claude Code focused on ML research, academic writing, and development automation",
-    "version": "1.2.0"
+    "description": "Research Agora - a marketplace of verification-first skills for ML research. A skill ships only if something can check what it produced.",
+    "version": "2.0.0"
   },
   "plugins": [
     {
-      "name": "academic",
-      "source": "./plugins/academic",
-      "description": "Academic paper writing skills for ML conferences (NeurIPS, ICML, ICLR, AAAI). Verification, diagnosis, and literature discovery: citation checking, claim auditing against code, abstract diagnosis, reviewer simulation, and slide/poster generation.",
-      "version": "1.3.0",
-      "author": {
-        "name": "rpatrik96"
-      },
-      "category": "academic",
-      "keywords": [
-        "academic",
-        "paper",
-        "writing",
-        "ml-research",
-        "latex",
-        "neurips",
-        "icml",
-        "iclr"
-      ]
-    },
-    {
-      "name": "development",
-      "source": "./plugins/development",
-      "description": "Development automation for research code: code simplification, HTCondor cluster submission, setup auditing, latex-code-sync, and opt-in skill-usage feedback.",
-      "version": "1.2.0",
-      "author": {
-        "name": "rpatrik96"
-      },
-      "category": "development",
-      "keywords": [
-        "development",
-        "python",
-        "automation",
-        "git",
-        "ci-cd",
-        "documentation",
-        "feedback"
-      ]
-    },
-    {
-      "name": "formatting",
-      "source": "./plugins/formatting",
-      "description": "Document and LaTeX formatting skills for publication-quality output. Includes LaTeX consistency, publication figures, and TikZ diagrams.",
+      "name": "discover",
+      "source": "./plugins/discover",
+      "description": "Find out what exists and decide what to do: arXiv literature discovery with a verified bibliography, benchmark and baseline scouting, checkpoint-gated brainstorming, and a navigator that routes you to the right skill.",
       "version": "1.0.0",
       "author": {
         "name": "rpatrik96"
       },
-      "category": "formatting",
+      "category": "discover",
       "keywords": [
-        "formatting",
+        "literature",
+        "arxiv",
+        "bibliography",
+        "benchmarks",
+        "brainstorming",
+        "discovery"
+      ]
+    },
+    {
+      "name": "write",
+      "source": "./plugins/write",
+      "description": "Produce and diagnose the draft: abstract diagnosis against venue limits, experiment sections built from values a script extracted, skeptical reviewer simulation, argument mapping, and prose scoring via limpid. It diagnoses what you wrote; it does not write your claims.",
+      "version": "1.0.0",
+      "author": {
+        "name": "rpatrik96"
+      },
+      "category": "write",
+      "keywords": [
+        "writing",
+        "editorial",
+        "abstract",
+        "review",
+        "clarity",
+        "limpid"
+      ]
+    },
+    {
+      "name": "verify",
+      "source": "./plugins/verify",
+      "description": "Check what the draft claims: citation verification via bibtexupdater, paper-versus-code consistency, statistical rigor, proof auditing, notation consistency, and parallel audit orchestration. Every skill here checks something against a source outside itself.",
+      "version": "1.0.0",
+      "author": {
+        "name": "rpatrik96"
+      },
+      "category": "verify",
+      "keywords": [
+        "verification",
+        "citations",
+        "claims",
+        "proofs",
+        "statistics",
+        "reproducibility",
+        "agents"
+      ]
+    },
+    {
+      "name": "toolkit",
+      "source": "./plugins/toolkit",
+      "description": "The machinery around the paper: LaTeX build/debug/lint, equation-to-code sync, publication figures in TikZ or matplotlib, rebuttal triage and response, experiment tracking, cluster submission, and artifact packaging.",
+      "version": "1.0.0",
+      "author": {
+        "name": "rpatrik96"
+      },
+      "category": "toolkit",
+      "keywords": [
         "latex",
-        "visualization",
         "figures",
         "tikz",
-        "matplotlib"
-      ]
-    },
-    {
-      "name": "research-agents",
-      "source": "./plugins/research-agents",
-      "description": "Specialized research analysis agents for critical thinking, evidence verification, perspective synthesis, and paper quality improvement.",
-      "version": "2.2.0",
-      "author": {
-        "name": "rpatrik96"
-      },
-      "category": "research",
-      "keywords": [
-        "research",
-        "agents",
-        "critical-thinking",
-        "analysis",
-        "verification",
-        "synthesis"
-      ]
-    },
-    {
-      "name": "editorial",
-      "source": "./plugins/editorial",
-      "description": "Diagnostic editorial skills: prose scoring via limpid, named failure-pattern diagnosis, argument mapping, and register translation. They diagnose; the author writes.",
-      "version": "1.2.0",
-      "author": {
-        "name": "rpatrik96"
-      },
-      "category": "editorial",
-      "keywords": [
-        "editorial",
-        "writing",
-        "diagnosis",
-        "editing",
-        "voice",
-        "argument",
-        "register",
-        "book",
-        "blog"
+        "rebuttal",
+        "htcondor",
+        "experiments",
+        "packaging"
       ]
     }
   ]

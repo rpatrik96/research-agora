@@ -47,7 +47,7 @@ Do not invent citations. If you are uncertain about a fact, write [UNCERTAIN] in
 - Are any `[UNCERTAIN]` markers present? Follow up on each one.
 - Do not use this table in a paper without checking at least the top 2–3 citations against the actual PDFs.
 
-**Related skills:** `literature-synthesizer` (academic@research-agora), `paper-references` (academic@research-agora)
+**Related skills:** `literature-synthesizer` (discover@research-agora), `paper-references` (verify@research-agora)
 
 ---
 
@@ -78,7 +78,7 @@ Output: The synthesis paragraph, followed by a list of all citations used with f
 - Are all papers in the reference list ones you actually provided, or did the agent invent new ones?
 - Any `[UNCERTAIN]` markers: investigate each before using that claim.
 
-**Related skills:** `literature-synthesizer` (academic@research-agora), `claim-auditor` (research-agents@research-agora)
+**Related skills:** `literature-synthesizer` (discover@research-agora), `claim-auditor` (verify@research-agora)
 
 ---
 
@@ -123,7 +123,7 @@ Flag any entry where:
 - For every `mismatch` entry: open the actual paper and correct the metadata.
 - Re-run verification after corrections. All entries should reach `verified` before submission.
 
-**Related skills:** `paper-references` (academic@research-agora)
+**Related skills:** `paper-references` (verify@research-agora)
 
 ---
 
@@ -152,7 +152,7 @@ Flag any claim you cannot ground in the provided papers.
 - Are the open questions ones your research could actually address?
 - Are any claims grounded in papers you didn't provide? (A sign the agent is hallucinating.)
 
-**Related skills:** `literature-synthesizer` (academic@research-agora), `benchmark-scout` (academic@research-agora)
+**Related skills:** `literature-synthesizer` (discover@research-agora), `benchmark-scout` (discover@research-agora)
 
 ---
 

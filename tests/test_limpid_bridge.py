@@ -194,7 +194,7 @@ class TestPatternMapAgreesWithSkill:
 
     def test_mapped_patterns_exist_in_the_skill(self, bridge) -> None:
         skill = (
-            REPO_ROOT / "plugins" / "editorial" / "commands" / "writing-diagnosis.md"
+            REPO_ROOT / "plugins" / "write" / "commands" / "writing-diagnosis.md"
         ).read_text()
         missing = sorted(
             {p for p in bridge.RULE_TO_PATTERN.values() if p not in skill}
@@ -203,7 +203,7 @@ class TestPatternMapAgreesWithSkill:
 
     def test_judgment_only_patterns_exist_in_the_skill(self, bridge) -> None:
         skill = (
-            REPO_ROOT / "plugins" / "editorial" / "commands" / "writing-diagnosis.md"
+            REPO_ROOT / "plugins" / "write" / "commands" / "writing-diagnosis.md"
         ).read_text()
         out = bridge.normalize({"findings": []})
         missing = [p for p in out["patterns_needing_judgment"] if p not in skill]

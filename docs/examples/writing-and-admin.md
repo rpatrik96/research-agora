@@ -51,7 +51,7 @@ Requirements:
 - Is the action item specific enough that the recipient knows exactly what to do?
 - Edit before sending — treat this as a first draft, not a final product.
 
-**Related skills:** `writing-diagnosis` (editorial@research-agora)
+**Related skills:** `writing-diagnosis` (write@research-agora)
 
 ---
 
@@ -86,7 +86,7 @@ Tone: Professional and collegial. No dismissiveness.
 - Does it start by partially conceding, or does it open defensively?
 - Read it as the reviewer: would you find this response convincing?
 
-**Related skills:** `review-triage` (academic@research-agora), `reviewer-response-generator` (research-agents@research-agora)
+**Related skills:** `rebuttal` (toolkit@research-agora), `rebuttal` (toolkit@research-agora)
 
 ---
 
@@ -120,7 +120,7 @@ Assumptions:
 - Are the rubric criteria specific enough that a TA could grade consistently, or are they vague?
 - Read Q3 critically: is the "applied" scenario realistic, or does it require domain knowledge the students don't have?
 
-**Related skills:** `writing-diagnosis` (editorial@research-agora)
+**Related skills:** `writing-diagnosis` (write@research-agora)
 
 ---
 

@@ -46,7 +46,7 @@ Use seaborn with the "colorblind" palette. Summarize key findings in plain langu
 - Does the agent's interpretation of "interesting patterns" reflect actual domain insights, or is it restating obvious summary statistics?
 - Check that output files were actually saved to `outputs/eda/`.
 
-**Related skills:** `figure-storyteller` (research-agents@research-agora), `statistical-validator` (research-agents@research-agora)
+**Related skills:** `figures` (toolkit@research-agora), `statistical-validator` (verify@research-agora)
 
 ---
 
@@ -80,7 +80,7 @@ After generating, explain the design choices made.
 - Verify the colorblind palette was actually applied — check the script for `palette="colorblind"` or equivalent.
 - Confirm axis labels include units.
 
-**Related skills:** `figure-storyteller` (research-agents@research-agora), `tikz-figures` (formatting@research-agora)
+**Related skills:** `figures` (toolkit@research-agora), `figures` (toolkit@research-agora)
 
 ---
 
@@ -110,7 +110,7 @@ Explain everything in plain language. Do not show me code unless I ask.
 - Open the chart — does it represent what you asked for?
 - Are the 3 bullet points factually accurate? Check at least one data point manually.
 
-**Related skills:** `figure-storyteller` (research-agents@research-agora)
+**Related skills:** `figures` (toolkit@research-agora)
 
 ---
 

@@ -24,11 +24,11 @@ import pytest
 import yaml
 
 REPO_ROOT = Path(__file__).parent.parent
-AGENTS_DIR = REPO_ROOT / "plugins" / "research-agents" / "agents"
-MICRO_SKILLS_DIR = REPO_ROOT / "plugins" / "research-agents" / "micro-skills"
-ORCHESTRATORS_DIR = REPO_ROOT / "plugins" / "research-agents" / "orchestrators"
-PLUGIN_JSON = REPO_ROOT / "plugins" / "research-agents" / ".claude-plugin" / "plugin.json"
-MODEL_ROUTING = REPO_ROOT / "plugins" / "research-agents" / "config" / "model-routing.json"
+AGENTS_DIR = REPO_ROOT / "plugins" / "verify" / "agents"
+MICRO_SKILLS_DIR = REPO_ROOT / "plugins" / "verify" / "micro-skills"
+ORCHESTRATORS_DIR = REPO_ROOT / "plugins" / "verify" / "orchestrators"
+PLUGIN_JSON = REPO_ROOT / "plugins" / "verify" / ".claude-plugin" / "plugin.json"
+MODEL_ROUTING = REPO_ROOT / "plugins" / "verify" / "config" / "model-routing.json"
 
 THEORY_AGENTS = [
     "proof-auditor",

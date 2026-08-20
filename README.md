@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/rpatrik96/research-agora/actions/workflows/tests.yml/badge.svg)](https://github.com/rpatrik96/research-agora/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Skills](https://img.shields.io/badge/skills-44%20public-blue.svg)](https://rpatrik96.github.io/research-agora)
+[![Skills](https://img.shields.io/badge/skills-35%20public-blue.svg)](https://rpatrik96.github.io/research-agora)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 
 A community-driven skills marketplace for AI-assisted research. Browse, install, and share modular AI workflows for ML research.
@@ -27,11 +27,10 @@ In a Claude Code session, run:
 
 ```
 /plugin marketplace add rpatrik96/research-agora
-/plugin install academic@research-agora
-/plugin install development@research-agora
-/plugin install formatting@research-agora
-/plugin install editorial@research-agora
-/plugin install research-agents@research-agora
+/plugin install verify@research-agora
+/plugin install write@research-agora
+/plugin install discover@research-agora
+/plugin install toolkit@research-agora
 ```
 
 > **New here?** Run `/onboard` in Claude Code, or [take the 2-minute quiz](https://rpatrik96.github.io/research-agora/onboard.html) in your browser — no installation needed.
@@ -54,7 +53,7 @@ No `.bib` file? No CLI? [Take the onboarding quiz](https://rpatrik96.github.io/r
 <details>
 <summary><strong>PI: Evaluate and deploy for your group</strong></summary>
 
-44 public workflows for the parts of the paper lifecycle a tool can check. **A skill stays in the Agora only if something can check what it produced** — a script that extracts the numbers, a tool that resolves the citation. Where a tool-backed skill and a freehand one do the same job, the tool-backed one is the product. The Agora verifies citations, code-paper consistency, statistics, proofs, and claims. It does not write your claims for you: no oracle exists for novelty or framing, so those stay yours. Skills encode your group's standards in a shared `CLAUDE.md` — every student and postdoc runs the same verified checks.
+35 public workflows for the parts of the paper lifecycle a tool can check. **A skill stays in the Agora only if something can check what it produced** — a script that extracts the numbers, a tool that resolves the citation. Where a tool-backed skill and a freehand one do the same job, the tool-backed one is the product. The Agora verifies citations, code-paper consistency, statistics, proofs, and claims. It does not write your claims for you: no oracle exists for novelty or framing, so those stay yours. Skills encode your group's standards in a shared `CLAUDE.md` — every student and postdoc runs the same verified checks.
 
 - **Cost:** $20/mo Pro + ~$5–80/mo API tokens depending on usage. Team plan (see [Anthropic pricing](https://www.anthropic.com/pricing)) includes a GDPR DPA.
 - **Privacy:** No patient data or unpublished results on Pro. Team plan required for institutional compliance. [Full guide →](docs/privacy-gdpr.md)
@@ -113,75 +112,127 @@ AI tools amplify expertise — they don't replace it. Verify everything. Build u
 
 ## Available Plugins
 
-### academic@research-agora
+### discover@research-agora
 
-Paper writing, research, and dissemination skills:
+Find out what exists and decide what to do.
 
-| Skill | Description |
-|-------|-------------|
-| `paper-abstract` | Write or improve paper abstracts |
-| `literature-synthesizer` | Write related work and discover relevant literature |
-| `paper-experiments` | Document experimental setups with GitHub integration |
-| `paper-review` | Generate critical reviews simulating skeptical reviewers |
-| `paper-references` | Fact-check citations using bibtex-updater |
-| `paper-verify-experiments` | Verify claims against source code |
-| `experiment-tracker` | Sync experiment results to paper drafts |
-| `benchmark-scout` | Find benchmarks and generate experiment plans |
-| `openreview-submission` | Prepare OpenReview metadata: plain-text abstract, keywords, TL;DR, lay summary |
+```
+/plugin install discover@research-agora
+```
 
-### development@research-agora
-
-Code quality and automation skills:
+**Checks against ground truth**
 
 | Skill | Description |
 |-------|-------------|
-| `code-simplify` | Remove dead code, eliminate duplication |
-| `htcondor` | Generate HTCondor submission files for cluster jobs |
-| `latex-sync-setup` | Initialize latex-code-sync in a project |
-| `latex-sync-annotate` | Link functions to paper equations via decorators |
-| `latex-sync-verify` | Verify paper equations match code implementations |
+| `literature-synthesizer` | Discover relevant literature for ML papers and build a verified bibliography |
 
-### formatting@research-agora
-
-Document and code formatting skills:
+**Checks against a rubric**
 
 | Skill | Description |
 |-------|-------------|
-| `latex-consistency` | Enforce consistent LaTeX formatting |
-| `tikz-figures` | Create TikZ/PGF diagrams for ML papers |
+| `brainstorm` | Checkpoint-gated ideation: frame the problem, explore options, and choose a direction with you |
 
-### editorial@research-agora
-
-Editorial intelligence and writing analysis skills:
+**Produces something for you to check**
 
 | Skill | Description |
 |-------|-------------|
-| `writing-verify` | Quantitative writing quality scoring (A-F grade) |
-| `writing-diagnosis` | Diagnose writing issues across genres |
-| `argument-autopsy` | Dissect argument structure |
+| `benchmark-scout` | Identify relevant benchmarks and generate experiment plans for ML papers |
+| `navigator` | Find the right skill, or find out what changed |
+| `onboard` | Personalized Research Agora setup via scripts/onboard.py |
 
-### research-agents@research-agora
+### write@research-agora
 
-Specialized research analysis agents:
+Produce and diagnose the draft. These read what you wrote and tell you where it breaks; they do not write your claims.
 
-| Agent | Description |
+```
+/plugin install write@research-agora
+```
+
+**Checks against ground truth**
+
+| Skill | Description |
 |-------|-------------|
-| `devils-advocate` | Challenge arguments and identify biases |
-| `claim-auditor` | Deep verify all paper claims |
-| `audience-checker` | Evaluate audience alignment |
-| `statistical-validator` | Verify statistical rigor |
-| `figure-storyteller` | Generate publication-quality figures |
-| `reviewer-response-generator` | Generate structured rebuttals |
-| `latex-debugger` | Parse logs and diagnose compilation errors |
-| `artifact-packager` | Prepare code/data for public release |
-| `state-generator` | Generate research-state.json for parallel analysis pipelines |
-| `voice-drift-detector` | Detect voice inconsistency across documents |
-| `proof-auditor` | Decompose and verify proofs step-by-step (T1-T6 hierarchy) |
-| `bounds-analyst` | Analyze convergence rates and complexity bounds |
-| `notation-consistency-checker` | Build symbol table, detect notation inconsistencies |
-| `theorem-dependency-mapper` | Build theorem/lemma dependency DAG with criticality scores |
-| `counterexample-searcher` | Stress-test theorems by dropping assumptions |
-| `intuition-formalizer` | Translate informal intuitions into formal theorem statements |
+| `argument-autopsy` | Visualize the logical skeleton of a paper's argument as a claim-evidence DAG |
+| `paper-review` | Generate critical reviews of ML paper drafts simulating a skeptical reviewer |
+| `writing-verify` | Quantitative writing quality verification for scientific papers |
+
+**Checks against a rubric**
+
+| Skill | Description |
+|-------|-------------|
+| `audience-checker` | Use this agent to evaluate papers, presentations, posters, or communications for target audience alignment. Im |
+| `paper-abstract` | Diagnose abstracts for ML conference papers against structure, venue word limits, specificity, and claim suppo |
+| `paper-experiments` | Write experimental details sections for ML papers with GitHub repository integration |
+| `voice-drift-detector` | Use this agent to detect voice inconsistency across chapters, blog posts, or documents. Activates when asked t |
+| `writing-diagnosis` | Diagnose root causes of bad writing at the paragraph level |
+
+### verify@research-agora
+
+Check what the draft claims.
+
+```
+/plugin install verify@research-agora
+```
+
+**Checks against ground truth**
+
+| Skill | Description |
+|-------|-------------|
+| `intuition-formalizer` | Translate informal mathematical intuitions into formal theorem statements with explicit quantifiers, condition |
+| `paper-references` | Fact-check references in ML paper drafts |
+| `paper-verify-experiments` | Verify experimental claims in ML papers against source code repositories |
+| `pre-submission-audit` | Comprehensive pre-submission paper audit combining reviewer simulation, claim verification, clarity analysis,  |
+| `statistical-validator` | Use this agent to verify statistical rigor in ML papers - p-values, confidence intervals, significance tests,  |
+
+**Checks against a rubric**
+
+| Skill | Description |
+|-------|-------------|
+| `bounds-analyst` | Analyze convergence rates, complexity bounds, and approximation guarantees. The theoretical analogue of statis |
+| `claim-auditor` | Deep verify ALL paper claims with systematic evidence hierarchy. NOW SUPPORTS PARALLEL MODE via parallel-audit |
+| `devils-advocate` | Use this agent to challenge arguments, identify logical fallacies, and expose cognitive biases. Supports itera |
+| `notation-consistency-checker` | Build a symbol table and check notation consistency throughout a paper. Detects overloaded symbols, undefined  |
+| `proof-auditor` | Decompose proofs into logical steps, check each step follows from prior ones, identify assumption usage, and f |
+
+**Produces something for you to check**
+
+| Skill | Description |
+|-------|-------------|
+| `counterexample-searcher` | Stress-test theorems by systematically exploring what happens when assumptions are dropped or weakened. Genera |
+| `theorem-dependency-mapper` | Build a DAG of theorem/lemma/proposition dependencies across the paper. Computes criticality scores, maps assu |
+
+### toolkit@research-agora
+
+The machinery around the paper.
+
+```
+/plugin install toolkit@research-agora
+```
+
+**Checks against ground truth**
+
+| Skill | Description |
+|-------|-------------|
+| `code-simplify` | Analyze and refactor Python codebases to remove dead code, eliminate duplication, and simplify complexity |
+| `latex` | Build, debug and lint a LaTeX paper |
+| `latex-sync` | Keep a paper's equations and the code implementing them in agreement, via the latex-code-sync CLI |
+| `rebuttal` | Decode what reviewers actually want, then write the response |
+
+**Checks against a rubric**
+
+| Skill | Description |
+|-------|-------------|
+| `agora-feedback` | Opt-in, review-gated usage feedback for Research Agora skills (RFC-0001) |
+| `artifact-packager` | Use this agent to prepare ML code/data/models for public release with comprehensive checklists. Activates when |
+| `audit-my-setup` | Health check for the user's Research Agora configuration. Reads CLAUDE.md files, checks installed plugins, MCP |
+
+**Produces something for you to check**
+
+| Skill | Description |
+|-------|-------------|
+| `experiment-tracker` | Sync ML experiment results to paper drafts |
+| `figures` | Make publication figures for ML papers, in TikZ or matplotlib |
+| `htcondor` | Generate HTCondor submission files and wrapper scripts for ML research jobs |
 
 ## Optional: Templates
 
@@ -189,7 +240,7 @@ Some skills use presentation templates. After cloning, install them to your loca
 
 ```bash
 mkdir -p ~/.claude/skills/templates
-cp -r plugins/academic/templates/posters ~/.claude/skills/templates/
+cp -r plugins/write/templates/posters ~/.claude/skills/templates/
 ```
 
 To add new templates:

@@ -283,82 +283,76 @@ class TestGroupsTaxonomy:
                 f"Group '{group_id}' has empty or non-string label"
             )
 
-    def test_expected_groups_exist(self, categories_data: dict) -> None:
-        """The 9 expected groups must all be defined."""
-        expected = {
-            "paper-drafting", "quality-verification", "theory-tools",
-            "literature-discovery", "writing-polish", "dissemination",
-            "submission-rebuttal", "development", "documents-figures",
-        }
-        actual = set(categories_data.get("groups", {}).keys())
-        missing = expected - actual
-        assert len(missing) == 0, f"Missing expected groups: {missing}"
+    def test_groups_are_exactly_the_plugins(
+        self, categories_data: dict, registry_data: dict
+    ) -> None:
+        """Browse groups and plugins are the same set (RFC-0002).
 
-
-class TestSkillGroupMapping:
-    """Tests for the skill-to-group mapping in generate-site.py."""
-
-    def test_all_public_skills_are_mapped(self, registry_skills: list) -> None:
-        """Every public skill must have a group assignment in generate-site.py."""
-        import importlib.util
-        spec = importlib.util.spec_from_file_location(
-            "generate_site", REPO_ROOT / "scripts" / "generate-site.py"
-        )
-        mod = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(mod)
-
-        public_skills = [s for s in registry_skills if s["visibility"] == "public"]
-        unmapped = [s["name"] for s in public_skills if s["name"] not in mod.SKILL_GROUP_MAP]
-        assert len(unmapped) == 0, f"Public skills without group mapping: {unmapped}"
-
-    def test_no_orphan_group_map_entries(self, registry_skills: list) -> None:
-        """Every SKILL_GROUP_MAP key must still name a live skill.
-
-        The reverse of test_all_public_skills_are_mapped, and the one that was
-        missing: a retired skill's mapping entry survived silently, which is how
-        the February 2026 consolidation (8787d48) left 34 dangling references
-        behind. Retirement should fail here rather than in someone's install.
+        Groups derive from plugin membership, so a group that is not a plugin
+        would render empty and a plugin that is not a group would render its
+        skills as ungrouped.
         """
+        groups = set(categories_data.get("groups", {}).keys())
+        plugins = {
+            s["plugin"]
+            for repo in registry_data.get("repos", [])
+            for s in repo.get("skills", [])
+        }
+        assert groups == plugins, (
+            f"groups {sorted(groups)} != plugins {sorted(plugins)}"
+        )
+
+
+class TestGroupDerivation:
+    """Groups derive from plugin membership; there is no mapping table.
+
+    RFC-0002 replaced the hand-maintained SKILL_GROUP_MAP with derivation. The
+    table was the surface that let the February 2026 consolidation leave 34
+    dangling references behind, because a retired skill's entry survived it.
+    """
+
+    @staticmethod
+    def _site_module():
         import importlib.util
+
         spec = importlib.util.spec_from_file_location(
             "generate_site", REPO_ROOT / "scripts" / "generate-site.py"
         )
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
+        return mod
 
-        live = {s["name"] for s in registry_skills}
-        orphans = sorted(set(mod.SKILL_GROUP_MAP) - live)
-        assert not orphans, f"SKILL_GROUP_MAP references retired skills: {orphans}"
-
-    def test_no_internal_skills_mapped(self, registry_skills: list) -> None:
-        """Internal skills should not appear in the group mapping."""
-        import importlib.util
-        spec = importlib.util.spec_from_file_location(
-            "generate_site", REPO_ROOT / "scripts" / "generate-site.py"
-        )
-        mod = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(mod)
-
-        internal_names = {s["name"] for s in registry_skills if s["visibility"] == "internal"}
-        mapped_internal = internal_names & set(mod.SKILL_GROUP_MAP.keys())
-        assert len(mapped_internal) == 0, (
-            f"Internal skills should not be in SKILL_GROUP_MAP: {mapped_internal}"
+    def test_no_hand_maintained_group_map(self) -> None:
+        """The mapping table must stay gone."""
+        mod = self._site_module()
+        assert not hasattr(mod, "SKILL_GROUP_MAP"), (
+            "SKILL_GROUP_MAP is back; groups must derive from plugin membership"
         )
 
-    def test_group_map_values_are_valid(self, categories_data: dict) -> None:
-        """All group IDs in SKILL_GROUP_MAP must exist in categories.json groups."""
-        import importlib.util
-        spec = importlib.util.spec_from_file_location(
-            "generate_site", REPO_ROOT / "scripts" / "generate-site.py"
-        )
-        mod = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(mod)
+    def test_every_public_skill_lands_in_a_group(self, registry_skills: list) -> None:
+        mod = self._site_module()
+        public = [s for s in registry_skills if s.get("visibility", "public") == "public"]
+        unplaced = [
+            s["name"] for s in public if mod.skill_group(s) not in mod.GROUP_ORDER
+        ]
+        assert not unplaced, f"Public skills outside GROUP_ORDER: {unplaced}"
 
-        valid_groups = set(categories_data.get("groups", {}).keys())
-        for skill_name, group_id in mod.SKILL_GROUP_MAP.items():
-            assert group_id in valid_groups, (
-                f"Skill '{skill_name}' mapped to unknown group '{group_id}'"
-            )
+    def test_every_skill_lands_in_a_verification_band(
+        self, registry_skills: list
+    ) -> None:
+        mod = self._site_module()
+        band_ids = {b[0] for b in mod.VERIFICATION_BANDS}
+        unbanded = [s["name"] for s in registry_skills if mod.skill_band(s) not in band_ids]
+        assert not unbanded, f"Skills with no verification band: {unbanded}"
+
+    def test_bands_cover_every_verification_level(self, categories_data: dict) -> None:
+        """No level may fall through to the default band silently."""
+        mod = self._site_module()
+        covered = set()
+        for _bid, _label, _blurb, levels in mod.VERIFICATION_BANDS:
+            covered |= levels
+        declared = set(categories_data["verification-levels"])
+        assert declared <= covered, f"Levels with no band: {sorted(declared - covered)}"
 
 
 class TestRegistryMatchesDisk:
@@ -396,9 +390,11 @@ class TestAdvertisedCounts:
     these tests fail when a public claim stops matching it.
     """
 
-    # CHANGELOG records what was true at each release, so its counts are history
-    # and must not be rewritten to match today.
+    # CHANGELOG records what was true at each release and RFCs record what was
+    # true when the decision was made. Their counts are history; rewriting them
+    # to match today would falsify the record.
     EXEMPT = {"CHANGELOG.md"}
+    EXEMPT_PREFIXES = ("docs/rfcs/",)
 
     def _public_count(self, registry_data: dict) -> int:
         """What the marketplace advertises: public and not deprecated."""
@@ -438,7 +434,7 @@ class TestAdvertisedCounts:
         pattern = re.compile(r"\b(\d{2,3})\+?\s+(?:public\s+)?(?:AI\s+)?skills\b")
         stale = []
         for rel in tracked:
-            if rel in self.EXEMPT:
+            if rel in self.EXEMPT or rel.startswith(self.EXEMPT_PREFIXES):
                 continue
             for line_no, line in enumerate(
                 (REPO_ROOT / rel).read_text().splitlines(), 1

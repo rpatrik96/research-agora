@@ -18,7 +18,7 @@ class TestClaimAuditorBackwardCompatibility:
     @pytest.fixture
     def claim_auditor_path(self) -> Path:
         """Return path to claim-auditor.md."""
-        return REPO_ROOT / "plugins" / "research-agents" / "agents" / "claim-auditor.md"
+        return REPO_ROOT / "plugins" / "verify" / "agents" / "claim-auditor.md"
 
     @pytest.fixture
     def claim_auditor_content(self, claim_auditor_path: Path) -> str:
@@ -168,7 +168,7 @@ class TestParallelModeAdditionsDoNotBreakInterface:
 
     @pytest.fixture
     def claim_auditor_path(self) -> Path:
-        return REPO_ROOT / "plugins" / "research-agents" / "agents" / "claim-auditor.md"
+        return REPO_ROOT / "plugins" / "verify" / "agents" / "claim-auditor.md"
 
     def test_claim_auditor_parallel_mode_is_optional(
         self, claim_auditor_path: Path
@@ -207,7 +207,7 @@ class TestOriginalMCPIntegrationPreserved:
 
     @pytest.fixture
     def claim_auditor_content(self) -> str:
-        path = REPO_ROOT / "plugins" / "research-agents" / "agents" / "claim-auditor.md"
+        path = REPO_ROOT / "plugins" / "verify" / "agents" / "claim-auditor.md"
         return path.read_text()
 
     def test_claim_auditor_github_mcp(self, claim_auditor_content: str) -> None:
@@ -254,7 +254,7 @@ class TestVenueSpecificStandardsPreserved:
 
     @pytest.fixture
     def claim_auditor_content(self) -> str:
-        path = REPO_ROOT / "plugins" / "research-agents" / "agents" / "claim-auditor.md"
+        path = REPO_ROOT / "plugins" / "verify" / "agents" / "claim-auditor.md"
         return path.read_text()
 
     def test_claim_auditor_tier1_venues(self, claim_auditor_content: str) -> None:

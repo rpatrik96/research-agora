@@ -57,7 +57,7 @@ Use tidyverse conventions throughout. Save the regression table as table1.html a
 - Does the regression table match the model specification you intended?
 - Are standard errors clustered appropriately for your research design?
 
-**Related skills:** `statistical-validator` (research-agents@research-agora)
+**Related skills:** `statistical-validator` (verify@research-agora)
 
 ---
 
@@ -140,7 +140,7 @@ Output: 3-bullet ROI assessment.
 - Review the diff: does the agent's change match what you asked for?
 - Is the CLAUDE.md accurate? Correct any wrong commands before committing.
 
-**Related skills:** `code-simplify` (development@research-agora), `latex-sync-verify` (development@research-agora)
+**Related skills:** `code-simplify` (toolkit@research-agora), `latex-sync` (toolkit@research-agora)
 
 ---
 
@@ -181,7 +181,7 @@ Constraints:
 - Is the section/table/figure reference correct?
 - Read it as the reviewer: is the concern actually resolved?
 
-**Related skills:** `review-triage` (academic@research-agora), `reviewer-response-generator` (research-agents@research-agora)
+**Related skills:** `rebuttal` (toolkit@research-agora), `rebuttal` (toolkit@research-agora)
 
 ---
 
