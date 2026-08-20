@@ -1,6 +1,6 @@
 ---
 name: pre-submission-audit
-description: Comprehensive pre-submission paper audit combining reviewer simulation, claim verification, clarity analysis, notation checking, and statistical validation. Use when asked to "audit before submission", "pre-submission check", "is my paper ready", "self-review", or "submission readiness". Runs 5 diagnostic passes in parallel and produces a unified readiness report.
+description: Comprehensive pre-submission paper audit combining reviewer simulation, claim verification, clarity analysis, notation checking, statistical validation, and audience alignment. Use when asked to "audit before submission", "pre-submission check", "is my paper ready", "self-review", or "submission readiness". Runs 6 diagnostic passes in parallel and produces a unified readiness report.
 model: opus
 color: red
 metadata:
@@ -45,7 +45,7 @@ Paper Input (all LaTeX files)
 Synthesis --> Unified Readiness Report
 ```
 
-All 5 passes run in PARALLEL using the Task tool with concurrent agents. No pass depends on the output of another.
+All 6 passes run in PARALLEL using the Task tool with concurrent agents. No pass depends on the output of another.
 
 ## Input Specification
 
@@ -86,7 +86,7 @@ All 5 passes run in PARALLEL using the Task tool with concurrent agents. No pass
 
 ### Phase 2: Fan-Out — Parallel Diagnostic Passes (Parallel)
 
-Launch all 5 passes simultaneously using the Task tool (fan-out). Each pass receives the full paper text and venue target.
+Launch all 6 passes simultaneously using the Task tool (fan-out). Each pass receives the full paper text and venue target.
 
 ```
 SPAWN_TASK: paper-review
@@ -129,7 +129,7 @@ SPAWN_TASK: audience-checker
 ### Phase 3: Fan-In — Result Collection (Sequential)
 
 ```
-1. Collect results from all 5 Task completions (fan-in)
+1. Collect results from all 6 Task completions (fan-in)
 2. Handle partial failures: if a pass fails, note it in the report and continue with remaining passes
 3. Extract key metrics from each pass for the summary
 4. Update orchestrator state with collected pass results
@@ -178,7 +178,7 @@ def compute_verdict(pass_results):
 **Verdict**: [READY / READY WITH MINOR FIXES / NOT READY]
 
 ### Executive Summary
-[2-3 sentence overall assessment synthesizing findings from all 5 passes. Highlight the single biggest risk and the strongest aspect of the paper.]
+[2-3 sentence overall assessment synthesizing findings from all 6 passes. Highlight the single biggest risk and the strongest aspect of the paper.]
 
 ### Pass Results
 
