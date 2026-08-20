@@ -238,25 +238,61 @@ header h1 {
 .results-count { grid-column: 1 / -1; }
 
 /* Skill Card */
+/* A band is a labelled row: its heading sits in a left column beside the cards
+   it describes, rather than as a full-width header between them. A band holding
+   one skill then reads as intentional instead of leaving empty grid columns. */
+.band-section {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 0 1rem;
+    padding: 0 1rem;
+    align-items: start;
+}
+
+.band-section + .band-section {
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+
 .band {
-    margin: 1.25rem 0 0.5rem;
+    position: sticky;
+    top: 1rem;
+    padding-top: 0.35rem;
 }
 
 .band-label {
-    font-size: 0.8rem;
+    font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+    color: var(--text);
+    margin: 0 0 0.3rem;
+}
+
+.band-blurb {
+    font-size: 0.78rem;
+    line-height: 1.45;
     color: var(--text-muted);
     margin: 0;
 }
 
-.band-blurb {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin: 0.15rem 0 0;
-    max-width: 60ch;
+.band-section .group-grid {
+    padding: 0 0 1rem;
+    /* auto-fit collapses the empty tracks, so a band holding one skill fills its
+       row instead of leaving dead columns beside it. max-width keeps a lone card
+       from stretching across the whole page. */
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
+
+@media (max-width: 900px) {
+    .band-section {
+        grid-template-columns: 1fr;
+        gap: 0.5rem 0;
+    }
+    .band { position: static; }
+}
+
 
 .skill-card {
     border: 1px solid var(--border);
