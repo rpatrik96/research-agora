@@ -689,9 +689,9 @@ class TestCaptureClient:
         run_client(["enable"], home, script=installed)
 
         for payload in (
-            skill_hook_payload("commit", plugin="development"),
-            skill_hook_payload("commit", plugin=None),
-            skill_hook_payload("commit", plugin="someplugin"),
+            skill_hook_payload("code-simplify", plugin="development"),
+            skill_hook_payload("code-simplify", plugin=None),
+            skill_hook_payload("code-simplify", plugin="someplugin"),
             skill_hook_payload("brainstorming", plugin="superpowers"),
             json.dumps(
                 subagent_hook_payload("Agent", "research-agents:devils-advocate")
@@ -701,7 +701,10 @@ class TestCaptureClient:
             run_client(["capture"], home, stdin_data=payload, script=installed)
 
         events = (home / "spool" / "events.jsonl").read_text().strip().splitlines()
-        assert [json.loads(e)["skill"] for e in events] == ["commit", "devils-advocate"]
+        assert [json.loads(e)["skill"] for e in events] == [
+            "code-simplify",
+            "devils-advocate",
+        ]
 
     def test_fails_closed_without_any_skill_list(self, tmp_path, registry_skill_names):
         """No name list means record nothing — never record everything."""

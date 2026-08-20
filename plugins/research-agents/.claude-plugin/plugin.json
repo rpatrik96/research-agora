@@ -1,7 +1,7 @@
 {
   "name": "research-agents",
   "description": "Specialized research analysis agents for critical thinking, evidence verification, synthesis, and parallel paper analysis",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "author": {
     "name": "rpatrik96",
     "email": "prmedia17@gmail.com"
@@ -28,7 +28,6 @@
       "items": [
         "claim-auditor",
         "devils-advocate",
-        "perspective-synthesizer",
         "audience-checker",
         "figure-storyteller",
         "latex-debugger",
@@ -40,26 +39,17 @@
         "bounds-analyst",
         "notation-consistency-checker",
         "theorem-dependency-mapper",
-        "proof-strategy-advisor",
         "counterexample-searcher",
         "intuition-formalizer",
-        "theory-connector",
-        "content-archaeologist",
-        "voice-drift-detector",
-        "redundancy-radar",
-        "reader-simulation"
+        "voice-drift-detector"
       ]
     },
     "micro-skills": {
       "description": "Atomic, parallelizable operations for paper analysis",
       "items": [
-        "claim-extractor",
-        "claim-classifier",
-        "evidence-locator",
         "evidence-grader",
         "novelty-checker",
         "citation-verifier",
-        "assumption-surfacer",
         "cross-referencer",
         "proof-step-extractor",
         "proof-step-verifier",
@@ -78,11 +68,7 @@
     },
     "helpers": {
       "description": "Utility skills for efficiency",
-      "items": [
-        "batch-arxiv",
-        "prefetch-evidence",
-        "context-compactor"
-      ]
+      "items": []
     }
   },
   "features": {

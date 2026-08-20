@@ -19,17 +19,13 @@ Specialized research analysis agents for critical thinking, evidence verificatio
 **Critique and audience**
 - `devils-advocate` - Adversarial analysis of arguments
 - `audience-checker` - Evaluate alignment with a target reader persona
-- `reader-simulation` - Walk a first-time reader through the text
-- `perspective-synthesizer` - Synthesize multiple viewpoints
 
 **Theory**
 - `proof-auditor` - Decompose proofs and check each step
-- `proof-strategy-advisor` - Suggest proof approaches for a conjecture
 - `counterexample-searcher` - Stress-test theorems by weakening assumptions
 - `bounds-analyst` - Analyze convergence rates and complexity bounds
 - `intuition-formalizer` - Turn informal intuitions into formal statements
 - `theorem-dependency-mapper` - Build a DAG of theorem dependencies
-- `theory-connector` - Find cross-domain analogues of a result
 - `notation-consistency-checker` - Build a symbol table and check consistency
 
 **Experiments and figures**
@@ -38,15 +34,11 @@ Specialized research analysis agents for critical thinking, evidence verificatio
 - `artifact-packager` - Prepare code and data for release
 
 **Writing and dissemination**
-- `redundancy-radar` - Find semantic overlap across documents
 - `voice-drift-detector` - Detect voice inconsistency across documents
-- `content-archaeologist` - Map blog posts into book structure
 - `reviewer-response-generator` - Draft rebuttals
 - `latex-debugger` - Diagnose LaTeX compilation errors
 
 ### Micro-Skills (12)
-Atomic, parallelizable operations for paper analysis: `claim-extractor`,
-`claim-classifier`, `evidence-locator`, `evidence-grader`, `assumption-surfacer`,
 `assumption-analyzer`, `citation-verifier`, `cross-referencer`, `novelty-checker`,
 `derivation-checker`, `proof-step-extractor`, `proof-step-verifier`.
 
@@ -57,9 +49,6 @@ Atomic, parallelizable operations for paper analysis: `claim-extractor`,
 - `pre-submission-audit` - Five diagnostic passes with a readiness verdict
 
 ### Helpers (3)
-- `batch-arxiv` - Batched arXiv searches
-- `prefetch-evidence` - Pre-fetch evidence
-- `context-compactor` - Compress context for efficiency
 
 ## Installation
 

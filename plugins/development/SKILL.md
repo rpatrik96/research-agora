@@ -6,9 +6,7 @@ Development automation skills for Python projects.
 
 | Command | Description |
 |---------|-------------|
-| `/commit` | Create commits with conventional commit messages |
 | `/code-simplify` | Remove dead code, eliminate duplication, reduce complexity |
-| `/python-cicd` | Set up CI/CD with GitHub Actions and pre-commit hooks |
 | `/latex-sync-setup` | Initialize latex-code-sync for paper-code verification |
 | `/latex-sync-annotate` | Add @latex decorators to link functions with equations |
 | `/latex-sync-verify` | Run verification between paper equations and code |

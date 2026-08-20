@@ -10,7 +10,7 @@ color: orange
 metadata:
   research-domain: general
   research-phase: paper-writing
-  task-type: verification
+  task-type: analysis
   verification-level: heuristic
 ---
 

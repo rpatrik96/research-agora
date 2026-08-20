@@ -2,15 +2,15 @@
   "version": "1.0.0",
   "generated": "2026-08-20",
   "stats": {
-    "total_skills": 80,
-    "public_skills": 61,
-    "deprecated_skills": 2,
-    "active_public_skills": 59,
-    "commands": 39,
-    "agents": 22,
-    "micro_skills": 12,
+    "total_skills": 56,
+    "public_skills": 44,
+    "deprecated_skills": 0,
+    "active_public_skills": 44,
+    "commands": 28,
+    "agents": 16,
+    "micro_skills": 8,
     "orchestrators": 4,
-    "helpers": 3,
+    "helpers": 0,
     "plugins": 5
   },
   "repos": [
@@ -137,22 +137,6 @@
           "visibility": "public"
         },
         {
-          "name": "paper-discussion",
-          "plugin": "academic",
-          "type": "command",
-          "description": "Write or improve discussion and limitations sections for ML conference papers. Use when asked to \"write discussion\", \"add limitations\", \"discuss results\", \"write conclusion\", or \"identify weaknesses\". Generates balanced analysis of contributions, implications, and honest limitations.",
-          "model": "sonnet",
-          "path": "plugins/academic/commands/paper-discussion.md",
-          "research-domain": "general",
-          "task-type": "writing",
-          "research-phase": "paper-writing",
-          "verification-level": "none",
-          "visibility": "public",
-          "deprecated": true,
-          "superseded-by": "paper-review",
-          "deprecated-in": "1.2.0"
-        },
-        {
           "name": "paper-experiments",
           "plugin": "academic",
           "type": "command",
@@ -163,35 +147,6 @@
           "task-type": "writing",
           "research-phase": "paper-writing",
           "verification-level": "heuristic",
-          "visibility": "public"
-        },
-        {
-          "name": "paper-introduction",
-          "plugin": "academic",
-          "type": "command",
-          "description": "Write or improve introduction sections for ML conference papers. Use when asked to \"write introduction\", \"improve intro\", \"draft intro\", \"motivate the paper\", or \"write opening\". Structures motivation, problem statement, contributions, and paper outline.",
-          "model": "sonnet",
-          "path": "plugins/academic/commands/paper-introduction.md",
-          "research-domain": "general",
-          "task-type": "writing",
-          "research-phase": "paper-writing",
-          "verification-level": "none",
-          "visibility": "public",
-          "deprecated": true,
-          "superseded-by": "paper-review",
-          "deprecated-in": "1.2.0"
-        },
-        {
-          "name": "paper-poster",
-          "plugin": "academic",
-          "type": "command",
-          "description": "Create academic conference posters from research papers. Use when asked to\n\"create poster\", \"make poster\", \"turn paper into poster\", \"poster for conference\".",
-          "model": "sonnet",
-          "path": "plugins/academic/commands/paper-poster.md",
-          "research-domain": "general",
-          "task-type": "dissemination",
-          "research-phase": "dissemination",
-          "verification-level": "none",
           "visibility": "public"
         },
         {
@@ -221,32 +176,6 @@
           "visibility": "public"
         },
         {
-          "name": "paper-slides",
-          "plugin": "academic",
-          "type": "command",
-          "description": "Create presentation slides from research papers for talks and seminars. Use when asked to\n\"create slides\", \"make presentation\", \"turn paper into slides\", \"prepare talk\".",
-          "model": "sonnet",
-          "path": "plugins/academic/commands/paper-slides.md",
-          "research-domain": "general",
-          "task-type": "dissemination",
-          "research-phase": "dissemination",
-          "verification-level": "none",
-          "visibility": "public"
-        },
-        {
-          "name": "paper-summarizer",
-          "plugin": "academic",
-          "type": "command",
-          "description": "Summarize research papers for rapid triage and comprehension. Use when asked to \"summarize this paper\", \"paper summary\", \"what does this paper do\", \"triage papers\", or \"TLDR this paper\". Takes an arXiv ID or paper text and produces structured summaries at configurable depth.",
-          "model": "sonnet",
-          "path": "plugins/academic/commands/paper-summarizer.md",
-          "research-domain": "general",
-          "task-type": "analysis",
-          "research-phase": "literature-review",
-          "verification-level": "heuristic",
-          "visibility": "public"
-        },
-        {
           "name": "paper-verify-experiments",
           "plugin": "academic",
           "type": "command",
@@ -260,19 +189,6 @@
           "visibility": "public"
         },
         {
-          "name": "review-prompt",
-          "plugin": "academic",
-          "type": "command",
-          "description": "Critiques a prompt using the RIOT framework and teaches one transferable lesson.\nUse when asked to \"review my prompt\", \"improve this prompt\", \"why isn't my prompt working\",\n\"score my prompt\", \"make this prompt better\", \"diagnose my prompt\", \"fix my prompt\",\nor \"what's wrong with this prompt\".\nUser pastes a prompt; skill scores each RIOT component, identifies the failure mode,\nand generates an improved version with minimal changes.",
-          "model": "sonnet",
-          "path": "plugins/academic/commands/review-prompt.md",
-          "research-domain": "general",
-          "task-type": "diagnosis",
-          "research-phase": "paper-writing",
-          "verification-level": "heuristic",
-          "visibility": "public"
-        },
-        {
           "name": "review-triage",
           "plugin": "academic",
           "type": "command",
@@ -283,19 +199,6 @@
           "task-type": "analysis",
           "research-phase": "paper-writing",
           "verification-level": "heuristic",
-          "visibility": "public"
-        },
-        {
-          "name": "science-gif",
-          "plugin": "academic",
-          "type": "command",
-          "description": "Create animated GIFs to communicate ML research visually for Twitter/X, GitHub READMEs, and project\nwebsites. Use when asked to \"create science gif\", \"animate results\", \"make animated figure\",\n\"gif for twitter\", \"animate method\", \"visualize algorithm\".",
-          "model": "sonnet",
-          "path": "plugins/academic/commands/science-gif.md",
-          "research-domain": "general",
-          "task-type": "dissemination",
-          "research-phase": "dissemination",
-          "verification-level": "none",
           "visibility": "public"
         },
         {
@@ -351,19 +254,6 @@
           "visibility": "public"
         },
         {
-          "name": "commit",
-          "plugin": "development",
-          "type": "command",
-          "description": "Commit changes made during the current conversation. Use when asked to\n\"commit\", \"save changes\", \"create a commit\", or \"commit my changes\".\nGenerates conventional commit messages with co-authorship attribution.",
-          "model": "haiku",
-          "path": "plugins/development/commands/commit.md",
-          "research-domain": "general",
-          "task-type": "automation",
-          "research-phase": "implementation",
-          "verification-level": "none",
-          "visibility": "public"
-        },
-        {
           "name": "htcondor",
           "plugin": "development",
           "type": "command",
@@ -374,19 +264,6 @@
           "task-type": "automation",
           "research-phase": "implementation",
           "verification-level": "none",
-          "visibility": "public"
-        },
-        {
-          "name": "python-cicd",
-          "plugin": "development",
-          "type": "command",
-          "description": "Set up Python CI/CD with GitHub Actions, pre-commit hooks, and code quality tools. Use when asked to \"set up CI/CD\", \"add pre-commit hooks\", \"configure GitHub Actions\", \"add linting\", or \"set up testing pipeline\". Configures Black, isort, flake8, and pytest for Python 3.11.",
-          "model": "haiku",
-          "path": "plugins/development/commands/python-cicd.md",
-          "research-domain": "general",
-          "task-type": "formatting",
-          "research-phase": "implementation",
-          "verification-level": "heuristic",
           "visibility": "public"
         },
         {
@@ -439,32 +316,6 @@
           "task-type": "diagnosis",
           "research-phase": "paper-writing",
           "verification-level": "layered",
-          "visibility": "public"
-        },
-        {
-          "name": "editorial-brain",
-          "plugin": "editorial",
-          "type": "command",
-          "description": "Context-aware editorial intelligence that adapts to what you're writing. Use when asked to \"edit this\", \"review my writing\", \"editorial feedback\", \"developmental edit\", \"line edit\", \"improve clarity\", \"simplify writing\", \"check readability\", \"reduce jargon\", or \"make paper clearer\". Detects format (paper/blog/book/grant), section type, and draft phase, then routes to the appropriate editorial lens \u2014 developmental, line, or copy editing.",
-          "model": "opus",
-          "path": "plugins/editorial/commands/editorial-brain.md",
-          "research-domain": "general",
-          "task-type": "diagnosis",
-          "research-phase": "paper-writing",
-          "verification-level": "heuristic",
-          "visibility": "public"
-        },
-        {
-          "name": "register-translator",
-          "plugin": "editorial",
-          "type": "command",
-          "description": "Translate writing between registers \u2014 paper to blog, blog to book chapter, academic to conversational. Use when asked to \"convert this for blog\", \"make this more conversational\", \"translate register\", \"paper to blog\", \"blog to book\", or \"adapt for audience\". Performs structural transformation, not just tone adjustment.",
-          "model": "opus",
-          "path": "plugins/editorial/commands/register-translator.md",
-          "research-domain": "general",
-          "task-type": "writing",
-          "research-phase": "paper-writing",
-          "verification-level": "heuristic",
           "visibility": "public"
         },
         {
@@ -566,7 +417,7 @@
           "model": "opus",
           "path": "plugins/research-agents/agents/bounds-analyst.md",
           "research-domain": "general",
-          "task-type": "verification",
+          "task-type": "analysis",
           "research-phase": "paper-writing",
           "verification-level": "heuristic",
           "visibility": "public"
@@ -580,19 +431,6 @@
           "path": "plugins/research-agents/agents/claim-auditor.md",
           "research-domain": "general",
           "task-type": "verification",
-          "research-phase": "paper-writing",
-          "verification-level": "heuristic",
-          "visibility": "public"
-        },
-        {
-          "name": "content-archaeologist",
-          "plugin": "research-agents",
-          "type": "agent",
-          "description": "Use this agent to map blog posts or essays into book structure. Activates when asked to \"audit my content\", \"blog to book\", \"cluster my posts\", \"content audit\", or \"find themes across posts\". Performs thematic clustering, gap analysis, and generates book conversion strategies from dispersed content.",
-          "model": "opus",
-          "path": "plugins/research-agents/agents/content-archaeologist.md",
-          "research-domain": "general",
-          "task-type": "analysis",
           "research-phase": "paper-writing",
           "verification-level": "heuristic",
           "visibility": "public"
@@ -676,19 +514,6 @@
           "visibility": "public"
         },
         {
-          "name": "perspective-synthesizer",
-          "plugin": "research-agents",
-          "type": "agent",
-          "description": "Use this agent to synthesize different perspectives, methodologies, or research approaches into unified frameworks. Invoke for literature review synthesis, reconciling conflicting findings, bridging research communities, or resolving disagreements.",
-          "model": "sonnet",
-          "path": "plugins/research-agents/agents/perspective-synthesizer.md",
-          "research-domain": "general",
-          "task-type": "writing",
-          "research-phase": "literature-review",
-          "verification-level": "layered",
-          "visibility": "public"
-        },
-        {
           "name": "proof-auditor",
           "plugin": "research-agents",
           "type": "agent",
@@ -697,45 +522,6 @@
           "path": "plugins/research-agents/agents/proof-auditor.md",
           "research-domain": "general",
           "task-type": "verification",
-          "research-phase": "paper-writing",
-          "verification-level": "heuristic",
-          "visibility": "public"
-        },
-        {
-          "name": "proof-strategy-advisor",
-          "plugin": "research-agents",
-          "type": "agent",
-          "description": "Given a theorem to prove or conjecture to investigate, suggests proof approaches\ndrawn from a broad knowledge of techniques. Classifies result type, recommends\nstrategies, suggests intermediate lemmas, and identifies key technical challenges.\nTrigger: \"suggest proof strategy\", \"how to prove\", \"proof approach\",\n\"proof technique\", \"prove this theorem\".",
-          "model": "opus",
-          "path": "plugins/research-agents/agents/proof-strategy-advisor.md",
-          "research-domain": "general",
-          "task-type": "verification",
-          "research-phase": "paper-writing",
-          "verification-level": "layered",
-          "visibility": "public"
-        },
-        {
-          "name": "reader-simulation",
-          "plugin": "research-agents",
-          "type": "agent",
-          "description": "Use this agent to simulate a first-time reader walking through your text. Activates when asked to \"simulate reader\", \"where will readers get confused\", \"reader experience\", \"comprehension check\", or \"reader perspective\". Flags assumed knowledge, jargon cliffs, logical jumps, and points where readers will zone out.",
-          "model": "opus",
-          "path": "plugins/research-agents/agents/reader-simulation.md",
-          "research-domain": "general",
-          "task-type": "analysis",
-          "research-phase": "paper-writing",
-          "verification-level": "heuristic",
-          "visibility": "public"
-        },
-        {
-          "name": "redundancy-radar",
-          "plugin": "research-agents",
-          "type": "agent",
-          "description": "Use this agent to find semantic overlap and redundancy across documents. Activates when asked to \"find redundancies\", \"am I repeating myself\", \"duplicate content\", \"overlap detection\", or \"merge candidates\". Clusters similar content and suggests merge strategies.",
-          "model": "sonnet",
-          "path": "plugins/research-agents/agents/redundancy-radar.md",
-          "research-domain": "general",
-          "task-type": "analysis",
           "research-phase": "paper-writing",
           "verification-level": "heuristic",
           "visibility": "public"
@@ -793,19 +579,6 @@
           "visibility": "public"
         },
         {
-          "name": "theory-connector",
-          "plugin": "research-agents",
-          "type": "agent",
-          "description": "Identify cross-domain connections between a theoretical result and results\nfrom other subfields. Find structural analogies, vocabulary translations,\nand generalization paths. Trigger: \"connect to other fields\",\n\"cross-domain connections\", \"related theory\", \"theory bridge\",\n\"find analogous results\".",
-          "model": "opus",
-          "path": "plugins/research-agents/agents/theory-connector.md",
-          "research-domain": "general",
-          "task-type": "analysis",
-          "research-phase": "paper-writing",
-          "verification-level": "none",
-          "visibility": "public"
-        },
-        {
           "name": "voice-drift-detector",
           "plugin": "research-agents",
           "type": "agent",
@@ -832,19 +605,6 @@
           "visibility": "internal"
         },
         {
-          "name": "assumption-surfacer",
-          "plugin": "research-agents",
-          "type": "micro-skill",
-          "description": "Surface implicit and explicit assumptions from a paper section. Identifies\nunstated assumptions that affect claim validity. Trigger: \"find assumptions\",\n\"surface implicit assumptions\", \"check assumptions\".",
-          "model": "haiku",
-          "path": "plugins/research-agents/micro-skills/assumption-surfacer.md",
-          "research-domain": "general",
-          "task-type": "verification",
-          "research-phase": "paper-writing",
-          "verification-level": "heuristic",
-          "visibility": "internal"
-        },
-        {
           "name": "citation-verifier",
           "plugin": "research-agents",
           "type": "micro-skill",
@@ -855,32 +615,6 @@
           "task-type": "verification",
           "research-phase": "paper-writing",
           "verification-level": "formal",
-          "visibility": "internal"
-        },
-        {
-          "name": "claim-classifier",
-          "plugin": "research-agents",
-          "type": "micro-skill",
-          "description": "Classify a single claim by type and importance. Takes claim text and context,\nreturns classification with confidence. Trigger: \"classify claim\".",
-          "model": "haiku",
-          "path": "plugins/research-agents/micro-skills/claim-classifier.md",
-          "research-domain": "general",
-          "task-type": "analysis",
-          "research-phase": "paper-writing",
-          "verification-level": "layered",
-          "visibility": "internal"
-        },
-        {
-          "name": "claim-extractor",
-          "plugin": "research-agents",
-          "type": "micro-skill",
-          "description": "Extract all claims from a single paper section. Operates on section text only,\nno cross-references needed. Trigger: \"extract claims from section\".",
-          "model": "haiku",
-          "path": "plugins/research-agents/micro-skills/claim-extractor.md",
-          "research-domain": "general",
-          "task-type": "analysis",
-          "research-phase": "paper-writing",
-          "verification-level": "layered",
           "visibility": "internal"
         },
         {
@@ -916,19 +650,6 @@
           "description": "Grade evidence strength for a single claim. Takes claim + evidence references,\nreturns strength level (L1-L6) and venue compliance. Trigger: \"grade evidence for claim\".",
           "model": "sonnet",
           "path": "plugins/research-agents/micro-skills/evidence-grader.md",
-          "research-domain": "general",
-          "task-type": "analysis",
-          "research-phase": "paper-writing",
-          "verification-level": "layered",
-          "visibility": "internal"
-        },
-        {
-          "name": "evidence-locator",
-          "plugin": "research-agents",
-          "type": "micro-skill",
-          "description": "Find evidence (tables, figures, equations, citations) that support a claim.\nSearches within paper structure for matching references.\nTrigger: \"locate evidence for claim\", \"find supporting evidence\".",
-          "model": "haiku",
-          "path": "plugins/research-agents/micro-skills/evidence-locator.md",
           "research-domain": "general",
           "task-type": "analysis",
           "research-phase": "paper-writing",
@@ -1025,45 +746,6 @@
           "research-phase": "submission",
           "verification-level": "layered",
           "visibility": "public"
-        },
-        {
-          "name": "batch-arxiv",
-          "plugin": "research-agents",
-          "type": "helper",
-          "description": "Execute multiple arXiv searches efficiently. Collects queries, deduplicates,\nexecutes with rate limiting, and caches results. Trigger: \"batch arxiv search\".",
-          "model": "haiku",
-          "path": "plugins/research-agents/helpers/batch-arxiv.md",
-          "research-domain": "general",
-          "task-type": "analysis",
-          "research-phase": "paper-writing",
-          "verification-level": "none",
-          "visibility": "internal"
-        },
-        {
-          "name": "context-compactor",
-          "plugin": "research-agents",
-          "type": "helper",
-          "description": "Generate minimal context summaries for subagent delegation. Creates\nfocused context packages that preserve essential information while\nreducing token count. Trigger: \"compact context\", \"generate subagent context\".",
-          "model": "sonnet",
-          "path": "plugins/research-agents/helpers/context-compactor.md",
-          "research-domain": "general",
-          "task-type": "formatting",
-          "research-phase": "submission",
-          "verification-level": "heuristic",
-          "visibility": "internal"
-        },
-        {
-          "name": "prefetch-evidence",
-          "plugin": "research-agents",
-          "type": "helper",
-          "description": "Pre-fetch all evidence references from a paper before parallel analysis.\nLoads tables, figures, equations into memory for fast subagent access.\nTrigger: \"prefetch evidence\", \"load paper evidence\".",
-          "model": "haiku",
-          "path": "plugins/research-agents/helpers/prefetch-evidence.md",
-          "research-domain": "general",
-          "task-type": "analysis",
-          "research-phase": "paper-writing",
-          "verification-level": "layered",
-          "visibility": "internal"
         }
       ]
     }

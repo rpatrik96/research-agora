@@ -2,27 +2,8 @@
   "$schema": "../../../schemas/model-routing.schema.json",
   "version": "1.0.0",
   "description": "Model routing configuration for research agents. Routes tasks to optimal models based on complexity and cost.",
-
   "routing_rules": {
     "micro-skills": {
-      "claim-extractor": {
-        "model": "haiku",
-        "temperature": 0.1,
-        "reason": "Pattern matching against known claim indicators. No judgment needed.",
-        "fallback": "sonnet"
-      },
-      "claim-classifier": {
-        "model": "haiku",
-        "temperature": 0.1,
-        "reason": "Categorization from fixed taxonomy (empirical, theoretical, etc.).",
-        "fallback": "sonnet"
-      },
-      "evidence-locator": {
-        "model": "haiku",
-        "temperature": 0.1,
-        "reason": "Reference resolution and cross-referencing. Mechanical lookup.",
-        "fallback": "sonnet"
-      },
       "evidence-grader": {
         "model": "sonnet",
         "temperature": 0.2,
@@ -40,12 +21,6 @@
         "temperature": 0.1,
         "reason": "Factual lookup and verification. Deterministic.",
         "fallback": "sonnet"
-      },
-      "assumption-surfacer": {
-        "model": "sonnet",
-        "temperature": 0.3,
-        "reason": "Implicit reasoning required. Must identify unstated premises.",
-        "fallback": "opus"
       },
       "cross-referencer": {
         "model": "opus",
@@ -78,7 +53,6 @@
         "fallback": null
       }
     },
-
     "orchestrators": {
       "parallel-audit": {
         "model": "opus",
@@ -128,12 +102,6 @@
         "reason": "Hybrid script+LLM. Structured graph construction with semantic analysis.",
         "fallback": "opus"
       },
-      "proof-strategy-advisor": {
-        "model": "opus",
-        "temperature": 0.5,
-        "reason": "Creative technique suggestion requires broad knowledge. Higher temp for diversity.",
-        "fallback": null
-      },
       "counterexample-searcher": {
         "model": "opus",
         "temperature": 0.4,
@@ -145,37 +113,10 @@
         "temperature": 0.3,
         "reason": "Formalizing vague intuitions requires deep mathematical understanding.",
         "fallback": null
-      },
-      "theory-connector": {
-        "model": "opus",
-        "temperature": 0.3,
-        "reason": "Cross-domain pattern matching requires broadest knowledge base.",
-        "fallback": null
       }
     },
-
-    "helpers": {
-      "batch-arxiv": {
-        "model": "haiku",
-        "temperature": 0.1,
-        "reason": "Query construction and result parsing. Mechanical.",
-        "fallback": "sonnet"
-      },
-      "prefetch-evidence": {
-        "model": "haiku",
-        "temperature": 0.1,
-        "reason": "Content extraction. No judgment needed.",
-        "fallback": "sonnet"
-      },
-      "context-compactor": {
-        "model": "sonnet",
-        "temperature": 0.2,
-        "reason": "Summarization requires understanding of importance.",
-        "fallback": "opus"
-      }
-    }
+    "helpers": {}
   },
-
   "execution_modes": {
     "parallel": {
       "description": "Maximum parallelization for speed. Use for large papers with many claims.",
@@ -188,13 +129,49 @@
     "pipeline": {
       "description": "Sequential stages with data passing. Use for thorough, methodical analysis.",
       "stages": [
-        {"name": "parse", "skills": ["state-generator"]},
-        {"name": "extract", "skills": ["claim-extractor"], "parallel_within_stage": true},
-        {"name": "classify", "skills": ["claim-classifier"], "parallel_within_stage": true},
-        {"name": "locate", "skills": ["evidence-locator"], "parallel_within_stage": true},
-        {"name": "grade", "skills": ["evidence-grader"], "parallel_within_stage": true},
-        {"name": "verify", "skills": ["novelty-checker", "citation-verifier"], "parallel_within_stage": true},
-        {"name": "synthesize", "skills": ["cross-referencer", "assumption-surfacer"], "parallel_within_stage": false}
+        {
+          "name": "parse",
+          "skills": [
+            "state-generator"
+          ]
+        },
+        {
+          "name": "extract",
+          "skills": [],
+          "parallel_within_stage": true
+        },
+        {
+          "name": "classify",
+          "skills": [],
+          "parallel_within_stage": true
+        },
+        {
+          "name": "locate",
+          "skills": [],
+          "parallel_within_stage": true
+        },
+        {
+          "name": "grade",
+          "skills": [
+            "evidence-grader"
+          ],
+          "parallel_within_stage": true
+        },
+        {
+          "name": "verify",
+          "skills": [
+            "novelty-checker",
+            "citation-verifier"
+          ],
+          "parallel_within_stage": true
+        },
+        {
+          "name": "synthesize",
+          "skills": [
+            "cross-referencer"
+          ],
+          "parallel_within_stage": false
+        }
       ],
       "checkpoint_after_each_stage": true
     },
@@ -205,9 +182,7 @@
       "model_overrides": {
         "evidence-grader": "haiku",
         "novelty-checker": "haiku",
-        "assumption-surfacer": "haiku",
-        "parallel-audit": "sonnet",
-        "context-compactor": "haiku"
+        "parallel-audit": "sonnet"
       },
       "skip_optional_checks": true
     },
@@ -216,16 +191,12 @@
       "max_concurrent_subagents": 3,
       "timeout_per_task_seconds": 300,
       "model_overrides": {
-        "claim-extractor": "sonnet",
-        "claim-classifier": "sonnet",
-        "evidence-locator": "sonnet",
         "evidence-grader": "opus",
         "novelty-checker": "opus"
       },
       "extra_verification_passes": 1
     }
   },
-
   "cost_estimates": {
     "haiku": {
       "input_per_1k": 0.00025,
@@ -243,7 +214,6 @@
       "typical_task_cost": 0.15
     }
   },
-
   "mode_cost_multipliers": {
     "parallel": 1.0,
     "pipeline": 1.1,

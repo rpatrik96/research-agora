@@ -375,7 +375,7 @@ def main():
     print(f"Generated specs JSON: {specs_path}")
 
     print(f"\nDone! Template '{template_name}' added to templates/{args.output}/")
-    print("Update paper-slides or paper-poster SKILL.md to reference this template.")
+    print("Reference the generated template from whichever skill consumes it.")
 
 
 if __name__ == "__main__":

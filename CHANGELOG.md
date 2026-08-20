@@ -2,35 +2,145 @@
 
 ## [1.2.0] - 2026-08-20
 
+### The rule this release applies
+
+A skill stays in the Agora only if something can check what it produced. A
+generative skill ships with the mechanism that verifies its output — a script
+that extracts the numbers, a tool that resolves the citation — or it does not
+ship. Where a tool-backed skill and a freehand one do the same job, the
+tool-backed one is the product.
+
+The rule now lives in `README.md` and `CONTRIBUTING.md`, and it governs what
+gets accepted as well as what gets retired. This release is that rule applied
+to the existing catalog in one pass: **83 skills → 56, 64 public → 44.**
+There is no second wave planned.
+
 ### Removed
-- **`office` plugin** (`docx-create`, `pptx-create`, `xlsx-create`) — 1,412 lines
-  documenting python-docx, openpyxl and python-pptx, carrying no research- or
-  repo-specific knowledge. Anthropic's own `document-skills` covers the ground.
-  The `iem-talk` slide template went with it. What to use instead:
-  `document-skills`, or `/paper-slides`, which builds a deck from a paper without
-  a template; `templates/analyze_template.py` still generates one from a deck you
-  supply.
-- **`reviewer-response-generator`'s Quick Mode** — it drafted rebuttal text with
+
+**Generation with nothing to check it**
+
+- `/paper-introduction`, `/paper-discussion` — an introduction states a paper's
+  novelty and a discussion states its limitations; `docs/concepts.md` puts both
+  in the Protect column and `docs/verification.md` records that novelty has no
+  automated oracle. `paper-discussion` also asked for "any new `\citet` or
+  `\citep` references that need BibTeX entries" with nothing verifying they
+  exist. **Use `/paper-review`**, which now carries their contribution rubric,
+  overclaiming traps, and limitation categories.
+- `theory-connector`, `proof-strategy-advisor` — both hand back ready-to-cite
+  attributions recalled from model weights, never retrieved.
+  `proof-strategy-advisor` names real papers in three tables while its own body
+  says *"This is an active research support tool, not a verification tool"* and
+  its metadata said `task-type: verification`. **No replacement**; retrieve the
+  reference yourself, then run `/paper-references`.
+- `perspective-synthesizer` — emitted paste-ready related-work LaTeX
+  (`\citet{paperA} report [result], while \citet{paperB} observe [opposite]`)
+  with no faithfulness check. **Use `/literature-synthesizer`** for verified
+  discovery, then write the synthesis yourself.
+- `/paper-poster`, `/paper-slides`, `/science-gif` — all three restate a paper's
+  claims in another medium with nothing checking the restatement is faithful,
+  and all three carried `verification-level: none`. `science-gif` additionally
+  defaulted two of its five code examples to simulated data. **No replacement**
+  for poster and GIF; `figure-storyteller` reads real data files and stays.
+
+**No research-specific knowledge (the `pr-automation` rule, applied again)**
+
+- `/python-cicd` — 134 lines of black/isort/flake8 boilerplate. The repo's own
+  `.pre-commit-config.yaml` uses none of those tools. **Use your project's
+  existing linter config.**
+- `/commit` — standard `git add`/`git commit` with a message table.
+  **Claude writes commits without it.**
+
+**Obsolete — the model does this unaided now**
+
+These were designed when a skill file was how you got structured, careful
+output. That is no longer where the leverage is: a current model given the
+same one-line request produces the same result, so the file only adds a
+template and a maintenance cost.
+
+- `/paper-summarizer` — "summarize this paper: contribution, method, results,
+  limitations" is the most default task there is. Its one arXiv MCP mention was
+  a retrieval suggestion, never an invocation.
+- `/review-prompt` — critiquing an underspecified prompt is default behavior,
+  and the underlying problem shrinks with every model release.
+- `/register-translator` — "rewrite this section as a blog post, keep every
+  number" needs no skill file.
+- `reader-simulation`, `audience-checker`'s overlap partner — "read this as a
+  second-year PhD student and tell me where you get lost" gets the same
+  walk-through without inventing comprehension percentages.
+- `redundancy-radar` — asked for "[N]% semantic overlap" it has no way to
+  compute, which invites fabricated precision. "Where am I repeating myself?"
+  answers it honestly.
+- `content-archaeologist` — its >70% / 40-70% / <40% similarity bands are
+  unmeasurable; clustering posts into chapters is a one-line request.
+
+**Internal layers that nothing invoked**
+
+- `helpers/prefetch-evidence`, `helpers/batch-arxiv`, `helpers/context-compactor`
+  — all three described machinery in prose that `scripts/parse_latex.py` and
+  `scripts/cache_manager.py` already implement, and no orchestrator spawned any
+  of them. They were inventory, not machinery. The `helpers` layer is now empty.
+- `micro-skills/claim-extractor`, `claim-classifier`, `evidence-locator` —
+  extraction and single-label classification a model does in one turn.
+- `micro-skills/assumption-surfacer` — a coarser duplicate of
+  `assumption-analyzer`. `parallel-audit` now spawns `assumption-analyzer` for
+  that pass, and carries the provenance note that its output is a suggestion
+  rather than a finding.
+
+**Duplicated by a tool-backed skill**
+
+- `/editorial-brain` — asked the model to eyeball clarity metrics that
+  `/writing-verify` computes (passive %, hedges, fillers, Flesch-Kincaid
+  against per-section targets). **Use `/writing-verify`** to score and
+  **`/writing-diagnosis`** to remediate. `/writing-diagnosis` loses
+  `disable-model-invocation`, so the editorial plugin keeps an entry point the
+  model can reach on its own.
+
+**Earlier in this release**
+
+- `office` plugin (`docx-create`, `pptx-create`, `xlsx-create`) — 1,412 lines
+  documenting python-docx, openpyxl and python-pptx. The `iem-talk` slide
+  template went with it. **Use Anthropic's `document-skills`.**
+- `reviewer-response-generator`'s Quick Mode — it drafted rebuttal text with
   "no external evidence gathering" and triggered on a tight deadline, which is
   when an invented number is most likely to reach a reviewer. The agent now has
-  one evidence-backed path; every quantitative claim is sourced from your
-  results, your code, or a retrieved paper, and an unfilled
-  `[EVIDENCE NEEDED: …]` marker is a valid output.
+  one evidence-backed path, and an unfilled `[EVIDENCE NEEDED: …]` marker is a
+  valid output.
 
 ### Deprecated
-- **`/paper-introduction`** — an introduction frames novelty and states
-  contributions, which `docs/concepts.md` puts in the Protect column and
-  `docs/verification.md` records as having no automated oracle. Nothing in the
-  skill checked what it wrote. **Use `/paper-review`**, which now carries the
-  contribution rubric and the overclaiming checklist this skill held.
-- **`/paper-discussion`** — its output format asked for "any new `\citet` or
-  `\citep` references that need BibTeX entries" with nothing verifying they
-  exist. **Use `/paper-review`**, which now carries the limitation categories
-  and the be-specific rules.
 
-Both still work and will be removed in a future release.
+Nothing is currently deprecated. `/paper-introduction` and `/paper-discussion`
+were marked deprecated earlier in this release and are removed above; their
+replacement path is unchanged.
 
 ### Changed
+
+- **`state-generator` runs `scripts/parse_latex.py` instead of describing it.**
+  The script already emitted `research-state.json` with sections, figures,
+  tables, equations, theorem environments and citations; the agent narrated the
+  same extraction in prose and never called it. Phase 2b now covers only what
+  the parser does not do — assumption environments, asymptotic bounds, and
+  detached proof-to-theorem linking.
+- **`voice-drift-detector` measures the dimensions it can measure.** Four of its
+  nine come from `scripts/writing_verify.py` (or limpid) as numbers; the rest
+  are reported as readings. It previously stated drifts like "formality rose
+  from 4/10 to 8/10" with nothing computing either figure.
+- **`parallel-review` dropped its figure-assessment pass.** It spawned
+  `figure-storyteller` with `mode: "assess"`, and `figure-storyteller` defines
+  no assess mode — it is a creation skill throughout, so the pass either made
+  figures during a review or did nothing.
+
+- **`/paper-abstract` is diagnosis-only.** It audits an abstract you wrote
+  against the five-part structure, venue word limits, specificity, and claim
+  support. It no longer generates one.
+- **`/literature-synthesizer` is discovery-only.** arXiv search, programmatic
+  dedup and the approval gate stay; the narrative prose is gone, and
+  `paper-references` verification is now required rather than optional.
+- **`bounds-analyst` is `task-type: analysis`.** It proposes rate comparisons
+  for a human to check; it is not a verifier, and its metadata said it was.
+- `/writing-diagnosis` is now model-invocable, replacing `/editorial-brain` as
+  the editorial plugin's automatic entry point.
+- `CLAUDE.md`'s script-first guidance no longer lists writing paper sections or
+  generating rebuttals as LLM-appropriate work.
 - **`/paper-abstract` is diagnosis-only.** It audits an abstract you wrote
   against the five-part structure, venue word limits, specificity, and claim
   support. It no longer generates one. `task-type` moves to `diagnosis`.
@@ -61,6 +171,18 @@ Both still work and will be removed in a future release.
   The published figures had drifted to 61, 74, 80+ and 83 across nine files.
 
 ### Added
+- `TestSpawnTargetsResolve` — every skill an orchestrator spawns must resolve
+  to a live registry entry, across all three spawn syntaxes in the repo
+  (`SPAWN_SUBAGENT`, `SPAWN_TASK`, and the bare `SPAWN:` that
+  `parallel-theory-audit` uses). The previous test asserted only that the
+  literal string `skill:` appeared, and never ran against two of the four
+  orchestrators — so every dangling target passed. This is the February 2026
+  defect (`8787d48` deleted `clarity-optimizer` while `pre-submission-audit`
+  still spawned it) turned into a red test.
+- The retirement rule, stated in `README.md` and `CONTRIBUTING.md`, with a
+  deprecation policy: a deprecated skill keeps working for at least one minor
+  release, the CHANGELOG names its replacement or says there is none, and the
+  file stays in git history under MIT.
 - **`scripts/limpid_bridge.py`** — an optional bridge to the
   [limpid](https://github.com/rpatrik96/limpid) CLI. Where limpid is installed
   (`$LIMPID_CLI` or on `PATH`), `/writing-verify` uses it instead of

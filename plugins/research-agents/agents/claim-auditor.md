@@ -55,7 +55,7 @@ The orchestrator will:
 2. Partition claims by type
 3. Spawn evidence-grader for empirical/theoretical claims
 4. Spawn novelty-checker for novelty claims
-5. Spawn assumption-surfacer for each section
+5. Spawn assumption-analyzer for each section (suggestions, never findings)
 6. Run cross-referencer for consistency
 7. Merge results into unified report
 

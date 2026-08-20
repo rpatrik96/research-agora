@@ -112,7 +112,7 @@ Claude will read the template's STYLE.md and follow those specifications.
 2. **Include the original**: Keep the `.pptx` for reference
 3. **Document special elements**: Note any custom shapes, logos, animations
 4. **Test the extraction**: Verify `STYLE.md` captured the key design elements
-5. **Update skills**: Add template references to `paper-slides` and `paper-poster` skills
+5. **Update skills**: Add template references to whichever skill consumes them
 
 ## Supported Formats
 

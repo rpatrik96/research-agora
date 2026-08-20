@@ -17,7 +17,7 @@ metadata:
 
 # Research State Generator
 
-> **Hybrid**: Claim extraction produces structured JSON (research-state.json). LLM is needed to identify and classify claims from paper text.
+> **Hybrid**: `scripts/parse_latex.py` extracts the structure; the LLM adds only the claim layer on top of it.
 
 Generate a structured JSON representation of a research paper for parallel analysis.
 
@@ -45,90 +45,59 @@ Provide ONE of:
 
 ## Workflow
 
-### Phase 1: Source Loading
+### Phase 1: Structure (script)
 
-1. **Identify source type**:
-   - If arXiv ID provided: Download using `mcp__arxiv__download_paper`
-   - If LaTeX: Read main `.tex` file and imports
-   - If PDF: Extract text with page structure
+`scripts/parse_latex.py` already extracts every structural element this agent
+needs, and writes them in the `research-state.json` shape. Run it; do not
+re-derive its output by reading the LaTeX yourself.
 
-2. **Compute source hash**:
-   ```
-   SHA256(file_contents) → source_hash
-   ```
+```bash
+python3 scripts/parse_latex.py "$PAPER_DIR" --output research-state.json
+```
 
-3. **Check cache**:
-   - If `research-state.json` exists with matching `source_hash`, skip regeneration
-   - Use `--force` flag to regenerate anyway
+It resolves `\input`/`\include` from the main file, and returns sections,
+figures, tables, equations, algorithms, theorem environments (with labels and
+proof locations), and the citation list. It prints a per-category count; if a
+category you expect is zero, the parse is wrong and the fix is the parser, not
+a hand-written substitute.
 
-### Phase 2: Structure Parsing
-
-#### LaTeX Source
-
-Parse the following elements:
-
-| Element | LaTeX Pattern | Output |
-|---------|---------------|--------|
-| Sections | `\section{Title}` | `{id: "sec1", title: "Title", level: 1}` |
-| Subsections | `\subsection{Title}` | `{id: "sec1.1", title: "Title", level: 2}` |
-| Abstract | `\begin{abstract}` | `{id: "abstract", level: 0}` |
-| Figures | `\begin{figure}...\caption{...}` | `{id: "fig1", caption: "..."}` |
-| Tables | `\begin{table}...\caption{...}` | `{id: "tab1", caption: "..."}` |
-| Equations | `\begin{equation}...\label{...}` | `{id: "eq1", label: "...", latex: "..."}` |
-| Algorithms | `\begin{algorithm}` | `{id: "alg1", caption: "..."}` |
-| Theorems | `\begin{theorem}` | `{id: "thm1", statement: "..."}` |
-| Lemmas | `\begin{lemma}` | `{id: "lem1", statement: "..."}` |
-| Propositions | `\begin{proposition}` | `{id: "prop1", statement: "..."}` |
-| Corollaries | `\begin{corollary}` | `{id: "cor1", statement: "..."}` |
-| Definitions | `\begin{definition}` | `{id: "def1", term: "...", definition: "..."}` |
-| Assumptions | `\begin{assumption}` | `{id: "ass1", text: "..."}` |
-| Proofs | `\begin{proof}` | `{id: "proof_thm1", of: "thm1", text: "..."}` |
-
-#### PDF Source
-
-Use heuristics:
-- Section detection: Font size changes, numbering patterns ("1.", "2.1")
-- Figure detection: "Figure X:" captions
-- Table detection: "Table X:" captions
+**Everything the script produces is settled.** Structure is a parsing problem
+with a right answer, and a model reading `.tex` gets it nearly right in a way
+that is expensive to detect. What follows is only the layer the script cannot
+do: which sentences are claims, and what backs them.
 
 ### Phase 2b: Theory Structure Parsing (for theoretical papers)
 
-If the paper contains theorem-like environments, extract the theory structure:
-
-#### Theorem-like Environments
-
-| Environment | LaTeX Pattern | Output Fields |
-|-------------|---------------|---------------|
-| Theorem | `\begin{theorem}` | id, type, statement, label |
-| Lemma | `\begin{lemma}` | id, type, statement, label |
-| Proposition | `\begin{proposition}` | id, type, statement, label |
-| Corollary | `\begin{corollary}` | id, type, statement, label |
-| Definition | `\begin{definition}` | id, term, definition, label |
-| Assumption | `\begin{assumption}` | id, text, label |
-| Proof | `\begin{proof}` | id, of (which theorem), text |
+`parse_latex.py` already returns the theorem-like environments — theorem,
+lemma, proposition, corollary, definition — each with its label, statement, and
+whether a proof follows. Take those from the script. Three things it does not
+extract, and these are what this phase is for:
 
 #### Assumption Extraction
 
-Extract formally stated assumptions:
+Formally stated assumptions, which have no single environment to grep:
 - `\begin{assumption}` environments
-- Numbered conditions ("(A1)", "(A2)") in theorem statements
-- "Assume that...", "Suppose that..." patterns
+- Numbered conditions ("(A1)", "(A2)") stated inline in theorem statements
+- "Assume that...", "Suppose that..." patterns in surrounding prose
 
 #### Bound Extraction
 
-Extract asymptotic bounds:
+Asymptotic bounds, wherever they appear:
 - `O(...)`, `\Omega(...)`, `\Theta(...)` expressions
 - Explicit rate expressions: `\leq C/\sqrt{T}`
 - `\tilde{O}(...)` (ignoring log factors)
 
 #### Proof-Theorem Linking
 
-Link each proof to its theorem:
-- `\begin{proof}[Proof of Theorem 1]` patterns
-- Proximity-based linking (proof immediately after theorem)
-- `\ref{}` back-references within proofs
+The script records that a `\begin{proof}` follows a theorem; it does not
+resolve which theorem a detached proof belongs to. Link them by:
+- `\begin{proof}[Proof of Theorem 1]` headers
+- Proximity, where a proof immediately follows its theorem
+- `\ref{}` back-references inside the proof body
 
-> **Note**: The `theory` section is **optional** — it is populated only when theorem-like environments are detected. Empirical-only papers will have `"theory": null`.
+> **Note**: The `theory` section is **optional** — populate it only when
+> theorem-like environments are detected. Empirical-only papers get
+> `"theory": null`.
 
 ### Phase 3: Claim Extraction
 

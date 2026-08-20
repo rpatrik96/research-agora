@@ -43,12 +43,11 @@ Phase 1: Setup (Sequential, ~3 min)
 Phase 2: Fan-Out (Parallel, ~5-8 min)
 ├── Technical Review Track
 │   ├── Spawn: parallel-audit (claims + evidence)
-│   └── Spawn: assumption-surfacer (all sections)
+│   └── Spawn: assumption-analyzer (all sections)
 ├── Presentation Review Track
 │   ├── Spawn: writing-verify (per section)
 │   └── Spawn: audience-checker (full paper)
 ├── Visual Review Track
-│   └── Spawn: figure-storyteller assessor (per figure)
 ├── Novelty Review Track
 │   └── Spawn: novelty-checker (main contributions)
 └── Consistency Review Track
@@ -176,24 +175,6 @@ SPAWN_SUBAGENT:
     - Paper summary
   timeout: 120s
   on_error: skip
-```
-
-### Figure Assessment Track
-
-```
-SPAWN_SUBAGENT:
-  skill: figure-storyteller
-  input:
-    figure_id: {figure.id}
-    figure_caption: {figure.caption}
-    context_section: {figure.section}
-    mode: "assess"  # Not create
-  context:
-    - Figure metadata
-    - Surrounding text
-  timeout: 45s
-  on_error: skip
-  # Spawn per figure
 ```
 
 ## Result Merging
@@ -324,13 +305,6 @@ def synthesize_reviews(track_results, personas):
 | Abstract | [score] | [issues] |
 | Intro | [score] | [issues] |
 
-### Figure Quality
-[From figure-storyteller assessments]
-
-| Figure | Assessment | Recommendation |
-|--------|------------|----------------|
-| Fig 1 | [good/needs work] | [suggestion] |
-
 ### Audience Alignment
 [From audience-checker]
 
@@ -390,9 +364,8 @@ def synthesize_reviews(track_results, personas):
 - `parallel-audit` (orchestrator - for technical track)
 - `writing-verify` (editorial plugin, per section)
 - `audience-checker` (once)
-- `figure-storyteller` (per figure, assess mode)
 - `cross-referencer` (once)
-- `assumption-surfacer` (via parallel-audit)
+- `assumption-analyzer` (via parallel-audit)
 
 ### State Updates
 - Creates comprehensive review report

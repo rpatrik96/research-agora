@@ -367,7 +367,7 @@ def main():
         print("  1. Commit changes: git add . && git commit -m 'feat: convert to native marketplace'")
         print("  2. Push to GitHub: git push")
         print("  3. Add marketplace: /plugin marketplace add rpatrik96/claude-skills")
-        print("  4. Install plugins: /plugin install paper-introduction@research-agora")
+        print("  4. Install plugins: /plugin install academic@research-agora")
         sys.exit(0)
     else:
         print(f"✗ Found {len(total_errors)} errors")

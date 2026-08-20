@@ -1188,33 +1188,33 @@ const SKILL_TABLE = {
             ['/benchmark-scout',        'Find relevant benchmarks and baselines']]
     },
     b: {
-        1: [['/experiment-tracker', 'Sync experiment results to paper tables'],
-            ['/commit',             'Write clean, conventional commits']],
+        1: [['/experiment-tracker',       'Sync experiment results to paper tables'],
+            ['/paper-verify-experiments', 'Check paper claims against source code']],
         2: [['/paper-verify-experiments', 'Check paper claims against source code'],
             ['/experiment-tracker',       'Sync experiment results to paper tables'],
             ['/benchmark-scout',          'Find relevant benchmarks and baselines']]
     },
     c: {
-        1: [['/commit',                   'Write clean, conventional commits'],
-            ['/paper-verify-experiments', 'Check paper claims against source code']],
+        1: [['/paper-verify-experiments', 'Check paper claims against source code'],
+            ['/code-simplify',            'Remove dead code and duplication']],
         2: [['/paper-verify-experiments', 'Check paper claims against source code'],
             ['/experiment-tracker',       'Sync experiment results to paper tables']]
     },
     d: {
-        1: [['/paper-abstract',      'Write or diagnose abstracts'],
-            ['/paper-introduction',  'Structure and draft introductions'],
-            ['/paper-review',        'Simulate skeptical reviewer feedback']],
-        2: [['/paper-abstract',      'Write or diagnose abstracts'],
+        1: [['/paper-abstract',      'Diagnose an abstract you wrote'],
+            ['/paper-review',        'Simulate skeptical reviewer feedback'],
+            ['/argument-autopsy',    "Map the paper's claim-evidence structure"]],
+        2: [['/paper-abstract',      'Diagnose an abstract you wrote'],
             ['/paper-review',        'Simulate skeptical reviewer feedback'],
             ['/paper-references',    'Verify citations before submission'],
-            ['/editorial-brain',     'Context-aware editorial feedback']]
+            ['/writing-diagnosis',   'Name the failure pattern and teach the fix']]
     },
     e: {
-        1: [['/paper-slides',  'Generate presentation slides from paper'],
-            ['/paper-poster',  'Generate conference poster from paper']],
+        1: [['/review-triage',          'Organize and prioritize reviewer comments'],
+            ['/openreview-submission',  'Format submission metadata']],
         2: [['/review-triage',          'Organize and prioritize reviewer comments'],
-            ['/paper-slides',           'Generate presentation slides'],
-            ['/openreview-submission',  'Format and submit to OpenReview']]
+            ['/openreview-submission',  'Format submission metadata'],
+            ['/artifact-packager',      'Prepare code and data for release']]
     }
 };
 
@@ -1261,7 +1261,7 @@ When you're ready to move to the CLI, come back and run /onboard again.`,
   claude "/paper-review"
 
   # Code:
-  claude "/commit"
+  claude "/paper-verify-experiments"
 
 That's it. One command, one result you can evaluate.`,
 

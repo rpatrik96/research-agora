@@ -1,7 +1,7 @@
 {
   "name": "editorial",
   "description": "Diagnostic editorial intelligence for writing across contexts \u2014 papers, blogs, books, grants. Analyzes, diagnoses, and translates rather than generating from scratch.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": {
     "name": "rpatrik96"
   },

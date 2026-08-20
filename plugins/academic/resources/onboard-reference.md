@@ -106,7 +106,6 @@ Select 3-5 skills from this mapping based on the user's primary task and tier:
 | `/paper-abstract` | 1+ | Diagnose an abstract you wrote |
 | `/argument-autopsy` | 1+ | Map the paper's claim-evidence structure |
 | `/paper-review` | 2+ | Simulate skeptical reviewer feedback |
-| `/paper-slides` | 2+ | Generate presentation slides from paper |
 
 **Experiments / code:**
 | Skill | Tier | Description |
@@ -114,15 +113,10 @@ Select 3-5 skills from this mapping based on the user's primary task and tier:
 | `/paper-verify-experiments` | 2+ | Check paper claims against source code |
 | `/experiment-tracker` | 2+ | Sync experiment results to paper tables |
 | `/code-simplify` | 1+ | Simplify and refactor research code |
-| `/commit` | 1+ | Write clean, conventional commits |
 
 **Dissemination:**
 | Skill | Tier | Description |
 |-------|------|-------------|
-| `/paper-poster` | 1+ | Generate conference poster from paper |
-| `/paper-slides` | 1+ | Generate talk slides |
-| `/paper-summarizer` | 1+ | Create plain-language summaries |
-| `/science-gif` | 2+ | Create animated method visualizations |
 
 **Admin / teaching:**
 | Skill | Tier | Description |

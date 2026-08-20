@@ -55,11 +55,10 @@ Use this mapping to identify candidate skills. Match on task type first, then re
 | Task | Skill | Confidence trigger |
 |------|-------|-------------------|
 | Write or diagnose an abstract | `/paper-abstract` | User mentions "abstract", "summary of contribution" |
-| Draft or restructure an introduction | `/paper-introduction` | "intro", "introduction", "motivation section" |
-| Write a discussion or conclusion | `/paper-discussion` | "discussion", "conclusion", "implications" |
-| Edit for clarity, concision, flow | `/editorial-brain` | "editing", "proofreading", "improve prose", "wordsmithing" |
+| Audit an introduction you wrote | `/paper-review` | "intro", "introduction", "contributions", "am I overclaiming" |
+| Audit a limitations section | `/paper-review` | "discussion", "conclusion", "limitations", "what will reviewers hit" |
+| Edit for clarity, concision, flow | `/writing-diagnosis` | "editing", "proofreading", "improve prose", "wordsmithing" |
 | Write a literature review section | `/literature-synthesizer` | "related work", "position the paper", "literature review section" |
-| Write a rebuttal response | `/review-prompt` | "rebuttal", "reviewer response", "camera-ready" |
 
 ### Literature & References
 
@@ -68,7 +67,6 @@ Use this mapping to identify candidate skills. Match on task type first, then re
 | Verify citations are real | `/paper-references` | "check citations", "hallucinated references", "verify bibliography", "bib file" |
 | Find and synthesize related work | `/literature-synthesizer` | "related work", "find papers", "literature review", "what else exists" |
 | Scout benchmarks and baselines | `/benchmark-scout` | "benchmarks", "baselines", "SOTA", "what should I compare against" |
-| Summarize a specific paper | `/paper-summarizer` | "summarize this paper", "explain this to me", "TLDR" |
 
 ### Code & Experiments
 
@@ -76,8 +74,6 @@ Use this mapping to identify candidate skills. Match on task type first, then re
 |------|-------|-------------------|
 | Verify paper claims match code | `/paper-verify-experiments` | "code matches paper", "check my claims", "hyperparameters", "code-paper consistency" |
 | Simplify or refactor research code | `/code-simplify` | "simplify code", "refactor", "clean up", "too complex" |
-| Write clean git commits | `/commit` | "commit message", "git commit", "what to write in commit" |
-| Set up Python CI/CD | `/python-cicd` | "CI", "GitHub Actions", "automated testing", "pipeline" |
 | Manage HTC Condor jobs | `/htcondor` | "condor", "cluster", "job submission", "HPC" |
 
 ### Verification & Quality
@@ -92,11 +88,8 @@ Use this mapping to identify candidate skills. Match on task type first, then re
 
 | Task | Skill | Confidence trigger |
 |------|-------|-------------------|
-| Create conference slides | `/paper-slides` | "slides", "presentation", "talk", "conference slides" |
-| Create a poster | `/paper-poster` | "poster", "conference poster", "A0", "A1" |
 | Generate a TikZ figure | `/tikz-figures` | "TikZ", "diagram", "figure", "LaTeX figure" |
 | Create publication-ready figures | `/figure-storyteller` | "matplotlib", "plot", "figure", "visualization", "chart" |
-| Make a science animation | `/science-gif` | "animation", "GIF", "animated figure", "method visualization" |
 
 ### Administration & Teaching
 
@@ -111,7 +104,6 @@ Use this mapping to identify candidate skills. Match on task type first, then re
 | Task | Skill | Confidence trigger |
 |------|-------|-------------------|
 | Get started with the Agora | `/onboard` | "get started", "new here", "set up", "configure" |
-| Improve a prompt | `/review-prompt` | "prompt", "why isn't this working", "better prompt" |
 | Find the fastest win right now | `/five-minute-win` | "quick start", "what should I do first", "fastest result" |
 | Audit Agora configuration | `/audit-my-setup` | "configuration", "health check", "am I set up right" |
 
