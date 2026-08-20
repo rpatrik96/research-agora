@@ -122,7 +122,7 @@ Select 3-5 skills from this mapping based on the user's primary task and tier:
 | Skill | Tier | Description |
 |-------|------|-------------|
 | `/rebuttal` | 2+ | Organize and prioritize reviewer comments |
-| `/openreview-submission` | 2+ | Format and submit to OpenReview |
+| `/artifact-packager` | 2+ | Prepare code and data for release |
 
 ## Phase 4: The 5-Minute Win
 

@@ -308,8 +308,8 @@
               "description": "Organize and prioritize reviewer comments"
             },
             {
-              "skill": "/openreview-submission",
-              "description": "Format and submit to OpenReview"
+              "skill": "/artifact-packager",
+              "description": "Prepare code and data for release"
             }
           ]
         }
@@ -385,9 +385,9 @@
           "description": "Organize and prioritize reviewer comments"
         },
         {
-          "skill": "/openreview-submission",
+          "skill": "/artifact-packager",
           "min_tier": 2,
-          "description": "Format and submit to OpenReview"
+          "description": "Prepare code and data for release"
         }
       ]
     }

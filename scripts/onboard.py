@@ -162,12 +162,12 @@ SKILL_TABLE = {
     },
     "e": {  # Admin
         1: [
-            ("/review-triage", "Organize and prioritize reviewer comments"),
-            ("/openreview-submission", "Format submission metadata"),
+            ("/rebuttal", "Decode reviewer subtext, then write the response"),
+            ("/artifact-packager", "Prepare code and data for release"),
         ],
         2: [
-            ("/review-triage", "Organize and prioritize reviewer comments"),
-            ("/openreview-submission", "Format submission metadata"),
+            ("/rebuttal", "Decode reviewer subtext, then write the response"),
+            ("/artifact-packager", "Prepare code and data for release"),
             ("/artifact-packager", "Prepare code and data for release"),
         ],
     },
@@ -177,7 +177,7 @@ SKILL_TABLE = {
 DEFAULT_SKILLS = [
     ("/paper-review", "Simulate skeptical reviewer feedback"),
     ("/paper-references", "Verify citations before submission"),
-    ("/choose-skill", "Interactive skill finder for your task"),
+    ("/navigator", "Route to the right skill, or see what changed"),
 ]
 
 
