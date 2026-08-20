@@ -111,6 +111,19 @@ header h1 {
     margin-bottom: 1rem;
 }
 
+.stats {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.stat {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
 .install-banner {
     display: inline-flex;
     align-items: center;

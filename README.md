@@ -203,7 +203,6 @@ Some skills use presentation templates. After cloning, install them to your loca
 
 ```bash
 mkdir -p ~/.claude/skills/templates
-cp -r plugins/academic/templates/slides ~/.claude/skills/templates/
 cp -r plugins/academic/templates/posters ~/.claude/skills/templates/
 ```
 

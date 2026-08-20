@@ -40,6 +40,12 @@
                 <div class="hero-text">
                     <h1>Research Agora</h1>
                     <p class="subtitle">AI skills for researchers, by researchers.</p>
+                    <div class="stats">
+                        <span class="stat"><strong>{{ stats.active_public_skills }}</strong> skills</span>
+                        <span class="stat"><strong>{{ stats.groups }}</strong> workflows</span>
+                        <span class="stat"><strong>{{ stats.plugins }}</strong> plugins</span>
+                        <span class="stat"><strong>{{ stats.benchmarks }}</strong> benchmarks</span>
+                    </div>
                 </div>
             </div>
             <div class="install-banner">
@@ -113,7 +119,7 @@
             </aside>
 
             <section class="skills-content" id="skills-content">
-                <p class="results-count" id="results-count">Showing {{ stats.public_skills }} skills</p>
+                <p class="results-count" id="results-count">Showing {{ stats.active_public_skills }} skills</p>
 
                 {% for group_id, group_data in grouped_skills.items() %}
                 <details class="skill-group" open data-group="{{ group_id }}">

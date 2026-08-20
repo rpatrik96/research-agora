@@ -290,9 +290,14 @@ def main():
 
     # Build stats for display
     public_stats = {
+        # public_skills is already deprecation-filtered here (see live_skills
+        # above); active_public_skills is the same number under the name the
+        # registry and the docs use, so the site and the badge cannot disagree.
         "public_skills": len(public_skills),
+        "active_public_skills": len(public_skills),
         "internal_skills": len(internal_skills),
         "total_skills": len(all_skills),
+        "deprecated_skills": deprecated_count,
         "groups": len(grouped_skills),
         "plugins": len(plugins),
         "benchmarks": len(benchmarks),

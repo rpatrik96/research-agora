@@ -12,7 +12,7 @@ research-agora/
 │   ├── academic/             # Paper writing & research skills
 │   │   ├── .claude-plugin/plugin.json
 │   │   ├── commands/         # Skill definitions
-│   │   └── templates/{posters,slides}/
+│   │   └── templates/posters/
 │   ├── development/          # Code quality & automation skills
 │   ├── editorial/            # Diagnostic editorial intelligence skills
 │   ├── formatting/           # Document formatting skills

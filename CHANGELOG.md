@@ -6,9 +6,10 @@
 - **`office` plugin** (`docx-create`, `pptx-create`, `xlsx-create`) — 1,412 lines
   documenting python-docx, openpyxl and python-pptx, carrying no research- or
   repo-specific knowledge. Anthropic's own `document-skills` covers the ground.
-  The `iem-talk` slide template moved to `plugins/academic/templates/slides/`.
-  What to use instead: `document-skills`, or `/paper-slides` for a talk built
-  from a paper.
+  The `iem-talk` slide template went with it. What to use instead:
+  `document-skills`, or `/paper-slides`, which builds a deck from a paper without
+  a template; `templates/analyze_template.py` still generates one from a deck you
+  supply.
 - **`reviewer-response-generator`'s Quick Mode** — it drafted rebuttal text with
   "no external evidence gathering" and triggered on a tight deadline, which is
   when an invented number is most likely to reach a reviewer. The agent now has
