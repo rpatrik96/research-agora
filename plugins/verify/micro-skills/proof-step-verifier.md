@@ -139,7 +139,7 @@ This skill takes a single proof step (from `proof-step-extractor`) along with it
       "items": {
         "type": "object",
         "properties": {
-          "type": {"type": "string", "enum": ["algebraic_error", "wrong_direction", "missing_condition", "unjustified_step", "sign_error", "dropped_term", "invalid_exchange", "circular_reasoning", "vacuous", "other"]},
+          "type": {"type": "string", "enum": ["sign_error", "dropped_term", "inequality_direction", "invalid_exchange", "algebraic_error", "unjustified_step", "unstated_assumption", "other"]},
           "description": {"type": "string"},
           "severity": {"type": "string", "enum": ["critical", "major", "minor"]}
         }
@@ -352,7 +352,7 @@ This skill verifies a single algebraic or calculus derivation -- applying an ine
         "properties": {
           "type": {
             "type": "string",
-            "enum": ["sign_error", "dropped_term", "wrong_inequality_direction", "invalid_limit_exchange", "dimension_mismatch", "incorrect_gradient", "missing_absolute_value", "wrong_exponent", "incorrect_expectation", "other"]
+            "enum": ["sign_error", "dropped_term", "inequality_direction", "invalid_exchange", "algebraic_error", "unjustified_step", "unstated_assumption", "other"]
           },
           "description": {"type": "string"},
           "expected": {"type": "string", "description": "What the result should be"},

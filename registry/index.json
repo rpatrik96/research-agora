@@ -486,7 +486,7 @@
           "name": "pre-submission-audit",
           "plugin": "verify",
           "type": "orchestrator",
-          "description": "Comprehensive pre-submission paper audit combining reviewer simulation, claim verification, clarity analysis, notation checking, and statistical validation. Use when asked to \"audit before submission\", \"pre-submission check\", \"is my paper ready\", \"self-review\", or \"submission readiness\". Runs 5 diagnostic passes in parallel and produces a unified readiness report.",
+          "description": "Comprehensive pre-submission paper audit combining reviewer simulation, claim verification, clarity analysis, notation checking, statistical validation, and audience alignment. Use when asked to \"audit before submission\", \"pre-submission check\", \"is my paper ready\", \"self-review\", or \"submission readiness\". Runs 6 diagnostic passes in parallel and produces a unified readiness report.",
           "model": "opus",
           "path": "plugins/verify/orchestrators/pre-submission-audit.md",
           "research-domain": "general",

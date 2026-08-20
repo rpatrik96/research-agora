@@ -180,37 +180,22 @@ For an abstract with issues:
 ❌ **Major rewrite needed** - Add problem statement, quantify all results, compress to meet word limit
 ```
 
-## Abstract Structure (5-Part Model)
+## The five-part structure
 
-The abstract should flow through these components in ~150-300 words:
+What a diagnosis checks the abstract against. Each part is either present or it
+is not, and a missing part is a finding.
 
-```latex
-\begin{abstract}
-% === PART 1: Context & Motivation (1-2 sentences) ===
-% Why does this problem matter? Set the stage.
-[Area] is important for [reason], but current methods [limitation].
+| Part | What it does | Typical length |
+|---|---|---|
+| Context | Why the problem area matters | 1-2 sentences |
+| Problem | The specific gap this work addresses | 1 sentence |
+| Approach | What is proposed and the key insight | 2-3 sentences |
+| Results | Specific, quantitative outcomes | 2-3 sentences |
+| Impact | Broader significance or released artifacts | 1 sentence, optional |
 
-% === PART 2: Problem Statement (1 sentence) ===
-% What specific gap/challenge does this work address?
-A key challenge is [problem], which [consequence].
-
-% === PART 3: Approach (2-3 sentences) ===
-% What do you propose? What is the key insight?
-We propose [method name], a [brief description] that [key property].
-Our approach [key mechanism/insight].
-Unlike prior work, [method] achieves [advantage] by [how].
-
-% === PART 4: Results (2-3 sentences) ===
-% Specific, quantitative outcomes
-Experiments on [benchmarks] demonstrate that [method] achieves [result],
-outperforming [baselines] by [specific margin].
-We also show [secondary finding] and [ablation insight].
-
-% === PART 5: Impact/Implications (1 sentence, optional) ===
-% Broader significance or released artifacts
-[Method] enables [new capability] / Our code is available at [url].
-\end{abstract}
-```
+**Report which parts are missing. Do not write the missing part.** An abstract
+states the paper's claims, and a claim the author did not write is a claim the
+author has not checked.
 
 ## Word Count Guidelines
 
