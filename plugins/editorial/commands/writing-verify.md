@@ -18,9 +18,9 @@ metadata:
 
 # Writing Quality Verification
 
-> **Hybrid**: Runs `scripts/writing_verify.py` first for deterministic metrics,
-> then applies LLM semantic analysis for dimensions scripts cannot measure.
-> Produces a quantitative score — not a rewrite.
+> **Hybrid**: Runs a deterministic engine first for metrics, then applies LLM
+> semantic analysis for dimensions scripts cannot measure. Produces a
+> quantitative score — not a rewrite.
 
 ## Philosophy
 
@@ -52,11 +52,60 @@ The Economist Style Guide (clarity follows clarity of thought, short words are s
 
 ### Step 2: Run Script Metrics (ALWAYS FIRST)
 
+Two engines can supply them. Check for the better one first:
+
+```bash
+python3 scripts/limpid_bridge.py --check
+```
+
+**If `available` is true**, use limpid — it is the stronger engine and it is
+what you should prefer whenever it is present:
+
+```bash
+python3 scripts/limpid_bridge.py "$INPUT_FILE" --register paper
+```
+
+Registers are `paper` (default), `blog`, `grant` and `sop`; pick the one that
+matches what the user is writing, since a blog post graded as a paper scores
+badly for the wrong reason. limpid walks up from the file to the nearest
+`.limpid/rules.json`, so a repository's house rules apply automatically and
+show up as `house.*` entries in `other_findings`.
+
+**If `available` is false**, fall back — this is the normal case for anyone who
+installed the marketplace and nothing else, and it is not an error:
+
 ```bash
 python3 scripts/writing_verify.py "$INPUT_FILE" --json --format auto
 ```
 
 For quick mode, add `--quick`. Parse the JSON output to extract all metrics.
+
+#### Why limpid is preferred where it exists
+
+`writing_verify.py` counts over the whole document: a passive fraction, a
+filler density, a hedge count. limpid returns each finding with a rule id, a
+line, and the excerpt that triggered it, so a fix suggestion can point at the
+sentence instead of the file.
+
+It also knows when not to fire. `writing_verify.py` counts every hedge, which
+penalises the scope-hedging good scientific writing requires — "sufficient, but
+we do not claim it is necessary" is a virtue, not a fault, and a flat counter
+cannot tell it from "it could be argued". limpid ships that distinction as
+guard rules (`guard.scope-hedging-is-a-virtue`), alongside guards that stop it
+punishing paired em-dashes and colon-payoffs
+(`guard.em-dash-and-colon-payoff`), long sentences that resolve cleanly
+(`guard.clause-stacking-resolves`), and terms of art read as passive
+(`guard.terms-of-art-are-not-zombies`).
+
+One asymmetry to handle: limpid returns a `grade` directly, while
+`writing_verify.py --json` returns raw metrics that Step 4 turns into a grade.
+When limpid ran, report its grade and do not recompute one — two grades for one
+document is worse than either.
+
+**Report which engine ran.** The two do not produce identical grades (the same
+sample scores `B-` as a paper and `B+` as a blog post, before either engine's
+own bias enters), and a score the reader cannot attribute to an engine is a
+score they cannot compare against last week's.
 
 ### Step 3: LLM Semantic Analysis (Standard Mode Only)
 

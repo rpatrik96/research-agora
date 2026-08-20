@@ -14,7 +14,7 @@ metadata:
 
 Identify the root cause of why a passage fails, name the pattern, and teach the author to recognize it in future writing.
 
-> **LLM-required**: Diagnosing writing requires nuanced judgment about reader cognition, rhetorical intent, and prose rhythm. No script alternative.
+> **LLM-required**: Diagnosing writing requires nuanced judgment about reader cognition, rhetorical intent, and prose rhythm. Seven of the twelve patterns have a mechanical tail a script can find; the rest need a reader model.
 
 ## Core Philosophy
 
@@ -27,6 +27,29 @@ Every diagnosis should answer three questions:
 
 ## Workflow
 
+0. **Gather mechanical evidence, if it is available**: run
+
+   ```bash
+   python3 scripts/limpid_bridge.py --check
+   ```
+
+   and where `available` is true, score the passage with it:
+
+   ```bash
+   python3 scripts/limpid_bridge.py "$FILE" --register paper
+   ```
+
+   The `pattern_evidence` block comes back keyed by the pattern names below,
+   each hit carrying a line number and the excerpt that triggered it. Use it as
+   evidence, not as the diagnosis — a `voice.hedges` hit tells you where to
+   look at Hedge Stacking, it does not tell you whether the hedge was scoping a
+   claim honestly. `other_findings` carries hype and house-rule hits that map to
+   no pattern; do not drop them.
+
+   Where limpid is absent — the normal case for a plain marketplace install —
+   skip this step and read for all twelve patterns yourself. Nothing below
+   depends on it.
+
 1. **Identify format context**: Is this from a paper, blog post, book chapter, or grant proposal? Each has different norms.
 2. **Read the passage**: Read the full passage without judgment first. Understand what the author is trying to say.
 3. **Identify the root cause**: Symptoms are surface-level ("this sentence is long"). Root causes are structural ("you packed three claims into one sentence because you haven't decided which claim this paragraph is about").
@@ -36,6 +59,23 @@ Every diagnosis should answer three questions:
 7. **Teach the transferable lesson**: One sentence the author can carry to their next paragraph.
 
 ## Pattern Library
+
+This library is the source of record. limpid ports it verbatim-in-spirit into
+`packages/rubric/src/patterns.ts` and marks each entry `detectableBy: "llm"` or
+`"hybrid"`; if you change a pattern here, that port drifts until someone
+updates it.
+
+Seven patterns have a mechanical tail limpid can evidence — Cognitive Overload,
+Monotonous Rhythm, Hedge Stacking, Abstraction Fog, Zombie Sentence, Echo
+Chamber, Throat Clearing. The other five are reader-model judgments with no
+script path: **Idea Soup, Buried Lede, Orphan Transition, Scale Mismatch,
+Jargon Cliff**. Spend your attention there — no tool is going to hand them to
+you.
+
+Remediation priority when several fire at once: comprehension blockers first
+(Idea Soup, Cognitive Overload, Jargon Cliff), flow second (Buried Lede, Orphan
+Transition, Scale Mismatch), style last (Monotonous Rhythm, Echo Chamber,
+Throat Clearing).
 
 ### 1. Idea Soup
 
