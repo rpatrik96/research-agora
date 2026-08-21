@@ -1,5 +1,32 @@
 # Changelog
 
+## [2.2.1] - 2026-08-20
+
+### Fixed
+
+- **The band headings on the skill index claimed a verification they do not
+  measure.** `skill_band()` answers one question — does this skill invoke a
+  program? — but the heading over the answer read "Runs a tool and checks
+  against its output". Four of the eighteen skills in that band carry
+  `verification-level: none`: `onboard` runs `scripts/onboard.py` and verifies
+  nothing, and `figures`, `htcondor` and `experiment-tracker` are the same
+  shape. The three headings are now "Runs a tool", "Reads your files" and
+  "Judges your work", and the verification claim lives where it can be checked,
+  on each card's own badge.
+- **Filtering left band headings standing over nothing**, and the per-group
+  count kept printing the unfiltered total. Both now follow the visible cards.
+
+### Changed
+
+- **Band and intent labels drop the uppercase transform.** "JUDGES YOUR WORK"
+  wrapped to two lines in the narrowed column; sentence case fits, and the
+  page reads calmer for it.
+- **The per-band explanations are tooltips, not body copy.** Four plugin groups
+  times three bands printed the same three sentences up to nine times on one
+  page. The sentence now hangs off the heading's `title`, and the verification
+  badges gained tooltips of their own, worded from the hierarchy table on the
+  verification page.
+
 ## [2.2.0] - 2026-08-20
 
 ### Removed

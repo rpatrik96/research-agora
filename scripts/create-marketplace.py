@@ -11,7 +11,6 @@ This script:
 """
 
 import json
-import os
 import re
 import shutil
 from pathlib import Path

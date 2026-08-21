@@ -243,7 +243,7 @@ header h1 {
    one skill then reads as intentional instead of leaving empty grid columns. */
 .band-section {
     display: grid;
-    grid-template-columns: 190px 1fr;
+    grid-template-columns: 132px 1fr;
     gap: 0 1rem;
     padding: 0 1rem;
     align-items: start;
@@ -262,19 +262,19 @@ header h1 {
 }
 
 .band-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
     color: var(--text);
     margin: 0 0 0.3rem;
 }
 
-.band-blurb {
-    font-size: 0.78rem;
-    line-height: 1.45;
-    color: var(--text-muted);
-    margin: 0;
+.band-label[title], .badge[title] {
+    cursor: help;
+}
+
+.band-label[title] {
+    text-decoration: underline dotted;
+    text-underline-offset: 3px;
 }
 
 .band-section .group-grid {
@@ -427,10 +427,8 @@ header h1 {
 .intent-label {
     text-align: center;
     margin: 0 0 0.6rem;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
     color: var(--text-muted);
 }
 

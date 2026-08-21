@@ -82,6 +82,11 @@
                 }
             });
 
+            group.querySelectorAll('.band-section').forEach(function(band) {
+                band.classList.toggle('hidden', !band.querySelector('.skill-card:not(.hidden)'));
+            });
+            group.querySelector('.group-count').textContent = groupVisible;
+
             // Hide group if no visible cards
             group.classList.toggle('hidden', groupVisible === 0);
         });
