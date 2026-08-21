@@ -18,6 +18,9 @@
 
 ### Changed
 
+- **Band and intent labels drop the uppercase transform.** "JUDGES YOUR WORK"
+  wrapped to two lines in the narrowed column; sentence case fits, and the
+  page reads calmer for it.
 - **The per-band explanations are tooltips, not body copy.** Four plugin groups
   times three bands printed the same three sentences up to nine times on one
   page. The sentence now hangs off the heading's `title`, and the verification
