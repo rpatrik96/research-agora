@@ -1,6 +1,7 @@
 """Behavioral tests for the generated skill index."""
 
 import importlib.util
+import re
 import shutil
 import subprocess
 import sys
@@ -24,7 +25,7 @@ def _site_module():
 class _IndexParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
-        self.band_titles: list[str | None] = []
+        self.band_hints: list[str | None] = []
         self.card_count = 0
         self.verification_badges: list[dict[str, str]] = []
         self._verification_badge: dict[str, str] | None = None
@@ -33,7 +34,7 @@ class _IndexParser(HTMLParser):
         attributes = dict(attrs)
         classes = set((attributes.get("class") or "").split())
         if tag == "h3" and "band-label" in classes:
-            self.band_titles.append(attributes.get("title"))
+            self.band_hints.append(attributes.get("data-hint"))
         if tag == "article" and "skill-card" in classes:
             self.card_count += 1
         if tag == "span" and classes & {
@@ -42,10 +43,16 @@ class _IndexParser(HTMLParser):
             "badge-layered",
             "badge-none",
         }:
-            self._verification_badge = {"title": attributes.get("title") or ""}
+            self._verification_badge = {
+                "hint": attributes.get("data-hint") or ""
+            }
 
     def handle_data(self, data: str) -> None:
-        if self._verification_badge is not None:
+        if (
+            self._verification_badge is not None
+            and "level" not in self._verification_badge
+            and data.strip()
+        ):
             self._verification_badge["level"] = data.strip()
 
     def handle_endtag(self, tag: str) -> None:
@@ -151,14 +158,79 @@ def test_generated_index_uses_tooltips_instead_of_repeated_band_blurbs(
 
     assert "band-blurb" not in generated_index
     assert "checks against its output" not in generated_index
-    assert parser.band_titles and all(parser.band_titles)
+    assert parser.band_hints and all(parser.band_hints)
 
     module = _site_module()
     assert len(parser.verification_badges) == parser.card_count
     assert all(
-        badge["title"] == module.verification_tooltip(badge["level"])
+        badge["hint"] == module.verification_tooltip(badge["level"])
         for badge in parser.verification_badges
     )
+
+
+def test_skill_group_does_not_clip_tooltips() -> None:
+    stylesheet = (REPO_ROOT / "site" / "static" / "style.css").read_text()
+    skill_group_rules = re.findall(r"\.skill-group\s*\{([^}]*)\}", stylesheet)
+    clipped_rules = [
+        rule
+        for rule in skill_group_rules
+        if re.search(r"overflow\s*:\s*hidden\s*;", rule)
+    ]
+    assert not clipped_rules, (
+        ".skill-group must not set overflow: hidden because it clips hint tooltips"
+    )
+
+
+CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+
+
+def test_hints_do_not_widen_the_page(tmp_path: Path, generated_index: str) -> None:
+    """A hidden tooltip must not push a horizontal scrollbar onto the page.
+
+    The first build of the hint component parked its tooltip at `opacity: 0;
+    visibility: hidden`. A hidden but displayed absolute box still counts toward
+    the scrollable width, so forty-odd of them widened every viewport under
+    1100px. `display: none` is what keeps them out of the layout.
+    """
+    if not Path(CHROME).exists():
+        pytest.skip("Chrome not available")
+
+    # The whole output directory, not index.html alone: without style.css
+    # beside it the page has no tooltips and the probe measures nothing.
+    site = tmp_path / "site"
+    shutil.copytree(REPO_ROOT / "site" / "output", site)
+    page = site / "index.html"
+    page.write_text(
+        generated_index.replace(
+            "</body>",
+            "<script>window.addEventListener('load',function(){"
+            "var d=document.documentElement;var p=document.createElement('pre');"
+            "p.id='OVF';p.textContent=d.scrollWidth+'/'+d.clientWidth;"
+            "document.body.appendChild(p)})</script></body>",
+            1,
+        )
+    )
+    for width in (1440, 1100, 820):
+        proc = subprocess.run(
+            [
+                CHROME,
+                "--headless",
+                "--disable-gpu",
+                f"--window-size={width},900",
+                "--virtual-time-budget=2500",
+                "--dump-dom",
+                page.as_uri(),
+            ],
+            capture_output=True,
+            text=True,
+        )
+        found = re.search(r'<pre id="OVF">(\d+)/(\d+)</pre>', proc.stdout)
+        assert found, f"probe did not run at {width}px"
+        scroll_width, client_width = int(found.group(1)), int(found.group(2))
+        assert scroll_width <= client_width, (
+            f"page scrolls horizontally at {width}px: "
+            f"scrollWidth {scroll_width} > clientWidth {client_width}"
+        )
 
 
 def test_filtering_hides_empty_bands_and_updates_group_count(tmp_path: Path) -> None:
