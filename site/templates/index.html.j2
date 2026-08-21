@@ -134,7 +134,7 @@
                     {% for band in group_data.bands %}
                     <section class="band-section" data-band="{{ band.id }}">
                         <div class="band">
-                            <h3 class="band-label" title="{{ band.tooltip }}">{{ band.label }}</h3>
+                            <h3 class="band-label hint" data-hint="{{ band.tooltip }}" tabindex="0">{{ band.label }}<span class="sr-only">{{ band.tooltip }}</span></h3>
                         </div>
                         <div class="group-grid">
                         {% for skill in band.skills %}
@@ -161,11 +161,11 @@
                             </div>
 
                             <div class="card-meta">
-                                {% for tool in skill.get('tools', []) %}<span class="badge badge-tool" title="This skill invokes {{ tool }}">{{ tool }}</span>{% endfor %}
-                                <span class="badge {{ skill['verification-level']|verification_badge }}" title="{{ skill['verification-level']|verification_tooltip }}">{{ skill['verification-level'] }}</span>
+                                {% for tool in skill.get('tools', []) %}<span class="badge badge-tool hint" data-hint="This skill invokes {{ tool }}" tabindex="0">{{ tool }}<span class="sr-only">This skill invokes {{ tool }}</span></span>{% endfor %}
+                                <span class="badge {{ skill['verification-level']|verification_badge }} hint" data-hint="{{ skill['verification-level']|verification_tooltip }}" tabindex="0">{{ skill['verification-level'] }}<span class="sr-only">{{ skill['verification-level']|verification_tooltip }}</span></span>
                                 <span class="badge {{ skill.model|model_badge }}">{{ skill.model }}</span>
                                 {% if skill.feedback %}
-                                <span class="badge badge-community" title="Community success score (Wilson lower bound) from {{ skill.feedback.installations }} opted-in installations — see RFC-0001">community {{ skill.feedback.score }}% · n={{ skill.feedback.installations }}</span>
+                                <span class="badge badge-community hint" data-hint="Community success score (Wilson lower bound) from {{ skill.feedback.installations }} opted-in installations — see RFC-0001" tabindex="0">community {{ skill.feedback.score }}% · n={{ skill.feedback.installations }}<span class="sr-only">Community success score (Wilson lower bound) from {{ skill.feedback.installations }} opted-in installations — see RFC-0001</span></span>
                                 {% endif %}
                             </div>
 
@@ -210,8 +210,8 @@
                             </div>
 
                             <div class="card-meta">
-                                {% for tool in skill.get('tools', []) %}<span class="badge badge-tool" title="This skill invokes {{ tool }}">{{ tool }}</span>{% endfor %}
-                                <span class="badge {{ skill['verification-level']|verification_badge }}" title="{{ skill['verification-level']|verification_tooltip }}">{{ skill['verification-level'] }}</span>
+                                {% for tool in skill.get('tools', []) %}<span class="badge badge-tool hint" data-hint="This skill invokes {{ tool }}" tabindex="0">{{ tool }}<span class="sr-only">This skill invokes {{ tool }}</span></span>{% endfor %}
+                                <span class="badge {{ skill['verification-level']|verification_badge }} hint" data-hint="{{ skill['verification-level']|verification_tooltip }}" tabindex="0">{{ skill['verification-level'] }}<span class="sr-only">{{ skill['verification-level']|verification_tooltip }}</span></span>
                                 <span class="badge {{ skill.model|model_badge }}">{{ skill.model }}</span>
                             </div>
 

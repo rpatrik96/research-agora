@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.2.2] - 2026-08-21
+
+### Fixed
+
+- **The hints did not work.** They shipped as native `title` attributes, which
+  wait about a second before appearing, render in OS chrome that ignores the
+  theme, and never fire on a touch device — hovering a band heading looked like
+  nothing happened. Hints are now a `.hint` component that paints in the page,
+  in either theme, on hover and on keyboard focus. `.skill-group` loses
+  `overflow: hidden`, which would have clipped every one of them at the group's
+  rounded border.
+- Each hint also carries its text in a visually-hidden span, so a screen reader
+  reads "none — not verified, the output is yours to check" instead of "none".
+
 ## [2.2.1] - 2026-08-20
 
 ### Fixed
