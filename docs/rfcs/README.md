@@ -28,3 +28,5 @@ an RFC process — this directory bootstraps it.
 | RFC | Title | Status |
 |-----|-------|--------|
 | [0001](0001-agora-feedback-loop.md) | Agora Self-Improvement Feedback Loop | Draft (MVP implemented) |
+| [0002](0002-catalog-taxonomy.md) | Catalog taxonomy: four plugins by research phase | Accepted |
+| [0003](0003-results-sync-via-cli.md) | `experiment-tracker` calls a CLI instead of improvising one | Draft |
